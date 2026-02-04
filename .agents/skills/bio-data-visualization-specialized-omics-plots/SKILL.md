@@ -1,6 +1,6 @@
 ---
 name: bio-data-visualization-specialized-omics-plots
-description: Reusable plotting functions for common omics visualizations. Custom ggplot2/matplotlib implementations of volcano, MA, PCA, enrichment dotplots, boxplots, and survival curves. Use when creating volcano, MA, or enrichment plots.
+description: Complete visualization toolkit for RNA-seq and omics data. Includes DESeq2/edgeR built-in plots (plotMA, plotPCA, plotDispEsts), custom ggplot2 implementations (volcano, MA, heatmaps), and enrichment visualizations. Use for any DE or expression visualization task.
 tool_type: mixed
 primary_tool: ggplot2
 ---
@@ -9,18 +9,105 @@ primary_tool: ggplot2
 
 ## Scope
 
-This skill provides **reusable plotting functions** for common omics visualizations that can be applied across different analysis types:
-- Volcano plots (any DE result)
-- MA plots (any log-fold-change data)
-- PCA plots (any high-dimensional data)
-- Enrichment dotplots (manual, not enrichplot)
-- Expression boxplots with statistics
-- Survival curves
+This skill provides a **complete visualization toolkit** for RNA-seq analysis:
+- DESeq2/edgeR built-in functions (plotMA, plotPCA, plotDispEsts, plotCounts)
+- Custom ggplot2 volcano, MA, and PCA plots with labels
+- EnhancedVolcano for publication-ready figures
+- Sample distance heatmaps and p-value histograms
+- Enrichment dotplots and expression boxplots
 
-**For DESeq2/edgeR built-in functions** (plotMA, plotPCA, plotDispEsts), see `differential-expression/de-visualization`.
-**For enrichplot-specific functions** (dotplot, cnetplot, emapplot, gseaplot2), see `pathway-analysis/enrichment-visualization`.
+## DESeq2 Built-in Plots
 
-## Volcano Plot (R)
+### MA Plot (DESeq2)
+
+```r
+# Built-in MA plot
+plotMA(res, ylim = c(-5, 5), main = 'MA Plot')
+
+# With custom alpha threshold
+plotMA(res, alpha = 0.01, ylim = c(-5, 5))
+
+# Highlight specific genes
+plotMA(res, ylim = c(-5, 5))
+with(subset(res, padj < 0.01 & abs(log2FoldChange) > 2),
+     points(baseMean, log2FoldChange, col = 'red', pch = 20))
+```
+
+### PCA Plot (DESeq2)
+
+```r
+# Variance stabilizing transformation first
+vsd <- vst(dds, blind = FALSE)
+
+# Basic PCA
+plotPCA(vsd, intgroup = 'condition')
+
+# Multiple grouping variables
+plotPCA(vsd, intgroup = c('condition', 'batch'), ntop = 500)
+
+# Return data for custom ggplot
+pca_data <- plotPCA(vsd, intgroup = c('condition', 'batch'), returnData = TRUE)
+percentVar <- round(100 * attr(pca_data, 'percentVar'))
+
+ggplot(pca_data, aes(x = PC1, y = PC2, color = condition, shape = batch)) +
+    geom_point(size = 4) +
+    xlab(paste0('PC1: ', percentVar[1], '% variance')) +
+    ylab(paste0('PC2: ', percentVar[2], '% variance')) +
+    theme_bw()
+```
+
+### Dispersion Plot
+
+```r
+# DESeq2 dispersion estimates
+plotDispEsts(dds, main = 'Dispersion Estimates')
+```
+
+### Counts for Individual Genes
+
+```r
+# DESeq2 plotCounts
+plotCounts(dds, gene = 'GENE_NAME', intgroup = 'condition')
+
+# With ggplot2 styling
+d <- plotCounts(dds, gene = 'GENE_NAME', intgroup = 'condition', returnData = TRUE)
+ggplot(d, aes(x = condition, y = count, color = condition)) +
+    geom_point(position = position_jitter(width = 0.1), size = 3) +
+    scale_y_log10() +
+    ggtitle('GENE_NAME Expression') +
+    theme_bw()
+```
+
+## edgeR Built-in Plots
+
+```r
+# MD plot (mean-difference)
+plotMD(qlf, main = 'MD Plot')
+abline(h = c(-1, 1), col = 'blue', lty = 2)
+
+# Biological coefficient of variation
+plotBCV(y, main = 'Biological Coefficient of Variation')
+
+# MDS plot (similar to PCA)
+plotMDS(log_cpm, col = as.numeric(group), pch = 16)
+```
+
+## EnhancedVolcano (Publication-Ready)
+
+```r
+library(EnhancedVolcano)
+
+EnhancedVolcano(res,
+    lab = rownames(res),
+    x = 'log2FoldChange',
+    y = 'pvalue',
+    pCutoff = 0.05,
+    FCcutoff = 1,
+    title = 'Differential Expression',
+    subtitle = 'Treatment vs Control')
+```
+
+## Custom Volcano Plot (R)
 
 ```r
 library(ggplot2)
@@ -48,38 +135,7 @@ volcano_plot <- function(res, fdr = 0.05, lfc = 1, top_n = 10) {
 }
 ```
 
-## Volcano Plot (Python)
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-def volcano_plot(df, fdr=0.05, lfc=1, ax=None):
-    if ax is None:
-        fig, ax = plt.subplots(figsize=(8, 6))
-
-    sig_up = (df['padj'] < fdr) & (df['log2FoldChange'] > lfc)
-    sig_down = (df['padj'] < fdr) & (df['log2FoldChange'] < -lfc)
-    ns = ~(sig_up | sig_down)
-
-    ax.scatter(df.loc[ns, 'log2FoldChange'], -np.log10(df.loc[ns, 'pvalue']),
-               c='grey', alpha=0.5, s=10, label='NS')
-    ax.scatter(df.loc[sig_up, 'log2FoldChange'], -np.log10(df.loc[sig_up, 'pvalue']),
-               c='#E64B35', alpha=0.7, s=15, label='Up')
-    ax.scatter(df.loc[sig_down, 'log2FoldChange'], -np.log10(df.loc[sig_down, 'pvalue']),
-               c='#4DBBD5', alpha=0.7, s=15, label='Down')
-
-    ax.axhline(-np.log10(fdr), ls='--', c='grey', lw=0.8)
-    ax.axvline(-lfc, ls='--', c='grey', lw=0.8)
-    ax.axvline(lfc, ls='--', c='grey', lw=0.8)
-
-    ax.set_xlabel('Log2 Fold Change')
-    ax.set_ylabel('-Log10 P-value')
-    ax.legend()
-    return ax
-```
-
-## MA Plot (R)
+## Custom MA Plot (R)
 
 ```r
 ma_plot <- function(res, fdr = 0.05) {
@@ -95,7 +151,7 @@ ma_plot <- function(res, fdr = 0.05) {
 }
 ```
 
-## PCA Plot (R)
+## Custom PCA Plot (R)
 
 ```r
 pca_plot <- function(vsd, intgroup = 'condition', ntop = 500) {
@@ -115,34 +171,70 @@ pca_plot <- function(vsd, intgroup = 'condition', ntop = 500) {
 }
 ```
 
-## PCA Plot (Python)
+## P-value Histogram
 
-```python
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
+```r
+# Check p-value distribution (uniform under null, peak near 0 for true signal)
+res_df <- as.data.frame(res)
+ggplot(res_df, aes(x = pvalue)) +
+    geom_histogram(bins = 50, fill = 'steelblue', color = 'white') +
+    labs(x = 'P-value', y = 'Frequency', title = 'P-value Distribution') +
+    theme_bw()
+```
 
-def pca_plot(df, metadata, color_by, ax=None):
-    if ax is None:
-        fig, ax = plt.subplots(figsize=(8, 6))
+## Sample Distance Heatmap
 
-    pca = PCA(n_components=2)
-    pcs = pca.fit_transform(df.T)
+```r
+library(pheatmap)
 
-    for group in metadata[color_by].unique():
-        mask = metadata[color_by] == group
-        ax.scatter(pcs[mask, 0], pcs[mask, 1], label=group, alpha=0.8, s=50)
+vsd <- vst(dds, blind = FALSE)
+sampleDists <- dist(t(assay(vsd)))
+sampleDistMatrix <- as.matrix(sampleDists)
 
-    ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]*100:.1f}%)')
-    ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]*100:.1f}%)')
-    ax.legend()
-    return ax
+annotation <- data.frame(
+    condition = colData(dds)$condition,
+    row.names = colnames(dds)
+)
+
+pheatmap(sampleDistMatrix,
+         annotation_col = annotation,
+         annotation_row = annotation,
+         clustering_distance_rows = sampleDists,
+         clustering_distance_cols = sampleDists,
+         color = colorRampPalette(c('white', 'steelblue'))(100),
+         main = 'Sample Distance Matrix')
+```
+
+## Top DE Genes Heatmap
+
+```r
+# Get top significant genes
+sig_genes <- rownames(subset(res, padj < 0.01))
+
+# Get normalized counts
+vsd <- vst(dds, blind = FALSE)
+mat <- assay(vsd)[sig_genes, ]
+
+# Scale by row (z-score)
+mat_scaled <- t(scale(t(mat)))
+
+annotation_col <- data.frame(
+    condition = colData(dds)$condition,
+    row.names = colnames(mat)
+)
+
+pheatmap(mat_scaled,
+         annotation_col = annotation_col,
+         show_rownames = FALSE,
+         clustering_distance_rows = 'correlation',
+         clustering_distance_cols = 'correlation',
+         color = colorRampPalette(c('blue', 'white', 'red'))(100),
+         main = 'Top DE Genes')
 ```
 
 ## Dotplot for Enrichment (R)
 
 ```r
-library(ggplot2)
-
 enrichment_dotplot <- function(enrich_result, top_n = 20) {
     df <- enrich_result %>%
         arrange(p.adjust) %>%
@@ -173,59 +265,54 @@ expression_boxplot <- function(df, gene, group_var) {
 }
 ```
 
-## UMAP/tSNE Plot (Python)
-
-```python
-import scanpy as sc
-import matplotlib.pyplot as plt
-
-def umap_plot(adata, color, ax=None, **kwargs):
-    if ax is None:
-        fig, ax = plt.subplots(figsize=(8, 6))
-
-    sc.pl.umap(adata, color=color, ax=ax, show=False, **kwargs)
-    return ax
-
-# With custom styling
-sc.pl.umap(adata, color='leiden', palette='tab20', frameon=False,
-           title='', legend_loc='on data', legend_fontsize=8)
-```
-
-## Correlation Plot (R)
+## Saving Plots
 
 ```r
-library(corrplot)
+# Save as PDF (vector)
+pdf('volcano_plot.pdf', width = 8, height = 6)
+# ... plot code ...
+dev.off()
 
-cor_mat <- cor(t(top_genes_mat), method = 'pearson')
-corrplot(cor_mat, method = 'color', type = 'lower', order = 'hclust',
-         tl.col = 'black', tl.cex = 0.7, col = colorRampPalette(c('#4DBBD5', 'white', '#E64B35'))(100))
+# Save as PNG (raster)
+png('volcano_plot.png', width = 800, height = 600, res = 150)
+# ... plot code ...
+dev.off()
+
+# Using ggsave for ggplot objects
+p <- ggplot(...) + ...
+ggsave('plot.pdf', p, width = 8, height = 6)
+ggsave('plot.png', p, width = 8, height = 6, dpi = 300)
 ```
 
-## Violin Plot with Split (R)
+## Color Palettes
 
 ```r
-ggplot(df, aes(cluster, expression, fill = condition)) +
-    geom_split_violin(alpha = 0.7) +
-    geom_boxplot(width = 0.2, position = position_dodge(0.5), outlier.shape = NA) +
-    scale_fill_manual(values = c('#4DBBD5', '#E64B35')) +
-    theme_bw()
+library(RColorBrewer)
+
+# Diverging (for expression: blue-white-red)
+colorRampPalette(rev(brewer.pal(n = 7, name = 'RdBu')))(100)
+
+# Sequential (for distances)
+colorRampPalette(brewer.pal(n = 9, name = 'Blues'))(100)
+
+# Categorical groups
+brewer.pal(n = 8, name = 'Set1')
 ```
 
-## Survival Curves (R)
+## Quick Reference
 
-```r
-library(survival)
-library(survminer)
-
-fit <- survfit(Surv(time, status) ~ group, data = df)
-ggsurvplot(fit, data = df, risk.table = TRUE, pval = TRUE,
-           palette = c('#4DBBD5', '#E64B35'),
-           legend.labs = c('Low', 'High'))
-```
+| Plot | Purpose | Function |
+|------|---------|----------|
+| MA plot | LFC vs mean expression | `plotMA()`, custom ggplot2 |
+| Volcano | LFC vs significance | EnhancedVolcano, custom ggplot2 |
+| PCA | Sample clustering | `plotPCA()`, custom ggplot2 |
+| Heatmap | Gene patterns | `pheatmap()` |
+| Dispersion | Model fit | `plotDispEsts()` |
+| Counts | Individual genes | `plotCounts()` |
+| P-value hist | QC check | ggplot2 histogram |
 
 ## Related Skills
 
-- data-visualization/ggplot2-fundamentals - Base plotting
-- data-visualization/color-palettes - Color selection
-- differential-expression/de-visualization - DE-specific plots
-- pathway-analysis/enrichment-visualization - Enrichment plots
+- bio-data-visualization-heatmaps-clustering - Advanced heatmap customization
+- bio-rna-quantification-count-matrix-qc - Pre-DE QC plots
+- bio-workflows-rnaseq-to-de - Complete pipeline context
