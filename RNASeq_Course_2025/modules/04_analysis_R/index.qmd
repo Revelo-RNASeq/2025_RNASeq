@@ -54,8 +54,6 @@ Questo modulo è interamente pratico. Useremo RStudio per analizzare i dati proc
     - Il modello statistico: Normalizzazione, Dispersione, Test.
 4.  **[Visualizzazione](04_visualization.qmd)**
     - Interpretare PCA, Heatmaps, Volcano plots.
-5.  **[Arricchimento Funzionale](05_enrichment.qmd)**
-    - ORA vs GSEA: Gene Ontology e Pathway Analysis.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 

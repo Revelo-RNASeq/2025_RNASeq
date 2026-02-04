@@ -191,7 +191,7 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2024_RNASeq_website/"))
 
 13:30: Analisi Differenziale (DESeq2)    
 14:45: Pausa                   
-15:00: Visualizzazione & Arricchimento Funzionale                    
+15:00: Visualizzazione dei Risultati                    
 16:30: Chiusura Corso   
 :::
 :::
