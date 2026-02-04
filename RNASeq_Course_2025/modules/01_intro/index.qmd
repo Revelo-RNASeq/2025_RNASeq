@@ -44,43 +44,43 @@ library(gtsummary)
 
 [Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
 
-[November 2024]{style="font-size: 30px;font-weight: bold;"}
+[November 2025]{style="font-size: 30px;font-weight: bold;"}
 :::
 
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
 
-[Code of Conduct]{.tit .p-span-center}
+[Codice di Condotta]{.tit .p-span-center}
 
 [{{< fa people-group >}}]{.icon .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
 
 ::: {style="font-size: 40px; text-align: justify"}
-We are dedicated to providing a [welcoming]{.rn} and [supportive]{.rn} environment for all people, [regardless of background or identity]{.rn rn-type="box" rn-color="black"}.
+Ci dedichiamo a fornire un ambiente [accogliente]{.rn} e [di supporto]{.rn} per tutte le persone, [indipendentemente dal background o dall'identità]{.rn rn-type="box" rn-color="black"}.
 
-By participating in this course, [participants accept the Code of Conduct]{.rn}.
+Partecipando a questo corso, [i partecipanti accettano il Codice di Condotta]{.rn}.
 
-Any form of behaviour to [exclude]{.rn rn-color="orange"}, [intimidate]{.rn rn-color="orange"}, or [cause discomfort]{.rn rn-color="orange"} is a violation of the Code of Conduct. In order to foster a [positive and professional learning environment]{.rn rn-color="green"} we encourage the following kinds of behaviours in all platforms and events:
+Qualsiasi forma di comportamento volto a [escludere]{.rn rn-color="orange"}, [intimidire]{.rn rn-color="orange"} o [causare disagio]{.rn rn-color="orange"} è una violazione del Codice di Condotta. Per favorire un [ambiente di apprendimento positivo e professionale]{.rn rn-color="green"}, incoraggiamo i seguenti comportamenti:
 
 ::: {.fragment .fade-up}
--   Use welcoming and inclusive language
+-   Usare un linguaggio accogliente e inclusivo
 :::
 
 ::: {.fragment .fade-up}
--   Be respectful of different viewpoints and experiences
+-   Essere rispettosi dei diversi punti di vista ed esperienze
 :::
 
 ::: {.fragment .fade-up}
--   Gracefully accept constructive criticism
+-   Accettare con grazia le critiche costruttive
 :::
 
 ::: {.fragment .fade-up}
--   Focus on what is best for the community
+-   Concentrarsi su ciò che è meglio per la comunità
 :::
 
 ::: {.fragment .fade-up}
--   Show courtesy and respect towards other community members
+-   Mostrare cortesia e rispetto verso gli altri membri della comunità
 :::
 :::
 
@@ -148,8 +148,8 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2024_RNASeq_website/"))
 
 ::: columns
 ::: {.column width="50%"}
-[Primo Giorno]{.p-span-center}
-[Teoria]{.p-span-center}
+[Giorno 1]{.p-span-center}
+[Sequenziamento & Pipeline]{.p-span-center}
 
 <br>
 
@@ -157,66 +157,66 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2024_RNASeq_website/"))
 
 [Orari]{style="font-weight: bold;"}    
 9:30 : Introduzione al Corso   
-10:00: Ricerca Riproducibile            
+10:00: Biologia del RNA-Seq (Design, NGS)            
 10:45: Pausa                   
-11:00: RNA sequencing (Primary analysis)
+11:00: Pipeline nf-core/rnaseq (QC, Trimming)
 
 
 12:30: Pausa pranzo            
 
 
-13:30: RNA sequencing (Secondary analysis)       
+13:30: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)       
 14:45: Pausa                   
-15:00: Data analysis       
+15:00: Interpretazione MultiQC       
 16:30: Considerazioni finali   
 
 :::
 :::
 
 ::: {.column width="50%"}
-[Secondo Giorno]{.p-span-center}
-[Pratica]{.p-span-center}
+[Giorno 2]{.p-span-center}
+[Analisi & Visualizzazione]{.p-span-center}
 
 <br>
 
 :::{.fragment .fade-rigth fragment-index=2}
 [Orari]{style="font-weight: bold;"}    
-9:30 : Live Coding  
+9:30 : Introduzione a R & Tidyverse  
 10:45: Pausa                   
-11:00: Live Coding
+11:00: Importazione Dati (tximport)
 
 
 12:30: Pausa pranzo            
 
 
-13:30: Live Coding    
+13:30: Analisi Differenziale (DESeq2)    
 14:45: Pausa                   
-15:00: Capstone exercise                    
-16:30: Considerazioni finali   
+15:00: Visualizzazione & Arricchimento Funzionale                    
+16:30: Chiusura Corso   
 :::
 :::
 :::
 
 #  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Teaching system]{.tit .p-span-center}
+[Metodo Didattico]{.tit .p-span-center}
 
 [{{< fa chalkboard-user >}}]{.icon .p-span-center}
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Approach]{.p-span-center style="font-size: 100px"}
+[Approccio]{.p-span-center style="font-size: 100px"}
 
 :::{style="font-size: 70px"}
-1. Open source tools
+1. Strumenti Open Source
 
-1. Supporting community
+1. Community di supporto
 
-1. Your laptop is everything you need
+1. Il tuo laptop è tutto ciò che serve
 
-1. [Constant feedback]{.rn rn-index=1}
+1. [Feedback costante]{.rn rn-index=1}
 
-1. [Ask questions]{.rn rn-index=1}
+1. [Fai domande!]{.rn rn-index=1}
 :::
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
@@ -254,38 +254,38 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2024_RNASeq_website/"))
 
 #  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Goals]{.tit .p-span-center}
+[Obiettivi]{.tit .p-span-center}
 
 [{{< fa bullseye >}}]{.icon .p-span-center}
 
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Goals]{.p-span-center style="font-size: 100px"}
+[Obiettivi]{.p-span-center style="font-size: 100px"}
 
 ::::{style="font-size: 60px; font-family: 'Julius Sans One', sans-serif;"}
 
 :::{.fragment .fade-in fragment-index=1}
 ::: {.fragment .semi-fade-out fragment-index=2}
-1. Become a better data scientist
+1. Diventare un data scientist migliore
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=2}
 ::: {.fragment .semi-fade-out fragment-index=3}
-1. Leanr best practices for working with R/Bioconductor
+1. Imparare le best practices per lavorare con R/Bioconductor e Nextflow
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=3}
 ::: {.fragment .semi-fade-out fragment-index=4}
-1. Understand how to do RNASeq bulk data analysis
+1. Comprendere come analizzare dati di Bulk RNA-Seq
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=4}
 ::: {.fragment .semi-fade-out fragment-index=5}
-1. Develop a lightweight and reusable RNASeq pipeline
+1. Sviluppare una pipeline RNASeq leggera e riutilizzabile
 :::
 :::
 
