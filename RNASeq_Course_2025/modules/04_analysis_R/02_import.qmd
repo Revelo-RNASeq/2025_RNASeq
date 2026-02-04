@@ -1,0 +1,161 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Importazione Dati]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[Da Salmon a DESeq2 con tximport]{style="font-size: 40px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Il Problema]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Transcript vs Gene Level]{.subtit}
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Output Pipeline (Salmon):**
+- Quantificazione a livello di **trascritto** (isoforma).
+- File `quant.sf`: 1 riga per trascritto.
+
+**Input Analisi Differenziale (DESeq2):**
+- Analisi robusta a livello di **gene**.
+- Ci serve sommare i conteggi delle isoforme per ogni gene.
+:::
+
+::: {.column width="50%" .f30}
+**Perché non sommare e basta?**
+- Isoforme diverse hanno lunghezze diverse.
+- Se l'espressione cambia da un'isoforma lunga a una corta, il numero di reads cambia anche se l'espressione totale del gene è costante.
+- **Correzione della lunghezza**: `tximport` gestisce questo usando gli "offset".
+:::
+::::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[tximport]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Il Flusso di Lavoro]{.subtit}
+
+1.  **Definire i file**: Creare un vettore con i percorsi ai file `quant.sf`.
+2.  **Mappare Trascritto -> Gene**: Creare una tabella (`tx2gene`) che associa ogni Transcript ID al Gene ID.
+3.  **Importare**: Usare `tximport()` per aggregare i dati.
+4.  **Creare oggetto DESeq2**: Usare `DESeqDataSetFromTximport()`.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[1. Definire i File]{.subtit}
+
+Partiamo dal samplesheet (o metadata) che descrive i campioni.
+
+```r
+library(tximport)
+library(readr)
+
+# Carichiamo i metadati
+samples <- read.csv("samplesheet.csv")
+
+# Costruiamo i path ai file quant.sf (output di Salmon)
+# Assumiamo siano in: results/star_salmon/<SAMPLE_ID>/quant.sf
+files <- file.path("results", "star_salmon", samples$sample, "quant.sf")
+names(files) <- samples$sample
+
+# Verifichiamo che i file esistano
+all(file.exists(files)) # Deve essere TRUE
+```
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[2. Creare tx2gene]{.subtit}
+
+Dobbiamo dire a R quale gene corrisponde a quale trascritto. Possiamo usare `AnnotationDbi` o leggere un file GTF processato.
+
+```r
+library(org.Hs.eg.db) # Per Homo Sapiens
+
+# Esempio: Estrarre mappatura da database
+# Chiave: ENSEMBLTRANS (Transcript ID)
+# Colonna: ENSEMBL (Gene ID)
+tx2gene <- select(org.Hs.eg.db, 
+                  keys = keys(org.Hs.eg.db, "ENSEMBLTRANS"),
+                  columns = "ENSEMBL",
+                  keytype = "ENSEMBLTRANS")
+
+head(tx2gene)
+#   ENSEMBLTRANS         ENSEMBL
+# 1 ENST00000387347      ENSG00000198888
+# 2 ENST00000361390      ENSG00000198763
+```
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[3. Eseguire tximport]{.subtit}
+
+```r
+txi <- tximport(files, 
+                type = "salmon", 
+                tx2gene = tx2gene,
+                ignoreTxVersion = TRUE) # Importante se ID hanno versioni (es. .1)
+```
+
+L'oggetto `txi` è una lista contenente:
+- `txi$counts`: Matrice dei conteggi grezzi (stimati) per gene.
+- `txi$abundance`: Espressione in TPM (Transcripts Per Million).
+- `txi$length`: Lunghezza effettiva media dei geni.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[4. Creare oggetto DESeqDataset]{.subtit}
+
+Infine, passiamo tutto a DESeq2.
+
+```r
+library(DESeq2)
+
+# Il "Design": quale colonna del samplesheet spiega le differenze? (es. treatment)
+dds <- DESeqDataSetFromTximport(txi,
+                                colData = samples,
+                                design = ~ treatment)
+
+# Ora siamo pronti per l'analisi differenziale!
+```
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::

@@ -11,10 +11,16 @@ Questo corso vi guiderà attraverso l'analisi di dati di sequenziamento RNA (RNA
 
 Il corso è diviso in 4 moduli principali:
 
-1.  **Introduzione**: Panoramica del corso, setup dell'ambiente (R, RStudio, Conda/Docker) e buone pratiche di riproducibilità.
-2.  **Basi di RNA-Seq**: Principi biologici e tecnici del sequenziamento, design sperimentale.
-3.  **Pipeline di Analisi (nf-core)**: Utilizzo di pipeline standardizzate (nf-core/rnaseq) per il processamento dei dati (QC, allineamento, quantificazione).
-4.  **Analisi Statistica con R**: Importazione dei conteggi, analisi esplorativa (PCA), analisi differenziale (DESeq2) e arricchimento funzionale.
+Include questi link diretti alle slide:
+
+1.  [**Introduzione e Setup**](modules/01_intro/index.qmd)
+    - Panoramica, Agenda, Setup ambiente.
+2.  [**Basi Biologiche e Tecniche**](modules/02_rnaseq_basics/index.qmd)
+    - Dogma centrale, NGS, Design sperimentale.
+3.  [**Pipeline di Analisi (nf-core)**](modules/03_pipeline_nfcore/index.qmd)
+    - Da FASTQ a matrice di conteggi con Nextflow e nf-core.
+4.  [**Analisi Statistica in R**](modules/04_analysis_R/index.qmd)
+    - Hands-on Lab: tximport, DESeq2, Visualizzazione.
 
 ## Risorse
 

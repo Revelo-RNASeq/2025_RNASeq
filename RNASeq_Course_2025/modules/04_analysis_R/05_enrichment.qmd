@@ -1,0 +1,108 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Analisi Funzionale]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[Dai Geni ai Processi Biologici]{style="font-size: 50px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Perché l'Arricchimento?]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Oltre la lista di geni]{.subtit}
+
+Analisi Differenziale $\rightarrow$ Lista di 500 geni significativi (DEG).
+<br>**E adesso?**
+
+Non possiamo cercare su PubMed 500 geni uno per uno.
+Vogliamo sapere se questi geni cooperano in un processo biologico comune.
+
+**Gene Ontology (GO)** e **KEGG Pathways** sono i vocabolari controllati più usati per annotare la funzione dei geni.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Over-Representation Analysis (ORA)]{.subtit}
+
+- Prendo la mia lista di geni di interesse (es. i DEG Up-regulated).
+- Prendo tutto il "background" (tutti i geni espressi nell'esperimento).
+- Chiedo: "I geni del ciclo cellulare sono più frequenti nella mia lista di quanto mi aspetterei dal caso?"
+- Test statistico: **Ipergeometrico** (o Fisher's Exact Test).
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[ClusterProfiler]{.subtit}
+
+Pacchetto R leader per l'analisi di arricchimento.
+
+```r
+library(clusterProfiler)
+library(org.Hs.eg.db)
+
+# 1. Ottenere gli Entrez ID per i geni significativi
+sig_genes_entrez <- mapIds(org.Hs.eg.db, 
+                           keys = rownames(sig_genes_df), 
+                           column = "ENTREZID", 
+                           keytype = "ENSEMBL")
+
+# 2. Eseguire l'arricchimento GO
+ego <- enrichGO(gene = sig_genes_entrez,
+                OrgDb = org.Hs.eg.db,
+                ont = "BP", # Biological Process
+                pAdjustMethod = "BH",
+                pvalueCutoff = 0.05,
+                qvalueCutoff = 0.05)
+```
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Visualizzazione ORA]{.subtit}
+
+Grafico a punti (Dotplot) dei top processi arricchiti.
+
+```r
+dotplot(ego, showCategory=20)
+```
+
+**Cosa guardare:**
+- **GeneRatio**: Frazione dei geni significativi che appartengono al pathway.
+- **p.adjust**: Colore (più rosso = più significativo).
+- **Count**: Dimensione del punto (numero di geni).
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::

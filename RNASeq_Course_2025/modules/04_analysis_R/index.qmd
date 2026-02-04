@@ -1,0 +1,74 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Analisi in R]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[Laboratorio Pratico]{style="font-size: 60px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Panoramica del Modulo]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Programma Day 2]{.subtit}
+
+Questo modulo è interamente pratico. Useremo RStudio per analizzare i dati processati nel Day 1.
+
+1.  **[Introduzione a R](01_r_intro.qmd)**
+    - Ripasso dei concetti fondamentali: vettori, dataframe, tidyverse.
+2.  **[Importazione Dati](02_import.qmd)**
+    - Da Salmon a R usando `tximport`.
+3.  **[Analisi Differenziale](03_deseq2.qmd)**
+    - Il workflow `DESeq2`: Normalizzazione, Dispersione, Test.
+4.  **[Visualizzazione](04_visualization.qmd)**
+    - PCA, Heatmaps, Volcano plots.
+5.  **[Arricchimento Funzionale](05_enrichment.qmd)**
+    - Gene Ontology e ORA con `clusterProfiler`.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Risorse]{.subtit}
+
+- **Progetto R**: Scaricare la cartella `RNASeq_Lab` dalla repository del corso.
+- **Dati**: Useremo il dataset "Airway" (Himes et al.) come esempio.
+- **Obiettivo**: Identificare geni regolati dal destametasone in linee cellulari delle vie aeree.
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Iniziamo!]{.tit .p-span-center}
+
+::: {.centered}
+Aprite RStudio e caricate il progetto.
+:::
