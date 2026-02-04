@@ -1,0 +1,22 @@
+---
+title: "Analisi Dati di Bulk RNA-Seq"
+subtitle: "Corso pratico per dottorandi"
+---
+
+# Benvenuti
+
+Questo corso vi guiderà attraverso l'analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all'interpretazione biologica.
+
+## Struttura del Corso
+
+Il corso è diviso in 4 moduli principali:
+
+1.  **Introduzione**: Panoramica del corso, setup dell'ambiente (R, RStudio, Conda/Docker) e buone pratiche di riproducibilità.
+2.  **Basi di RNA-Seq**: Principi biologici e tecnici del sequenziamento, design sperimentale.
+3.  **Pipeline di Analisi (nf-core)**: Utilizzo di pipeline standardizzate (nf-core/rnaseq) per il processamento dei dati (QC, allineamento, quantificazione).
+4.  **Analisi Statistica con R**: Importazione dei conteggi, analisi esplorativa (PCA), analisi differenziale (DESeq2) e arricchimento funzionale.
+
+## Risorse
+
+-   [Materiale Didattico](resources/references/references.bib)
+-   [Galaxy Training Network](resources/external/galaxy_training/index.md)

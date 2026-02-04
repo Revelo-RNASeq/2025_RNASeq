@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Analisi Bulk RNA-Seq per Dottorandi"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Module 1: Intro"
+        contents:
+          - modules/01_intro/index.qmd
+      - section: "Module 2: RNA-Seq Basics"
+        contents:
+          - modules/02_rnaseq_basics/biology.qmd
+      - section: "Module 3: Pipeline (nf-core)"
+        contents:
+          - modules/03_pipeline_nfcore/index.qmd
+      - section: "Module 4: Analysis (R)"
+        contents:
+          - modules/04_analysis_R/review.qmd
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: "Modules"
+        menu:
+          - modules/01_intro/index.qmd
+          - modules/02_rnaseq_basics/biology.qmd
+          - modules/03_pipeline_nfcore/index.qmd
+          - modules/04_analysis_R/review.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true

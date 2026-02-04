@@ -1,0 +1,241 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: false
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+library(gt)
+library(gtExtras)
+library(gtsummary)
+```
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Julius+Sans+One&family=Montserrat:wght@300&family=Rock+Salt&display=swap');
+</style>
+
+::: {style="position: absolute; left: 480px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[R recall]{style="font-size: 120px; font-weight: bold; line-height: 1em; margin: 0px; font-family: 'Architects Daughter', cursive;"}
+
+[Introduzione all'analisi RNASeq in R]{style="font-size: 40px;font-weight: bold;"}
+
+[Dipartimento di Biomedicina e Prevenzione]{style="font-size: 40px;font-weight: bold;"}
+
+<br> <br>
+
+[Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
+
+[November 2024]{style="font-size: 30px;font-weight: bold;"}
+:::
+
+
+#  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/Rerror.png){width=1200}
+:::
+
+#  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[RStudio software]{.tit .p-span-center}
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[RStudio software]{.subtit}
+
+:::{.p-img-center}
+![](images/rstudio.png){width=1200}
+:::
+
+#  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[R variables]{.tit .p-span-center}
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Variable]{.f100}
+
+<br>
+
+:::{.callout-tip}
+## Definition
+
+1. Variables are used to store information to be referenced and manipulated in a computer program. 
+
+1. They also provide a way of labeling data with a descriptive name, so our programs can be understood more clearly by the reader and ourselves. 
+   
+1. It is helpful to think of variables as containers that hold information. 
+   
+1. Their sole purpose is to label and store data in memory
+
+:::
+
+:::{.notes}
+Variabile come una scatola da mettere in soffitta
+:::
+
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Variable]{.f100}
+
+:::{.incremental .f40}
+- You want your object names to be explicit and not too long.
+
+- They cannot start with a number (2x is not valid, but x2 is).
+
+- R is case sensitive, so for example, weight_kg is different from Weight_kg.
+
+- There are some names that cannot be used because they are the names of fundamental functions in R (e.g., if, else, for, see here for a complete list). In general, even if it’s allowed, it’s best to not use other function names (e.g., c, T, mean, data, df, weights).
+
+- It’s best to avoid dots (.) within names. Many function names in R itself have them and dots also have a special meaning (methods) in R.
+
+- It is recommended to use nouns for object names and verbs for function names.
+
+- Be consistent in the styling of your code, such as where you put spaces, how you name objects, etc. 
+
+:::
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Variable]{.f100}
+
+:::{.p-img-center}
+![](images/case.png){width=1200}
+:::
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Assignment operator]{.f100}
+
+:::{.f40}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "1|2|3|4|5|7-8"
+4 + 5
+x <- 4 + 5
+x + 2
+x <- 2 + 1
+x <- x + 2
+
+x = x + 2
+x + 2 -> x
+```
+:::
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Data Structures]{.f100}
+
+The most essential data structures used in R include: 
+
+:::{.incremental}
+
+1. [**Vectors**: A vector is an ordered collection of basic data types of a given length]{.rn}
+
+1. **Lists**: A list is a generic object consisting of an ordered collection of objects. Lists are heterogeneous data structures
+
+1. **Dataframes**: Dataframes are generic data objects of R which are used to store the tabular data. Dataframes are the foremost popular data objects in R
+
+1. **Matrices**: A matrix is a rectangular arrangement of numbers in rows and columns. Matrices are two-dimensional, homogeneous data structures.
+
+1. **Arrays**: Arrays are the R data objects which store the data in more than two dimensions.
+
+1. **Factors**: Factors are the data objects which are used to categorize the data and store it as levels. They are useful for storing categorical data.
+
+:::
+
+:::{.notes}
+A vector is the most common and basic data type in R, and is pretty much the workhorse of R
+
+R is vectorized program
+:::
+
+#  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[R tidyverse]{.tit .p-span-center}
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+<br>
+
+:::{.p-img-center}
+![](images/tidy1.png){width=1100}
+:::
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+<br>
+
+:::{.p-img-center}
+![](images/tidy2.png){width=1500}
+:::
+
+:::{.tcenter .f100}
+[tidyverse.org](https://www.tidyverse.org)
+:::
+
+#  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+[Bioconductor]{.tit .p-span-center}
+
+##  {background-image="images/coding-g4ae00ad60_1920.jpg" background-size="cover" background-opacity="0.1"}
+
+Project Goals:
+
+:::{.incremental}
+- To provide widespread access to a broad range of powerful statistical and graphical methods for the analysis of genomic data.
+
+- To facilitate the inclusion of biological metadata in the analysis of genomic data, e.g. literature data from PubMed, annotation data from Entrez genes.
+
+- To provide a common software platform that enables the rapid development and deployment of extensible, scalable, and interoperable software.
+
+- To further scientific understanding by producing high-quality documentation and reproducible research.
+
+- To train researchers on computational and statistical methods for the analysis of biological data.
+:::
+
+:::{.f100 .tcenter}
+[bioconductor.org](http://www.bioconductor.org)
+:::
+
+
+:::{.notes}
+1. Dare l'accesso a innumerevoli pacchetti per l'analisi statistica e la visualizzazione di dati genomici
+
+1. Facilitare l'inclusione dei metadati! insieme di informazioni sui dati
+
+1. Sviluppare una base comune di classi di R che permettano di sviluppare altri pacchetti che possano operare insieme: vedi SummarizedExperiment
+
+1. Mettere l'accento sulla Ricerca riproducibile
+
+1. Creare corsi per insegnare l;analisi di dati biologici
+:::
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::
+
+
