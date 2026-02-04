@@ -1,4 +1,8 @@
-# Ignore external course resources
+2024_RNASeq_website/
 Carpentries/
-
+RNASeq/
 dataViz/
+resources/external/
+.DS_Store
+*.Rproj
+.Rproj.user
