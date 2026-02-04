@@ -1,0 +1,103 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Strumenti di Analisi]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[RStudio e AI-Assisted Coding]{style="font-size: 50px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Perché usare codice?]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Riproducibilità]{.subtit}
+
+L'analisi bioinformatica **deve** essere riproducibile.
+
+- **GUI (Point & Click)**: Difficile ricordare esattamente quali parametri sono stati usati dopo 6 mesi.
+- **Scripting (R)**: Il codice è la documentazione esatta di cosa è stato fatto.
+
+> "Il tuo collaboratore più importante sei tu tra 6 mesi, e non risponde alle email."
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[L'Ambiente RStudio]{.subtit}
+
+Non dovete "imparare a programmare" da zero per analizzare i vostri dati.
+RStudio è la nostra "cabina di pilotaggio":
+
+1.  **Console**: Dove R esegue i comandi.
+2.  **Script/Quarto**: Dove scriviamo il nostro "diario di bordo" (codice + testo).
+3.  **Environment**: La lista dei nostri dati (tabelle, variabili).
+4.  **Plots/Help**: Dove vediamo i risultati grafici.
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[AI-Assisted Analysis]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Un nuovo modo di lavorare]{.subtit}
+
+Invece di memorizzare la sintassi, oggi usiamo l'AI (es. Copilot, ChatGPT) come **pair programmer**.
+
+**Il vostro ruolo:**
+- Capire i concetti biologici e statistici (questo corso!).
+- Saper chiedere (Prompt Engineering).
+- Saper valutare se il risultato ha senso (Critical Thinking).
+
+**Il ruolo dell'AI:**
+- Scrivere il codice "noioso" (sintassi).
+- Risolvere errori (debugging).
+- Spiegare cosa fa una funzione.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Workflow Moderno]{.subtit}
+
+1.  **Chiedi**: "Voglio caricare questi 3 file CSV e unirli in una unica tabella basata sulla colonna 'GeneID'".
+2.  **Verifica**: L'AI genera il codice. Tu controlli che i file siano quelli giusti.
+3.  **Esegui**: Fai girare il codice in RStudio.
+4.  **Itera**: "Ora fammi un grafico a dispersione di questi dati".
+
+Nel laboratorio useremo delle "GitHub Skills" preconfezionate per guidarvi in questo processo.
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::
+
+

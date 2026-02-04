@@ -44,62 +44,58 @@ library(quarto)
 
 [Oltre la lista di geni]{.subtit}
 
-Analisi Differenziale $\rightarrow$ Lista di 500 geni significativi (DEG).
-<br>**E adesso?**
+L'analisi differenziale ci restituisce una lista di 500-1000 geni significativi.
+Cercare ogni gene su PubMed è impossibile.
 
-Non possiamo cercare su PubMed 500 geni uno per uno.
-Vogliamo sapere se questi geni cooperano in un processo biologico comune.
+**L'obiettivo:**
+Trovare "temi comuni" o "storie biologiche" nascoste in questa lista.
+I geni sono annotati in database condivisi (Vocabolari Controllati).
 
-**Gene Ontology (GO)** e **KEGG Pathways** sono i vocabolari controllati più usati per annotare la funzione dei geni.
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Over-Representation Analysis (ORA)]{.subtit}
-
-- Prendo la mia lista di geni di interesse (es. i DEG Up-regulated).
-- Prendo tutto il "background" (tutti i geni espressi nell'esperimento).
-- Chiedo: "I geni del ciclo cellulare sono più frequenti nella mia lista di quanto mi aspetterei dal caso?"
-- Test statistico: **Ipergeometrico** (o Fisher's Exact Test).
+1.  **Gene Ontology (GO)**: Processi Biologici (es. "Cell Division").
+2.  **KEGG / Reactome**: Vie metaboliche e di segnale (es. "Glycolysis", "Notch Signaling").
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[ClusterProfiler]{.subtit}
+[Due Strategie Principali]{.subtit}
 
-Pacchetto R leader per l'analisi di arricchimento.
+1.  **Over-Representation Analysis (ORA)**
+    - "L' Approccio a Soglia".
+    - Richiede una lista di geni "Significativi" (padj < 0.05).
+    - Domanda: "Tra i miei geni UP, c'è un eccesso di geni del Ciclo Cellulare?"
 
-```r
-library(clusterProfiler)
-library(org.Hs.eg.db)
+2.  **Gene Set Enrichment Analysis (GSEA)**
+    - "L' Approccio Rank-Based".
+    - Usa *tutti* i geni, ordinati dal più UP al più DOWN.
+    - Domanda: "I geni del Ciclo Cellulare tendono a trovarsi tutti in cima alla mia lista?"
+    - Vantaggio: Trova pathway dove tutti i geni cambiano di poco, ma nella stessa direzione.
 
-# 1. Ottenere gli Entrez ID per i geni significativi
-sig_genes_entrez <- mapIds(org.Hs.eg.db, 
-                           keys = rownames(sig_genes_df), 
-                           column = "ENTREZID", 
-                           keytype = "ENSEMBL")
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-# 2. Eseguire l'arricchimento GO
-ego <- enrichGO(gene = sig_genes_entrez,
-                OrgDb = org.Hs.eg.db,
-                ont = "BP", # Biological Process
-                pAdjustMethod = "BH",
-                pvalueCutoff = 0.05,
-                qvalueCutoff = 0.05)
-```
+[Over-Representation (ORA)]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Visualizzazione ORA]{.subtit}
+[L'Urna e le Palline]{.subtit}
 
-Grafico a punti (Dotplot) dei top processi arricchiti.
+Immaginate un'urna con 20.000 palline (Tutti i geni).
+- 500 palline sono "Gialle" (Appartengono al pathway "Immunità").
+- Voi estraete 100 palline (La vostra lista di DEG).
 
-```r
-dotplot(ego, showCategory=20)
-```
+**Il Test (Ipergeometrico / Fisher):**
+Quante palline Gialle mi aspetto di pescare *per caso*? (es. 2 o 3).
+Se ne pesco 50, è **statisticamente improbabile** che sia un caso -> Il pathway è Arricchito.
 
-**Cosa guardare:**
-- **GeneRatio**: Frazione dei geni significativi che appartengono al pathway.
-- **p.adjust**: Colore (più rosso = più significativo).
-- **Count**: Dimensione del punto (numero di geni).
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Interpretare i Risultati]{.subtit}
+
+L'AI vi produrrà un Dotplot. Cosa guardare:
+
+- **Gene Ratio**: Quanti dei vostri geni sono nel pathway (es. 20/50).
+- **P-adjust**: Significatività (barre rosse sono meglio).
+- **Count**: Dimensione del pathway.
+
+> **Attenzione**: Un p-value significativo non prova il meccanismo, suggerisce solo un'associazione statistica da validare.
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 

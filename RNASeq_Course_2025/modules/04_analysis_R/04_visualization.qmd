@@ -44,31 +44,26 @@ library(quarto)
 
 [PCA - Principal Component Analysis]{.subtit}
 
-"Come si raggruppano i miei campioni?"
-- I replicati biologici dovrebbero essere vicini.
-- Il trattamento dovrebbe essere la principale fonte di varianza (PC1).
-- Utile per identificare **Outliers**.
+La "mappa" dei vostri campioni.
+Riduce 20.000 dimensioni (geni) a 2 dimensioni principali (PC1 e PC2) che spiegano la massima varianza.
 
-Necessario trasformare i dati prima (VST o rlog) per renderli omoschedastici.
-
-```r
-vsd <- vst(dds, blind=FALSE) # Variance Stabilizing Transformation
-plotPCA(vsd, intgroup=c("condition", "batch"))
-```
+**Cosa cercare:**
+1.  **Raggruppamento**: I replicati biologici devono stare vicini.
+2.  **Separazione**: Il trattamento sperimentale dovrebbe separare i gruppi lungo l'asse principale (PC1).
+3.  **Outliers**: Un campione "lontano da tutti" indica problemi tecnici o biologici.
+4.  **Batch Effects**: Se i campioni si raggruppano per "data di estrazione" invece che per trattamento.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[MA Plot]{.subtit}
+[Sample Correlation Heatmap]{.subtit}
 
-"La normalizzazione ha funzionato?"
-- Asse X: Media dei conteggi (A = Average).
-- Asse Y: Log2 Fold Change (M = Minus, log ratio).
-- Ci aspettiamo che la nuvola di punti sia centrata su Y=0.
-- Evidenzia l'effetto del **LFC Shrinkage** sui geni a bassa espressione.
+Un altro modo per vedere la somiglianza globale.
+Calcola la distanza (es. Euclidea) tra ogni coppia di campioni.
 
-```r
-plotMA(resLFC, ylim=c(-5,5))
-```
+- Colori scuri (blu) = Campioni simili.
+- Colori chiari (bianco/rosso) = Campioni diversi.
+
+Ci aspettiamo blocchi di colori "scuri" corrispondenti ai gruppi sperimentali (es. tutti i CTRL simili tra loro).
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -78,35 +73,28 @@ plotMA(resLFC, ylim=c(-5,5))
 
 [Volcano Plot]{.subtit}
 
-Visualizzazione "classica" dei DEG (Differentially Expressed Genes).
-- Asse X: Log2 Fold Change (Magnitude).
-- Asse Y: -log10(Adjusted P-value) (Significance).
-- I geni più interessanti sono in alto a destra (Up + Signif) e alto a sinistra (Down + Signif).
+La visione d'insieme dei risultati differenziali.
 
-```r
-library(EnhancedVolcano)
-EnhancedVolcano(res,
-    lab = rownames(res),
-    x = 'log2FoldChange',
-    y = 'padj')
-```
+- **Asse X (Effetto)**: Log2 Fold Change. (A destra UP, a sinistra DOWN).
+- **Asse Y (Significatività)**: -log10 P-value aggiustato. (In alto i più significativi).
+
+Cercate punti agli angoli superiori:
+- Alta magnitudo di cambiamento.
+- Alta confidenza statistica.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Heatmap]{.subtit}
+[Heatmap dei Geni]{.subtit}
 
 "Chi va su e chi giù insieme?"
-- Visualizzare i top geni (es. top 20 o 50 per varianza o p-value).
-- Usare dati trasformati (VST).
-- Clustering gerarchico per raggruppare geni o campioni simili.
 
-```r
-library(pheatmap)
-topGenes <- head(order(res$padj), 20)
-mat <- assay(vsd)[topGenes, ]
-mat <- mat - rowMeans(mat) # Centrare per vedere deviazioni dalla media
-pheatmap(mat, annotation_col=df_metadata)
-```
+A differenza della Sample Heatmap, qui mostriamo i **Geni** sulle righe.
+- Di solito si selezionano i top 20-50 geni più significativi.
+- **Z-score**: I colori rappresentano la deviazione dalla media del gene.
+    - Rosso: Espressione sopra la media.
+    - Blu: Espressione sotto la media.
+
+Il **Clustering** (l'albero a lato) raggruppa geni che hanno profili di espressione simili tra le condizioni.
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 

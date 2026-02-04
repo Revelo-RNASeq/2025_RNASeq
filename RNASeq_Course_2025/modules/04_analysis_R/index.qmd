@@ -46,16 +46,16 @@ library(quarto)
 
 Questo modulo è interamente pratico. Useremo RStudio per analizzare i dati processati nel Day 1.
 
-1.  **[Introduzione a R](01_r_intro.qmd)**
-    - Ripasso dei concetti fondamentali: vettori, dataframe, tidyverse.
+1.  **[Strumenti di Analisi](01_tools.qmd)**
+    - L'ambiente RStudio, Riproducibilità e AI-Assisted Analysis.
 2.  **[Importazione Dati](02_import.qmd)**
-    - Da Salmon a R usando `tximport`.
-3.  **[Analisi Differenziale](03_deseq2.qmd)**
-    - Il workflow `DESeq2`: Normalizzazione, Dispersione, Test.
+    - Logica: Dai Trascitti ai Geni (tximport).
+3.  **[Statistica (DESeq2)](03_deseq2.qmd)**
+    - Il modello statistico: Normalizzazione, Dispersione, Test.
 4.  **[Visualizzazione](04_visualization.qmd)**
-    - PCA, Heatmaps, Volcano plots.
+    - Interpretare PCA, Heatmaps, Volcano plots.
 5.  **[Arricchimento Funzionale](05_enrichment.qmd)**
-    - Gene Ontology e ORA con `clusterProfiler`.
+    - ORA vs GSEA: Gene Ontology e Pathway Analysis.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 

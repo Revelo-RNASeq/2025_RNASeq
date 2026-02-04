@@ -29,7 +29,7 @@ library(quarto)
 ::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
 [Importazione Dati]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
 
-[Da Salmon a DESeq2 con tximport]{style="font-size: 40px;font-weight: bold;"}
+[Dai Trascitti ai Geni]{style="font-size: 50px;font-weight: bold;"}
 
 <br> <br>
 
@@ -38,139 +38,60 @@ library(quarto)
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Il Problema]{.tit .p-span-center}
+[Il Problema delle Isoforme]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Transcript vs Gene Level]{.subtit}
 
-:::: {.columns}
-::: {.column width="50%" .f30}
 **Output Pipeline (Salmon):**
 - Quantificazione a livello di **trascritto** (isoforma).
-- File `quant.sf`: 1 riga per trascritto.
+- Una riga per ogni variante di splicing.
 
 **Input Analisi Differenziale (DESeq2):**
-- Analisi robusta a livello di **gene**.
-- Ci serve sommare i conteggi delle isoforme per ogni gene.
-:::
+- Vogliamo confrontare l'espressione dei **geni**.
+- Statisticamente più robusto (più reads per feature, meno features totali).
 
-::: {.column width="50%" .f30}
-**Perché non sommare e basta?**
-- Isoforme diverse hanno lunghezze diverse.
-- Se l'espressione cambia da un'isoforma lunga a una corta, il numero di reads cambia anche se l'espressione totale del gene è costante.
-- **Correzione della lunghezza**: `tximport` gestisce questo usando gli "offset".
-:::
-::::
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Perché non sommare i conteggi?]{.subtit}
+
+Non basta sommare i conteggi grezzi delle isoforme.
+
+- **Isoforma A**: Lunga (5000 bp). Produce molte reads.
+- **Isoforma B**: Corta (500 bp). Produce poche reads.
+
+Se un gene passa da esprimere A a esprimere B (allo stesso livello molare), il numero di reads crolla.
+Sembrerebbe un gene "Down-regulated", ma è solo diventato "più corto".
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[tximport]{.tit .p-span-center}
+[La Soluzione: tximport]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Il Flusso di Lavoro]{.subtit}
+[Come funziona]{.subtit}
 
-1.  **Definire i file**: Creare un vettore con i percorsi ai file `quant.sf`.
-2.  **Mappare Trascritto -> Gene**: Creare una tabella (`tx2gene`) che associa ogni Transcript ID al Gene ID.
-3.  **Importare**: Usare `tximport()` per aggregare i dati.
-4.  **Creare oggetto DESeq2**: Usare `DESeqDataSetFromTximport()`.
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[1. Definire i File]{.subtit}
-
-Partiamo dal samplesheet (o metadata) che descrive i campioni.
-
-```r
-library(tximport)
-library(readr)
-
-# Carichiamo i metadati
-samples <- read.csv("samplesheet.csv")
-
-# Costruiamo i path ai file quant.sf (output di Salmon)
-# Assumiamo siano in: results/star_salmon/<SAMPLE_ID>/quant.sf
-files <- file.path("results", "star_salmon", samples$sample, "quant.sf")
-names(files) <- samples$sample
-
-# Verifichiamo che i file esistano
-all(file.exists(files)) # Deve essere TRUE
-```
+1.  **Input**: File `quant.sf` (da Salmon) per ogni campione.
+2.  **Mappatura**: Tabella che associa ogni `TranscriptID` -> `GeneID`.
+3.  **Calcolo Offset**:
+    - Calcola la lunghezza media ponderata del gene in ogni campione.
+    - Usa questa informazione per generare un "offset".
+4.  **Output**: Matrice di conteggi per gene corretti per la lunghezza.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[2. Creare tx2gene]{.subtit}
+[Il Risultato Finale]{.subtit}
 
-Dobbiamo dire a R quale gene corrisponde a quale trascritto. Possiamo usare `AnnotationDbi` o leggere un file GTF processato.
+Alla fine di questa fase, otteniamo una **Count Matrix**.
 
-```r
-library(org.Hs.eg.db) # Per Homo Sapiens
+| Gene | CTRL_1 | CTRL_2 | TREAT_1 | TREAT_2 |
+|------|--------|--------|---------|---------|
+| MAPK1 | 450 | 432 | 900 | 880 |
+| TP53 | 20 | 25 | 22 | 18 |
+| ACTB | 20000 | 19500 | 20100 | 19800 |
 
-# Esempio: Estrarre mappatura da database
-# Chiave: ENSEMBLTRANS (Transcript ID)
-# Colonna: ENSEMBL (Gene ID)
-tx2gene <- select(org.Hs.eg.db, 
-                  keys = keys(org.Hs.eg.db, "ENSEMBLTRANS"),
-                  columns = "ENSEMBL",
-                  keytype = "ENSEMBLTRANS")
-
-head(tx2gene)
-#   ENSEMBLTRANS         ENSEMBL
-# 1 ENST00000387347      ENSG00000198888
-# 2 ENST00000361390      ENSG00000198763
-```
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[3. Eseguire tximport]{.subtit}
-
-```r
-txi <- tximport(files, 
-                type = "salmon", 
-                tx2gene = tx2gene,
-                ignoreTxVersion = TRUE) # Importante se ID hanno versioni (es. .1)
-```
-
-L'oggetto `txi` è una lista contenente:
-- `txi$counts`: Matrice dei conteggi grezzi (stimati) per gene.
-- `txi$abundance`: Espressione in TPM (Transcripts Per Million).
-- `txi$length`: Lunghezza effettiva media dei geni.
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[4. Creare oggetto DESeqDataset]{.subtit}
-
-Infine, passiamo tutto a DESeq2.
-
-```r
-library(DESeq2)
-
-# Il "Design": quale colonna del samplesheet spiega le differenze? (es. treatment)
-dds <- DESeqDataSetFromTximport(txi,
-                                colData = samples,
-                                design = ~ treatment)
-
-# Ora siamo pronti per l'analisi differenziale!
-```
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Ispezionare la matrice di conteggio]{.subtit}
-
-A volte é utile salvare la matrice dei conteggi grezzi (o normalizzati) per analisi esterne.
-
-```r
-# Conteggi grezzi (stimati da Salmon)
-raw_counts <- counts(dds)
-head(raw_counts)
-
-# Salvare su file
-write.csv(raw_counts, "results/counts_matrix_raw.csv")
-
-# Nota: per l'analisi statistica useremo l'oggetto 'dds', 
-# non questo file CSV!
-```
+Questa matrice (numeri interi) è il punto di partenza per l'analisi statistica.
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 

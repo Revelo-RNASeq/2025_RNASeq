@@ -29,7 +29,7 @@ library(quarto)
 ::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
 [Analisi Differenziale]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
 
-[Il workflow DESeq2]{style="font-size: 60px;font-weight: bold;"}
+[La logica statistica di DESeq2]{style="font-size: 50px;font-weight: bold;"}
 
 <br> <br>
 
@@ -42,95 +42,73 @@ library(quarto)
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Eseguire l'analisi]{.subtit}
+[I tre passi fondamentali]{.subtit}
 
-Una volta creato l'oggetto `dds` (DESeqDataSet), l'intera pipeline statistica si esegue con un singolo comando:
+DESeq2 è lo standard de facto per l'analisi differenziale. Esegue tre passaggi principali automaticamente:
 
-```r
-dds <- DESeq(dds)
-```
+1.  **Normalizzazione (Size Factors)**: Per correggere le differenze di profondità di sequenziamento (Librerie più grandi vs più piccole).
+2.  **Stima della Dispersione**: Per capire quanto varia ogni gene tra i replicati biologici.
+3.  **Test Statistico (Wald Test)**: Per decidere se la differenza tra gruppi è significativa.
 
-Cosa succede "sotto il cofano"?
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-1.  **Stima dei Size Factors**: Normalizzazione per "sequencing depth" e composizione della libreria (metodo "Median of Ratios").
-2.  **Stima della Dispersione**: Stima della variabilità genica (quanto i campioni biologici variano attorno alla media).
-3.  **Adattamento del Modello (GLM)**: Fitting di un modello binomiale negativo per ogni gene.
-4.  **Test statistico (Wald Test)**: Calcolo della significatività per i coefficienti del modello (es. Treated vs Control).
+[1. Normalizzazione]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[1. Normalizzazione (Size Factors)]{.subtit}
+[Median of Ratios]{.subtit}
 
-Non possiamo confrontare i conteggi grezzi ("raw counts") direttamente.
-- Campioni diversi hanno profondità di sequenziamento diverse (Library Size).
-- **DESeq2** usa il metodo "Median of Ratios", più robusto rispetto al TPM/RPKM per l'analisi differenziale.
+Non usiamo RPM/CPM (Reads Per Million) perché sensibili a pochi geni molto espressi.
 
-```r
-# Per ispezionare i fattori calcolati
-sizeFactors(dds)
-```
+**Metodo:**
+- Si crea un "campione pseudo-reference" (media geometrica).
+- Si calcola il rapporto tra ogni campione e questo riferimento per ogni gene.
+- La **mediana** di questi rapporti è il "Size Factor" del campione.
 
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+Se un campione ha Size Factor = 2, significa che ha sequenziato il doppio del riferimento. Dividiamo i suoi conteggi per 2.
 
-[2. Dispersione]{.subtit}
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-RNA-Seq data mostrano "Overdispersion": la varianza cresce più velocemente della media.
-- Poisson: Varianza = Media (non adatto).
-- **Binomiale Negativa**: Varianza = Media + Dispersione * Media^2.
-
-DESeq2 "guadagna potenza" condividendo informazioni tra geni simili (Shrinkage).
-- **Genewise**: Stima grezza per gene.
-- **Trend fit**: Curva rossa (tendenza generale).
-- **MAP**: Stima finale "schiacciata" verso la curva rossa (tranne per geni con n molto alto o outlier).
-
-```r
-plotDispEsts(dds)
-```
+[2. Dispersione]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Estrarre i Risultati]{.subtit}
+[Biological Variation]{.subtit}
 
-```r
-res <- results(dds)
-head(res)
-```
+In biologia, $Media \neq Varianza$.
+Geni molto espressi tendono ad avere alta varianza. Campioni biologici variano più di quelli tecnici.
 
-Le colonne chiave:
-- `baseMean`: Media dei conteggi normalizzati (tutti i campioni).
-- `log2FoldChange`: Stima del cambiamento (es. log2(Treated/Control)).
-    - LFC > 0: Up-regulated.
-    - LFC < 0: Down-regulated.
-- `pvalue`: P-value grezzo (Wald test).
-- `padj`: P-value aggiustato per test multipli (Benjamini-Hochberg / FDR).
+**Il problema:**
+Con pochi replicati (es. 3 vs 3), è difficile stimare la vera varianza di un gene.
 
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+**La soluzione (Shrinkage)**:
+- DESeq2 guarda tutti i 20.000 geni.
+- "Se questo gene ha una varianza molto diversa dagli altri geni con la stessa espressione media, probabilmente è un errore di stima".
+- "Sposta" (shrink) la stima verso la tendenza generale.
 
-[Multiple Testing Correction]{.subtit}
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-Testiamo 20,000 geni contemporaneamente!
-Per caso, 5% dei geni potrebbero sembrare significativi (p < 0.05) anche se non lo sono (Falsi Positivi).
-
-**FDR (False Discovery Rate) - padj**:
-- Un `padj` < 0.05 significa: "Tra i geni che chiamo significativi, mi aspetto che al massimo il 5% siano falsi positivi".
-- **Usate sempre `padj`, mai `pvalue` per filtrare!**
+[3. Test Statistico]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Shrinkage dei Log Fold Changes]{.subtit}
+[Definire la Significatività]{.subtit}
 
-I geni con bassa espressione (counts bassi) hanno alta variabilità e stimano LFC rumorosi (es. da 2 a 16 counts sembra un 8x change, ma è poco affidabile).
+Per ogni gene, DESeq2 calcola:
+- **Log2 Fold Change (LFC)**: Quanto è cambiato? (es. +1 = raddoppiato, -1 = dimezzato).
+- **P-value**: Probabilità che questo cambiamento sia dovuto al caso.
+- **Adjusted P-value (FDR)**: Correzione per test multipli.
 
-**LFC Shrinkage** (es. `apeglm`):
-- "Schiaccia" i LFC rumorosi verso zero.
-- Lascia inalterati i LFC forti supportati da molti dati.
-- Essenziale per la visualizzazione (MA plot, Heatmaps) e il ranking.
+> **Regola d'oro:** Filtrare sempre usando `padj` (es. < 0.05) e non `pvalue`.
 
-```r
-library(apeglm)
-# name va cercato con resultsNames(dds)
-resLFC <- lfcShrink(dds, coef="condition_treated_vs_control", type="apeglm")
-```
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[LFC Shrinkage]{.subtit}
+
+Per la visualizzazione e il ranking, correggiamo anche i Fold Change.
+
+Geni con bassa espressione tendono ad avere Fold Change rumorosi ed enormi (es. da 1 count a 10 counts = 10x!).
+Lo **Shrinkage** "schiaccia" questi valori verso zero, lasciando inalterati i geni con segnale forte e solido.
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 
