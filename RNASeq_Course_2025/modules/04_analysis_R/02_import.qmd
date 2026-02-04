@@ -154,6 +154,24 @@ dds <- DESeqDataSetFromTximport(txi,
 # Ora siamo pronti per l'analisi differenziale!
 ```
 
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Ispezionare la matrice di conteggio]{.subtit}
+
+A volte é utile salvare la matrice dei conteggi grezzi (o normalizzati) per analisi esterne.
+
+```r
+# Conteggi grezzi (stimati da Salmon)
+raw_counts <- counts(dds)
+head(raw_counts)
+
+# Salvare su file
+write.csv(raw_counts, "results/counts_matrix_raw.csv")
+
+# Nota: per l'analisi statistica useremo l'oggetto 'dds', 
+# non questo file CSV!
+```
+
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 
 ::: {style="position: absolute; left: 980px; top: 450px;"}
