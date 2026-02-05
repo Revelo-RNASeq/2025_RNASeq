@@ -54,41 +54,86 @@ Genera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.
 - Distribuzione delle lunghezze dei reads
 - % di reads filtrati
 
-### Prompt 0b: Interpretazione Report QC
+### Prompt 0a-bis: Batch Processing (tutti i campioni)
 ```
-Ho eseguito il QC sui miei file FASTQ RNA-seq.
+Ho 4 campioni paired-end nella cartella data/fastq_SUBSET/:
+- SRR1039508, SRR1039509, SRR1039512, SRR1039513
+- Ogni campione ha _pass_1_SUBSET.fastq e _pass_2_SUBSET.fastq
+
+Esegui fastp per tutti i 4 campioni in batch.
+Per ogni campione:
+1. Applica lo stesso filtraggio (Phred < 20, lunghezza min 36 bp)
+2. Rimuovi adattatori automaticamente
+3. Genera report HTML e JSON individuali
+4. Salva output in results/fastp/{sample}_*
+
+Genera uno script bash che processi tutti i campioni in loop.
+```
+
+### Prompt 0b: Aggregare i report con MultiQC
+```
+Ho eseguito fastp su 4 campioni e ogni campione ha generato:
+- report HTML individuale
+- report JSON in results/fastp/
+
+Aggrega tutti i report fastp in un unico report MultiQC.
+Voglio:
+1. Creare un report combinato che mostri tutti i campioni insieme
+2. Confrontare le statistiche QC tra i campioni
+3. Identificare eventuali outliers
+4. Salvare il report MultiQC in results/multiqc/
+
+Genera il comando MultiQC e spiega:
+- Come MultiQC trova automaticamente i file fastp?
+- Quali metriche posso confrontare tra i campioni?
+```
+
+💡 **Perché MultiQC?**: Confrontare 4 report separati è difficile. MultiQC li unifica in un'unica dashboard interattiva.
+
+### Prompt 0c: Interpretazione Report MultiQC
+```
+Ho eseguito MultiQC sui risultati fastp dei miei 4 campioni RNA-seq.
 Ecco il report generato:
 
-[INCOLLA QUI IL CONTENUTO DEL JSON O SCREENSHOT DEL REPORT]
+[INCOLLA QUI SCREENSHOT O STATISTICHE CHIAVE DAL REPORT MULTIQC]
 
 Spiegami:
-1. La qualità complessiva dei miei dati è buona?
-2. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?
-3. Posso procedere con l'analisi o devo preoccuparmi?
+1. La qualità complessiva di tutti i miei campioni è buona?
+2. Ci sono campioni con qualità significativamente diversa dagli altri?
+3. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?
+4. Tutti i campioni possono procedere all'allineamento o qualcuno va escluso?
 
-Focalizzati su: Phred score, contenuto di adattatori, e duplicazione.
+Focalizzati su:
+- Confronto Phred score tra campioni
+- Contenuto di adattatori (% rimossa)
+- Duplicazione e library size dopo trimming
+- Identificazione di outliers
 ```
 
 ---
 
 ## 🧬 Quantificazione (Salmon)
 
-### Prompt 0c: Creare l'indice Salmon (opzionale)
+### Prompt 0d: Creare l'indice Salmon (demo didattico)
 ```
-Ho un file FASTA con le sequenze dei trascritti:
+Ho un file FASTA compresso con le sequenze dei trascritti:
 - data/trascriptome_TINY/gencode.v43.transcripts_TINY.fa.gz
 
-Crea un indice Salmon per la quantificazione.
-Salva l'indice in 'data/trascriptome_TINY/my_salmon_index/'
+Voglio creare un indice Salmon da questo file per capire il processo.
+Crea l'indice in 'data/trascriptome_TINY/my_salmon_index/'
 
-Genera il comando e spiega:
-- Cos'è un indice e perché serve?
-- Si può riutilizzare per altri esperimenti?
+Genera il comando Salmon appropriato e spiega:
+1. Cos'è un indice e perché è necessario per la quantificazione?
+2. Quanto tempo ci vuole tipicamente (per questo subset vs un genoma completo)?
+3. L'indice può essere riutilizzato per altri esperimenti con lo stesso organismo?
+4. Quali sono i parametri chiave del comando (es. -k per k-mer size)?
+
+NOTA: Posso poi usare l'indice già pronto in gencode.v43_TINY.salmon/ per risparmiare tempo.
 ```
 
-💡 **Nota**: L'indice è già disponibile in `data/trascriptome_TINY/gencode.v43_TINY.salmon/` - questo prompt è solo didattico!
+💡 **Demo vs Produzione**: Questo step mostra *come* si crea un indice. Per l'analisi vera, useremo l'indice pre-costruito in `gencode.v43_TINY.salmon/` per risparmiare tempo (~5-10 min per il subset, ore per un genoma completo).
 
-### Prompt 0d: Quantificare con Salmon
+### Prompt 0e: Quantificare con Salmon
 ```
 Ho file FASTQ paired-end (dopo QC con fastp):
 - results/fastp/SRR1039508_pass_1_trimmed.fastq
@@ -110,7 +155,7 @@ Genera il comando e spiega:
 - `cmd_info.json` - parametri usati
 - `logs/` - log del processo
 
-### Prompt 0e: Quantificare tutti i campioni (batch)
+### Prompt 0f: Quantificare tutti i campioni (batch)
 ```
 Ho 4 campioni paired-end da quantificare con Salmon:
 - SRR1039508, SRR1039509, SRR1039512, SRR1039513
@@ -128,7 +173,7 @@ Genera uno script bash che:
 Spiega come verificare che tutti i campioni sono stati processati correttamente.
 ```
 
-### Prompt 0f: Importare Salmon in R (tximport)
+### Prompt 0g: Importare Salmon in R (tximport)
 ```
 Ho i risultati di Salmon per 4 campioni in:
 - results/salmon/SRR1039508/quant.sf
@@ -410,6 +455,7 @@ Cosa potrebbe essere sbagliato? Quali controlli fare?
 | Phase | Skill Used | Key Functions |
 |-------|------------|---------------|
 | Trimming | CLI tool | fastp (QC + adapter trimming) |
+| QC Aggregation | CLI tool | MultiQC (combine reports) |
 | Quantification | CLI tool | salmon (transcript-level quant) |
 | FastQC | `bio-rnaseq-qc` | Phred, adapters, duplication |
 | QC | `bio-rna-quantification-count-matrix-qc` | Filter, PCA, correlation |
