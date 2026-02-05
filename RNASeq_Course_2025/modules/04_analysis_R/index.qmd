@@ -54,6 +54,8 @@ Questo modulo è interamente pratico. Useremo RStudio per analizzare i dati proc
     - Il modello statistico: Normalizzazione, Dispersione, Test.
 4.  **[Visualizzazione](04_visualization.qmd)**
     - Interpretare PCA, Heatmaps, Volcano plots.
+5.  **[🔥 Demo AI-Driven Analysis](demo_prompts.qmd)**
+    - Guida pratica con prompt per Copilot/ChatGPT.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
