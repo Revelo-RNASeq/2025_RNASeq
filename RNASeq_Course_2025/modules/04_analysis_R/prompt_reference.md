@@ -4,19 +4,50 @@ Quick reference guide for the practical demo. Copy prompts into Copilot Chat or 
 
 ---
 
-## � QC dei Reads (FASTQ)
+## 🔍 QC dei Reads (FASTQ)
 
-### Prompt 0: MultiQC Interpretation
+### Prompt 0a: QC e Trimming dei FASTQ
 ```
-Sono un bioinformatico principiante. Spiegami come interpretare un report MultiQC per dati RNA-seq (Illumina).
+Ho file FASTQ paired-end da un esperimento RNA-seq Illumina:
+- sample_R1.fastq.gz (forward reads)
+- sample_R2.fastq.gz (reverse reads)
 
-Quali sono i 3 segnali di allarme più gravi (red flags) che dovrebbero fermare la mia analisi prima ancora di iniziare?
-Focalizzati su: qualità delle basi (Phred score), contenuto di adattatori e duplicazione.
+Esegui il quality control e il trimming degli adattatori.
+Voglio:
+1. Rimuovere le basi di bassa qualità (Phred < 20)
+2. Rimuovere automaticamente gli adattatori Illumina
+3. Scartare i reads troppo corti dopo il trimming (< 36 bp)
+4. Generare un report HTML per visualizzare i risultati
+
+Genera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.
+```
+
+💡 **Cosa succede**: L'AI riconoscerà che serve uno strumento di QC per FASTQ e genererà il comando appropriato (tipicamente `fastp`), spiegando ogni opzione.
+
+📊 **Output atteso**: Un report HTML da aprire nel browser con:
+- Qualità delle basi prima/dopo il trimming
+- Contenuto di adattatori rimossi
+- Distribuzione delle lunghezze dei reads
+- % di reads filtrati
+
+### Prompt 0b: Interpretazione Report QC
+```
+Ho eseguito il QC sui miei file FASTQ RNA-seq.
+Ecco il report generato:
+
+[INCOLLA QUI IL CONTENUTO DEL JSON O SCREENSHOT DEL REPORT]
+
+Spiegami:
+1. La qualità complessiva dei miei dati è buona?
+2. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?
+3. Posso procedere con l'analisi o devo preoccuparmi?
+
+Focalizzati su: Phred score, contenuto di adattatori, e duplicazione.
 ```
 
 ---
 
-## �🔧 Setup
+## 🔧 Setup
 
 ### Prompt 1: Environment Setup
 ```
@@ -274,6 +305,7 @@ Cosa potrebbe essere sbagliato? Quali controlli fare?
 
 | Phase | Skill Used | Key Functions |
 |-------|------------|---------------|
+| Trimming | CLI tool | fastp (QC + adapter trimming) |
 | FastQC | `bio-rnaseq-qc` | Phred, adapters, duplication |
 | QC | `bio-rna-quantification-count-matrix-qc` | Filter, PCA, correlation |
 | DE | `bio-workflows-rnaseq-to-de` | DESeq2, tximport |
