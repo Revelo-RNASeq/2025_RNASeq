@@ -4,13 +4,36 @@ Quick reference guide for the practical demo. Copy prompts into Copilot Chat or 
 
 ---
 
-## 🔍 QC dei Reads (FASTQ)
+## � Demo Data
+
+I file per il demo sono in `data/`:
+
+| Cartella | Contenuto |
+|----------|-----------|
+| `fastq_SUBSET/` | 4 campioni paired-end (airway dataset) |
+| `trascriptome_TINY/` | Trascrittoma GENCODE v43 (subset) + indice Salmon |
+
+**Campioni FASTQ** (subset per velocità):
+| Sample | R1 | R2 | Condition |
+|--------|----|----|-----------|
+| SRR1039508 | `SRR1039508_pass_1_SUBSET.fastq` | `SRR1039508_pass_2_SUBSET.fastq` | control |
+| SRR1039509 | `SRR1039509_pass_1_SUBSET.fastq` | `SRR1039509_pass_2_SUBSET.fastq` | treatment |
+| SRR1039512 | `SRR1039512_pass_1_SUBSET.fastq` | `SRR1039512_pass_2_SUBSET.fastq` | control |
+| SRR1039513 | `SRR1039513_pass_1_SUBSET.fastq` | `SRR1039513_pass_2_SUBSET.fastq` | treatment |
+
+**Transcriptome**:
+- `gencode.v43.transcripts_TINY.fa.gz` - per creare l'indice
+- `gencode.v43_TINY.salmon/` - indice Salmon pre-costruito
+
+---
+
+## �🔍 QC dei Reads (FASTQ)
 
 ### Prompt 0a: QC e Trimming dei FASTQ
 ```
-Ho file FASTQ paired-end da un esperimento RNA-seq Illumina:
-- sample_R1.fastq.gz (forward reads)
-- sample_R2.fastq.gz (reverse reads)
+Ho file FASTQ paired-end da un esperimento RNA-seq Illumina nella cartella data/fastq_SUBSET/:
+- SRR1039508_pass_1_SUBSET.fastq (forward reads)
+- SRR1039508_pass_2_SUBSET.fastq (reverse reads)
 
 Esegui il quality control e il trimming degli adattatori.
 Voglio:
@@ -18,6 +41,7 @@ Voglio:
 2. Rimuovere automaticamente gli adattatori Illumina
 3. Scartare i reads troppo corti dopo il trimming (< 36 bp)
 4. Generare un report HTML per visualizzare i risultati
+5. Salvare gli output in una cartella 'results/fastp/'
 
 Genera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.
 ```
@@ -43,6 +67,86 @@ Spiegami:
 3. Posso procedere con l'analisi o devo preoccuparmi?
 
 Focalizzati su: Phred score, contenuto di adattatori, e duplicazione.
+```
+
+---
+
+## 🧬 Quantificazione (Salmon)
+
+### Prompt 0c: Creare l'indice Salmon (opzionale)
+```
+Ho un file FASTA con le sequenze dei trascritti:
+- data/trascriptome_TINY/gencode.v43.transcripts_TINY.fa.gz
+
+Crea un indice Salmon per la quantificazione.
+Salva l'indice in 'data/trascriptome_TINY/my_salmon_index/'
+
+Genera il comando e spiega:
+- Cos'è un indice e perché serve?
+- Si può riutilizzare per altri esperimenti?
+```
+
+💡 **Nota**: L'indice è già disponibile in `data/trascriptome_TINY/gencode.v43_TINY.salmon/` - questo prompt è solo didattico!
+
+### Prompt 0d: Quantificare con Salmon
+```
+Ho file FASTQ paired-end (dopo QC con fastp):
+- results/fastp/SRR1039508_pass_1_trimmed.fastq
+- results/fastp/SRR1039508_pass_2_trimmed.fastq
+
+E un indice Salmon pre-costruito:
+- data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Quantifica l'espressione genica con Salmon.
+Salva i risultati in 'results/salmon/SRR1039508/'
+
+Genera il comando e spiega:
+- Cosa sono i TPM e i counts che Salmon produce?
+- Come si interpretano i file output (quant.sf)?
+```
+
+📊 **Output atteso**: Cartella con:
+- `quant.sf` - quantificazione per trascritto (TPM, counts)
+- `cmd_info.json` - parametri usati
+- `logs/` - log del processo
+
+### Prompt 0e: Quantificare tutti i campioni (batch)
+```
+Ho 4 campioni paired-end da quantificare con Salmon:
+- SRR1039508, SRR1039509, SRR1039512, SRR1039513
+
+I file trimmed sono in results/fastp/ con pattern:
+- {sample}_pass_1_trimmed.fastq e {sample}_pass_2_trimmed.fastq
+
+L'indice Salmon è in: data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Genera uno script bash che:
+1. Crei la cartella results/salmon/
+2. Esegua Salmon quant per ogni campione
+3. Salvi ogni output in results/salmon/{sample}/
+
+Spiega come verificare che tutti i campioni sono stati processati correttamente.
+```
+
+### Prompt 0f: Importare Salmon in R (tximport)
+```
+Ho i risultati di Salmon per 4 campioni in:
+- results/salmon/SRR1039508/quant.sf
+- results/salmon/SRR1039509/quant.sf
+- results/salmon/SRR1039512/quant.sf
+- results/salmon/SRR1039513/quant.sf
+
+Ho bisogno di una corrispondenza trascritto → gene (tx2gene).
+
+Importa i risultati in R con tximport e:
+1. Se non ho un file tx2gene, crealo dai nomi dei trascritti GENCODE (ENST → ENSG)
+2. Aggrega i counts a livello di gene
+3. Salva la matrice di conteggi come 'data/counts_matrix.csv'
+4. Crea anche il file 'data/sample_metadata.csv' con le condizioni
+
+Spiega:
+- Perché aggregare a livello di gene invece che trascritto?
+- Cosa fa tximport diversamente da un semplice merge?
 ```
 
 ---
@@ -306,6 +410,7 @@ Cosa potrebbe essere sbagliato? Quali controlli fare?
 | Phase | Skill Used | Key Functions |
 |-------|------------|---------------|
 | Trimming | CLI tool | fastp (QC + adapter trimming) |
+| Quantification | CLI tool | salmon (transcript-level quant) |
 | FastQC | `bio-rnaseq-qc` | Phred, adapters, duplication |
 | QC | `bio-rna-quantification-count-matrix-qc` | Filter, PCA, correlation |
 | DE | `bio-workflows-rnaseq-to-de` | DESeq2, tximport |

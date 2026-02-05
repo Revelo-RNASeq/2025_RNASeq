@@ -17,46 +17,166 @@ editor: source
 
 Questa guida vi accompagna attraverso un'analisi RNA-seq completa usando l'AI come "pair programmer".
 
-**Dataset**: GSE96870 - Espressione genica nel cervelletto di topo
+**Dataset**: Airway - Trattamento con desametasone (4 campioni paired-end)
 
 **Workflow**:
 
-1. � **QC dei Reads** (Interpretazione)
-2. 📊 **QC della matrice** (in R)
-3. 🔬 **Analisi Esplorativa** (PCA, correlazione)
-4. 📈 **Analisi Differenziale** (DESeq2)
-5. 🎨 **Visualizzazione**
+1. 🔍 **QC e Trimming** (fastp)
+2. 🧬 **Quantificazione** (Salmon)
+3. 📊 **QC della matrice** (in R)
+4. 🔬 **Analisi Esplorativa** (PCA, correlazione)
+5. 📈 **Analisi Differenziale** (DESeq2)
+6. 🎨 **Visualizzazione**
 
 ---
 
-# Step 0: QC dei Reads (FASTQ) {background-color="#555"}
+## Demo Data {background-color="#f0f0f0"}
+
+File disponibili in `data/`:
+
+| Cartella | Contenuto |
+|----------|--------|
+| `fastq_SUBSET/` | 4 campioni paired-end (airway) |
+| `trascriptome_TINY/` | GENCODE v43 (subset) + indice Salmon |
+
+**Campioni**: SRR1039508 (control), SRR1039509 (treatment), SRR1039512 (control), SRR1039513 (treatment)
 
 ---
 
-## Il "Paziente Zero" dell'Analisi
-
-Prima di importare dati in R, dobbiamo essere sicuri che i reads grezzi (FASTQ) siano di qualità.
-
-Solitamente questo step avviene in una pipeline (es. `nf-core/rnaseq`) e produce un report **MultiQC**.
-
-In questo demo, non possiamo lanciare `fastp` (richiede terminale Linux e file enormi), ma possiamo chiedere all'AI di spiegarci cosa cercare.
+# Step 0: QC e Trimming {background-color="#555"}
 
 ---
 
-## Prompt 0.1: Interpretazione MultiQC
+## Prompt 0a: QC con fastp
 
 ::: {.callout-tip}
 ## Copia questo prompt in Copilot Chat
 
 ```
-Sono un bioinformatico principiante. Spiegami come interpretare un report MultiQC per dati RNA-seq (Illumina).
+Ho file FASTQ paired-end da un esperimento RNA-seq Illumina nella cartella data/fastq_SUBSET/:
+- SRR1039508_pass_1_SUBSET.fastq (forward reads)
+- SRR1039508_pass_2_SUBSET.fastq (reverse reads)
 
-Quali sono i 3 segnali di allarme più gravi (red flags) che dovrebbero fermare la mia analisi prima ancora di iniziare?
-Focalizzati su: qualità delle basi (Phred score), contenuto di adattatori e duplicazione.
+Esegui il quality control e il trimming degli adattatori.
+Voglio:
+1. Rimuovere le basi di bassa qualità (Phred < 20)
+2. Rimuovere automaticamente gli adattatori Illumina
+3. Scartare i reads troppo corti dopo il trimming (< 36 bp)
+4. Generare un report HTML per visualizzare i risultati
+5. Salvare gli output in una cartella 'results/fastp/'
+
+Genera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.
 ```
 :::
 
-**Concetto chiave**: Se i dati in ingresso sono spazzatura (GIGO - Garbage In, Garbage Out), nessuna analisi statistica in R potrà salvarvi.
+💡 **L'AI genererà il comando fastp appropriato**
+
+---
+
+## Prompt 0b: Interpretazione Report
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho eseguito il QC sui miei file FASTQ RNA-seq.
+Ecco il report generato:
+
+[INCOLLA QUI IL CONTENUTO DEL JSON O SCREENSHOT DEL REPORT]
+
+Spiegami:
+1. La qualità complessiva dei miei dati è buona?
+2. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?
+3. Posso procedere con l'analisi o devo preoccuparmi?
+
+Focalizzati su: Phred score, contenuto di adattatori, e duplicazione.
+```
+:::
+
+**Concetto chiave**: GIGO - Garbage In, Garbage Out
+
+---
+
+# Step 0bis: Quantificazione Salmon {background-color="#7570B3"}
+
+---
+
+## Prompt 0c: Quantificare con Salmon
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho file FASTQ paired-end (dopo QC con fastp):
+- results/fastp/SRR1039508_pass_1_trimmed.fastq
+- results/fastp/SRR1039508_pass_2_trimmed.fastq
+
+E un indice Salmon pre-costruito:
+- data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Quantifica l'espressione genica con Salmon.
+Salva i risultati in 'results/salmon/SRR1039508/'
+
+Genera il comando e spiega:
+- Cosa sono i TPM e i counts che Salmon produce?
+- Come si interpretano i file output (quant.sf)?
+```
+:::
+
+📊 **Output**: File `quant.sf` con TPM e counts per trascritto
+
+---
+
+## Prompt 0d: Batch Quantification
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho 4 campioni paired-end da quantificare con Salmon:
+- SRR1039508, SRR1039509, SRR1039512, SRR1039513
+
+I file trimmed sono in results/fastp/ con pattern:
+- {sample}_pass_1_trimmed.fastq e {sample}_pass_2_trimmed.fastq
+
+L'indice Salmon è in: data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Genera uno script bash che:
+1. Crei la cartella results/salmon/
+2. Esegua Salmon quant per ogni campione
+3. Salvi ogni output in results/salmon/{sample}/
+
+Spiega come verificare che tutti i campioni sono stati processati correttamente.
+```
+:::
+
+---
+
+## Prompt 0e: Importare in R (tximport)
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho i risultati di Salmon per 4 campioni in:
+- results/salmon/SRR1039508/quant.sf
+- results/salmon/SRR1039509/quant.sf
+- results/salmon/SRR1039512/quant.sf
+- results/salmon/SRR1039513/quant.sf
+
+Ho bisogno di una corrispondenza trascritto → gene (tx2gene).
+
+Importa i risultati in R con tximport e:
+1. Se non ho un file tx2gene, crealo dai nomi dei trascritti GENCODE (ENST → ENSG)
+2. Aggrega i counts a livello di gene
+3. Salva la matrice di conteggi come 'data/counts_matrix.csv'
+4. Crea anche il file 'data/sample_metadata.csv' con le condizioni
+
+Spiega:
+- Perché aggregare a livello di gene invece che trascritto?
+- Cosa fa tximport diversamente da un semplice merge?
+```
+:::
 
 ---
 
