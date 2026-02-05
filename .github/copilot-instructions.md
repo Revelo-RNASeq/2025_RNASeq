@@ -1,50 +1,108 @@
 # Copilot Instructions for REVELO RNA-Seq Course
 
-This project is a Quarto-based educational course: **"Analisi Bulk RNA-Seq per Dottorandi"**.
+Quarto-based educational course: **"Analisi Bulk RNA-Seq per Dottorandi"** in Italian for PhD students.
 
 ## Project Architecture
-- **Root**: `RNASeq_Course_2025/` contains the active source code for the Quarto website and slides.
-- **Legacy**: `2024_RNASeq_website/` contains reference material (do not edit unless specified).
-- **Modules**: Located in `RNASeq_Course_2025/modules/<module_name>/`.
-  - Content is organized into `.qmd` files (RevealJS presentations).
-  - Each module has an `index.qmd` acting as the landing page.
-- **Skills**: `.github/skills/` contains "GitHub Skills" definitions used for AI-assisted practical demos.
+
+```
+RNASeq_Course_2025/           # ACTIVE - Website + RevealJS slides
+├── modules/
+│   ├── 01_intro/             # Course introduction
+│   ├── 02_rnaseq_basics/     # RNA-seq biology & experimental design
+│   ├── 03_pipeline_nfcore/   # nf-core/rnaseq pipeline  
+│   └── 04_analysis_R/        # R analysis (AI-driven demos)
+│       ├── index.qmd         # Module landing page
+│       ├── 01_tools.qmd      # RStudio setup
+│       ├── 02_import.qmd     # tximport workflow
+│       ├── 03_deseq2.qmd     # DESeq2 statistics
+│       ├── 04_visualization.qmd
+│       └── demo_prompts.qmd  # AI prompt templates
+├── data/                     # Demo datasets (airway)
+└── _quarto.yml               # Website config
+
+resources/external/RNASeq/    # REFERENCE BOOK - Deep-dive R tutorials
+├── 001_sec-preproc*.qmd      # Preprocessing (import, filter, EDA)
+├── 002_sec-DEG*.qmd          # Differential expression
+├── 003_sec-vis*.qmd          # Visualization
+└── _quarto.yml               # Book config
+
+.github/skills/               # AI skills for domain knowledge
+```
+
+## Developer Workflow
+
+```bash
+# Preview website
+cd RNASeq_Course_2025 && quarto preview
+
+# Preview reference book
+cd resources/external/RNASeq && quarto preview
+
+# Render single slide deck
+quarto render modules/04_analysis_R/demo_prompts.qmd
+```
+
+## RevealJS Slide Template
+
+All slide files use this YAML header:
+```yaml
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+mainfont: "Times New Roman"
+filters:
+  - roughnotation
+```
+
+**Slide patterns** (see `modules/02_rnaseq_basics/index.qmd`):
+- Title slides: background-image + absolute positioned text box
+- Section headers: `{.tit .p-span-center}` class
+- Emphasis: `{.rn}` class for roughnotation highlight
+- Two-column layout: `:::: {.columns}` / `::: {.column width="50%"}`
+
+## AI-Assisted Teaching Model
+
+**Philosophy**: Students learn to *prompt* and *verify*, not write raw code.
+
+**Module 4 Demo Flow** (see `demo_prompts.qmd`):
+1. Present concept (Italian explanation)
+2. Show prompt template in `::: {.callout-tip}` block
+3. Student copies prompt → AI generates code → Student runs & verifies
+
+**Available Skills** (`.github/skills/`):
+| Skill | Use Case |
+|-------|----------|
+| `bio-rnaseq-qc` | FastQC/MultiQC interpretation, QC thresholds |
+| `bio-rna-quantification-count-matrix-qc` | Count matrix validation before DE |
+| `bio-workflows-rnaseq-to-de` | End-to-end Salmon → DESeq2 pipeline |
+| `bio-data-visualization-heatmaps-clustering` | ComplexHeatmap patterns |
+| `bio-data-visualization-specialized-omics-plots` | Volcano, MA, PCA plots |
+
+When creating new demo content, read relevant `SKILL.md` to ensure accuracy.
 
 ## Content Guidelines
-- **Target Audience**: PhD students with biological backgrounds. Focus on *concepts* and *logic*, not syntax memorization.
-- **Language**: All student-facing content must be in **Italian**.
-- **Format**:
-  - **Slides**: Use `revealjs` format in `.qmd` files.
-  - **YAML Headers**: standard configuration:
-    ```yaml
-    format:
-      revealjs:
-        theme: simple
-        navigation-mode: vertical
-        mainfont: "Times New Roman"
-        logo: "images/revelo.png"
-    ```
-  - **Highlighting**: Use `roughnotation` filters for emphasis.
 
-## AI-Assisted Analysis & GitHub Skills
-- **Philosophy**: The course teaches "AI as a pair programmer". Students focus on prompting and verification.
-- **Practical Demos (Module 4)**:
-  - Do **not** expect students to write raw R code.
-  - **Workflow**:
-    1.  **Select Skill**: Use skills from `.github/skills/` (e.g., `bio-data-visualization-heatmaps-clustering`).
-    2.  **Prompt**: Students prompt the AI (Copilot/ChatGPT) using the skill's context.
-    3.  **Verify**: Students run and validate the generated code using provided datasets.
-  - **Reference**: When creating demo content, refer to the specific `SKILL.md` in `.github/skills/`.
+- **Language**: All student-facing content in **Italian**
+- **Focus**: Concepts and biological interpretation, NOT syntax memorization
+- **Code blocks**: Show expected output, not just code
+- **Callouts**: Use `.callout-important` for critical concepts, `.callout-tip` for prompts
 
-## File & Path Conventions
-- **Links**: Use relative paths from the document root.
-- **Images**: Store module-specific images in `modules/<module>/images/` or shared in `RNASeq_Course_2025/data/images/`.
-- **Naming**: Use snake_case for directories and files (e.g., `01_intro.qmd`, `02_rnaseq_basics/`).
-- **Data**: Pre-computed results for demos are in `RNASeq_Course_2025/data/`.
+## File Conventions
+
+- **Naming**: `NN_topic.qmd` (e.g., `01_tools.qmd`, `02_import.qmd`)
+- **Images**: `modules/<module>/images/` or shared in `data/images/`
+- **Links**: Relative paths from document root
+- **Data**: Pre-computed in `data/` (airway dataset for demos)
 
 ## Tech Stack
-- **Engine**: Quarto (render to HTML/Website).
-- **Pipeline**: `nf-core/rnaseq` (Star/Salmon) is the reference upstream workflow.
-- **Analysis**: R (Bioconductor) via AI-generated scripts.
-  - Key Libraries: `tximport`, `DESeq2`, `clusterProfiler`, `ComplexHeatmap`.
-- **Styling**: `css/theme.css` and `css/custom.css`.
+
+- **Render**: Quarto → HTML website
+- **Pipeline**: nf-core/rnaseq (STAR/Salmon)
+- **Analysis**: R/Bioconductor (`tximport`, `DESeq2`, `ComplexHeatmap`, `clusterProfiler`)
+- **Styling**: `css/theme.css`, `css/custom.css`
