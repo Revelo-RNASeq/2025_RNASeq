@@ -197,6 +197,7 @@ The repository includes bioinformatics skills in `.github/skills/` that provide 
 | `bio-workflows-rnaseq-to-de` | End-to-end Salmon → DESeq2 pipeline guidance |
 | `bio-data-visualization-heatmaps-clustering` | ComplexHeatmap patterns, clustering strategies |
 | `bio-data-visualization-specialized-omics-plots` | Volcano, MA, PCA plots for RNA-seq |
+| `rnaseq-pipeline-cleanup` | Safely remove AI pipeline-generated results (QC, quantification, analysis outputs) without affecting source data |
 
 ### Using Skills
 

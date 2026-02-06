@@ -4,16 +4,22 @@ Quick reference guide for the practical demo. Copy prompts into Copilot Chat or 
 
 ---
 
-## � Demo Data
+## 📂 Demo Data
+
+**Pipeline in due fasi**:
+1. **Fase 1 (Prompts 0a-0g)**: QC e quantificazione con 4 campioni FASTQ subset
+2. **Fase 2 (Prompts 1-14)**: Analisi completa con il dataset `airway` (8 campioni)
+
+### Fase 1: FASTQ Files
 
 I file per il demo sono in `data/`:
 
 | Cartella | Contenuto |
 |----------|-----------|
-| `fastq_SUBSET/` | 4 campioni paired-end (airway dataset) |
+| `fastq_SUBSET/` | 4 campioni paired-end (subset per velocità) |
 | `trascriptome_TINY/` | Trascrittoma GENCODE v43 (subset) + indice Salmon |
 
-**Campioni FASTQ** (subset per velocità):
+**Campioni FASTQ** (subset didattico - 4 campioni):
 | Sample | R1 | R2 | Condition |
 |--------|----|----|-----------|
 | SRR1039508 | `SRR1039508_pass_1_SUBSET.fastq` | `SRR1039508_pass_2_SUBSET.fastq` | control |
@@ -25,9 +31,25 @@ I file per il demo sono in `data/`:
 - `gencode.v43.transcripts_TINY.fa.gz` - per creare l'indice
 - `gencode.v43_TINY.salmon/` - indice Salmon pre-costruito
 
+### Fase 2: Dataset Airway (R Package)
+
+Per l'analisi statistica e visualizzazione, useremo il dataset completo dal pacchetto Bioconductor `airway`:
+
+**Caratteristiche**:
+- **8 campioni**: 4 controlli (`untrt`) + 4 trattati con desametasone (`trt`)
+- **4 linee cellulari** (biological replicates): N61311, N052611, N080611, N061011
+- **~64,000 geni** quantificati
+- **Design sperimentale più robusto** per analisi statistica
+
+💡 **Perché questo switch?**: 
+- Il subset FASTQ (4 campioni) è ottimo per imparare la pipeline di preprocessing (veloce, didattico)
+- Il dataset `airway` completo è più appropriato per imparare l'analisi statistica (più replicati = più potenza statistica)
+
 ---
 
-## �🔍 QC dei Reads (FASTQ)
+## 🔬 FASE 1: QC e Quantificazione
+
+### 🔍 QC dei Reads (FASTQ)
 
 ### Prompt 0a: QC e Trimming dei FASTQ
 ```
@@ -119,21 +141,34 @@ Salva counts_matrix.csv e sample_metadata.csv in data/
 
 ---
 
+## 🧬 FASE 2: Analisi Statistica (Dataset Airway)
+
+**🔄 Switch Dataset**: Da questo punto in poi, useremo il dataset `airway` completo (8 campioni) per un'analisi statistica più robusta.
+
+---
+
 ## 🔧 Setup
 
 ### Prompt 1: Environment Setup
 ```
 Setup ambiente per analisi RNA-seq in R.
-Librerie: DESeq2, tximport, ggplot2, pheatmap.
+Librerie: DESeq2, airway, ggplot2, pheatmap, ComplexHeatmap.
 Crea cartella results/
 ```
 
-### Prompt 2: Load Data
+### Prompt 2: Load Airway Dataset
 ```
-Carica data/counts_matrix.csv e data/sample_metadata.csv
-Verifica corrispondenza campioni.
-Converti condition in factor (control, treatment).
+Carica il dataset airway dal pacchetto Bioconductor.
+Estrai la matrice dei conteggi e i metadati dei campioni.
+Mostra struttura del dataset: numero campioni, numero geni, condizioni.
+Converti 'dex' (trattamento) in factor (untrt, trt).
 ```
+
+💡 **Cosa succede**: L'AI caricherà il pacchetto `airway`, estrarrà l'oggetto `SummarizedExperiment`, e preparerà i dati per DESeq2.
+
+📊 **Output atteso**:
+- Matrice conteggi: 64,102 geni × 8 campioni
+- Metadata: sample ID, cell line (4 linee), dex treatment (untrt/trt)
 
 ---
 
@@ -141,17 +176,34 @@ Converti condition in factor (control, treatment).
 
 ### Prompt 3: Library Size Check
 ```
-Analizza library size della matrice di conteggi.
-Crea barplot per condizione.
+Analizza library size della matrice di conteggi airway.
+Crea barplot per condizione (untrt vs trt) e linea cellulare.
 Identifica outliers.
 ```
 
 ### Prompt 4: Gene Filtering
 ```
-Filtra geni a bassa espressione (min 10 counts, in almeno 3 campioni).
+Filtra geni a bassa espressione dal dataset airway (min 10 counts, in almeno 4 campioni).
 Mostra distribuzione prima/dopo.
 Spiega il razionale.
+Quanti geni rimangono?
 ```
+
+### Prompt 4b: PCA Esplorativa su Dati Raw
+```
+Prima della normalizzazione, crea un PCA plot sui dati raw airway filtrati.
+Applica trasformazione log2 con pseudocount (+1) per stabilizzare la varianza.
+Usa i top 500 geni più variabili.
+Colora per trattamento (dex), forma per linea cellulare (cell).
+Salva results/pca_raw_counts.pdf
+```
+
+💡 **Perché questo step?**: Il PCA sui dati raw (log-transformed) permette di identificare batch effects, outliers o problemi tecnici **prima** della normalizzazione. Se vediamo separazione per fattori tecnici invece che biologici, possiamo correggere il design.
+
+📊 **Cosa cercare**: 
+- I campioni dovrebbero separarsi per trattamento (biologico), non per batch tecnico
+- Outliers evidenti che potrebbero richiedere rimozione
+- Differenze di library size non dovrebbero dominare la varianza (altrimenti la normalizzazione è necessaria)
 
 ---
 
@@ -159,22 +211,28 @@ Spiega il razionale.
 
 ### Prompt 5: VST Transformation
 ```
-Crea DESeqDataSet con counts_filtered e metadata (design: ~condition).
+Crea DESeqDataSet con counts_filtered airway e metadata (design: ~dex).
 Applica trasformazione VST.
 Spiega perché usare VST invece di log2.
 ```
 
-### Prompt 6: PCA Plot
+### Prompt 6: PCA Plot (Dati Normalizzati)
 ```
-Crea PCA plot (top 500 geni) dei campioni VST-normalizzati.
-Colora per condition, aggiungi ellissi 95%.
-Salva results/pca_plot.pdf
+Crea PCA plot (top 500 geni) dei campioni airway VST-normalizzati.
+Colora per trattamento (dex), forma per linea cellulare (cell).
+Aggiungi ellissi 95% per gruppo di trattamento.
+Salva results/pca_plot_vst.pdf
 ```
+
+💡 **Confronto Raw vs VST**: Confronta questo PCA (dati normalizzati) con quello dei dati raw (Prompt 4b). La normalizzazione VST dovrebbe ridurre l'effetto della library size e stabilizzare la varianza, rendendo la separazione biologica più chiara.
+
+📊 **Cosa cercare**: Con 8 campioni e 2 condizioni, il PCA dovrebbe mostrare una chiara separazione tra untrt e trt lungo PC1, più netta rispetto ai dati raw.
 
 ### Prompt 7: Sample Correlation
 ```
-Crea heatmap di correlazione (Pearson) tra campioni VST.
-Annota per condition, aggiungi clustering.
+Crea heatmap di correlazione (Pearson) tra campioni airway VST.
+Annota per trattamento (dex) e linea cellulare (cell).
+Aggiungi clustering gerarchico (euclidean, complete).
 Salva results/sample_correlation.pdf
 ```
 
@@ -184,23 +242,30 @@ Salva results/sample_correlation.pdf
 
 ### Prompt 8: DESeq2 Analysis
 ```
-Esegui analisi differenziale con DESeq2.
-Controllo: control, trattamento: treatment.
-Applica shrinkage. Mostra summary.
+Esegui analisi differenziale con DESeq2 sul dataset airway.
+Contrasto: trt vs untrt (trattati con desametasone vs controlli).
+Applica shrinkage (apeglm).
+Mostra summary: quanti geni up/down regulated?
 ```
+
+💡 **Risultati attesi**: ~1000-1500 geni differenzialmente espressi (p-adj < 0.1) tra trattati e controlli.
 
 ### Prompt 9: Diagnostic Plots
 ```
-Crea plot diagnostici DESeq2: dispersion plot, p-value histogram, MA plot.
+Crea plot diagnostici DESeq2 per il dataset airway:
+1. Dispersion plot (gene-wise vs fitted)
+2. P-value histogram
+3. MA plot (log2FC vs mean expression)
 Salva in results/
 Spiega come interpretarli.
 ```
 
 ### Prompt 10: Filter Results
 ```
-Filtra geni significativi (padj<0.05, |LFC|>1).
-Separa UP/DOWN, crea summary.
-Salva results/DE_genes.csv
+Filtra geni significativi dal confronto trt vs untrt (padj<0.05, |LFC|>1).
+Separa UP/DOWN regulated.
+Crea summary table: quanti geni in ogni categoria?
+Salva results/DE_genes_airway.csv con gene names (se disponibili).
 ```
 
 ---
@@ -209,23 +274,31 @@ Salva results/DE_genes.csv
 
 ### Prompt 11: Volcano Plot
 ```
-Crea volcano plot con risultati DESeq2.
+Crea volcano plot con risultati DESeq2 airway (trt vs untrt).
 Colora UP (rosso), DOWN (blu), NS (grigio).
-Etichetta top 10 geni. Salva results/volcano_plot.pdf
+Soglie: padj<0.05, |LFC|>1.
+Etichetta top 10 geni per significatività.
+Salva results/volcano_plot_airway.pdf
 ```
 
 ### Prompt 12: Heatmap Top Genes
 ```
-Crea heatmap top 50 geni DE (valori VST, z-score).
-Annota condition, cluster righe/colonne.
-Salva results/heatmap_top50.pdf
+Crea heatmap top 50 geni DE del dataset airway (valori VST, z-score per riga).
+Annota trattamento (dex) e linea cellulare (cell).
+Cluster sia righe che colonne (euclidean, complete).
+Mostra nomi dei geni.
+Salva results/heatmap_top50_airway.pdf
 ```
+
+💡 **Cosa cercare**: I campioni dovrebbero clusterizzare per trattamento (untrt vs trt), con pattern di espressione opposti per geni UP/DOWN.
 
 ### Prompt 13: Gene Boxplots
 ```
-Crea boxplot top 4 geni DE (counts normalizzati).
-Aggiungi punti, colora per condition, mostra p-value.
-Griglia 2x2. Salva results/top_genes_boxplot.pdf
+Crea boxplot top 4 geni DE airway (2 UP, 2 DOWN) con counts normalizzati.
+Aggiungi punti individuali, colora per trattamento (dex).
+Mostra gene symbols e adjusted p-value per ogni gene.
+Griglia 2x2.
+Salva results/top_genes_boxplot_airway.pdf
 ```
 
 ---
@@ -234,9 +307,20 @@ Griglia 2x2. Salva results/top_genes_boxplot.pdf
 
 ### Prompt 14: Summary Report
 ```
-Genera report markdown dell'analisi:
-- Dataset, filtri, QC, risultati DE, top geni
-- Lista file generati
+Genera report markdown dell'analisi completa:
+
+**FASE 1 - QC & Quantification**:
+- 4 campioni FASTQ processati (fastp, Salmon)
+- Tool usati, parametri, output files
+
+**FASE 2 - Statistical Analysis (Airway Dataset)**:
+- 8 campioni, 2 condizioni (trt vs untrt)
+- Geni filtrati, normalizzazione, trasformazione VST
+- QC: PCA su dati raw e normalizzati (confronto), correlation heatmap
+- Risultati DE: numero geni UP/DOWN, top hits
+- Visualizzazioni generate
+
+Lista tutti i file generati in results/
 ```
 
 ---
@@ -261,9 +345,69 @@ Rigenera il codice.
 
 ### When Results Seem Off
 ```
-Ho [NUMERO] geni DE. Sembra [troppo alto/basso].
+Ho [NUMERO] geni DE nel dataset airway. Sembra [troppo alto/basso].
 Cosa è sbagliato? Che controlli fare?
 ```
+
+### Dataset Comparison
+```
+Ho due dataset: FASTQ subset (4 campioni) e airway (8 campioni).
+Spiega le differenze nell'analisi statistica:
+- Potenza statistica
+- Numero geni rilevabili come DE
+- Robustezza delle stime di dispersione
+```
+
+### PCA Raw vs Normalized
+```
+Ho due PCA plot: uno sui dati raw (log2-transformed) e uno sui dati VST-normalizzati.
+Confrontali e spiega:
+- Perché la separazione dei campioni è diversa?
+- Quale mostra meglio il segnale biologico?
+- Quando la normalizzazione è essenziale?
+```
+
+---
+
+## 🧹 Cleanup & Reset
+
+### Prompt 15a: Clean Phase 1 Only
+```
+Ho i risultati della Fase 1 (QC e quantificazione) in data/results/.
+Voglio pulire solo questi file per risparmiare spazio, mantenendo l'analisi in results/.
+
+Rimuovi in modo sicuro:
+- data/results/fastp/
+- data/results/salmon/
+- data/results/multiqc/
+- data/counts_matrix.csv e sample_metadata.csv
+
+Non toccare: data/fastq_SUBSET/ e data/trascriptome_TINY/
+```
+
+### Prompt 15b: Clean Phase 2 Only
+```
+Ho i risultati dell'analisi in results/.
+Voglio ripetere l'analisi con parametri diversi.
+
+Rimuovi in modo sicuro tutti i file in results/ (PDF, CSV, etc.).
+Non toccare: data/ e scripts/
+```
+
+### Prompt 15c: Full Reset
+```
+Voglio resettare completamente il progetto, rimuovendo TUTTI i file generati.
+
+Rimuovi in modo sicuro:
+- data/results/ (tutto)
+- results/ (tutto)
+- data/counts_matrix.csv, sample_metadata.csv
+- .RData, .Rhistory
+
+Preserva solo: data/fastq_SUBSET/, data/trascriptome_TINY/, data/scripts/
+```
+
+💡 **Suggerimento**: Per dettagli completi sulle strategie di cleanup, consulta la skill `rnaseq-pipeline-cleanup` in `.github/skills/`.
 
 ---
 
@@ -279,3 +423,4 @@ Cosa è sbagliato? Che controlli fare?
 | DE | `bio-workflows-rnaseq-to-de` | DESeq2, tximport |
 | Viz | `bio-data-visualization-specialized-omics-plots` | Volcano, MA, heatmap |
 | Heatmaps | `bio-data-visualization-heatmaps-clustering` | ComplexHeatmap, pheatmap |
+| Cleanup | `rnaseq-pipeline-cleanup` | Safe removal of generated results |

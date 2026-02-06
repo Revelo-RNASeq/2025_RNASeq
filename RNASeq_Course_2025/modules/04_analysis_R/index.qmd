@@ -62,8 +62,10 @@ Questo modulo è interamente pratico. Useremo RStudio per analizzare i dati proc
 [Risorse]{.subtit}
 
 - **Progetto R**: Scaricare la cartella `RNASeq_Lab` dalla repository del corso.
-- **Dati**: Useremo il dataset "Airway" (Himes et al.) come esempio.
-- **Obiettivo**: Identificare geni regolati dal destametasone in linee cellulari delle vie aeree.
+- **Dati** (approccio a due fasi):
+  - **Fase 1 (QC & Quantification)**: 4 campioni FASTQ subset per imparare la pipeline (veloce, didattico)
+  - **Fase 2 (Analysis)**: Dataset "Airway" completo (8 campioni) dal pacchetto Bioconductor per analisi statistica robusta
+- **Obiettivo**: Identificare geni regolati dal desametasone in linee cellulari delle vie aeree.
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
