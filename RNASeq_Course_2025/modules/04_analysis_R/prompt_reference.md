@@ -4,7 +4,51 @@ Quick reference guide for the practical demo. Copy prompts into Copilot Chat or 
 
 ---
 
-## 📂 Demo Data
+## �️ System Environment Setup (Ubuntu Dev Container)
+
+### Prompt 0: Full Environment Setup
+```
+Ho un ambiente Ubuntu 24.04 dev container per analisi RNA-seq.
+
+Installa tutti gli strumenti necessari:
+
+**Dipendenze di sistema** (apt):
+- git, curl, wget
+- build-essential, cmake (per compilare da sorgente se necessario)
+- zlib1g-dev, libbz2-dev, liblzma-dev (compressione file)
+
+**Bioinformatics tools**:
+- fastp (QC e trimming FASTQ)
+- Salmon (quantificazione trascritti)
+- MultiQC (aggregazione report)
+- samtools (manipolazione file SAM/BAM)
+
+**R e Bioconductor** (ℝ >= 4.3.0):
+- Pacchetti base: tidyverse, ggplot2, dplyr, data.table
+- Bioconductor: tximport, DESeq2, ComplexHeatmap, clusterProfiler
+- Pacchetti demo: airway, AnnotationDbi, org.Hs.eg.db
+- Pacchetti visione: pheatmap, EnhancedVolcano
+
+Fornisci istruzioni per:
+1. Installare dipendenze di sistema con apt
+2. Verificare versioni (fastp --version, salmon --version, R --version)
+3. Installare pacchetti R in batch
+4. Creare cartelle necessarie (results/, results/fastp/, results/salmon/, results/multiqc/)
+5. Verificare l'installazione con test semplici (es. fastp -h, R -e "library(DESeq2)")
+
+Includi comandi per troubleshooting se qualcosa fallisce.
+```
+
+💡 **Cosa aspettarsi**: L'AI genererà uno script bash completo per Ubuntu che installa tutto il necessario, con controlli di validazione. Copia i comandi ed esegui nel terminale del container.
+
+📊 **Verifiche finali**:
+- Tutti i tool di sistema sono disponibili: `which fastp salmon multiqc samtools`
+- R può caricare i pacchetti Bioconductor senza errori
+- Le cartelle `results/` sono pronte per ospitare gli output
+
+---
+
+## �📂 Demo Data
 
 **Pipeline in due fasi**:
 1. **Fase 1 (Prompts 0a-0g)**: QC e quantificazione con 4 campioni FASTQ subset
@@ -147,9 +191,53 @@ Salva counts_matrix.csv e sample_metadata.csv in data/
 
 ---
 
-## 🔧 Setup
+## �️ System Environment Setup (Ubuntu Dev Container)
 
-### Prompt 1: Environment Setup
+### Prompt 0: Full Environment Setup
+```
+Ho un ambiente Ubuntu 24.04 dev container per analisi RNA-seq.
+
+Installa tutti gli strumenti necessari:
+
+**Dipendenze di sistema** (apt):
+- git, curl, wget
+- build-essential, cmake (per compilare da sorgente se necessario)
+- zlib1g-dev, libbz2-dev, liblzma-dev (compressione file)
+
+**Bioinformatics tools**:
+- fastp (QC e trimming FASTQ)
+- Salmon (quantificazione trascritti)
+- MultiQC (aggregazione report)
+- samtools (manipolazione file SAM/BAM)
+
+**R e Bioconductor** (ℝ >= 4.3.0):
+- Pacchetti base: tidyverse, ggplot2, dplyr, data.table
+- Bioconductor: tximport, DESeq2, ComplexHeatmap, clusterProfiler
+- Pacchetti demo: airway, AnnotationDbi, org.Hs.eg.db
+- Pacchetti visione: pheatmap, EnhancedVolcano
+
+Fornisci istruzioni per:
+1. Installare dipendenze di sistema con apt
+2. Verificare versioni (fastp --version, salmon --version, R --version)
+3. Installare pacchetti R in batch
+4. Creare cartelle necessarie (results/, results/fastp/, results/salmon/, results/multiqc/)
+5. Verificare l'installazione con test semplici (es. fastp -h, R -e "library(DESeq2)")
+
+Includi comandi per troubleshooting se qualcosa fallisce.
+```
+
+💡 **Cosa aspettarsi**: L'AI genererà uno script bash completo per Ubuntu che installa tutto il necessario, con controlli di validazione. Copia i comandi ed esegui nel terminale del container.
+
+📊 **Verifiche finali**:
+- Tutti i tool di sistema sono disponibili: `which fastp salmon multiqc samtools`
+- R può caricare i pacchetti Bioconductor senza errori
+- Le cartelle `results/` sono pronte per ospitare gli output
+
+---
+
+## 🔧 Setup (R Analysis)
+
+### Prompt 1: R Environment Setup (Analysis)
 ```
 Setup ambiente per analisi RNA-seq in R.
 Librerie: DESeq2, airway, ggplot2, pheatmap, ComplexHeatmap.

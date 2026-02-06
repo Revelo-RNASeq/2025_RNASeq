@@ -413,6 +413,24 @@ if (!require("packagename")) {
 - **Quarto documentation**: https://quarto.org/docs/guide/
 - **RevealJS guide**: https://quarto.org/docs/presentations/revealjs/
 
+## Agent Memory Prompt
+
+Reminder for the agent:
+
+- Always work inside the `RNASeq_Course_2025/` folder of the repository.
+- Run commands from the repository root and use paths relative to `RNASeq_Course_2025/`.
+- When creating or modifying files, prefer placing them under `RNASeq_Course_2025/`.
+- Do not modify files or folders outside the repository without explicit permission.
+- Before running tools that alter data (e.g., trimming, cleanup), verify that source files exist in `RNASeq_Course_2025/data/`.
+- When showing commands to the user, display the full path relative to the repository root, for example:
+
+```bash
+bash RNASeq_Course_2025/scripts/run_fastp_batch.sh
+```
+
+Purpose: keep operations consistent and safe during demonstrations and course edits.
+
+
 ### Performance Considerations
 
 - Large count matrices: Use `data.table::fread()` for faster loading
