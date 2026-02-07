@@ -4,6 +4,7 @@ RNASeq/
 dataViz/
 resources/external/
 data/
+results/
 .DS_Store
 *.Rproj
 .Rproj.user
