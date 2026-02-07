@@ -49,7 +49,24 @@ docker run --rm ${FULL_IMAGE} bash -c "
     echo -n 'Samtools: ' && samtools --version | head -n1
     echo -n 'Python: ' && python --version
     echo -n 'R: ' && R --version | head -n1
-    echo -n 'R packages: ' && R --quiet --vanilla -e \"library(DESeq2); library(tximport); cat('✅ OK\n')\"
+    echo '📦 Testing R packages (core analysis)...'
+    R --quiet --vanilla -e \"
+        required_pkgs <- c('DESeq2', 'tximport', 'ComplexHeatmap', 'clusterProfiler', 
+                          'airway', 'AnnotationDbi', 'org.Hs.eg.db', 'pheatmap', 'EnhancedVolcano',
+                          'tidyverse', 'ggplot2', 'dplyr', 'data.table')
+        missing <- c()
+        for (pkg in required_pkgs) {
+            if (!requireNamespace(pkg, quietly = TRUE)) {
+                missing <- c(missing, pkg)
+            }
+        }
+        if (length(missing) > 0) {
+            cat('❌ Missing packages:', paste(missing, collapse=', '), '\n')
+            quit(status=1)
+        } else {
+            cat('✅ All required R packages available\n')
+        }
+    \"
 "
 
 echo ""

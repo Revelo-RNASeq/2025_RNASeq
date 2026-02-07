@@ -4,47 +4,47 @@ Quick reference guide for the practical demo. Copy prompts into Copilot Chat or 
 
 ---
 
-## �️ System Environment Setup (Ubuntu Dev Container)
+## 🛠️ System Environment Setup (Linux Dev Container)
 
-### Prompt 0: Full Environment Setup
+### Prompt 0: Environment Verification
 ```
-Ho un ambiente Ubuntu 24.04 dev container per analisi RNA-seq.
+Ho un ambiente Linux dev container per analisi RNA-seq (aarch64/ARM64 architecture).
 
-Installa tutti gli strumenti necessari:
+Verifica la presenza di tutti gli strumenti necessari:
 
 **Dipendenze di sistema** (apt):
 - git, curl, wget
-- build-essential, cmake (per compilare da sorgente se necessario)
-- zlib1g-dev, libbz2-dev, liblzma-dev (compressione file)
+- build-essential, cmake
+- zlib1g-dev, libbz2-dev, liblzma-dev (librerie di compressione)
 
 **Bioinformatics tools**:
 - fastp (QC e trimming FASTQ)
-- Salmon (quantificazione trascritti)
-- MultiQC (aggregazione report)
+- salmon (quantificazione trascritti)
+- multiqc (aggregazione report)
 - samtools (manipolazione file SAM/BAM)
 
 **R e Bioconductor** (ℝ >= 4.3.0):
 - Pacchetti base: tidyverse, ggplot2, dplyr, data.table
 - Bioconductor: tximport, DESeq2, ComplexHeatmap, clusterProfiler
 - Pacchetti demo: airway, AnnotationDbi, org.Hs.eg.db
-- Pacchetti visione: pheatmap, EnhancedVolcano
+- Pacchetti visualizzazione: pheatmap, EnhancedVolcano
 
 Fornisci istruzioni per:
-1. Installare dipendenze di sistema con apt
-2. Verificare versioni (fastp --version, salmon --version, R --version)
-3. Installare pacchetti R in batch
-4. Creare cartelle necessarie (results/, results/fastp/, results/salmon/, results/multiqc/)
-5. Verificare l'installazione con test semplici (es. fastp -h, R -e "library(DESeq2)")
+1. Verificare presenza di dipendenze di sistema (which, dpkg -l)
+2. Controllare versioni degli strumenti (fastp --version, salmon --version, R --version)
+3. Testare disponibilità pacchetti R (R -e "library(DESeq2)")
+4. Verificare struttura cartelle necessarie (results/, data/fastq_SUBSET/, data/trascriptome_TINY/)
+5. Creare un report dello stato dell'ambiente (tool presente/mancante)
 
-Includi comandi per troubleshooting se qualcosa fallisce.
+Se mancano strumenti, fornisci SOLO il comando di installazione specifico per quello mancante.
 ```
 
-💡 **Cosa aspettarsi**: L'AI genererà uno script bash completo per Ubuntu che installa tutto il necessario, con controlli di validazione. Copia i comandi ed esegui nel terminale del container.
+💡 **Cosa aspettarsi**: L'AI genererà comandi di verifica per ogni strumento/pacchetto e produrrà un report dello stato. Solo se qualcosa manca, fornirà il comando specifico di installazione.
 
 📊 **Verifiche finali**:
-- Tutti i tool di sistema sono disponibili: `which fastp salmon multiqc samtools`
-- R può caricare i pacchetti Bioconductor senza errori
-- Le cartelle `results/` sono pronte per ospitare gli output
+- ✅ Tutti i tool di sistema disponibili: `which fastp salmon multiqc samtools R`
+- ✅ R può caricare i pacchetti Bioconductor senza errori
+- ✅ Le cartelle di lavoro esistono e sono accessibili
 
 ---
 
@@ -188,50 +188,6 @@ Salva counts_matrix.csv e sample_metadata.csv in data/
 ## 🧬 FASE 2: Analisi Statistica (Dataset Airway)
 
 **🔄 Switch Dataset**: Da questo punto in poi, useremo il dataset `airway` completo (8 campioni) per un'analisi statistica più robusta.
-
----
-
-## �️ System Environment Setup (Ubuntu Dev Container)
-
-### Prompt 0: Full Environment Setup
-```
-Ho un ambiente Ubuntu 24.04 dev container per analisi RNA-seq.
-
-Installa tutti gli strumenti necessari:
-
-**Dipendenze di sistema** (apt):
-- git, curl, wget
-- build-essential, cmake (per compilare da sorgente se necessario)
-- zlib1g-dev, libbz2-dev, liblzma-dev (compressione file)
-
-**Bioinformatics tools**:
-- fastp (QC e trimming FASTQ)
-- Salmon (quantificazione trascritti)
-- MultiQC (aggregazione report)
-- samtools (manipolazione file SAM/BAM)
-
-**R e Bioconductor** (ℝ >= 4.3.0):
-- Pacchetti base: tidyverse, ggplot2, dplyr, data.table
-- Bioconductor: tximport, DESeq2, ComplexHeatmap, clusterProfiler
-- Pacchetti demo: airway, AnnotationDbi, org.Hs.eg.db
-- Pacchetti visione: pheatmap, EnhancedVolcano
-
-Fornisci istruzioni per:
-1. Installare dipendenze di sistema con apt
-2. Verificare versioni (fastp --version, salmon --version, R --version)
-3. Installare pacchetti R in batch
-4. Creare cartelle necessarie (results/, results/fastp/, results/salmon/, results/multiqc/)
-5. Verificare l'installazione con test semplici (es. fastp -h, R -e "library(DESeq2)")
-
-Includi comandi per troubleshooting se qualcosa fallisce.
-```
-
-💡 **Cosa aspettarsi**: L'AI genererà uno script bash completo per Ubuntu che installa tutto il necessario, con controlli di validazione. Copia i comandi ed esegui nel terminale del container.
-
-📊 **Verifiche finali**:
-- Tutti i tool di sistema sono disponibili: `which fastp salmon multiqc samtools`
-- R può caricare i pacchetti Bioconductor senza errori
-- Le cartelle `results/` sono pronte per ospitare gli output
 
 ---
 

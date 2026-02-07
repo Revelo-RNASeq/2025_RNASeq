@@ -28,6 +28,7 @@ RUN mamba create -n rnaseq -y -c conda-forge -c bioconda \
     bioconductor-genomicfeatures \
     bioconductor-apeglm \
     bioconductor-enhancedvolcano \
+    bioconductor-airway \
     r-tidyverse \
     r-pheatmap \
     r-rcolorbrewer \
@@ -63,7 +64,7 @@ RUN echo '#!/bin/bash' > /usr/local/bin/welcome.sh && \
     echo 'echo "=================================================="' >> /usr/local/bin/welcome.sh && \
     echo 'echo "📦 Included tools:"' >> /usr/local/bin/welcome.sh && \
     echo 'echo "  - Salmon, FastQC, MultiQC, fastp, samtools"' >> /usr/local/bin/welcome.sh && \
-    echo 'echo "  - R 4.3 + Bioconductor (DESeq2, tximport, etc.)"' >> /usr/local/bin/welcome.sh && \
+    echo 'echo "  - R 4.3 + Bioconductor (DESeq2, tximport, airway, etc.)"' >> /usr/local/bin/welcome.sh && \
     echo 'echo "  - Python 3.11 + analysis packages"' >> /usr/local/bin/welcome.sh && \
     echo 'echo "  - Quarto for course materials"' >> /usr/local/bin/welcome.sh && \
     echo 'echo ""' >> /usr/local/bin/welcome.sh && \
