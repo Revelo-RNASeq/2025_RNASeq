@@ -1,0 +1,117 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Analisi Differenziale]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[La logica statistica di DESeq2]{style="font-size: 50px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Il Workflow DESeq2]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[I tre passi fondamentali]{.subtit}
+
+DESeq2 è lo standard de facto per l'analisi differenziale. Esegue tre passaggi principali automaticamente:
+
+1.  **Normalizzazione (Size Factors)**: Per correggere le differenze di profondità di sequenziamento (Librerie più grandi vs più piccole).
+2.  **Stima della Dispersione**: Per capire quanto varia ogni gene tra i replicati biologici.
+3.  **Test Statistico (Wald Test)**: Per decidere se la differenza tra gruppi è significativa.
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[1. Normalizzazione]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Median of Ratios]{.subtit}
+
+Non usiamo RPM/CPM (Reads Per Million) perché sensibili a pochi geni molto espressi.
+
+**Metodo:**
+- Si crea un "campione pseudo-reference" (media geometrica).
+- Si calcola il rapporto tra ogni campione e questo riferimento per ogni gene.
+- La **mediana** di questi rapporti è il "Size Factor" del campione.
+
+Se un campione ha Size Factor = 2, significa che ha sequenziato il doppio del riferimento. Dividiamo i suoi conteggi per 2.
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[2. Dispersione]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Biological Variation]{.subtit}
+
+In biologia, $Media \neq Varianza$.
+Geni molto espressi tendono ad avere alta varianza. Campioni biologici variano più di quelli tecnici.
+
+**Il problema:**
+Con pochi replicati (es. 3 vs 3), è difficile stimare la vera varianza di un gene.
+
+**La soluzione (Shrinkage)**:
+- DESeq2 guarda tutti i 20.000 geni.
+- "Se questo gene ha una varianza molto diversa dagli altri geni con la stessa espressione media, probabilmente è un errore di stima".
+- "Sposta" (shrink) la stima verso la tendenza generale.
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[3. Test Statistico]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Definire la Significatività]{.subtit}
+
+Per ogni gene, DESeq2 calcola:
+- **Log2 Fold Change (LFC)**: Quanto è cambiato? (es. +1 = raddoppiato, -1 = dimezzato).
+- **P-value**: Probabilità che questo cambiamento sia dovuto al caso.
+- **Adjusted P-value (FDR)**: Correzione per test multipli.
+
+> **Regola d'oro:** Filtrare sempre usando `padj` (es. < 0.05) e non `pvalue`.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[LFC Shrinkage]{.subtit}
+
+Per la visualizzazione e il ranking, correggiamo anche i Fold Change.
+
+Geni con bassa espressione tendono ad avere Fold Change rumorosi ed enormi (es. da 1 count a 10 counts = 10x!).
+Lo **Shrinkage** "schiaccia" questi valori verso zero, lasciando inalterati i geni con segnale forte e solido.
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::

@@ -1,0 +1,103 @@
+---
+format: 
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    logo: "images/revelo.png"
+    footer: "[home page](https://revelo-rnaseq.github.io/2024_RNASeq_website/)"
+    css: ["css/theme.css", "css/custom.css"]
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+filters:
+  - roughnotation
+editor_options: 
+  chunk_output_type: inline
+---
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
+
+```{r setup, include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+```
+
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Visualizzazione Dati]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+
+[Esplorare e Comunicare i Risultati]{style="font-size: 50px;font-weight: bold;"}
+
+<br> <br>
+
+[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+:::
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Quality Control Grafico]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[PCA - Principal Component Analysis]{.subtit}
+
+La "mappa" dei vostri campioni.
+Riduce 20.000 dimensioni (geni) a 2 dimensioni principali (PC1 e PC2) che spiegano la massima varianza.
+
+**Cosa cercare:**
+1.  **Raggruppamento**: I replicati biologici devono stare vicini.
+2.  **Separazione**: Il trattamento sperimentale dovrebbe separare i gruppi lungo l'asse principale (PC1).
+3.  **Outliers**: Un campione "lontano da tutti" indica problemi tecnici o biologici.
+4.  **Batch Effects**: Se i campioni si raggruppano per "data di estrazione" invece che per trattamento.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sample Correlation Heatmap]{.subtit}
+
+Un altro modo per vedere la somiglianza globale.
+Calcola la distanza (es. Euclidea) tra ogni coppia di campioni.
+
+- Colori scuri (blu) = Campioni simili.
+- Colori chiari (bianco/rosso) = Campioni diversi.
+
+Ci aspettiamo blocchi di colori "scuri" corrispondenti ai gruppi sperimentali (es. tutti i CTRL simili tra loro).
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Visualizzare i Risultati]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Volcano Plot]{.subtit}
+
+La visione d'insieme dei risultati differenziali.
+
+- **Asse X (Effetto)**: Log2 Fold Change. (A destra UP, a sinistra DOWN).
+- **Asse Y (Significatività)**: -log10 P-value aggiustato. (In alto i più significativi).
+
+Cercate punti agli angoli superiori:
+- Alta magnitudo di cambiamento.
+- Alta confidenza statistica.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Heatmap dei Geni]{.subtit}
+
+"Chi va su e chi giù insieme?"
+
+A differenza della Sample Heatmap, qui mostriamo i **Geni** sulle righe.
+- Di solito si selezionano i top 20-50 geni più significativi.
+- **Z-score**: I colori rappresentano la deviazione dalla media del gene.
+    - Rosso: Espressione sopra la media.
+    - Blu: Espressione sotto la media.
+
+Il **Clustering** (l'albero a lato) raggruppa geni che hanno profili di espressione simili tra le condizioni.
+
+#  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::

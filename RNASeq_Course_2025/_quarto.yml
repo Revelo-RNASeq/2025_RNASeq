@@ -3,40 +3,64 @@ project:
   output-dir: docs
   render:
     - "*.qmd"
-    - "modules/**/*.qmd"
+    - "materials/**/*.qmd"
     - "!resources/**"
+    - "!modules/**"
 
 website:
   title: "Analisi Bulk RNA-Seq per Dottorandi"
-  sidebar:
-    style: "docked"
-    search: true
-    contents:
-      - section: "Module 1: Intro"
-        contents:
-          - modules/01_intro/index.qmd
-      - section: "Module 2: RNA-Seq Basics"
-        contents:
-          - modules/02_rnaseq_basics/biology.qmd
-      - section: "Module 3: Pipeline (nf-core)"
-        contents:
-          - modules/03_pipeline_nfcore/index.qmd
-      - section: "Module 4: Analysis (R)"
-        contents:
-          - modules/04_analysis_R/review.qmd
   navbar:
+    background: primary
     left:
-      - href: index.qmd
-        text: Home
-      - text: "Modules"
+      - text: "Home"
+        href: index.qmd
+      - text: "Materiali"
         menu:
-          - modules/01_intro/index.qmd
-          - modules/02_rnaseq_basics/biology.qmd
-          - modules/03_pipeline_nfcore/index.qmd
-          - modules/04_analysis_R/review.qmd
+          - text: "---Giorno 1: Sequenziamento & Pipeline---"
+          - text: "Introduzione al Corso"
+            href: materials/01_introduzione.qmd
+          - text: "Basi Biologiche RNA-Seq"
+            href: materials/02_basi_biologiche.qmd
+          - text: "Pipeline nf-core/rnaseq"
+            href: materials/03_pipeline_nfcore.qmd
+          - text: "---Giorno 2: Analisi in R---"
+          - text: "Setup R e Tools"
+            href: materials/04_setup_R.qmd
+          - text: "Import Dati (tximport)"
+            href: materials/05_import_dati.qmd
+          - text: "Analisi Differenziale (DESeq2)"
+            href: materials/06_deseq2.qmd
+          - text: "Visualizzazione Risultati"
+            href: materials/07_visualizzazione.qmd
+          - text: "Demo AI-Prompts"
+            href: materials/08_demo_prompts.qmd
+      - text: "Risorse"
+        href: resources.qmd
+      - text: "Setup"
+        href: setup.qmd
+    right:
+      - icon: github
+        href: https://github.com/revelo-rnaseq/2024_RNASeq_website
+  page-footer:
+    left: |
+      This page was built with ❤️, [R](https://cran.r-project.org/), [Bioconductor](https://bioconductor.org/) and [Quarto](https://quarto.org/) by Marco Chiapello.
+    right: |
+      © 2025 REVELO Training
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: cosmo
+      dark: darkly
+    css: styles.css
     toc: true
-    code-fold: true
+    toc-depth: 3
+    code-copy: true
+    code-fold: false
+    code-tools: false
+    fig-width: 8
+    fig-height: 6
+    fig-dpi: 300
+
+execute:
+  freeze: auto

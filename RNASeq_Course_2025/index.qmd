@@ -5,24 +5,68 @@ subtitle: "Corso pratico per dottorandi"
 
 # Benvenuti
 
-Questo corso vi guiderà attraverso l'analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all'interpretazione biologica.
+Questo corso vi guiderà attraverso l'analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all'interpretazione biologica dei risultati.
 
 ## Struttura del Corso
 
-Il corso è diviso in 4 moduli principali:
+Il corso è organizzato in 2 giornate intensive:
 
-Include questi link diretti alle slide:
+### Giorno 1: Sequenziamento & Pipeline
 
-1.  [**Introduzione e Setup**](modules/01_intro/index.qmd)
-    - Panoramica, Agenda, Setup ambiente.
-2.  [**Basi Biologiche e Tecniche**](modules/02_rnaseq_basics/index.qmd)
-    - Dogma centrale, NGS, Design sperimentale.
-3.  [**Pipeline di Analisi (nf-core)**](modules/03_pipeline_nfcore/index.qmd)
-    - Da FASTQ a matrice di conteggi con Nextflow e nf-core.
-4.  [**Analisi Statistica in R**](modules/04_analysis_R/index.qmd)
-    - Hands-on Lab: tximport, DESeq2, Visualizzazione.
+1.  [**Introduzione al Corso**](materials/01_introduzione.qmd)
+    - Panoramica del corso, obiettivi e metodologia didattica
+    
+2.  [**Basi Biologiche RNA-Seq**](materials/02_basi_biologiche.qmd)
+    - Il dogma centrale, tecnologie NGS, design sperimentale
+    
+3.  [**Pipeline nf-core/rnaseq**](materials/03_pipeline_nfcore.qmd)
+    - Workflow completo da FASTQ a matrice di conteggi
 
-## Risorse
+### Giorno 2: Analisi in R
 
--   [Materiale Didattico](resources/references/references.bib)
--   [Galaxy Training Network](resources/external/galaxy_training/index.md)
+4.  [**Setup R e Tools**](materials/04_setup_R.qmd)
+    - Configurazione ambiente di lavoro
+    
+5.  [**Import Dati (tximport)**](materials/05_import_dati.qmd)
+    - Importazione e preparazione dati per analisi
+    
+6.  [**Analisi Differenziale (DESeq2)**](materials/06_deseq2.qmd)
+    - Statistica e identificazione geni differenzialmente espressi
+    
+7.  [**Visualizzazione Risultati**](materials/07_visualizzazione.qmd)
+    - Volcano plots, heatmap e altre visualizzazioni
+    
+8.  [**Demo AI-Prompts**](materials/08_demo_prompts.qmd)
+    - Come usare AI per generare codice di analisi
+
+## Filosofia del Corso
+
+Questo corso adotta un approccio **AI-assistito**: imparerete a *formulare prompt efficaci* per generare codice di analisi, piuttosto che memorizzare sintassi. L'obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.
+
+## Prerequisiti
+
+- Conoscenza base di biologia molecolare
+- Familiarità con R (anche minima)
+- Curiosità e voglia di imparare!
+
+## Materiale Didattico
+
+- [**Setup Software**](setup.qmd) - Istruzioni per installare R, Nextflow, Docker
+- [**Risorse**](resources.qmd) - Tutorial, documentazioni e riferimenti utili
+
+## Dataset
+
+Durante il corso utilizzeremo il dataset **airway** (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.
+
+## Supporto
+
+- **Slack**: Canale dedicato per domande e discussioni
+- **GitHub**: Repository con codice e materiali
+
+---
+
+::: {.callout-note}
+## Prima di iniziare
+
+Assicurati di aver completato il [setup](setup.qmd) del software necessario!
+:::

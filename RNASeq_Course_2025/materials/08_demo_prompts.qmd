@@ -1,0 +1,762 @@
+---
+title: "Demo: Analisi RNA-Seq con AI"
+subtitle: "Pipeline di Prompt per Copilot/ChatGPT"
+format:
+  revealjs:
+    navigation-mode: vertical
+    slide-number: true
+    width: 1600
+    height: 900
+    theme: simple
+    controls: true
+mainfont: "Times New Roman"
+editor: source
+---
+
+## Introduzione al Demo {background-color="#f0f0f0"}
+
+Questa guida vi accompagna attraverso un'analisi RNA-seq completa usando l'AI come "pair programmer".
+
+**Dataset**: Airway - Trattamento con desametasone (4 campioni paired-end)
+
+**Workflow**:
+
+1. 🔍 **QC e Trimming** (fastp)
+2. 🧬 **Quantificazione** (Salmon)
+3. 📊 **QC della matrice** (in R)
+4. 🔬 **Analisi Esplorativa** (PCA, correlazione)
+5. 📈 **Analisi Differenziale** (DESeq2)
+6. 🎨 **Visualizzazione**
+
+---
+
+## Demo Data {background-color="#f0f0f0"}
+
+File disponibili in `data/`:
+
+| Cartella | Contenuto |
+|----------|--------|
+| `fastq_SUBSET/` | 4 campioni paired-end (airway) |
+| `trascriptome_TINY/` | GENCODE v43 (subset) + indice Salmon |
+
+**Campioni**: SRR1039508 (control), SRR1039509 (treatment), SRR1039512 (control), SRR1039513 (treatment)
+
+---
+
+# Step 0: QC e Trimming {background-color="#555"}
+
+---
+
+## Prompt 0a: QC con fastp
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho file FASTQ paired-end da un esperimento RNA-seq Illumina nella cartella data/fastq_SUBSET/:
+- SRR1039508_pass_1_SUBSET.fastq (forward reads)
+- SRR1039508_pass_2_SUBSET.fastq (reverse reads)
+
+Esegui il quality control e il trimming degli adattatori.
+Voglio:
+1. Rimuovere le basi di bassa qualità (Phred < 20)
+2. Rimuovere automaticamente gli adattatori Illumina
+3. Scartare i reads troppo corti dopo il trimming (< 36 bp)
+4. Generare un report HTML per visualizzare i risultati
+5. Salvare gli output in una cartella 'results/fastp/'
+
+Genera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.
+```
+:::
+
+💡 **L'AI genererà il comando fastp appropriato**
+
+---
+
+## Prompt 0a-bis: Batch Processing
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho 4 campioni paired-end nella cartella data/fastq_SUBSET/:
+- SRR1039508, SRR1039509, SRR1039512, SRR1039513
+- Ogni campione ha _pass_1_SUBSET.fastq e _pass_2_SUBSET.fastq
+
+Esegui fastp per tutti i 4 campioni in batch.
+Per ogni campione:
+1. Applica lo stesso filtraggio (Phred < 20, lunghezza min 36 bp)
+2. Rimuovi adattatori automaticamente
+3. Genera report HTML e JSON individuali
+4. Salva output in results/fastp/{sample}_*
+
+Genera uno script bash che processi tutti i campioni in loop.
+```
+:::
+
+---
+
+## Prompt 0b: Aggregare con MultiQC
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho eseguito fastp su 4 campioni e ogni campione ha generato:
+- report HTML individuale
+- report JSON in results/fastp/
+
+Aggrega tutti i report fastp in un unico report MultiQC.
+Voglio:
+1. Creare un report combinato che mostri tutti i campioni insieme
+2. Confrontare le statistiche QC tra i campioni
+3. Identificare eventuali outliers
+4. Salvare il report MultiQC in results/multiqc/
+
+Genera il comando MultiQC e spiega:
+- Come MultiQC trova automaticamente i file fastp?
+- Quali metriche posso confrontare tra i campioni?
+```
+:::
+
+💡 **Perché MultiQC?**: Dashboard unica per confrontare tutti i campioni
+
+---
+
+## Prompt 0c: Interpretazione MultiQC
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho eseguito MultiQC sui risultati fastp dei miei 4 campioni RNA-seq.
+Ecco il report generato:
+
+[INCOLLA QUI SCREENSHOT O STATISTICHE CHIAVE DAL REPORT MULTIQC]
+
+Spiegami:
+1. La qualità complessiva di tutti i miei campioni è buona?
+2. Ci sono campioni con qualità significativamente diversa dagli altri?
+3. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?
+4. Tutti i campioni possono procedere all'allineamento o qualcuno va escluso?
+
+Focalizzati su:
+- Confronto Phred score tra campioni
+- Contenuto di adattatori (% rimossa)
+- Duplicazione e library size dopo trimming
+- Identificazione di outliers
+```
+:::
+
+**Concetto chiave**: GIGO - Garbage In, Garbage Out
+
+---
+
+# Step 0bis: Quantificazione Salmon {background-color="#7570B3"}
+
+---
+
+## Prompt 0d: Creare l'indice Salmon (demo)
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho un file FASTA compresso con le sequenze dei trascritti:
+- data/trascriptome_TINY/gencode.v43.transcripts_TINY.fa.gz
+
+Voglio creare un indice Salmon da questo file per capire il processo.
+Crea l'indice in 'data/trascriptome_TINY/my_salmon_index/'
+
+Genera il comando Salmon appropriato e spiega:
+1. Cos'è un indice e perché è necessario per la quantificazione?
+2. Quanto tempo ci vuole tipicamente (per questo subset vs un genoma completo)?
+3. L'indice può essere riutilizzato per altri esperimenti con lo stesso organismo?
+4. Quali sono i parametri chiave del comando (es. -k per k-mer size)?
+
+NOTA: Posso poi usare l'indice già pronto in gencode.v43_TINY.salmon/ per risparmiare tempo.
+```
+:::
+
+💡 **Demo didattico**: Questo step è educativo - mostra *come* si crea, ma poi useremo l'indice pre-costruito.
+
+---
+
+## Prompt 0e: Quantificare con Salmon
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho file FASTQ paired-end (dopo QC con fastp):
+- results/fastp/SRR1039508_pass_1_trimmed.fastq
+- results/fastp/SRR1039508_pass_2_trimmed.fastq
+
+E un indice Salmon pre-costruito:
+- data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Quantifica l'espressione genica con Salmon.
+Salva i risultati in 'results/salmon/SRR1039508/'
+
+Genera il comando e spiega:
+- Cosa sono i TPM e i counts che Salmon produce?
+- Come si interpretano i file output (quant.sf)?
+```
+:::
+
+📊 **Output**: File `quant.sf` con TPM e counts per trascritto
+
+---
+
+## Prompt 0f: Batch Quantification
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho 4 campioni paired-end da quantificare con Salmon:
+- SRR1039508, SRR1039509, SRR1039512, SRR1039513
+
+I file trimmed sono in results/fastp/ con pattern:
+- {sample}_pass_1_trimmed.fastq e {sample}_pass_2_trimmed.fastq
+
+L'indice Salmon è in: data/trascriptome_TINY/gencode.v43_TINY.salmon/
+
+Genera uno script bash che:
+1. Crei la cartella results/salmon/
+2. Esegua Salmon quant per ogni campione
+3. Salvi ogni output in results/salmon/{sample}/
+
+Spiega come verificare che tutti i campioni sono stati processati correttamente.
+```
+:::
+
+---
+
+## Prompt 0g: Importare in R (tximport)
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho i risultati di Salmon per 4 campioni in:
+- results/salmon/SRR1039508/quant.sf
+- results/salmon/SRR1039509/quant.sf
+- results/salmon/SRR1039512/quant.sf
+- results/salmon/SRR1039513/quant.sf
+
+Ho bisogno di una corrispondenza trascritto → gene (tx2gene).
+
+Importa i risultati in R con tximport e:
+1. Se non ho un file tx2gene, crealo dai nomi dei trascritti GENCODE (ENST → ENSG)
+2. Aggrega i counts a livello di gene
+3. Salva la matrice di conteggi come 'data/counts_matrix.csv'
+4. Crea anche il file 'data/sample_metadata.csv' con le condizioni
+
+Spiega:
+- Perché aggregare a livello di gene invece che trascritto?
+- Cosa fa tximport diversamente da un semplice merge?
+```
+:::
+
+---
+
+# Step 1: Setup e Caricamento Dati {background-color="#4DBBD5"}
+
+---
+
+## Prompt 1.1: Setup Ambiente
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Sto iniziando un'analisi RNA-seq in R. Ho bisogno di:
+1. Caricare le librerie necessarie (DESeq2, tximport, ggplot2, pheatmap)
+2. Impostare un seed per la riproducibilità
+3. Creare una cartella 'results' per salvare i plot
+
+Genera il codice di setup.
+Includi anche una spiegazione:
+- Perché carichiamo queste specifiche librerie?
+- Cosa ci aspettiamo di vedere eseguendo il setup?
+```
+:::
+
+**Cosa verificare**:
+- Le librerie si caricano senza errori?
+- La cartella results è stata creata?
+
+---
+
+## Prompt 1.2: Caricamento Dati
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Ho due file CSV:
+- 'data/counts_matrix.csv': matrice di conteggi (geni x campioni)
+- 'data/sample_metadata.csv': metadati campioni (colonne: sample_id, condition, batch)
+
+Carica questi file e:
+1. Mostra le prime 5 righe di ogni tabella
+2. Verifica che i nomi dei campioni corrispondano tra i due file
+3. Converti 'condition' in un fattore con livelli: control, treatment
+
+Inoltre spiega:
+- Perché serve convertire 'condition' in factor?
+- Perché controllare l'ordine dei campioni è critico in DESeq2?
+```
+:::
+
+**Cosa verificare**:
+- I dati hanno le dimensioni attese?
+- I nomi campioni coincidono?
+
+---
+
+## Output Atteso - Step 1
+
+```r
+# Dovresti vedere qualcosa come:
+> dim(counts)
+[1] 22485     6
+
+> head(metadata)
+  sample_id condition batch
+1   sample1   control     A
+2   sample2   control     A
+3   sample3   control     B
+...
+```
+
+---
+
+# Step 2: QC della Matrice {background-color="#E64B35"}
+
+---
+
+## Prompt 2.1: Statistiche Base
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Analizza la qualità della matrice di conteggi:
+1. Calcola i conteggi totali per campione (library size)
+2. Conta quanti geni sono espressi (>0 reads) per campione
+3. Crea un barplot dei library size colorati per condizione
+4. Identifica campioni con library size anomala (>2SD dalla media)
+
+Commenta i risultati:
+- È normale avere library size diverse?
+- Quando una differenza diventa preoccupante (bias)?
+```
+:::
+
+**Concetto chiave**: Library size molto diverse possono influenzare l'analisi → necessità di normalizzazione
+
+---
+
+## Prompt 2.2: Filtraggio Geni
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Filtra i geni a bassa espressione:
+1. Rimuovi geni con meno di 10 conteggi totali
+2. Mantieni solo geni espressi in almeno 3 campioni
+3. Mostra quanti geni rimangono dopo il filtro
+4. Crea un istogramma della distribuzione dei conteggi (log2+1) prima e dopo
+
+Spiega il razionale:
+- Come impatta questo filtro sulla potenza statistica (FDR)?
+- Perché rimuovere gli zero migliora la stima della dispersione?
+```
+:::
+
+**Perché filtrare?**: Geni non espressi aggiungono rumore e riducono la potenza statistica
+
+---
+
+## Output Atteso - Step 2
+
+```r
+# Prima del filtro
+> nrow(counts)
+[1] 22485
+
+# Dopo il filtro
+> nrow(counts_filtered)
+[1] 15234
+
+# Riduzione
+"32% dei geni rimossi (principalmente non espressi)"
+```
+
+---
+
+# Step 3: Analisi Esplorativa {background-color="#00A087"}
+
+---
+
+## Prompt 3.1: Creazione DESeqDataSet
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea un oggetto DESeqDataSet da:
+- counts_filtered: matrice di conteggi filtrata
+- metadata: metadati campioni
+- design formula: ~ condition
+
+Poi applica la trasformazione VST (variance stabilizing transformation)
+e spiega dettagliatamente:
+- Il "Come": cosa fa matematicamente la VST rispetto al log2?
+- Il "Perché": perché non usare i conteggi grezzi per la PCA?
+```
+:::
+
+**Perché VST?**: I conteggi grezzi hanno varianza dipendente dalla media → VST stabilizza la varianza per visualizzazioni
+
+---
+
+## Prompt 3.2: PCA
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea un PCA plot dei campioni VST-normalizzati:
+1. Usa i top 500 geni più variabili
+2. Colora per 'condition'
+3. Aggiungi ellissi di confidenza al 95%
+4. Mostra la varianza spiegata da PC1 e PC2 negli assi
+5. Salva come 'results/pca_plot.pdf'
+
+Il plot deve essere publication-ready.
+Aggiungi una guida alla lettura:
+- Cosa significa se i campioni si sovrappongono?
+- Cosa indica la percentuale di varianza sugli assi?
+```
+:::
+
+**Cosa cercare nella PCA**:
+- I gruppi si separano? → effetto biologico
+- Ci sono outlier? → problemi tecnici
+- Il batch confonde? → necessità di correzione
+
+---
+
+## Prompt 3.3: Sample Correlation Heatmap
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea una heatmap di correlazione tra i campioni:
+1. Calcola la matrice di correlazione (Pearson) sui dati VST
+2. Usa pheatmap con annotazioni per condition
+3. Usa una palette blue → white per la correlazione
+4. Aggiungi dendrogramma per clustering gerarchico
+5. Salva come 'results/sample_correlation.pdf'
+
+Spiega il risultato atteso:
+- Che pattern (blocchi) dovremmo vedere se l'esperimento ha funzionato?
+- Cosa indica una correzione bassa tra replicati?
+```
+:::
+
+**Interpretazione**: Campioni della stessa condizione dovrebbero clusterizzare insieme (correlazione alta)
+
+---
+
+## Output Atteso - Step 3
+
+:::: {.columns}
+::: {.column width="50%"}
+**PCA Plot**
+- PC1 separa control vs treatment
+- Campioni dello stesso gruppo vicini
+- Varianza spiegata: PC1 ~60%, PC2 ~15%
+:::
+
+::: {.column width="50%"}
+**Correlation Heatmap**
+- Blocchi diagonali chiari
+- Correlazione intra-gruppo > 0.95
+- Clustering coerente con condizioni
+:::
+::::
+
+---
+
+# Step 4: Analisi Differenziale {background-color="#3C5488"}
+
+---
+
+## Prompt 4.1: DESeq2 Analysis
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Esegui l'analisi differenziale con DESeq2:
+1. Imposta 'control' come livello di riferimento
+2. Esegui DESeq()
+3. Estrai i risultati per treatment vs control
+4. Applica shrinkage con apeglm (se disponibile) o normal
+5. Mostra il summary dei risultati
+
+Spiega l'output:
+- Cosa indica il **log2FoldChange** positivo vs negativo?
+- Qual è la differenza pratica tra **pvalue** e **padj**?
+```
+:::
+
+**Interpretazione LFC**:
+- LFC > 0: gene UP in treatment
+- LFC < 0: gene DOWN in treatment
+
+---
+
+## Prompt 4.2: Diagnostica
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea i plot diagnostici di DESeq2:
+1. Dispersion plot (plotDispEsts) - verifica il fit del modello
+2. P-value histogram - verifica la distribuzione attesa
+3. MA plot con highlight dei geni significativi
+
+Salva ogni plot in 'results/'.
+Per ogni grafico, spiegami:
+- Cosa rappresenta.
+- "Goodness": che forma ha un buon grafico?
+- "Badness": quali pattern indicano problemi?
+```
+:::
+
+**Check qualità**:
+- Dispersion: curva decrescente → buon fit
+- P-value: uniforme + picco a 0 → segnale vero
+- MA: simmetria → no bias sistematici
+
+---
+
+## Prompt 4.3: Filtraggio Risultati
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Dai risultati DESeq2:
+1. Filtra i geni significativi: padj < 0.05 AND |log2FoldChange| > 1
+2. Separa in UP-regulated e DOWN-regulated
+3. Crea una tabella summary con: totale testati, significativi, UP, DOWN
+4. Salva i geni significativi in 'results/DE_genes.csv'
+5. Mostra i top 10 geni per significatività
+
+Spiega:
+- Perché usiamo sia padj che LFC per filtrare?
+- Come verificare se i top genes hanno senso biologico (sanity check)?
+```
+:::
+
+---
+
+## Output Atteso - Step 4
+
+```r
+# Summary atteso
+Total genes tested:    15234
+Significant (padj<0.05, |LFC|>1): 1247
+  - UP-regulated:      687
+  - DOWN-regulated:    560
+
+# Top genes
+      gene   baseMean  log2FC    padj
+1     Xist   12453.2    8.23    1e-150
+2     Uty     8234.1   -6.45    3e-120
+...
+```
+
+---
+
+# Step 5: Visualizzazione {background-color="#F39B7F"}
+
+---
+
+## Prompt 5.1: Volcano Plot
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea un volcano plot publication-ready:
+1. Asse X: log2FoldChange
+2. Asse Y: -log10(pvalue)
+3. Colora: rosso=UP (LFC>1, padj<0.05), blu=DOWN (LFC<-1, padj<0.05), grigio=NS
+4. Aggiungi linee tratteggiate per i cutoff
+5. Etichetta i top 10 geni più significativi con ggrepel
+6. Usa tema minimal senza griglia
+7. Salva come 'results/volcano_plot.pdf' (8x6 inches)
+
+Spiega come leggere il grafico:
+- Dove si trovano i geni più interessanti?
+- Cosa rappresentano i punti grigi?
+```
+:::
+
+---
+
+## Prompt 5.2: Heatmap Top Genes
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Crea una heatmap dei top 50 geni differenzialmente espressi:
+1. Seleziona i 50 geni con padj più basso
+2. Usa i valori VST normalizzati
+3. Scala per riga (z-score)
+4. Aggiungi annotazione colonna per 'condition'
+5. Usa palette RdBu (blue=bassa, red=alta espressione)
+6. Cluster righe e colonne
+7. Non mostrare i nomi dei geni (troppi)
+8. Salva come 'results/heatmap_top50.pdf' (8x10 inches)
+
+Spiega:
+- Cosa rappresentano i colori (Z-score)?
+- Cosa ci dice il clustering sulle righe (geni)?
+```
+:::
+
+---
+
+## Prompt 5.3: Gene Expression Boxplot
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Per i top 4 geni significativi, crea un pannello di boxplot:
+1. Estrai i conteggi normalizzati (counts(dds, normalized=TRUE))
+2. Crea un boxplot per ogni gene con punti sovrapposti
+3. Colora per condizione
+4. Aggiungi il p-value (asterischi) sopra ogni confronto
+5. Disponi in griglia 2x2
+6. Salva come 'results/top_genes_boxplot.pdf'
+
+Spiega:
+- Perché visualizzare i singoli punti è meglio del solo boxplot?
+- Cosa ci dice la distribuzione dei punti sulla variabilità?
+```
+:::
+
+---
+
+## Output Atteso - Step 5
+
+I plot salvati in `results/`:
+
+| File | Contenuto |
+|------|-----------|
+| `volcano_plot.pdf` | Volcano con geni etichettati |
+| `heatmap_top50.pdf` | Heatmap clustered |
+| `top_genes_boxplot.pdf` | Boxplot 2x2 |
+| `pca_plot.pdf` | PCA campioni |
+| `sample_correlation.pdf` | Heatmap correlazione |
+
+---
+
+# Step 6: Report Finale {background-color="#8491B4"}
+
+---
+
+## Prompt 6.1: Summary Report
+
+::: {.callout-tip}
+## Copia questo prompt in Copilot Chat
+
+```
+Genera un report summary dell'analisi in formato markdown:
+1. Descrizione dataset (campioni, condizioni)
+2. Filtri applicati (geni rimossi)
+3. Risultati QC (PCA interpretation, outlier?)
+4. Risultati DE (numero geni UP/DOWN)
+5. Top 10 geni per pathway relevance (se conosci la biologia)
+6. Lista dei file generati
+
+Formatta come report professionale breve.
+```
+:::
+
+---
+
+## Checklist Finale ✅
+
+Prima di concludere, verifica:
+
+- [ ] La PCA mostra separazione tra gruppi?
+- [ ] Il p-value histogram ha la forma attesa?
+- [ ] I geni DE hanno senso biologico?
+- [ ] Tutti i plot sono salvati?
+- [ ] Il codice è documentato?
+
+---
+
+# Tips per Prompt Efficaci {background-color="#333333"}
+
+---
+
+## Struttura di un Buon Prompt
+
+```
+[CONTESTO] - Cosa stai facendo
+[INPUT] - Quali dati/variabili hai
+[OUTPUT] - Cosa vuoi ottenere
+[SPECIFICHE] - Dettagli (colori, dimensioni, file)
+```
+
+**Esempio**:
+> "Ho un dataframe `res` con colonne log2FoldChange e padj.
+> Voglio un volcano plot con geni significativi (padj<0.05, |LFC|>1) in rosso,
+> salvato come PDF 8x6."
+
+---
+
+## Quando l'AI Sbaglia
+
+1. **Codice non funziona**: Copia l'errore e chiedi "Correggi questo errore: [errore]"
+
+2. **Plot brutto**: Specifica meglio estetica: "Usa tema_minimal, font size 12, no legenda"
+
+3. **Risultato sbagliato**: Verifica con `head()`, `dim()`, `summary()` e chiedi correzioni
+
+4. **Non capisce il contesto**: Dai più contesto: "Sto usando DESeq2 in R, ho un oggetto dds..."
+
+---
+
+## Esercizio Finale
+
+Usando le stesse tecniche, prova a:
+
+1. Creare un **MA plot** personalizzato
+2. Fare **clustering gerarchico** dei geni (non campioni)
+3. Esportare una **tabella Excel** con geni annotati
+
+💡 Ricorda: L'AI è un tool, tu sei l'esperto che valuta i risultati!
+
+---
+
+# Domande? {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
+::: {style="position: absolute; left: 980px; top: 450px;"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
+:::

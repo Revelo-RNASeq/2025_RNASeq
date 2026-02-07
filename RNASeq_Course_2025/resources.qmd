@@ -1,0 +1,275 @@
+---
+title: "Risorse e Riferimenti"
+---
+
+## Materiali del Corso
+
+| Modulo | Titolo | File |
+|--------|--------|------|
+| 01 | [Introduzione al Corso](materials/01_introduzione.qmd) | 01_introduzione.qmd |
+| 02 | [Basi Biologiche RNA-Seq](materials/02_basi_biologiche.qmd) | 02_basi_biologiche.qmd |
+| 03 | [Pipeline nf-core/rnaseq](materials/03_pipeline_nfcore.qmd) | 03_pipeline_nfcore.qmd |
+| 04 | [Setup R e Tools](materials/04_setup_R.qmd) | 04_setup_R.qmd |
+| 05 | [Import Dati (tximport)](materials/05_import_dati.qmd) | 05_import_dati.qmd |
+| 06 | [Analisi Differenziale (DESeq2)](materials/06_deseq2.qmd) | 06_deseq2.qmd |
+| 07 | [Visualizzazione Risultati](materials/07_visualizzazione.qmd) | 07_visualizzazione.qmd |
+| 08 | [Demo AI-Prompts](materials/08_demo_prompts.qmd) | 08_demo_prompts.qmd |
+
+## Documentazione Ufficiale
+
+### nf-core/rnaseq
+
+- [Documentazione Pipeline](https://nf-co.re/rnaseq)
+- [GitHub Repository](https://github.com/nf-core/rnaseq)
+- [Usage Docs](https://nf-co.re/rnaseq/usage)
+- [Parameter Reference](https://nf-co.re/rnaseq/parameters)
+
+### Nextflow
+
+- [Nextflow Documentation](https://www.nextflow.io/docs/latest/index.html)
+- [Getting Started](https://www.nextflow.io/docs/latest/getstarted.html)
+- [Configuration](https://www.nextflow.io/docs/latest/config.html)
+
+### Bioconductor
+
+- [Bioconductor](https://www.bioconductor.org/)
+- [tximport](https://bioconductor.org/packages/tximport/)
+- [DESeq2](https://bioconductor.org/packages/DESeq2/)
+- [ComplexHeatmap](https://bioconductor.org/packages/ComplexHeatmap/)
+- [clusterProfiler](https://bioconductor.org/packages/clusterProfiler/)
+
+## Libri e Tutorial
+
+### RNA-Seq Analysis
+
+1. **RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR**
+   - Autori: Law et al. (2016)
+   - [Link](https://f1000research.com/articles/5-1408)
+   - Tutorial F1000Research
+
+2. **Orchestrating high-throughput genomic analysis with Bioconductor**
+   - Autori: Huber et al. (2015)
+   - [Link](https://www.nature.com/articles/nmeth.3252)
+   - Nature Methods - Overview Bioconductor
+
+3. **A guide to creating design matrices for gene expression experiments**
+   - Autori: Law et al. (2020)
+   - [Link](https://f1000research.com/articles/9-1444)
+   - Design sperimentale per RNA-Seq
+
+4. **RNA-seqlopedia**
+   - [Link](https://rnaseq.uoregon.edu/)
+   - Panoramica completa delle tecnologie RNA-Seq
+
+### Gratuiti Online
+
+1. **Modern Statistics for Modern Biology**
+   - Autori: Susan Holmes & Wolfgang Huber
+   - [Link](https://www.huber.embl.de/msmb/)
+   - Include capitoli su RNA-Seq
+
+2. **Introduction to RNA-Seq using high-performance computing**
+   - Harvard Chan Bioinformatics Core
+   - [Link](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon-flipped/)
+
+## Workflow e Best Practices
+
+### nf-core Best Practices
+
+- [nf-core Tools](https://nf-co.re/tools) - Strumenti per gestire pipeline
+- [nf-core Configs](https://github.com/nf-core/configs) - Profili istituzionali
+- [Pipeline Tutorial](https://nf-co.re/usage/tutorials/rnaseq) - Tutorial step-by-step
+
+### Bioconductor Workflows
+
+- [RNA-seq workflow: gene-level exploratory analysis and differential expression](https://www.bioconductor.org/packages/release/workflows/html/rnaseqGene.html)
+- [RNA-Seq Data Analysis](https://bioconductor.org/help/course-materials/2015/CSAMA2015/lab/rnaseq.html)
+
+## Strumenti Esterni
+
+### Quality Control
+
+- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- [MultiQC](https://multiqc.info/)
+- [RSeQC](http://rseqc.sourceforge.net/) - RNA-seq QC specifico
+
+### Quantificazione
+
+- [Salmon](https://combine-lab.github.io/salmon/)
+- [Kallisto](https://pachterlab.github.io/kallisto/)
+- [STAR](https://github.com/alexdobin/STAR)
+
+### Visualizzazione
+
+- [IGV (Integrative Genomics Viewer)](https://igv.org/)
+- [UCSC Genome Browser](https://genome.ucsc.edu/)
+
+## Dataset per Esercitarsi
+
+### Bioconductor Data Packages
+
+```r
+# Dataset airway (usato nel corso)
+BiocManager::install("airway")
+library(airway)
+data(airway)
+
+# Altri dataset utili
+BiocManager::install("parathyroidSE")
+BiocManager::install("fission")
+```
+
+### Repository Pubblici
+
+- [GEO (Gene Expression Omnibus)](https://www.ncbi.nlm.nih.gov/geo/)
+- [ENA (European Nucleotide Archive)](https://www.ebi.ac.uk/ena/browser/)
+- [SRA (Sequence Read Archive)](https://www.ncbi.nlm.nih.gov/sra)
+
+### Tutorial con Dataset Pubblici
+
+- [nf-core/rnaseq test dataset](https://github.com/nf-core/test-datasets/tree/rnaseq)
+
+## Pacchetti R/Bioconductor Utili
+
+### Analisi Differenziale
+
+```r
+# Principali
+BiocManager::install(c("DESeq2", "edgeR", "limma"))
+
+# Utilities
+BiocManager::install(c("tximport", "GenomicFeatures", "rtracklayer"))
+```
+
+### Annotazioni
+
+```r
+# Organismi comuni
+BiocManager::install("org.Hs.eg.db")      # Homo sapiens
+BiocManager::install("org.Mm.eg.db")      # Mus musculus
+BiocManager::install("org.Dm.eg.db")      # Drosophila
+BiocManager::install("org.Ce.eg.db")      # C. elegans
+
+# Annotazioni genomiche
+BiocManager::install("TxDb.Hsapiens.UCSC.hg38.knownGene")
+```
+
+### Functional Enrichment
+
+```r
+BiocManager::install(c(
+  "clusterProfiler",
+  "enrichplot",
+  "DOSE",
+  "pathview",
+  "ReactomePA"
+))
+```
+
+### Visualizzazione
+
+```r
+# Heatmaps
+BiocManager::install(c("ComplexHeatmap", "pheatmap"))
+
+# Plot specializzati  
+install.packages(c("ggplot2", "ggrepel", "EnhancedVolcano"))
+```
+
+## Comunità e Supporto
+
+### Forum e Q&A
+
+- [Bioconductor Support Site](https://support.bioconductor.org/)
+- [Biostars](https://www.biostars.org/)
+- [SEQanswers](http://seqanswers.com/)
+- [nf-core Slack](https://nf-co.re/join) - Canale #rnaseq
+
+### Social Media
+
+- [#rstats su Twitter/X](https://twitter.com/search?q=%23rstats)
+- [#bioinformatics](https://twitter.com/search?q=%23bioinformatics)
+- [Reddit r/bioinformatics](https://www.reddit.com/r/bioinformatics/)
+
+## Corsi Online
+
+### Gratuiti
+
+- [Coursera - Genomic Data Science Specialization](https://www.coursera.org/specializations/genomic-data-science)
+- [edX - Data Analysis for Life Sciences](https://www.edx.org/learn/data-analysis/harvard-university-data-analysis-for-life-sciences)
+- [EMBL-EBI Training](https://www.ebi.ac.uk/training/online/courses/) - Vari corsi RNA-Seq
+- [Physalia Courses](https://www.physalia-courses.org/) - Corsi bioinformatica avanzati
+
+### YouTube Channels
+
+- [StatQuest with Josh Starmer](https://www.youtube.com/c/joshstarmer) - Spiegazioni statistiche RNA-Seq
+- [Bioconductor YouTube](https://www.youtube.com/c/bioconductor)
+
+## Papers Fondamentali
+
+### Metodologici
+
+1. **Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2**
+   - Love et al. (2014), Genome Biology
+   - [Link](https://doi.org/10.1186/s13059-014-0550-8)
+
+2. **Salmon provides fast and bias-aware quantification of transcript expression**
+   - Patro et al. (2017), Nature Methods
+   - [Link](https://doi.org/10.1038/nmeth.4197)
+
+3. **Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences**
+   - Soneson et al. (2015), F1000Research
+   - [Link](https://f1000research.com/articles/4-1521)
+
+### Design Sperimentale
+
+1. **RNA-seq: impact of RNA degradation on transcript quantification**
+   - Gallego Romero et al. (2014), BMC Biology
+   - [Link](https://doi.org/10.1186/s12915-014-0042-6)
+
+2. **How many biological replicates are needed in an RNA-seq experiment and which differential expression tool should you use?**
+   - Schurch et al. (2016), RNA
+   - [Link](https://doi.org/10.1261/rna.053959.115)
+
+## Risorse Galaxy
+
+Per chi preferisce interfacce grafiche:
+
+- [Galaxy Training Network - RNA-Seq](https://training.galaxyproject.org/training-material/topics/transcriptomics/)
+- [UseGalaxy.org](https://usegalaxy.org/)
+
+## Cheatsheets
+
+- [DESeq2 Cheatsheet](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#quick-start)
+- [dplyr Data Wrangling](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+- [ggplot2 Visualization](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+
+## Glossario RNA-Seq
+
+| Termine | Significato |
+|---------|-------------|
+| **TPM** | Transcripts Per Million - Normalizzazione per lunghezza trascritto e profondità libreria |
+| **FPKM/RPKM** | Fragments/Reads Per Kilobase Million - Normalizzazione simile a TPM |
+| **DEG** | Differentially Expressed Gene |
+| **FDR** | False Discovery Rate - Correzione p-value multipli test |
+| **log2FC** | log2 Fold Change - Differenza espressione in scala logaritmica |
+| **padj** | p-value aggiustato (adjusted p-value) per multiple testing |
+| **baseMean** | Media dei conteggi normalizzati (DESeq2) |
+
+## Repository GitHub Utili
+
+- [awesome-bioinformatics](https://github.com/danielecook/Awesome-Bioinformatics)
+- [awesome-rnaseq](https://github.com/crazyhottommy/RNA-seq-analysis)
+- [nf-core/rnaseq](https://github.com/nf-core/rnaseq)
+
+## Contatti
+
+Per domande sul corso:
+
+- **Email**: [email del docente]
+- **Slack**: [link workspace Slack]
+- **GitHub Issues**: [repository del corso]
+
+---
+
+*Questa pagina viene aggiornata regolarmente. Ultimo aggiornamento: Novembre 2025*

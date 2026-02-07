@@ -1,0 +1,244 @@
+---
+title: "Setup e Installazione"
+---
+
+## Requisiti Software
+
+### R e RStudio
+
+#### R (≥ 4.3.0)
+
+R è il linguaggio di programmazione che useremo per l'analisi statistica.
+
+1. Visita [https://cran.r-project.org/](https://cran.r-project.org/)
+2. Seleziona il link per il tuo sistema operativo:
+   - **Windows**: Download R for Windows → base → Download R X.X.X for Windows
+   - **macOS**: Download R for macOS → R-X.X.X.pkg
+   - **Linux**: Seleziona la tua distribuzione e segui le istruzioni
+
+#### RStudio Desktop
+
+RStudio è l'ambiente di sviluppo integrato (IDE) che useremo.
+
+1. Visita [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+2. Scarica la versione gratuita di RStudio Desktop
+3. Installa seguendo le istruzioni per il tuo sistema operativo
+
+### Nextflow (per la Pipeline)
+
+Nextflow è necessario per eseguire la pipeline nf-core/rnaseq.
+
+#### Java (Prerequisito)
+
+Nextflow richiede Java 11 o superiore:
+
+```bash
+# Verifica se Java è installato
+java -version
+
+# Se non installato, scarica Java da:
+# https://www.oracle.com/java/technologies/downloads/
+```
+
+#### Installazione Nextflow
+
+```bash
+# Installa Nextflow
+curl -s https://get.nextflow.io | bash
+
+# Rendi eseguibile e sposta in una cartella nel PATH
+chmod +x nextflow
+sudo mv nextflow /usr/local/bin/
+```
+
+### Docker (Raccomandato)
+
+Docker gestisce automaticamente tutti i software bioinformatici necessari.
+
+- **Windows/macOS**: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- **Linux**: Segui le istruzioni per la tua distribuzione [qui](https://docs.docker.com/engine/install/)
+
+**Alternativa a Docker**: Singularity (per HPC/cluster)
+
+## Pacchetti R/Bioconductor
+
+### Pacchetti Essenziali
+
+Apri RStudio ed esegui:
+
+```r
+# Installa BiocManager per gestire i pacchetti Bioconductor
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# Core Tidyverse (per manipolazione dati e visualizzazione)
+install.packages("tidyverse")
+
+# Pacchetti Bioconductor per RNA-Seq
+BiocManager::install(c(
+  "tximport",           # Importazione dati da Salmon/Kallisto
+  "DESeq2",             # Analisi differenziale
+  "ComplexHeatmap",     # Heatmap avanzate
+  "clusterProfiler",    # Enrichment analysis
+  "AnnotationDbi",      # Annotazioni geniche
+  "org.Hs.eg.db"        # Annotazioni per Homo sapiens
+))
+```
+
+### Pacchetti Aggiuntivi (Utili)
+
+```r
+# Visualizzazione
+install.packages(c("pheatmap", "ggrepel", "RColorBrewer", "viridis"))
+
+# Interattività
+install.packages("plotly")
+
+# Dataset di esempio
+BiocManager::install("airway")
+```
+
+## Verifica Installazione
+
+### Test R/Bioconductor
+
+```r
+# Carica le librerie
+library(tximport)
+library(DESeq2)
+library(tidyverse)
+
+# Se nessun errore appare, tutto funziona! ✅
+print("Setup completato correttamente!")
+```
+
+### Test Nextflow
+
+```bash
+# Verifica installazione
+nextflow -version
+
+# Dovrebbe mostrare qualcosa come:
+#   nextflow version 23.10.0.xxxx
+```
+
+### Test Docker
+
+```bash
+# Verifica installazione
+docker --version
+
+# Test di funzionamento
+docker run hello-world
+```
+
+## Struttura Progetto
+
+Durante il corso, organizzeremo il lavoro così:
+
+```
+rnaseq-course/
+├── data/                 # FASTQ files, samplesheet
+│   ├── fastq_SUBSET/
+│   └── samplesheet.csv
+├── results/              # Output nf-core/rnaseq
+│   ├── multiqc/
+│   ├── star_salmon/
+│   └── ...
+├── analysis/             # Script R per analisi
+│   ├── 01_import.R
+│   ├── 02_deseq2.R
+│   └── 03_visualization.R
+└── plots/                # Grafici finali
+```
+
+Crea questa struttura:
+
+```r
+# In RStudio
+dir.create("rnaseq-course")
+setwd("rnaseq-course")
+dir.create("data")
+dir.create("results")
+dir.create("analysis")
+dir.create("plots")
+```
+
+## Dataset del Corso
+
+I dati di esempio (dataset **airway**) saranno forniti durante il corso e includono:
+
+- 4 campioni paired-end FASTQ
+- Metadata con informazioni sperimentali
+- Indice trascrittoma pre-calcolato
+
+**Download**: Link verrà fornito il giorno del corso.
+
+## Problemi Comuni
+
+### Windows: Path troppo lungo
+
+Nextflow può avere problemi con path lunghi su Windows. Soluzioni:
+
+1. Lavora in `C:\rnaseq\` invece di cartelle profonde
+2. Abilita Long Path Support: [Guida Microsoft](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
+
+### macOS: Permessi Docker
+
+Se Docker non parte:
+
+```bash
+# Aggiungi il tuo utente al gruppo docker (solo Linux)
+sudo usermod -aG docker $USER
+```
+
+Poi riavvia il sistema.
+
+### Linux: Librerie di Sistema
+
+Per compilare alcuni pacchetti R:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev
+
+# Fedora/RedHat
+sudo yum install libcurl-devel openssl-devel libxml2-devel
+```
+
+## Risorse Hardware
+
+### Requisiti Minimi
+
+- **RAM**: 8 GB (16 GB raccomandati)
+- **Spazio disco**: 50 GB liberi per pipeline + dati
+- **CPU**: 4 core (8 raccomandati)
+
+### Per Grandi Dataset
+
+Se lavori con molti campioni o genomi grandi:
+
+- Usa un cluster HPC con Singularity
+- Considera servizi cloud (AWS, Google Cloud con batch)
+
+## Supporto
+
+Se hai problemi:
+
+1. Consulta la [sezione Problemi Comuni](#problemi-comuni)
+2. Cerca l'errore su [Bioconductor Support](https://support.bioconductor.org/)
+3. Chiedi sul canale Slack del corso
+4. Contatta: [email del docente]
+
+## Checklist Pre-Corso
+
+- [ ] Installato R (≥ 4.3.0) e RStudio
+- [ ] Installato Nextflow
+- [ ] Installato Docker/Singularity
+- [ ] Installati pacchetti R/Bioconductor essenziali
+- [ ] Verificato funzionamento con test code
+- [ ] Creata struttura cartelle progetto
+- [ ] Scaricati dataset del corso (link fornito)
+- [ ] Unito al canale Slack (link fornito)
+
+**Pronto per iniziare! 🧬🚀**

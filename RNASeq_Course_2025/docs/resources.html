@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Risorse e Riferimenti – Analisi Bulk RNA-Seq per Dottorandi</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2a504c98ff87331e1512fcad2ebb3bdc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8fdd1941dec177787a4600817dfafe63.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2a504c98ff87331e1512fcad2ebb3bdc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Analisi Bulk RNA-Seq per Dottorandi</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materiali" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Materiali</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materiali">    
+        <li class="dropdown-header">—Giorno 1: Sequenziamento &amp; Pipeline—</li>
+        <li>
+    <a class="dropdown-item" href="./materials/01_introduzione.html">
+ <span class="dropdown-text">Introduzione al Corso</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/02_basi_biologiche.html">
+ <span class="dropdown-text">Basi Biologiche RNA-Seq</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/03_pipeline_nfcore.html">
+ <span class="dropdown-text">Pipeline nf-core/rnaseq</span></a>
+  </li>  
+        <li class="dropdown-header">—Giorno 2: Analisi in R—</li>
+        <li>
+    <a class="dropdown-item" href="./materials/04_setup_R.html">
+ <span class="dropdown-text">Setup R e Tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/05_import_dati.html">
+ <span class="dropdown-text">Import Dati (tximport)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/06_deseq2.html">
+ <span class="dropdown-text">Analisi Differenziale (DESeq2)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/07_visualizzazione.html">
+ <span class="dropdown-text">Visualizzazione Risultati</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./materials/08_demo_prompts.html">
+ <span class="dropdown-text">Demo AI-Prompts</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./resources.html" aria-current="page"> 
+<span class="menu-text">Risorse</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/revelo-rnaseq/2024_RNASeq_website"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#materiali-del-corso" id="toc-materiali-del-corso" class="nav-link active" data-scroll-target="#materiali-del-corso">Materiali del Corso</a></li>
+  <li><a href="#documentazione-ufficiale" id="toc-documentazione-ufficiale" class="nav-link" data-scroll-target="#documentazione-ufficiale">Documentazione Ufficiale</a>
+  <ul class="collapse">
+  <li><a href="#nf-corernaseq" id="toc-nf-corernaseq" class="nav-link" data-scroll-target="#nf-corernaseq">nf-core/rnaseq</a></li>
+  <li><a href="#nextflow" id="toc-nextflow" class="nav-link" data-scroll-target="#nextflow">Nextflow</a></li>
+  <li><a href="#bioconductor" id="toc-bioconductor" class="nav-link" data-scroll-target="#bioconductor">Bioconductor</a></li>
+  </ul></li>
+  <li><a href="#libri-e-tutorial" id="toc-libri-e-tutorial" class="nav-link" data-scroll-target="#libri-e-tutorial">Libri e Tutorial</a>
+  <ul class="collapse">
+  <li><a href="#rna-seq-analysis" id="toc-rna-seq-analysis" class="nav-link" data-scroll-target="#rna-seq-analysis">RNA-Seq Analysis</a></li>
+  <li><a href="#gratuiti-online" id="toc-gratuiti-online" class="nav-link" data-scroll-target="#gratuiti-online">Gratuiti Online</a></li>
+  </ul></li>
+  <li><a href="#workflow-e-best-practices" id="toc-workflow-e-best-practices" class="nav-link" data-scroll-target="#workflow-e-best-practices">Workflow e Best Practices</a>
+  <ul class="collapse">
+  <li><a href="#nf-core-best-practices" id="toc-nf-core-best-practices" class="nav-link" data-scroll-target="#nf-core-best-practices">nf-core Best Practices</a></li>
+  <li><a href="#bioconductor-workflows" id="toc-bioconductor-workflows" class="nav-link" data-scroll-target="#bioconductor-workflows">Bioconductor Workflows</a></li>
+  </ul></li>
+  <li><a href="#strumenti-esterni" id="toc-strumenti-esterni" class="nav-link" data-scroll-target="#strumenti-esterni">Strumenti Esterni</a>
+  <ul class="collapse">
+  <li><a href="#quality-control" id="toc-quality-control" class="nav-link" data-scroll-target="#quality-control">Quality Control</a></li>
+  <li><a href="#quantificazione" id="toc-quantificazione" class="nav-link" data-scroll-target="#quantificazione">Quantificazione</a></li>
+  <li><a href="#visualizzazione" id="toc-visualizzazione" class="nav-link" data-scroll-target="#visualizzazione">Visualizzazione</a></li>
+  </ul></li>
+  <li><a href="#dataset-per-esercitarsi" id="toc-dataset-per-esercitarsi" class="nav-link" data-scroll-target="#dataset-per-esercitarsi">Dataset per Esercitarsi</a>
+  <ul class="collapse">
+  <li><a href="#bioconductor-data-packages" id="toc-bioconductor-data-packages" class="nav-link" data-scroll-target="#bioconductor-data-packages">Bioconductor Data Packages</a></li>
+  <li><a href="#repository-pubblici" id="toc-repository-pubblici" class="nav-link" data-scroll-target="#repository-pubblici">Repository Pubblici</a></li>
+  <li><a href="#tutorial-con-dataset-pubblici" id="toc-tutorial-con-dataset-pubblici" class="nav-link" data-scroll-target="#tutorial-con-dataset-pubblici">Tutorial con Dataset Pubblici</a></li>
+  </ul></li>
+  <li><a href="#pacchetti-rbioconductor-utili" id="toc-pacchetti-rbioconductor-utili" class="nav-link" data-scroll-target="#pacchetti-rbioconductor-utili">Pacchetti R/Bioconductor Utili</a>
+  <ul class="collapse">
+  <li><a href="#analisi-differenziale" id="toc-analisi-differenziale" class="nav-link" data-scroll-target="#analisi-differenziale">Analisi Differenziale</a></li>
+  <li><a href="#annotazioni" id="toc-annotazioni" class="nav-link" data-scroll-target="#annotazioni">Annotazioni</a></li>
+  <li><a href="#functional-enrichment" id="toc-functional-enrichment" class="nav-link" data-scroll-target="#functional-enrichment">Functional Enrichment</a></li>
+  <li><a href="#visualizzazione-1" id="toc-visualizzazione-1" class="nav-link" data-scroll-target="#visualizzazione-1">Visualizzazione</a></li>
+  </ul></li>
+  <li><a href="#comunità-e-supporto" id="toc-comunità-e-supporto" class="nav-link" data-scroll-target="#comunità-e-supporto">Comunità e Supporto</a>
+  <ul class="collapse">
+  <li><a href="#forum-e-qa" id="toc-forum-e-qa" class="nav-link" data-scroll-target="#forum-e-qa">Forum e Q&amp;A</a></li>
+  <li><a href="#social-media" id="toc-social-media" class="nav-link" data-scroll-target="#social-media">Social Media</a></li>
+  </ul></li>
+  <li><a href="#corsi-online" id="toc-corsi-online" class="nav-link" data-scroll-target="#corsi-online">Corsi Online</a>
+  <ul class="collapse">
+  <li><a href="#gratuiti" id="toc-gratuiti" class="nav-link" data-scroll-target="#gratuiti">Gratuiti</a></li>
+  <li><a href="#youtube-channels" id="toc-youtube-channels" class="nav-link" data-scroll-target="#youtube-channels">YouTube Channels</a></li>
+  </ul></li>
+  <li><a href="#papers-fondamentali" id="toc-papers-fondamentali" class="nav-link" data-scroll-target="#papers-fondamentali">Papers Fondamentali</a>
+  <ul class="collapse">
+  <li><a href="#metodologici" id="toc-metodologici" class="nav-link" data-scroll-target="#metodologici">Metodologici</a></li>
+  <li><a href="#design-sperimentale" id="toc-design-sperimentale" class="nav-link" data-scroll-target="#design-sperimentale">Design Sperimentale</a></li>
+  </ul></li>
+  <li><a href="#risorse-galaxy" id="toc-risorse-galaxy" class="nav-link" data-scroll-target="#risorse-galaxy">Risorse Galaxy</a></li>
+  <li><a href="#cheatsheets" id="toc-cheatsheets" class="nav-link" data-scroll-target="#cheatsheets">Cheatsheets</a></li>
+  <li><a href="#glossario-rna-seq" id="toc-glossario-rna-seq" class="nav-link" data-scroll-target="#glossario-rna-seq">Glossario RNA-Seq</a></li>
+  <li><a href="#repository-github-utili" id="toc-repository-github-utili" class="nav-link" data-scroll-target="#repository-github-utili">Repository GitHub Utili</a></li>
+  <li><a href="#contatti" id="toc-contatti" class="nav-link" data-scroll-target="#contatti">Contatti</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Risorse e Riferimenti</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="materiali-del-corso" class="level2">
+<h2 class="anchored" data-anchor-id="materiali-del-corso">Materiali del Corso</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Modulo</th>
+<th>Titolo</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>01</td>
+<td><a href="./materials/01_introduzione.html">Introduzione al Corso</a></td>
+<td>01_introduzione.qmd</td>
+</tr>
+<tr class="even">
+<td>02</td>
+<td><a href="./materials/02_basi_biologiche.html">Basi Biologiche RNA-Seq</a></td>
+<td>02_basi_biologiche.qmd</td>
+</tr>
+<tr class="odd">
+<td>03</td>
+<td><a href="./materials/03_pipeline_nfcore.html">Pipeline nf-core/rnaseq</a></td>
+<td>03_pipeline_nfcore.qmd</td>
+</tr>
+<tr class="even">
+<td>04</td>
+<td><a href="./materials/04_setup_R.html">Setup R e Tools</a></td>
+<td>04_setup_R.qmd</td>
+</tr>
+<tr class="odd">
+<td>05</td>
+<td><a href="./materials/05_import_dati.html">Import Dati (tximport)</a></td>
+<td>05_import_dati.qmd</td>
+</tr>
+<tr class="even">
+<td>06</td>
+<td><a href="./materials/06_deseq2.html">Analisi Differenziale (DESeq2)</a></td>
+<td>06_deseq2.qmd</td>
+</tr>
+<tr class="odd">
+<td>07</td>
+<td><a href="./materials/07_visualizzazione.html">Visualizzazione Risultati</a></td>
+<td>07_visualizzazione.qmd</td>
+</tr>
+<tr class="even">
+<td>08</td>
+<td><a href="./materials/08_demo_prompts.html">Demo AI-Prompts</a></td>
+<td>08_demo_prompts.qmd</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="documentazione-ufficiale" class="level2">
+<h2 class="anchored" data-anchor-id="documentazione-ufficiale">Documentazione Ufficiale</h2>
+<section id="nf-corernaseq" class="level3">
+<h3 class="anchored" data-anchor-id="nf-corernaseq">nf-core/rnaseq</h3>
+<ul>
+<li><a href="https://nf-co.re/rnaseq">Documentazione Pipeline</a></li>
+<li><a href="https://github.com/nf-core/rnaseq">GitHub Repository</a></li>
+<li><a href="https://nf-co.re/rnaseq/usage">Usage Docs</a></li>
+<li><a href="https://nf-co.re/rnaseq/parameters">Parameter Reference</a></li>
+</ul>
+</section>
+<section id="nextflow" class="level3">
+<h3 class="anchored" data-anchor-id="nextflow">Nextflow</h3>
+<ul>
+<li><a href="https://www.nextflow.io/docs/latest/index.html">Nextflow Documentation</a></li>
+<li><a href="https://www.nextflow.io/docs/latest/getstarted.html">Getting Started</a></li>
+<li><a href="https://www.nextflow.io/docs/latest/config.html">Configuration</a></li>
+</ul>
+</section>
+<section id="bioconductor" class="level3">
+<h3 class="anchored" data-anchor-id="bioconductor">Bioconductor</h3>
+<ul>
+<li><a href="https://www.bioconductor.org/">Bioconductor</a></li>
+<li><a href="https://bioconductor.org/packages/tximport/">tximport</a></li>
+<li><a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a></li>
+<li><a href="https://bioconductor.org/packages/ComplexHeatmap/">ComplexHeatmap</a></li>
+<li><a href="https://bioconductor.org/packages/clusterProfiler/">clusterProfiler</a></li>
+</ul>
+</section>
+</section>
+<section id="libri-e-tutorial" class="level2">
+<h2 class="anchored" data-anchor-id="libri-e-tutorial">Libri e Tutorial</h2>
+<section id="rna-seq-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="rna-seq-analysis">RNA-Seq Analysis</h3>
+<ol type="1">
+<li><strong>RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR</strong>
+<ul>
+<li>Autori: Law et al.&nbsp;(2016)</li>
+<li><a href="https://f1000research.com/articles/5-1408">Link</a></li>
+<li>Tutorial F1000Research</li>
+</ul></li>
+<li><strong>Orchestrating high-throughput genomic analysis with Bioconductor</strong>
+<ul>
+<li>Autori: Huber et al.&nbsp;(2015)</li>
+<li><a href="https://www.nature.com/articles/nmeth.3252">Link</a></li>
+<li>Nature Methods - Overview Bioconductor</li>
+</ul></li>
+<li><strong>A guide to creating design matrices for gene expression experiments</strong>
+<ul>
+<li>Autori: Law et al.&nbsp;(2020)</li>
+<li><a href="https://f1000research.com/articles/9-1444">Link</a></li>
+<li>Design sperimentale per RNA-Seq</li>
+</ul></li>
+<li><strong>RNA-seqlopedia</strong>
+<ul>
+<li><a href="https://rnaseq.uoregon.edu/">Link</a></li>
+<li>Panoramica completa delle tecnologie RNA-Seq</li>
+</ul></li>
+</ol>
+</section>
+<section id="gratuiti-online" class="level3">
+<h3 class="anchored" data-anchor-id="gratuiti-online">Gratuiti Online</h3>
+<ol type="1">
+<li><strong>Modern Statistics for Modern Biology</strong>
+<ul>
+<li>Autori: Susan Holmes &amp; Wolfgang Huber</li>
+<li><a href="https://www.huber.embl.de/msmb/">Link</a></li>
+<li>Include capitoli su RNA-Seq</li>
+</ul></li>
+<li><strong>Introduction to RNA-Seq using high-performance computing</strong>
+<ul>
+<li>Harvard Chan Bioinformatics Core</li>
+<li><a href="https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon-flipped/">Link</a></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="workflow-e-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-e-best-practices">Workflow e Best Practices</h2>
+<section id="nf-core-best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="nf-core-best-practices">nf-core Best Practices</h3>
+<ul>
+<li><a href="https://nf-co.re/tools">nf-core Tools</a> - Strumenti per gestire pipeline</li>
+<li><a href="https://github.com/nf-core/configs">nf-core Configs</a> - Profili istituzionali</li>
+<li><a href="https://nf-co.re/usage/tutorials/rnaseq">Pipeline Tutorial</a> - Tutorial step-by-step</li>
+</ul>
+</section>
+<section id="bioconductor-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="bioconductor-workflows">Bioconductor Workflows</h3>
+<ul>
+<li><a href="https://www.bioconductor.org/packages/release/workflows/html/rnaseqGene.html">RNA-seq workflow: gene-level exploratory analysis and differential expression</a></li>
+<li><a href="https://bioconductor.org/help/course-materials/2015/CSAMA2015/lab/rnaseq.html">RNA-Seq Data Analysis</a></li>
+</ul>
+</section>
+</section>
+<section id="strumenti-esterni" class="level2">
+<h2 class="anchored" data-anchor-id="strumenti-esterni">Strumenti Esterni</h2>
+<section id="quality-control" class="level3">
+<h3 class="anchored" data-anchor-id="quality-control">Quality Control</h3>
+<ul>
+<li><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a></li>
+<li><a href="https://multiqc.info/">MultiQC</a></li>
+<li><a href="http://rseqc.sourceforge.net/">RSeQC</a> - RNA-seq QC specifico</li>
+</ul>
+</section>
+<section id="quantificazione" class="level3">
+<h3 class="anchored" data-anchor-id="quantificazione">Quantificazione</h3>
+<ul>
+<li><a href="https://combine-lab.github.io/salmon/">Salmon</a></li>
+<li><a href="https://pachterlab.github.io/kallisto/">Kallisto</a></li>
+<li><a href="https://github.com/alexdobin/STAR">STAR</a></li>
+</ul>
+</section>
+<section id="visualizzazione" class="level3">
+<h3 class="anchored" data-anchor-id="visualizzazione">Visualizzazione</h3>
+<ul>
+<li><a href="https://igv.org/">IGV (Integrative Genomics Viewer)</a></li>
+<li><a href="https://genome.ucsc.edu/">UCSC Genome Browser</a></li>
+</ul>
+</section>
+</section>
+<section id="dataset-per-esercitarsi" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-per-esercitarsi">Dataset per Esercitarsi</h2>
+<section id="bioconductor-data-packages" class="level3">
+<h3 class="anchored" data-anchor-id="bioconductor-data-packages">Bioconductor Data Packages</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset airway (usato nel corso)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"airway"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(airway)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airway)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Altri dataset utili</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"parathyroidSE"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"fission"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="repository-pubblici" class="level3">
+<h3 class="anchored" data-anchor-id="repository-pubblici">Repository Pubblici</h3>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/geo/">GEO (Gene Expression Omnibus)</a></li>
+<li><a href="https://www.ebi.ac.uk/ena/browser/">ENA (European Nucleotide Archive)</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/sra">SRA (Sequence Read Archive)</a></li>
+</ul>
+</section>
+<section id="tutorial-con-dataset-pubblici" class="level3">
+<h3 class="anchored" data-anchor-id="tutorial-con-dataset-pubblici">Tutorial con Dataset Pubblici</h3>
+<ul>
+<li><a href="https://github.com/nf-core/test-datasets/tree/rnaseq">nf-core/rnaseq test dataset</a></li>
+</ul>
+</section>
+</section>
+<section id="pacchetti-rbioconductor-utili" class="level2">
+<h2 class="anchored" data-anchor-id="pacchetti-rbioconductor-utili">Pacchetti R/Bioconductor Utili</h2>
+<section id="analisi-differenziale" class="level3">
+<h3 class="anchored" data-anchor-id="analisi-differenziale">Analisi Differenziale</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Principali</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"DESeq2"</span>, <span class="st">"edgeR"</span>, <span class="st">"limma"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilities</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"tximport"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"rtracklayer"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="annotazioni" class="level3">
+<h3 class="anchored" data-anchor-id="annotazioni">Annotazioni</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Organismi comuni</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"org.Hs.eg.db"</span>)      <span class="co"># Homo sapiens</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"org.Mm.eg.db"</span>)      <span class="co"># Mus musculus</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"org.Dm.eg.db"</span>)      <span class="co"># Drosophila</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"org.Ce.eg.db"</span>)      <span class="co"># C. elegans</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotazioni genomiche</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"TxDb.Hsapiens.UCSC.hg38.knownGene"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="functional-enrichment" class="level3">
+<h3 class="anchored" data-anchor-id="functional-enrichment">Functional Enrichment</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"clusterProfiler"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"enrichplot"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DOSE"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"pathview"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ReactomePA"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="visualizzazione-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualizzazione-1">Visualizzazione</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Heatmaps</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"ComplexHeatmap"</span>, <span class="st">"pheatmap"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot specializzati  </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"ggrepel"</span>, <span class="st">"EnhancedVolcano"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="comunità-e-supporto" class="level2">
+<h2 class="anchored" data-anchor-id="comunità-e-supporto">Comunità e Supporto</h2>
+<section id="forum-e-qa" class="level3">
+<h3 class="anchored" data-anchor-id="forum-e-qa">Forum e Q&amp;A</h3>
+<ul>
+<li><a href="https://support.bioconductor.org/">Bioconductor Support Site</a></li>
+<li><a href="https://www.biostars.org/">Biostars</a></li>
+<li><a href="http://seqanswers.com/">SEQanswers</a></li>
+<li><a href="https://nf-co.re/join">nf-core Slack</a> - Canale #rnaseq</li>
+</ul>
+</section>
+<section id="social-media" class="level3">
+<h3 class="anchored" data-anchor-id="social-media">Social Media</h3>
+<ul>
+<li><a href="https://twitter.com/search?q=%23rstats">#rstats su Twitter/X</a></li>
+<li><a href="https://twitter.com/search?q=%23bioinformatics">#bioinformatics</a></li>
+<li><a href="https://www.reddit.com/r/bioinformatics/">Reddit r/bioinformatics</a></li>
+</ul>
+</section>
+</section>
+<section id="corsi-online" class="level2">
+<h2 class="anchored" data-anchor-id="corsi-online">Corsi Online</h2>
+<section id="gratuiti" class="level3">
+<h3 class="anchored" data-anchor-id="gratuiti">Gratuiti</h3>
+<ul>
+<li><a href="https://www.coursera.org/specializations/genomic-data-science">Coursera - Genomic Data Science Specialization</a></li>
+<li><a href="https://www.edx.org/learn/data-analysis/harvard-university-data-analysis-for-life-sciences">edX - Data Analysis for Life Sciences</a></li>
+<li><a href="https://www.ebi.ac.uk/training/online/courses/">EMBL-EBI Training</a> - Vari corsi RNA-Seq</li>
+<li><a href="https://www.physalia-courses.org/">Physalia Courses</a> - Corsi bioinformatica avanzati</li>
+</ul>
+</section>
+<section id="youtube-channels" class="level3">
+<h3 class="anchored" data-anchor-id="youtube-channels">YouTube Channels</h3>
+<ul>
+<li><a href="https://www.youtube.com/c/joshstarmer">StatQuest with Josh Starmer</a> - Spiegazioni statistiche RNA-Seq</li>
+<li><a href="https://www.youtube.com/c/bioconductor">Bioconductor YouTube</a></li>
+</ul>
+</section>
+</section>
+<section id="papers-fondamentali" class="level2">
+<h2 class="anchored" data-anchor-id="papers-fondamentali">Papers Fondamentali</h2>
+<section id="metodologici" class="level3">
+<h3 class="anchored" data-anchor-id="metodologici">Metodologici</h3>
+<ol type="1">
+<li><strong>Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2</strong>
+<ul>
+<li>Love et al.&nbsp;(2014), Genome Biology</li>
+<li><a href="https://doi.org/10.1186/s13059-014-0550-8">Link</a></li>
+</ul></li>
+<li><strong>Salmon provides fast and bias-aware quantification of transcript expression</strong>
+<ul>
+<li>Patro et al.&nbsp;(2017), Nature Methods</li>
+<li><a href="https://doi.org/10.1038/nmeth.4197">Link</a></li>
+</ul></li>
+<li><strong>Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences</strong>
+<ul>
+<li>Soneson et al.&nbsp;(2015), F1000Research</li>
+<li><a href="https://f1000research.com/articles/4-1521">Link</a></li>
+</ul></li>
+</ol>
+</section>
+<section id="design-sperimentale" class="level3">
+<h3 class="anchored" data-anchor-id="design-sperimentale">Design Sperimentale</h3>
+<ol type="1">
+<li><strong>RNA-seq: impact of RNA degradation on transcript quantification</strong>
+<ul>
+<li>Gallego Romero et al.&nbsp;(2014), BMC Biology</li>
+<li><a href="https://doi.org/10.1186/s12915-014-0042-6">Link</a></li>
+</ul></li>
+<li><strong>How many biological replicates are needed in an RNA-seq experiment and which differential expression tool should you use?</strong>
+<ul>
+<li>Schurch et al.&nbsp;(2016), RNA</li>
+<li><a href="https://doi.org/10.1261/rna.053959.115">Link</a></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="risorse-galaxy" class="level2">
+<h2 class="anchored" data-anchor-id="risorse-galaxy">Risorse Galaxy</h2>
+<p>Per chi preferisce interfacce grafiche:</p>
+<ul>
+<li><a href="https://training.galaxyproject.org/training-material/topics/transcriptomics/">Galaxy Training Network - RNA-Seq</a></li>
+<li><a href="https://usegalaxy.org/">UseGalaxy.org</a></li>
+</ul>
+</section>
+<section id="cheatsheets" class="level2">
+<h2 class="anchored" data-anchor-id="cheatsheets">Cheatsheets</h2>
+<ul>
+<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#quick-start">DESeq2 Cheatsheet</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">dplyr Data Wrangling</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf">ggplot2 Visualization</a></li>
+</ul>
+</section>
+<section id="glossario-rna-seq" class="level2">
+<h2 class="anchored" data-anchor-id="glossario-rna-seq">Glossario RNA-Seq</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Termine</th>
+<th>Significato</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>TPM</strong></td>
+<td>Transcripts Per Million - Normalizzazione per lunghezza trascritto e profondità libreria</td>
+</tr>
+<tr class="even">
+<td><strong>FPKM/RPKM</strong></td>
+<td>Fragments/Reads Per Kilobase Million - Normalizzazione simile a TPM</td>
+</tr>
+<tr class="odd">
+<td><strong>DEG</strong></td>
+<td>Differentially Expressed Gene</td>
+</tr>
+<tr class="even">
+<td><strong>FDR</strong></td>
+<td>False Discovery Rate - Correzione p-value multipli test</td>
+</tr>
+<tr class="odd">
+<td><strong>log2FC</strong></td>
+<td>log2 Fold Change - Differenza espressione in scala logaritmica</td>
+</tr>
+<tr class="even">
+<td><strong>padj</strong></td>
+<td>p-value aggiustato (adjusted p-value) per multiple testing</td>
+</tr>
+<tr class="odd">
+<td><strong>baseMean</strong></td>
+<td>Media dei conteggi normalizzati (DESeq2)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="repository-github-utili" class="level2">
+<h2 class="anchored" data-anchor-id="repository-github-utili">Repository GitHub Utili</h2>
+<ul>
+<li><a href="https://github.com/danielecook/Awesome-Bioinformatics">awesome-bioinformatics</a></li>
+<li><a href="https://github.com/crazyhottommy/RNA-seq-analysis">awesome-rnaseq</a></li>
+<li><a href="https://github.com/nf-core/rnaseq">nf-core/rnaseq</a></li>
+</ul>
+</section>
+<section id="contatti" class="level2">
+<h2 class="anchored" data-anchor-id="contatti">Contatti</h2>
+<p>Per domande sul corso:</p>
+<ul>
+<li><strong>Email</strong>: [email del docente]</li>
+<li><strong>Slack</strong>: [link workspace Slack]</li>
+<li><strong>GitHub Issues</strong>: [repository del corso]</li>
+</ul>
+<hr>
+<p><em>Questa pagina viene aggiornata regolarmente. Ultimo aggiornamento: Novembre 2025</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This page was built with ❤️, <a href="https://cran.r-project.org/">R</a>, <a href="https://bioconductor.org/">Bioconductor</a> and <a href="https://quarto.org/">Quarto</a> by Marco Chiapello.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>© 2025 REVELO Training</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
