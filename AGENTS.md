@@ -11,6 +11,8 @@ The repository has a dual structure:
 1. **RNASeq_Course_2025/** - Main course website with RevealJS slide presentations
 2. **resources/external/RNASeq/** - Deep-dive reference book with detailed R tutorials
 
+⚠️ **CRITICAL**: The `RNASeq_Course_2025/resources/` folder contains external reference materials (EBI, Galaxy Training) that **must NOT be rendered**. See [`.github/instructions/resources-folder-policy.md`](.github/instructions/resources-folder-policy.md) for details.
+
 ### Technology Stack
 
 - **Presentation**: Quarto (website + RevealJS slides)

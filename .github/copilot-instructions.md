@@ -41,6 +41,8 @@ resources/external/RNASeq/    # REFERENCE BOOK - Deep-dive R tutorials
 .github/skills/               # AI skills for domain knowledge
 ```
 
+⚠️ **CRITICAL RENDERING POLICY**: The `RNASeq_Course_2025/resources/` folder contains external reference materials (EBI, Galaxy Training) that **MUST NOT be rendered**. Only render content in `RNASeq_Course_2025/modules/` and the root `index.qmd`. See `.github/instructions/resources-folder-policy.md` for full policy details.
+
 ## Developer Workflow
 
 ```bash
