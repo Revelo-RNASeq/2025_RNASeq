@@ -448,7 +448,7 @@ Rimuovi in modo sicuro:
 - data/counts_matrix.csv, sample_metadata.csv
 - .RData, .Rhistory
 
-Preserva solo: data/fastq_SUBSET/, data/trascriptome_TINY/, data/scripts/
+Preserva solo: data/fastq_SUBSET/, data/trascriptome_TINY
 ```
 
 💡 **Suggerimento**: Per dettagli completi sulle strategie di cleanup, consulta la skill `rnaseq-pipeline-cleanup` in `.github/skills/`.
