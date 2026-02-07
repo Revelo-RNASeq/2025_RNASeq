@@ -1,6 +1,12 @@
 ---
 title: "Analisi Dati di Bulk RNA-Seq"
-subtitle: "Corso pratico per dottorandi"
+author: "Marco Chiapello"
+format: html
+editor_options: 
+  chunk_output_type: inline
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Benvenuti
@@ -9,14 +15,17 @@ Questo corso vi guiderà attraverso l'analisi di dati di sequenziamento RNA (RNA
 
 ## Struttura del Corso
 
-Il corso è organizzato in 2 giornate intensive:
+Il corso è organizzato in 2 giornate:
 
 ### Giorno 1: Sequenziamento & Pipeline
 
 1.  [**Introduzione al Corso**](materials/01_introduzione.qmd)
     - Panoramica del corso, obiettivi e metodologia didattica
     
-2.  [**Basi Biologiche RNA-Seq**](materials/02_basi_biologiche.qmd)
+2.  [**Ricerca Riproducibile**](https://phd-toolbox-course.github.io/2022_PhD_Toolbox_course/M4_RicercaRiproducibile.html#1)
+    - Principi di ricerca riproducibile, best practices e strumenti
+    
+3.  [**Basi Biologiche RNA-Seq**](materials/02_basi_biologiche.qmd)
     - Il dogma centrale, tecnologie NGS, design sperimentale
     
 3.  [**Pipeline nf-core/rnaseq**](materials/03_pipeline_nfcore.qmd)

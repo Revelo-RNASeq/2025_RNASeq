@@ -2,7 +2,7 @@
 format: 
   revealjs:
     navigation-mode: vertical
-    slide-number: true
+    slide-number: false
     width: 1600
     height: 900
     logo: "images/revelo.png"
@@ -24,161 +24,1261 @@ editor_options:
 library(fontawesome)
 library(tidyverse)
 library(quarto)
+
+# font-family: 'Architects Daughter', cursive;
+# font-family: 'Julius Sans One', sans-serif;
+# font-family: 'Montserrat', san  s-serif;
+# font-family: 'Rock Salt', cursive;
 ```
 
-::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
-[Basi di RNA-Seq]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Julius+Sans+One&family=Montserrat:wght@300&family=Rock+Salt&display=swap');
+</style>
 
-[Dalla Biologia al Dato Grezzo]{style="font-size: 40px;font-weight: bold;"}
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Introduzione all'RNASeq]{style="font-size: 120px; font-weight: bold; line-height: 1em; margin: 0px; font-family: 'Architects Daughter', cursive;"}
+
+[Introduzione all'analisi RNASeq in R]{style="font-size: 40px;font-weight: bold;"}
+
+[Dipartimento di Biomedicina e Prevenzione]{style="font-size: 40px;font-weight: bold;"}
 
 <br> <br>
 
-[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+[Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
+
+[November 2024]{style="font-size: 30px;font-weight: bold;"}
 :::
+
+
+<!-- #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Overview]{.f60 .p-span-center}
+
+:::{.p-img-center}
+![](images/pst.jpg){width=1000}
+::: -->
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Perché Studiare l'RNA?]{.tit .p-span-center}
+[Three Stages of Transcriptomic Analysis]{.f60}
+
+<br>
+
+::: {.columns .f35}
+::: {.column width="30%" .pri}
+*   **Primary Analysis:**
+    *   Focuses on processing raw sequencing data.
+    *   **Key steps:**
+        *   Quality control (QC)
+        *   Read alignment/mapping
+        *   Transcript quantification
+:::
+::: {.column width="3%" .verticalLine}
+
+:::
+
+::: {.column width="30%" .sec}
+*   **Secondary Analysis:**
+    *   Extracts meaningful information from processed data.
+    *   **Key steps:**
+        *   Differential gene expression analysis
+        *   Clustering and classification
+
+:::
+::: {.column width="3%"}
+
+:::
+::: {.column width="30%" .ter}
+*   **Tertiary Analysis:**
+    *   Integrates transcriptomic data with other biological knowledge.
+    *   **Key steps:**
+        *   Pathway and network analysis
+        *   Validation of findings
+        *   Hypothesis generation and further experimentation
+:::
+:::
+
+
+
+
+
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+
+[Sample Preparation]{.tit .p-span-center}
+
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Il Dogma Centrale]{.subtit}
+[Sample Preparation]{.subtit}
+
+<br>
+<br>
+
+:::{.p-img-center}
+![](images/sample_top.png)
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[RNA Extraction]{.subtit}
+
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/rnaE.png){width=400}
+:::
+
+::: {.column width="60%"}
+*   **Goals:**
+    *   Lyse cells/tissues
+    *   Remove contaminants (DNA, proteins, lipids)
+    *   Preserve RNA integrity
+*   **Methods:**
+    *   Phenol-chloroform extraction {{< fa circle-xmark >}}
+    *   **Column-based kits** (silica membrane) {{< fa trophy >}}
+:::
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Importance of High-Quality RNA]{.subtit}
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/bioanal.png){width=600}
+:::
+::: {.column width="60%"}
+*   High-quality RNA is the cornerstone of successful RNA-Seq.
+*   Degraded or contaminated RNA can lead to:
+    *   Inaccurate gene expression measurements
+    *   Misleading conclusions
+    *   Wasted time and resources
+*   Prevent RNA degradation:
+    *   Use RNase-free reagents and equipment.
+    *   Store RNA at -80°C.
+    *   Minimize freeze-thaw cycles.
+:::
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Enrich a specific type of RNA]{.subtit}
+
+- mRNA
+
+- rRNAs and tRNAs (involved in mRNA translation)
+
+- Small nuclear RNAs (involved in splicing)
+
+- Small nucleolar RNAs (involved in the modification of rRNAs)
+
+- microRNA (regulate gene expression at the posttranscriptional level)
+
+- Long noncoding RNAs (chromatin remodelling, transcriptional control and posttranscriptional processing)
+
+
+#### Two options for mRNA enrichment 
+
+- **mRNA enrichment** – Selectively enriching for poly(A)-tailed transcripts
+
+- **RNA depletion** – Selectively depleting abundant/off-target transcripts 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[RNA Fragmentation]{.subtit}
+
+:::{.callout-important}
+[A sequencing library is essentially a pool of RNA fragments with adapters attached]{style="font-size: 40px"}
+:::
+
+
+*   **Why?**
+    *   NGS platform compatibility
+    *   Increased library complexity
+*   **Methods:**
+    *   Enzymatic digestion (e.g., RNase III)
+    *   Mechanical shearing (e.g., sonication)
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Attachment of adapters]{.subtit}
+
+1. Adapters are a short, chemically-synthesised oligonucleotide that can be attached to the ends of DNA molecules (cDNA Synthesis: RNA to DNA)
+
+1. Act as barcodes to identify where each nucleotide was originally located
+
+:::{.p-img-center}
+![](images/adapter.png){width=900}
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Library quantification]{.subtit}
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/rin.jpg){width=600}
+:::
+::: {.column width="60%"}
+*   **Why quantify?**
+    *   Optimal sequencing results
+    *   Determine loading concentration
+    *   Ensure even coverage
+*   **Methods:**
+    *   Fluorometric methods (e.g., Qubit)
+    *   qPCR
+    *   Capillary electrophoresis (e.g., Bioanalyzer)
+:::
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+[How many samples do I need?]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 80px; text-align: center"}
+Power analysis
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 80px; text-align: center"}
+Power analysis
+:::
+
+-   **Type I error**: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 80px; text-align: center"}
+Power analysis
+:::
+
+-   **Type I error**: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.
+
+-   **Type II error**: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 80px; text-align: center"}
+Power analysis
+:::
+
+-   **Type I error**: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.
+
+-   **Type II error**: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.
+
+-   **Effect size**: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 80px; text-align: center"}
+Power analysis
+:::
+
+-   **Type I error**: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.
+
+-   **Type II error**: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.
+
+-   **Effect size**: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.
+
+-   **Sample size**: the quantity you want to calculate.
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+#### Let's say we want:
+
+-   Type I error of 5%. (α=0.05)
+-   Type II error of 0.2. (Power=1−β=0.8)
+-   Effect size of 2. (d=2)
+
+::: {.fragment .fade-in}
+```{r}
+#| echo: TRUE
+#| eval: false
+#| code-line-numbers: "1|3|4|5|1-7"
+library("pwr")
+
+pwr.t.test(d = 2,
+           power = .8,
+           sig.level = .05,
+           type = "two.sample",
+           alternative = "two.sided")
+```
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+#### Let's say we want:
+
+-   Effect size of 1. (d=1)
+
+::: {.fragment .fade-in}
+```{r}
+#| echo: TRUE
+#| eval: false
+library("pwr")
+
+pwr.t.test(d = 1,
+           power = .8,
+           sig.level = .05,
+           type = "two.sample",
+           alternative = "two.sided")
+```
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Power analysis for RNA-seq]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 60px; text-align:center"}
+**General Considerations**
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+RNA-seq experiments often suffer from a low statistical power
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 60px; text-align:center"}
+**General Considerations**
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+RNA-seq experiments often suffer from a low statistical power
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+Low power can lead to a lack of reproducibility of the research findings
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+::: {style="font-size: 60px; text-align:center"}
+**General Considerations**
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+RNA-seq experiments often suffer from a low statistical power
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+Low power can lead to a lack of reproducibility of the research findings
+:::
+
+<br>
+
+::: {style="font-size: 60px"}
+The number of replicates is one of the critical parameter related to the power of an analysis
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Replicates]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+![Klaus B., EMBO J (2015) 34: 2727-2730](images/image-259602676.png)
+
+::: notes
+-   Technical replicates: use the same biological sample to repeat the technical or experimental steps in order to accurately measure technical variation and remove it during analysis.
+
+-   Biological replicates use different biological samples of the same condition to measure the biological variation between samples
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Do we need technical replicates?]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+[No]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+[No]{.tit .p-span-center}
+
+::: callout-important
+[With the current RNA-Seq technologies, technical variation is much lower than biological variation and technical replicates are unneccessary]{.f40}
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Do we need biological replicates?]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+[YES]{.tit .p-span-center}
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+[YES]{.tit .p-span-center}
+
+::: callout-important
+[Biological replicates are absolutely essential for [differential expression analysis]{.rn}]{.f40}
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1" auto-animate="true"}
+
+[YES]{.tit .p-span-center}
+
+::: callout-important
+[For differential expression analysis, the more biological replicates, the better the estimates of biological variation and the more precise our estimates of the mean expression levels]{.f40}
+:::
+
+##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.f40 .tcenter .fragment}
+Biological replicates are of greater importance than sequencing depth
+:::
+
+![Liu, Y., et al., Bioinformatics (2014) 30(3): 301--304](images/image-154795781.png){width="auto" height="700"}
+
+:::{.notes}
+[Cosa vedete? Come interpretate il grafico]{style="font-size: 50px; color: red"}
+
+Note that an increase in the number of replicates tends to return more DE genes than increasing the sequencing depth. 
+:::
+
+
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+
+[Introduction to RNA Sequencing]{.tit .p-span-center}
+
+[(Primary analysis)]{.p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[The central dogma]{.subtit}
 
 ::: {.p-img-center}
 ![](images/dogma.png)
 :::
 
-:::{.tcenter .f30}
-*   **DNA:** Il progetto statico dell'informazione genetica.
-*   **RNA:** Il messaggero dinamico e funzionale.
-*   **Proteina:** L'esecutore finale (spesso).
+
+:::{.tcenter}
+*   **DNA:** The blueprint of genetic information
+*   **RNA:** The messenger carrying genetic instructions
+*   **Protein:** The functional molecules in cells
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Why Study RNA?]{.subtit}
+
+::: {.p-img-center}
+```{r}
+#| echo: false
+#| eval: false
+#| layout-ncol: 1
+plot(qrcode::qr_code("https://forms.gle/b6byBimmjCfM91uU6"))
+```
+
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Why Study RNA?]{.subtit}
+
+:::: {.columns}
+::: {.column width="40%"}
+![](images/NMFaheatmap-1.png){width=400}
+:::
+::: {.column .f40}
+*   **Dynamic reflection of cellular activity:**  Unlike DNA, which is relatively static, RNA levels change rapidly in response to internal and external stimuli. 
+    *   Provides a snapshot of what genes are actively being expressed at a specific time.
+*   **Understanding gene regulation:** Studying RNA helps us understand how genes are turned on or off, and to what extent, in different conditions.
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Why Study RNA?]{.subtit}
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/NMFaheatmap-1.png){width=400}
+:::
+::: {.column .f40}
+*   **Insights into cellular processes:**  RNA plays diverse roles in many cellular processes, including:
+    *   Protein synthesis (mRNA)
+    *   Gene regulation (microRNAs, long non-coding RNAs)
+    *   Catalysis (ribozymes)
+*   **Disease biomarkers and drug targets:**  Changes in RNA expression can be indicative of disease states, making RNA a valuable source of biomarkers for diagnosis and prognosis. 
+:::
+::: 
+
+
+<!-- ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Why RNA Sequencing?]{.subtit}
+
+::: {.columns .f60}
+::: {.column}
+*   **Microarrays:**
+    *   Limited to known genes
+    *   Lower sensitivity
+    *   Hybridization biases
+:::
+::: {.column}
+*   **RNA-Seq:**
+    *   Unbiased and comprehensive
+    *   Higher sensitivity
+    *   Wider range of applications
+:::
+::: 
+
+::: {.notes}
+- **Limitations of older techniques**: Explain that while microarrays were useful, they had significant drawbacks
+
+- **Enter RNA-Seq**: Introduce RNA-Seq as a revolutionary technology that overcomes these limitations
+ 
+---
+
+- **Create a sense of progress**: Explain how RNA-Seq represents a significant advancement over previous methods.
+
+- **Highlight the "discovery" aspect**: Emphasize that RNA-Seq allows researchers to explore the unknown and uncover new biological insights.
+::: -->
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[The Power of RNA-Seq]{.subtit}
+
+::: {.columns}
+::: {.column}
+*   **Unbiased & Comprehensive:**
+    *   Discovers novel transcripts
+    *   Not limited to known genes
+
+*   **Higher Sensitivity:**
+    *   Detects rare transcripts
+    *   Wider dynamic range
+:::
+::: {.column}
+*   **Alternative Splicing:**
+    *   Identifies and quantifies isoforms
+
+*   **Mutation Detection:**
+    *   SNPs, indels, fusion genes
+
+*   **Non-Coding RNAs:**
+    *   Studies microRNAs, lncRNAs, etc.
+:::
+::: 
+
+
+
+::: {.notes}
+- "Wide dynamic range" refers to the ability of a system or device to accurately capture and represent a broad range of signal intensities
+
+- lncRNAs, or long non-coding RNAs, are a type of RNA molecule that is not translated into protein.  They were once considered "junk" DNA, but are now recognized as crucial regulators of gene expression and cellular processes
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[A Brief History of Sequencing]{.subtit}
+
+
+::: {.p-img-center}
+```{r}
+#| echo: false
+#| eval: false
+#| layout-ncol: 1
+plot(qrcode::qr_code("https://forms.gle/rWcwyAiA4L7EG8pm7"))
+```
+
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[First generation NGS]{.tit .p-span-center}
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sanger Sequencing]{.subtit}
+
+<br>
+
+:::{.p-img-center}
+![](images/sanger1.png){width=1500}
+:::
+
+:::{.notes}
+- I dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3'-OH dei dNTP, essenziale per l'allungamento del filamento mediato dalla polimerasi in una PCR.
+
+- Le marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.
+
+- La sintesi del filamento di DNA complementare inizia nel sito specifico di innesco e termina con l'incorporazione di un ddNTP terminatore di catena che viene introdotto casualmente al posto del corrispondente dNTP.
+
+- Quando questi frammenti vengono separati su una matrice di gel appropriata, l'informazione sulla sequenza può essere ottenuta dall'ordine di migrazione delle bande (dal basso verso l'alto).
 :::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[La Potenza dell'RNA-Seq]{.subtit}
+[Sanger Sequencing]{.subtit}
 
-:::: {.columns}
-::: {.column width="50%" .f30}
-*   **Snapshot Dinamico:**
-    *   L'RNA riflette lo stato della cellula in un preciso momento (trattamento vs controllo).
-*   **Non solo espressione:**
-    *   Splicing alternativo (isoforme).
-    *   Fusioni geniche.
-    *   Mutazioni (SNPs).
-    *   RNA non codificanti (lncRNA, miRNA).
+<br>
+
+:::{.p-img-center}
+![](images/sanger2.png){width=1500}
 :::
-::: {.column width="50%" .f30}
-*   **Rispetto al DNA:**
-    *   Ci dice *cosa* sta succedendo, non solo cosa *potrebbe* succedere.
-*   **Rispetto ai Microarray:**
-    *   Non limitato ai geni noti (scoperta *de novo*).
-    *   Range dinamico più ampio (rileva sia geni molto espressi che rari).
+
+:::{.notes}
+- Leroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di "codifica a colori" eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.
+
+- Hood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.
+
+- ddATP, ddCTP, ddGTP e ddUTP marcati con fluorescenza.
+
+- La successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sanger Sequencing ]{.subtit}
+
+:::: {.columns .f30}
+
+::: {.column width="40%"}
+**Advantages** {{< fa face-smile-beam >}}
+
+1. Gold standard method for accurate detection of single nucleotide variants and small insertions/deletions
+
+1. Cost effective where single samples need to be tested very urgently
+
+1. Less reliant on computational tools than NGS
+
+1. Longer fragments (up to approximately 1000bp) can be sequenced than in short read NGS
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="40%"}
+**Limitations** {{< fa face-tired >}}
+
+1. Limited throughput
+
+1. Not cost effective for sequencing many genes in parallel
+
+1. Can require a larger amount of input DNA than NGS
+
+1. Sanger methods can only sequence short pieces of DNA--about 300 to 1000 base pairs.
+
+1. The quality of a Sanger sequence is often not very good in the first 15 to 40 bases because that is where the primer binds.
+
+1. Sequence quality degrades after 700 to 900 bases
+:::
+
+::::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sanger Sequencing ]{.subtit}
+
+::: {.p-img-center}
+```{r}
+#| echo: false
+#| eval: false
+#| layout-ncol: 1
+plot(qrcode::qr_code("https://forms.gle/b6byBimmjCfM91uU6"))
+```
+
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Second generation NGS]{.subtit}
+
+<br>
+
+:::{.callout-important appearance="default"}
+[Second-generation NGS machines immediately began to drive the 'genomics revolution' by massively increased throughput by parallelizing many reactions]{style="font-size: 50px; font-family: 'Julius Sans One', sans-serif"}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Second generation NGS]{.subtit}
+
+<br>
+
+Second-generation sequencing platforms:
+
+1. SOLiD: Sequencing by Oligonucleotide Ligation and Detection
+
+1. 454 GS FLX+: It uses pyrosequencing chemistry
+
+1. NextSeq 550Dx: Sequence by synthesis
+
+:::{.notes}
+1. SOLiD: Life Technologies in 2006
+
+1. 454: Roche in 2011
+
+1. NextSeq 550Dx: Illumina in 2017 
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by Ligation]{.subtit}
+
+<br>
+
+::::{.columns}
+
+:::{.column width="55%"}
+:::{.r-stack .p-img-center}
+![](images/lig1.png){width="900"}
+
+![](images/lig2.png){.fragment width="900"}
+:::
+:::
+
+:::{.column width="45%"}
+
+<br>
+
+:::{.fragment}
+- `r fontawesome::fa("plus-circle", fill = "green")` Considered to be one of the most accurate second-generation sequencing technologies
+
+- `r fontawesome::fa("minus-circle", fill = "red")` it can take up to seven days to complete a  single run and its short read length of 35 bp
+
+- `r fontawesome::fa("minus-circle", fill = "red")` Thermo Fisher Scientific shut down all SOLiD sequencing platforms in 2016
+:::
 :::
 ::::
 
-#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+:::{.notes}
+- Fluorescently labeled molecules called 8-mers
 
-[Design Sperimentale]{.tit .p-span-center}
+- 8-mers are short ssDNA fragments where: 
 
-##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
+    - the first and second nucleotides are the next two nucleotides of the elongating DNA strand    
+    - the third-to-fifth nucleotides are degenerate     
+    - the sixth to eighth nucleotides are inosine bases, where the eighth inosine base is attached to a characteristic fluorescent dye
 
-[Repliche Tecniche?]{.tit .p-span-center}
+A. The addition of primer and 8-mers, where if the first two nucleotides are complementary, DNA ligase ligates it to the primer.    
+B. Unbound 8-mers are washed away, and a laser excites the fluorescent tag on the 8-mer to emit a detectable light signal that is captured    
+C. A-B is repeated until the end of the DNA fragment.    
+D. The newly synthesized DNA strand is melted off, and A-C is repeated using a primer with a length of N-1, N-2, and N-3
 
-::: {.fragment .f100 .tcenter .rn}
-NO
 :::
 
-::: {.callout-important}
-Con le attuali tecnologie NGS, la variazione tecnica è molto inferiore alla variazione biologica. Le repliche tecniche (stesso RNA sequenziato due volte) sono inutili.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pyrosequencing]{.subtit}
+
+::::{.columns}
+
+:::{.column width="45%"}
+:::{.p-img-center}
+![](images/pyro.png){width=800}
 :::
 
-##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Repliche Biologiche?]{.tit .p-span-center}
-
-::: {.fragment .f100 .tcenter .rn}
-SÌ
 :::
 
-::: {.callout-important}
-Per l'analisi differenziale, le repliche biologiche sono **essenziali**. Più repliche = stima migliore della varianza biologica = p-value più affidabili. (Minimo assoluto: 3 per gruppo).
+:::{.column width="10%"}
+:::
+
+:::{.column width="45%"}
+<br>
+<br>
+
+:::{.fragment}
+- `r fontawesome::fa("plus-circle", fill = "green")` Large read lenght generation
+
+- `r fontawesome::fa("minus-circle", fill = "red")` High reagent cost
+
+- `r fontawesome::fa("minus-circle", fill = "red")` High error rate for homopolymers
+:::
+:::
+::::
+
+:::{.notes}
+Durante il sequenziamento vengono, di volta in volta, aggiunti dei nucleotidi. 
+
+Se il nucleotide viene incorporato viene rilasciato un pirofosfato 
+
+Poi utilizzato come substrato dall'enzima ATP solforilasi. 
+
+Quest'ultimo enzima catalizza la conversione del pirofosfato in ATP. 
+
+L'ATP a sua volta è il cofattore utilizzato dalla luciferasi per catalizzare la reazione che coinvolge la luciferina e che porta alla produzione di luce. 
+
+La luce generata, solo in seguito alla incorporazione del nucleotide corretto,viene rilevata grazie ad un detector.
 :::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Single-End vs Paired-End]{.subtit}
+[Sequence by synthesis]{.subtit}
+
+##  {background-image="images/pant.jpg" background-size="cover" background-opacity="1"}
+
+:::{.notes}
+Birthplace of high-throughput sequencing
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by synthesis - History]{.subtit}
+
+<br>
+
+[1997]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [Evolution of a Novel Approach to Sequencing]{style="font-size: 70px"}
 
 :::{.p-img-center}
-![](images/SE_vs_PE.png){width=800}
+![](images/bk.jpg){width=600}
+:::
+
+:::{.tcenter}
+Shankar Balasubramanian and David Klenerman
+:::
+
+
+:::{.notes}
+- Cambridge scientists Shankar Balasubramanian, Ph.D. and David Klenerman, Ph.D. were using fluorescently labeled nucleotides to observe the motion of a polymerase at the single molecule level as it synthesized DNA immobilized to a surface
+
+- during the summer of 1997 sparked ideas surrounding the use of clonal arrays and massively parallel sequencing of short reads using solid phase sequencing by reversible terminators
+
+- This technology was subsequently referred to as sequencing by synthesis technology, or SBS. This became the basis of an innovative DNA sequencing approach.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by synthesis - History]{.subtit}
+
+<br>
+
+[1998]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [Formation of Solexa]{style="font-size: 70px"}
+
+:::{.p-img-center}
+![](images/solexa.png){width=600}
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by synthesis - History]{.subtit}
+
+<br>
+
+[2004]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [Molecular Clustering Technology Integration]{style="font-size: 70px"}
+
+:::{.p-img-center}
+![](images/polony.jpg){width=800}
+:::
+
+:::{.tcenter}
+Cluster generation (also known as "bridge amplification")
+:::
+
+
+:::{.notes}
+- Solexa acquired molecular clustering technology from Manteia. 
+
+- The amplification of single DNA molecules into clusters enhanced the fidelity and accuracy of gene calling, while reducing the cost of the system optics through generation of a stronger signal.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by synthesis - History]{.subtit}
+
+<br>
+
+[2005]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [phiX-174 Genome Sequencing]{style="font-size: 70px"}
+
+:::{.fragment}
+[2005]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [Integration of Lynx Therapeutics]{style="font-size: 70px"}
+:::
+
+:::{.fragment}
+[2007]{style="font-family: 'Rock Salt', cursive;font-size: 60px"}: [Illumina Acquires Solexa]{style="font-size: 70px"}
+
+::::{.columns}
+
+:::{.column width="45%"}
+:::{.p-img-center}
+![](images/ga.jpg){width=500}
+:::
+
+:::
+
+:::{.column width="10%"}
+:::
+
+:::{.column width="45%"}
+:::{.p-img-center}
+![](images/moore.png){width=500}
+:::
+
+:::
+
+::::
+
+:::
+
+
+:::{.notes}
+- The Solexa team sequenced the complete genome of the bacteriophage phiX-174, the same genome Sanger first sequenced using his method
+
+- However, the SBS technology generated significantly more sequencing data, delivering over 3 million bases from a single run.
+
+---
+
+- Solexa acquired instrumentation company Lynx Therapeutics, transforming the successful Solexa prototype into a commercial sequencing instrument: Genome Analyzer
+
+---
+
+- Solexa was acquired by Illumina
+
+- Next-generation sequencing (NGS) data output has increased at a rate that outpaces Moore's law, more than doubling each year
+:::
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequence by synthesis - Process]{.subtit}
+
+{{< video https://www.youtube.com/embed/fCd6B5HRaZ8 width="100%" height="85%" >}}
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Third generation NGS]{.subtit}
+
+<br>
+
+:::{.callout-important appearance="default"}
+[Third-generation methods allow direct sequencing of single DNA molecules]{style="font-size: 50px; font-family: 'Julius Sans One', sans-serif"}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Third generation NGS]{.subtit}
+
+<br>
+
+Third-generation NGS platforms:
+
+1. Single-molecule real-time sequencing
+
+1. Nanopore sequencing
+
+:::{.notes}
+1. Pacific Biosciences in 2011
+
+1. Oxford Nanopore Technologies on 2014
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[SMRS]{.subtit}
+
+
+{{< video https://www.youtube.com/embed/_lD8JyAbwEo width="100%" height="85%" >}}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Nanopore sequencing]{.subtit}
+
+
+{{< video https://www.youtube.com/embed/CGWZvHIi3i0 width="100%" height="85%" >}}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Single-Ended vs. Paired-End]{.subtit}
+
+**Choosing Your Sequencing Strategy**
+
+:::{.p-img-center}
+![](images/SE_vs_PE.png){width=1000}
 :::
 
 ::: {.columns .f30}
-::: {.column width="50%"}
-**Single-End (SE):**
-- Una lettura per frammento.
-- Più economico.
-- OK per: Quantificazione genica semplice.
+::: {.column width="30%"}
+*   **Single-end sequencing:**
+    *   One read per fragment
+    *   Simpler, cost-effective
+    *   Suitable for gene expression profiling
 :::
-::: {.column width="50%"}
-**Paired-End (PE):**
-- Due letture per frammento (dai due lati).
-- Meglio per: Mappaggio in regioni ripetute, Splicing, Varianti.
+::: {.column width="30%"}
+*   **Paired-end sequencing:**
+    *   Two reads per fragment
+    *   More information, improved accuracy
+    *   Useful for genome assembly, variant detection, isoform identification
+:::
+::: {.column width="30%"}
+*   **Choice depends on:**
+    *   Research question
+    *   Budget
+    *   Desired accuracy
+
 :::
 :::
 
-::: {.callout-note}
-In `nf-core/rnaseq`, se i dati sono PE, avrai due file FASTQ (`_R1` e `_R2`) per campione nel samplesheet.
-:::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Profondità di Sequenziamento]{.subtit}
+[Single-Ended vs. Paired-End]{.subtit}
 
-Quante reads ("milioni") servono?
+| Trade-off             | Single-End Sequencing | Paired-End Sequencing |
+|-----------------------|-----------------------|-----------------------|
+| **Cost**              | Lower                 | Higher                |
+| **Information**       | Less                  | More                  |
+| **Simplicity**        | Simpler               | More Complex          |
+| **Accuracy**          | Lower                 | Higher                |
+| **Sequencing Depth**  | Higher                | Potentially Lower      |
+| **Read Length**       | Shorter               | Longer (effective)    |
+| **Ideal Applications** | Gene expression, small RNA-Seq | Genome assembly, variant calling, isoform identification |
 
--   **Solo Espressione Genica:** 10-20 Milioni di reads.
--   **Espressione + Isoforme:** 30-50 Milioni di reads.
--   **Scoperta di trascritti rari:** >50 Milioni.
 
-::: {.fragment}
-*Non serve sequenziare all'infinito! Dopo un certo punto, si vedono solo più errori o rumore.*
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Sequencing Depth]{.subtit}
+
+**Sequencing Depth: Finding the Right Balance**
+
+:::{.p-img-center}
+![](images/diagnostech-part3-diagram2.jpg)
 :::
+
+::: {.columns .f25}
+::: {.column width="33%"}
+*   **What it is:** The average number of times each base in the genome (or transcriptome) is sequenced.
+*   **Why it matters:**
+    *   **Sensitivity:** Higher depth increases the chance of detecting rare transcripts or variants.
+    *   **Accuracy:**  Higher depth improves the accuracy of gene expression quantification and variant calling.
+:::
+::: {.column width="33%"}
+*   **Factors to consider:**
+    *   **Research goals:**  Higher depth is needed for detecting rare events or subtle changes.
+    *   **Genome size and complexity:** Larger genomes require higher depth for adequate coverage.
+    *   **Budget:**  Higher depth increases sequencing costs.
+:::
+::: {.column width="33%"}
+*   **Typical ranges:**
+    *   RNA-Seq for gene expression: 10-30 million reads per sample
+    *   RNA-Seq for isoform detection: 30-60 million reads per sample
+    *   Variant calling: 30-50x coverage for whole-genome sequencing
+
+:::
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Transcriptome Coverage]{.subtit}
+
+**Transcriptome Coverage: Capturing the Full Picture**
+
+:::{.p-img-center}
+![](images/maxresdefault.jpg){width=400}
+:::
+
+
+::: {.columns .f25}
+::: {.column width="50%"}
+*   **What it is:** The extent to which the sequencing reads represent the entire transcriptome.
+*   **Why it matters:**
+    *   **Completeness:**  High coverage ensures that all expressed transcripts are captured, including rare and low-abundance transcripts.
+    *   **Accuracy:**  Adequate coverage is needed for accurate quantification of gene expression levels.
+    *   **Discovery:**  High coverage increases the chances of identifying novel transcripts and isoforms.
+:::
+::: {.column width="50%"}
+*   **Factors influencing coverage:**
+    *   **Sequencing depth:** Higher depth generally leads to better coverage.
+    *   **Library complexity:** A diverse library with a wide range of fragment sizes improves coverage.
+    *   **RNA integrity:** High-quality RNA ensures that all transcripts are represented in the library.
+    *   **Sequencing technology:**  Different platforms have different read lengths and biases, which can affect coverage.
+:::
+:::
+
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Tecnologia NGS in Breve]{.tit .p-span-center}
+
+[Emerging Trends and Future Directions]{.tit .p-span-center}
+
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Illumina: Sequencing by Synthesis]{.subtit}
+[Single-Cell RNA Sequencing]{.subtit}
 
-1.  **Libreria:** Frammentazione RNA -> cDNA -> Adattatori.
-2.  **Cluster Generation:** Amplificazione clonale sulla flowcell.
-3.  **Sequenziamento:** Nucleotidi fluorescenti incorporati uno alla volta.
-4.  **Immagini:** Una foto per ogni ciclo -> conversione in basi (A, C, T, G).
+**Zooming In: Analyze gene expression in individual cells**
 
-{{< video https://www.youtube.com/embed/fCd6B5HRaZ8 width="80%" height="60%" >}}
+:::{.p-img-center}
+![](images/scRNA1.jpg){width=1200}
+:::
+
+<!-- ::: {.columns}
+::: {.column width="50%"}
+*   **Advantages:**
+    *   Cellular heterogeneity
+    *   Cell-fate transitions
+    *   Rare cell populations
+:::
+::: {.column width="50%"}
+*   **Challenges:**
+    *   Technical complexity
+    *   Cost
+    *   Data analysis
+:::
+::: -->
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Il Risultato: File FASTQ]{.subtit}
+[Single-Cell RNA Sequencing]{.subtit}
 
-È il punto di partenza per la nostra pipeline bioinformatica.
+**scRNA-Seq: advantages in biological research**
 
-```text
-@SEQ_ID
-GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
-+
-!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
-```
+*   **Cellular Heterogeneity:**  Identify and characterize different cell types within a complex tissue or population.
+    *   Discover new cell subtypes and rare cell populations.
+    *   Understand the functional diversity of cells.
+*   **Developmental Trajectories:**  Trace cell lineages and reconstruct developmental pathways.
+    *   Study cell differentiation and fate decisions.
+    *   Identify key genes and regulatory networks involved in development.
 
-1.  **Header (`@`)**: ID univoco della read.
-2.  **Sequenza**: Basi nucleotidiche.
-3.  **Separatore (`+`)**.
-4.  **Qualità**: Punteggio (ASCII) che indica la probabilità che la base sia corretta (Phred Score).
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Single-Cell RNA Sequencing]{.subtit}
+
+**scRNA-Seq: advantages in biological research**
+
+*   **Disease Mechanisms:**  Investigate the cellular basis of disease.
+    *   Identify disease-associated cell types and gene expression changes.
+    *   Study the response of individual cells to drugs or treatments.
+
+
+:::{.callout-important appearance="default"}
+scRNA-seq represents a powerful tool for dissecting the complexities of gene expression and cellular heterogeneity across various biological contexts
+:::
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Spatial Transcriptomics]{.subtit}
+
+**Spatial Transcriptomics: mapping gene expression in context**
+
+::: {.columns}
+::: {.column width="40%"}
+<br>
+<br>
+
+![](images/sptr.png){width=600}
+
+:::
+::: {.column width="60%" .f30}
+*   **Bridges histology and genomics:** Combines traditional tissue imaging with high-throughput RNA sequencing.
+*   **Preserves spatial context:**  Maps gene expression while retaining spatial information, unlike traditional scRNA-seq.
+*   **Enables:**
+    *   Visualization of gene expression patterns within tissues.
+    *   Quantitative analysis of transcriptomes in a spatial context.
+*   **Applications:**
+    *   Understanding tissue organization and cellular interactions.
+    *   Investigating developmental processes (organogenesis).
+    *   Studying disease progression and heterogeneity.
+
+:::
+:::
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Spatial Transcriptomics]{.subtit}
+
+
+**Spatial Transcriptomics: from technology to discovery**
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/sctr2.jpg){width=600}
+:::
+::: {.column width="60%" .f30}
+*   **Applications:**
+    *   **Tissue heterogeneity:**  Studying complex tissues like the cochlea. (Tisi, 2023)
+    *   **Disease mechanisms:**  Uncovering cellular dynamics in diseases like Alzheimer's. (Chen et al., 2020)
+*   **Data analysis:**
+    *   Dimension reduction, deconvolution, and integration with histological images.
+    *   Specialized tools for cell type deconvolution. (Cable et al., 2021)
+
+:::
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Integration of RNA-Seq with other omics data]{.subtit}
+
+**Beyond RNA: integrating with other omics data**
+
+::: {.f30}
+*   **The Power of Integration:** Combining RNA-Seq with other omics data provides a more complete picture of cellular processes.
+    *   **Metabolomics:**  Correlate gene expression with metabolic pathways and identify key metabolites.
+    *   **Chromatin accessibility (ATAC-seq):**  Link gene expression changes to alterations in chromatin structure.
+    *   **Other omics layers:**  Integrate with genomics, proteomics, and epigenomics for a systems-level understanding.
+*   **Key Findings:**
+    *   Limited overlap between DEGs and chromatin accessibility changes (~10%) (Malvi et al., 2022).
+    *   Highlights the complexity of gene regulation beyond chromatin state. (Miao et al., 2021)
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Integration of RNA-Seq with other omics data]{.subtit}
+
+**Unlocking biological insights through data integration**
+
+::: {.columns}
+::: {.column width="40%"}
+![](images/integr.jpeg){width=500}
+:::
+::: {.column width="60%" .f25}
+*   **Applications:**
+    *   **Identifying key pathways:**  Integration of RNA-seq and metabolomics reveals regulated pathways in liver metabolism. (Zhang et al., 2020)
+    *   **Disease biomarkers:**  Uncovering disease-specific biomarkers in NAFLD using RNA-seq and metabolomics. (Ji et al., 2022)
+*   **Tools and Techniques:**
+    *   **Machine learning:**  rSeqTU for predicting transcription units and integrating with metagenomics and metabolomics. (Hou et al., 2022)
+    *   **Statistical analysis:**  DESeq2 for integrating RNA-seq and ChIP-seq data. (Niu et al., 2019)
+    *   **Single-cell multi-omics:**  Combining scRNA-seq with lipidomics and metabolomics to study cellular heterogeneity. (Cao et al., 2020)
+
+:::
+:::
+
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
+
 
 ::: {style="position: absolute; left: 980px; top: 450px;"}
 [Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
