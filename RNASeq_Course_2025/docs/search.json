@@ -1,0 +1,1220 @@
+[
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "R è il linguaggio di programmazione che useremo per l’analisi statistica.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\n\n\nNextflow è necessario per eseguire la pipeline nf-core/rnaseq.\n\n\nNextflow richiede Java 11 o superiore:\n# Verifica se Java è installato\njava -version\n\n# Se non installato, scarica Java da:\n# https://www.oracle.com/java/technologies/downloads/\n\n\n\n# Installa Nextflow\ncurl -s https://get.nextflow.io | bash\n\n# Rendi eseguibile e sposta in una cartella nel PATH\nchmod +x nextflow\nsudo mv nextflow /usr/local/bin/\n\n\n\n\nDocker gestisce automaticamente tutti i software bioinformatici necessari.\n\nWindows/macOS: Docker Desktop\nLinux: Segui le istruzioni per la tua distribuzione qui\n\nAlternativa a Docker: Singularity (per HPC/cluster)"
+  },
+  {
+    "objectID": "setup.html#requisiti-software",
+    "href": "setup.html#requisiti-software",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "R è il linguaggio di programmazione che useremo per l’analisi statistica.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\n\n\nNextflow è necessario per eseguire la pipeline nf-core/rnaseq.\n\n\nNextflow richiede Java 11 o superiore:\n# Verifica se Java è installato\njava -version\n\n# Se non installato, scarica Java da:\n# https://www.oracle.com/java/technologies/downloads/\n\n\n\n# Installa Nextflow\ncurl -s https://get.nextflow.io | bash\n\n# Rendi eseguibile e sposta in una cartella nel PATH\nchmod +x nextflow\nsudo mv nextflow /usr/local/bin/\n\n\n\n\nDocker gestisce automaticamente tutti i software bioinformatici necessari.\n\nWindows/macOS: Docker Desktop\nLinux: Segui le istruzioni per la tua distribuzione qui\n\nAlternativa a Docker: Singularity (per HPC/cluster)"
+  },
+  {
+    "objectID": "setup.html#pacchetti-rbioconductor",
+    "href": "setup.html#pacchetti-rbioconductor",
+    "title": "Setup e Installazione",
+    "section": "Pacchetti R/Bioconductor",
+    "text": "Pacchetti R/Bioconductor\n\nPacchetti Essenziali\nApri RStudio ed esegui:\n# Installa BiocManager per gestire i pacchetti Bioconductor\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\n\n# Core Tidyverse (per manipolazione dati e visualizzazione)\ninstall.packages(\"tidyverse\")\n\n# Pacchetti Bioconductor per RNA-Seq\nBiocManager::install(c(\n  \"tximport\",           # Importazione dati da Salmon/Kallisto\n  \"DESeq2\",             # Analisi differenziale\n  \"ComplexHeatmap\",     # Heatmap avanzate\n  \"clusterProfiler\",    # Enrichment analysis\n  \"AnnotationDbi\",      # Annotazioni geniche\n  \"org.Hs.eg.db\"        # Annotazioni per Homo sapiens\n))\n\n\nPacchetti Aggiuntivi (Utili)\n# Visualizzazione\ninstall.packages(c(\"pheatmap\", \"ggrepel\", \"RColorBrewer\", \"viridis\"))\n\n# Interattività\ninstall.packages(\"plotly\")\n\n# Dataset di esempio\nBiocManager::install(\"airway\")"
+  },
+  {
+    "objectID": "setup.html#verifica-installazione",
+    "href": "setup.html#verifica-installazione",
+    "title": "Setup e Installazione",
+    "section": "Verifica Installazione",
+    "text": "Verifica Installazione\n\nTest R/Bioconductor\n# Carica le librerie\nlibrary(tximport)\nlibrary(DESeq2)\nlibrary(tidyverse)\n\n# Se nessun errore appare, tutto funziona! ✅\nprint(\"Setup completato correttamente!\")\n\n\nTest Nextflow\n# Verifica installazione\nnextflow -version\n\n# Dovrebbe mostrare qualcosa come:\n#   nextflow version 23.10.0.xxxx\n\n\nTest Docker\n# Verifica installazione\ndocker --version\n\n# Test di funzionamento\ndocker run hello-world"
+  },
+  {
+    "objectID": "setup.html#struttura-progetto",
+    "href": "setup.html#struttura-progetto",
+    "title": "Setup e Installazione",
+    "section": "Struttura Progetto",
+    "text": "Struttura Progetto\nDurante il corso, organizzeremo il lavoro così:\nrnaseq-course/\n├── data/                 # FASTQ files, samplesheet\n│   ├── fastq_SUBSET/\n│   └── samplesheet.csv\n├── results/              # Output nf-core/rnaseq\n│   ├── multiqc/\n│   ├── star_salmon/\n│   └── ...\n├── analysis/             # Script R per analisi\n│   ├── 01_import.R\n│   ├── 02_deseq2.R\n│   └── 03_visualization.R\n└── plots/                # Grafici finali\nCrea questa struttura:\n# In RStudio\ndir.create(\"rnaseq-course\")\nsetwd(\"rnaseq-course\")\ndir.create(\"data\")\ndir.create(\"results\")\ndir.create(\"analysis\")\ndir.create(\"plots\")"
+  },
+  {
+    "objectID": "setup.html#dataset-del-corso",
+    "href": "setup.html#dataset-del-corso",
+    "title": "Setup e Installazione",
+    "section": "Dataset del Corso",
+    "text": "Dataset del Corso\nI dati di esempio (dataset airway) saranno forniti durante il corso e includono:\n\n4 campioni paired-end FASTQ\nMetadata con informazioni sperimentali\nIndice trascrittoma pre-calcolato\n\nDownload: Link verrà fornito il giorno del corso."
+  },
+  {
+    "objectID": "setup.html#problemi-comuni",
+    "href": "setup.html#problemi-comuni",
+    "title": "Setup e Installazione",
+    "section": "Problemi Comuni",
+    "text": "Problemi Comuni\n\nWindows: Path troppo lungo\nNextflow può avere problemi con path lunghi su Windows. Soluzioni:\n\nLavora in C:\\rnaseq\\ invece di cartelle profonde\nAbilita Long Path Support: Guida Microsoft\n\n\n\nmacOS: Permessi Docker\nSe Docker non parte:\n# Aggiungi il tuo utente al gruppo docker (solo Linux)\nsudo usermod -aG docker $USER\nPoi riavvia il sistema.\n\n\nLinux: Librerie di Sistema\nPer compilare alcuni pacchetti R:\n# Ubuntu/Debian\nsudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev\n\n# Fedora/RedHat\nsudo yum install libcurl-devel openssl-devel libxml2-devel"
+  },
+  {
+    "objectID": "setup.html#risorse-hardware",
+    "href": "setup.html#risorse-hardware",
+    "title": "Setup e Installazione",
+    "section": "Risorse Hardware",
+    "text": "Risorse Hardware\n\nRequisiti Minimi\n\nRAM: 8 GB (16 GB raccomandati)\nSpazio disco: 50 GB liberi per pipeline + dati\nCPU: 4 core (8 raccomandati)\n\n\n\nPer Grandi Dataset\nSe lavori con molti campioni o genomi grandi:\n\nUsa un cluster HPC con Singularity\nConsidera servizi cloud (AWS, Google Cloud con batch)"
+  },
+  {
+    "objectID": "setup.html#supporto",
+    "href": "setup.html#supporto",
+    "title": "Setup e Installazione",
+    "section": "Supporto",
+    "text": "Supporto\nSe hai problemi:\n\nConsulta la sezione Problemi Comuni\nCerca l’errore su Bioconductor Support\nChiedi sul canale Slack del corso\nContatta: [email del docente]"
+  },
+  {
+    "objectID": "setup.html#checklist-pre-corso",
+    "href": "setup.html#checklist-pre-corso",
+    "title": "Setup e Installazione",
+    "section": "Checklist Pre-Corso",
+    "text": "Checklist Pre-Corso\n\nInstallato R (≥ 4.3.0) e RStudio\nInstallato Nextflow\nInstallato Docker/Singularity\nInstallati pacchetti R/Bioconductor essenziali\nVerificato funzionamento con test code\nCreata struttura cartelle progetto\nScaricati dataset del corso (link fornito)\nUnito al canale Slack (link fornito)\n\nPronto per iniziare! 🧬🚀"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#introduzione-al-demo",
+    "href": "materials/08_demo_prompts.html#introduzione-al-demo",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Introduzione al Demo",
+    "text": "Introduzione al Demo\nQuesta guida vi accompagna attraverso un’analisi RNA-seq completa usando l’AI come “pair programmer”.\nDataset: Airway - Trattamento con desametasone (4 campioni paired-end)\nWorkflow:\n\n🔍 QC e Trimming (fastp)\n🧬 Quantificazione (Salmon)\n📊 QC della matrice (in R)\n🔬 Analisi Esplorativa (PCA, correlazione)\n📈 Analisi Differenziale (DESeq2)\n🎨 Visualizzazione"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#demo-data",
+    "href": "materials/08_demo_prompts.html#demo-data",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Demo Data",
+    "text": "Demo Data\nFile disponibili in data/:\n\n\n\nCartella\nContenuto\n\n\n\n\nfastq_SUBSET/\n4 campioni paired-end (airway)\n\n\ntrascriptome_TINY/\nGENCODE v43 (subset) + indice Salmon\n\n\n\nCampioni: SRR1039508 (control), SRR1039509 (treatment), SRR1039512 (control), SRR1039513 (treatment)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0a-qc-con-fastp",
+    "href": "materials/08_demo_prompts.html#prompt-0a-qc-con-fastp",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0a: QC con fastp",
+    "text": "Prompt 0a: QC con fastp\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo file FASTQ paired-end da un esperimento RNA-seq Illumina nella cartella data/fastq_SUBSET/:\n- SRR1039508_pass_1_SUBSET.fastq (forward reads)\n- SRR1039508_pass_2_SUBSET.fastq (reverse reads)\n\nEsegui il quality control e il trimming degli adattatori.\nVoglio:\n1. Rimuovere le basi di bassa qualità (Phred &lt; 20)\n2. Rimuovere automaticamente gli adattatori Illumina\n3. Scartare i reads troppo corti dopo il trimming (&lt; 36 bp)\n4. Generare un report HTML per visualizzare i risultati\n5. Salvare gli output in una cartella 'results/fastp/'\n\nGenera il comando da eseguire nel terminale e spiega cosa fa ogni parametro.\n\n\n\n💡 L’AI genererà il comando fastp appropriato"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0a-bis-batch-processing",
+    "href": "materials/08_demo_prompts.html#prompt-0a-bis-batch-processing",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0a-bis: Batch Processing",
+    "text": "Prompt 0a-bis: Batch Processing\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo 4 campioni paired-end nella cartella data/fastq_SUBSET/:\n- SRR1039508, SRR1039509, SRR1039512, SRR1039513\n- Ogni campione ha _pass_1_SUBSET.fastq e _pass_2_SUBSET.fastq\n\nEsegui fastp per tutti i 4 campioni in batch.\nPer ogni campione:\n1. Applica lo stesso filtraggio (Phred &lt; 20, lunghezza min 36 bp)\n2. Rimuovi adattatori automaticamente\n3. Genera report HTML e JSON individuali\n4. Salva output in results/fastp/{sample}_*\n\nGenera uno script bash che processi tutti i campioni in loop."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0b-aggregare-con-multiqc",
+    "href": "materials/08_demo_prompts.html#prompt-0b-aggregare-con-multiqc",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0b: Aggregare con MultiQC",
+    "text": "Prompt 0b: Aggregare con MultiQC\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo eseguito fastp su 4 campioni e ogni campione ha generato:\n- report HTML individuale\n- report JSON in results/fastp/\n\nAggrega tutti i report fastp in un unico report MultiQC.\nVoglio:\n1. Creare un report combinato che mostri tutti i campioni insieme\n2. Confrontare le statistiche QC tra i campioni\n3. Identificare eventuali outliers\n4. Salvare il report MultiQC in results/multiqc/\n\nGenera il comando MultiQC e spiega:\n- Come MultiQC trova automaticamente i file fastp?\n- Quali metriche posso confrontare tra i campioni?\n\n\n\n💡 Perché MultiQC?: Dashboard unica per confrontare tutti i campioni"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0c-interpretazione-multiqc",
+    "href": "materials/08_demo_prompts.html#prompt-0c-interpretazione-multiqc",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0c: Interpretazione MultiQC",
+    "text": "Prompt 0c: Interpretazione MultiQC\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo eseguito MultiQC sui risultati fastp dei miei 4 campioni RNA-seq.\nEcco il report generato:\n\n[INCOLLA QUI SCREENSHOT O STATISTICHE CHIAVE DAL REPORT MULTIQC]\n\nSpiegami:\n1. La qualità complessiva di tutti i miei campioni è buona?\n2. Ci sono campioni con qualità significativamente diversa dagli altri?\n3. Quali sono i 3 segnali di allarme (red flags) che dovrei cercare?\n4. Tutti i campioni possono procedere all'allineamento o qualcuno va escluso?\n\nFocalizzati su:\n- Confronto Phred score tra campioni\n- Contenuto di adattatori (% rimossa)\n- Duplicazione e library size dopo trimming\n- Identificazione di outliers\n\n\n\nConcetto chiave: GIGO - Garbage In, Garbage Out"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0d-creare-lindice-salmon-demo",
+    "href": "materials/08_demo_prompts.html#prompt-0d-creare-lindice-salmon-demo",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0d: Creare l’indice Salmon (demo)",
+    "text": "Prompt 0d: Creare l’indice Salmon (demo)\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo un file FASTA compresso con le sequenze dei trascritti:\n- data/trascriptome_TINY/gencode.v43.transcripts_TINY.fa.gz\n\nVoglio creare un indice Salmon da questo file per capire il processo.\nCrea l'indice in 'data/trascriptome_TINY/my_salmon_index/'\n\nGenera il comando Salmon appropriato e spiega:\n1. Cos'è un indice e perché è necessario per la quantificazione?\n2. Quanto tempo ci vuole tipicamente (per questo subset vs un genoma completo)?\n3. L'indice può essere riutilizzato per altri esperimenti con lo stesso organismo?\n4. Quali sono i parametri chiave del comando (es. -k per k-mer size)?\n\nNOTA: Posso poi usare l'indice già pronto in gencode.v43_TINY.salmon/ per risparmiare tempo.\n\n\n\n💡 Demo didattico: Questo step è educativo - mostra come si crea, ma poi useremo l’indice pre-costruito."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0e-quantificare-con-salmon",
+    "href": "materials/08_demo_prompts.html#prompt-0e-quantificare-con-salmon",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0e: Quantificare con Salmon",
+    "text": "Prompt 0e: Quantificare con Salmon\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo file FASTQ paired-end (dopo QC con fastp):\n- results/fastp/SRR1039508_pass_1_trimmed.fastq\n- results/fastp/SRR1039508_pass_2_trimmed.fastq\n\nE un indice Salmon pre-costruito:\n- data/trascriptome_TINY/gencode.v43_TINY.salmon/\n\nQuantifica l'espressione genica con Salmon.\nSalva i risultati in 'results/salmon/SRR1039508/'\n\nGenera il comando e spiega:\n- Cosa sono i TPM e i counts che Salmon produce?\n- Come si interpretano i file output (quant.sf)?\n\n\n\n📊 Output: File quant.sf con TPM e counts per trascritto"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0f-batch-quantification",
+    "href": "materials/08_demo_prompts.html#prompt-0f-batch-quantification",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0f: Batch Quantification",
+    "text": "Prompt 0f: Batch Quantification\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo 4 campioni paired-end da quantificare con Salmon:\n- SRR1039508, SRR1039509, SRR1039512, SRR1039513\n\nI file trimmed sono in results/fastp/ con pattern:\n- {sample}_pass_1_trimmed.fastq e {sample}_pass_2_trimmed.fastq\n\nL'indice Salmon è in: data/trascriptome_TINY/gencode.v43_TINY.salmon/\n\nGenera uno script bash che:\n1. Crei la cartella results/salmon/\n2. Esegua Salmon quant per ogni campione\n3. Salvi ogni output in results/salmon/{sample}/\n\nSpiega come verificare che tutti i campioni sono stati processati correttamente."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-0g-importare-in-r-tximport",
+    "href": "materials/08_demo_prompts.html#prompt-0g-importare-in-r-tximport",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 0g: Importare in R (tximport)",
+    "text": "Prompt 0g: Importare in R (tximport)\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo i risultati di Salmon per 4 campioni in:\n- results/salmon/SRR1039508/quant.sf\n- results/salmon/SRR1039509/quant.sf\n- results/salmon/SRR1039512/quant.sf\n- results/salmon/SRR1039513/quant.sf\n\nHo bisogno di una corrispondenza trascritto → gene (tx2gene).\n\nImporta i risultati in R con tximport e:\n1. Se non ho un file tx2gene, crealo dai nomi dei trascritti GENCODE (ENST → ENSG)\n2. Aggrega i counts a livello di gene\n3. Salva la matrice di conteggi come 'data/counts_matrix.csv'\n4. Crea anche il file 'data/sample_metadata.csv' con le condizioni\n\nSpiega:\n- Perché aggregare a livello di gene invece che trascritto?\n- Cosa fa tximport diversamente da un semplice merge?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente",
+    "href": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.1: Setup Ambiente",
+    "text": "Prompt 1.1: Setup Ambiente\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSto iniziando un'analisi RNA-seq in R. Ho bisogno di:\n1. Caricare le librerie necessarie (DESeq2, tximport, ggplot2, pheatmap)\n2. Impostare un seed per la riproducibilità\n3. Creare una cartella 'results' per salvare i plot\n\nGenera il codice di setup.\nIncludi anche una spiegazione:\n- Perché carichiamo queste specifiche librerie?\n- Cosa ci aspettiamo di vedere eseguendo il setup?\n\n\n\nCosa verificare: - Le librerie si caricano senza errori? - La cartella results è stata creata?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.2-caricamento-dati",
+    "href": "materials/08_demo_prompts.html#prompt-1.2-caricamento-dati",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.2: Caricamento Dati",
+    "text": "Prompt 1.2: Caricamento Dati\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo due file CSV:\n- 'data/counts_matrix.csv': matrice di conteggi (geni x campioni)\n- 'data/sample_metadata.csv': metadati campioni (colonne: sample_id, condition, batch)\n\nCarica questi file e:\n1. Mostra le prime 5 righe di ogni tabella\n2. Verifica che i nomi dei campioni corrispondano tra i due file\n3. Converti 'condition' in un fattore con livelli: control, treatment\n\nInoltre spiega:\n- Perché serve convertire 'condition' in factor?\n- Perché controllare l'ordine dei campioni è critico in DESeq2?\n\n\n\nCosa verificare: - I dati hanno le dimensioni attese? - I nomi campioni coincidono?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#output-atteso---step-1",
+    "href": "materials/08_demo_prompts.html#output-atteso---step-1",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Output Atteso - Step 1",
+    "text": "Output Atteso - Step 1\n# Dovresti vedere qualcosa come:\n&gt; dim(counts)\n[1] 22485     6\n\n&gt; head(metadata)\n  sample_id condition batch\n1   sample1   control     A\n2   sample2   control     A\n3   sample3   control     B\n..."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.1-statistiche-base",
+    "href": "materials/08_demo_prompts.html#prompt-2.1-statistiche-base",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.1: Statistiche Base",
+    "text": "Prompt 2.1: Statistiche Base\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nAnalizza la qualità della matrice di conteggi:\n1. Calcola i conteggi totali per campione (library size)\n2. Conta quanti geni sono espressi (&gt;0 reads) per campione\n3. Crea un barplot dei library size colorati per condizione\n4. Identifica campioni con library size anomala (&gt;2SD dalla media)\n\nCommenta i risultati:\n- È normale avere library size diverse?\n- Quando una differenza diventa preoccupante (bias)?\n\n\n\nConcetto chiave: Library size molto diverse possono influenzare l’analisi → necessità di normalizzazione"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.2-filtraggio-geni",
+    "href": "materials/08_demo_prompts.html#prompt-2.2-filtraggio-geni",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.2: Filtraggio Geni",
+    "text": "Prompt 2.2: Filtraggio Geni\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nFiltra i geni a bassa espressione:\n1. Rimuovi geni con meno di 10 conteggi totali\n2. Mantieni solo geni espressi in almeno 3 campioni\n3. Mostra quanti geni rimangono dopo il filtro\n4. Crea un istogramma della distribuzione dei conteggi (log2+1) prima e dopo\n\nSpiega il razionale:\n- Come impatta questo filtro sulla potenza statistica (FDR)?\n- Perché rimuovere gli zero migliora la stima della dispersione?\n\n\n\nPerché filtrare?: Geni non espressi aggiungono rumore e riducono la potenza statistica"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#output-atteso---step-2",
+    "href": "materials/08_demo_prompts.html#output-atteso---step-2",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Output Atteso - Step 2",
+    "text": "Output Atteso - Step 2\n# Prima del filtro\n&gt; nrow(counts)\n[1] 22485\n\n# Dopo il filtro\n&gt; nrow(counts_filtered)\n[1] 15234\n\n# Riduzione\n\"32% dei geni rimossi (principalmente non espressi)\""
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.1-creazione-deseqdataset",
+    "href": "materials/08_demo_prompts.html#prompt-3.1-creazione-deseqdataset",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.1: Creazione DESeqDataSet",
+    "text": "Prompt 3.1: Creazione DESeqDataSet\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un oggetto DESeqDataSet da:\n- counts_filtered: matrice di conteggi filtrata\n- metadata: metadati campioni\n- design formula: ~ condition\n\nPoi applica la trasformazione VST (variance stabilizing transformation)\ne spiega dettagliatamente:\n- Il \"Come\": cosa fa matematicamente la VST rispetto al log2?\n- Il \"Perché\": perché non usare i conteggi grezzi per la PCA?\n\n\n\nPerché VST?: I conteggi grezzi hanno varianza dipendente dalla media → VST stabilizza la varianza per visualizzazioni"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.2-pca",
+    "href": "materials/08_demo_prompts.html#prompt-3.2-pca",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.2: PCA",
+    "text": "Prompt 3.2: PCA\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un PCA plot dei campioni VST-normalizzati:\n1. Usa i top 500 geni più variabili\n2. Colora per 'condition'\n3. Aggiungi ellissi di confidenza al 95%\n4. Mostra la varianza spiegata da PC1 e PC2 negli assi\n5. Salva come 'results/pca_plot.pdf'\n\nIl plot deve essere publication-ready.\nAggiungi una guida alla lettura:\n- Cosa significa se i campioni si sovrappongono?\n- Cosa indica la percentuale di varianza sugli assi?\n\n\n\nCosa cercare nella PCA: - I gruppi si separano? → effetto biologico - Ci sono outlier? → problemi tecnici - Il batch confonde? → necessità di correzione"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.3-sample-correlation-heatmap",
+    "href": "materials/08_demo_prompts.html#prompt-3.3-sample-correlation-heatmap",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.3: Sample Correlation Heatmap",
+    "text": "Prompt 3.3: Sample Correlation Heatmap\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap di correlazione tra i campioni:\n1. Calcola la matrice di correlazione (Pearson) sui dati VST\n2. Usa pheatmap con annotazioni per condition\n3. Usa una palette blue → white per la correlazione\n4. Aggiungi dendrogramma per clustering gerarchico\n5. Salva come 'results/sample_correlation.pdf'\n\nSpiega il risultato atteso:\n- Che pattern (blocchi) dovremmo vedere se l'esperimento ha funzionato?\n- Cosa indica una correzione bassa tra replicati?\n\n\n\nInterpretazione: Campioni della stessa condizione dovrebbero clusterizzare insieme (correlazione alta)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#output-atteso---step-3",
+    "href": "materials/08_demo_prompts.html#output-atteso---step-3",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Output Atteso - Step 3",
+    "text": "Output Atteso - Step 3\n\n\nPCA Plot - PC1 separa control vs treatment - Campioni dello stesso gruppo vicini - Varianza spiegata: PC1 ~60%, PC2 ~15%\n\nCorrelation Heatmap - Blocchi diagonali chiari - Correlazione intra-gruppo &gt; 0.95 - Clustering coerente con condizioni"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analysis",
+    "href": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analysis",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.1: DESeq2 Analysis",
+    "text": "Prompt 4.1: DESeq2 Analysis\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nEsegui l'analisi differenziale con DESeq2:\n1. Imposta 'control' come livello di riferimento\n2. Esegui DESeq()\n3. Estrai i risultati per treatment vs control\n4. Applica shrinkage con apeglm (se disponibile) o normal\n5. Mostra il summary dei risultati\n\nSpiega l'output:\n- Cosa indica il **log2FoldChange** positivo vs negativo?\n- Qual è la differenza pratica tra **pvalue** e **padj**?\n\n\n\nInterpretazione LFC: - LFC &gt; 0: gene UP in treatment - LFC &lt; 0: gene DOWN in treatment"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.2-diagnostica",
+    "href": "materials/08_demo_prompts.html#prompt-4.2-diagnostica",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.2: Diagnostica",
+    "text": "Prompt 4.2: Diagnostica\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea i plot diagnostici di DESeq2:\n1. Dispersion plot (plotDispEsts) - verifica il fit del modello\n2. P-value histogram - verifica la distribuzione attesa\n3. MA plot con highlight dei geni significativi\n\nSalva ogni plot in 'results/'.\nPer ogni grafico, spiegami:\n- Cosa rappresenta.\n- \"Goodness\": che forma ha un buon grafico?\n- \"Badness\": quali pattern indicano problemi?\n\n\n\nCheck qualità: - Dispersion: curva decrescente → buon fit - P-value: uniforme + picco a 0 → segnale vero - MA: simmetria → no bias sistematici"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.3-filtraggio-risultati",
+    "href": "materials/08_demo_prompts.html#prompt-4.3-filtraggio-risultati",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.3: Filtraggio Risultati",
+    "text": "Prompt 4.3: Filtraggio Risultati\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nDai risultati DESeq2:\n1. Filtra i geni significativi: padj &lt; 0.05 AND |log2FoldChange| &gt; 1\n2. Separa in UP-regulated e DOWN-regulated\n3. Crea una tabella summary con: totale testati, significativi, UP, DOWN\n4. Salva i geni significativi in 'results/DE_genes.csv'\n5. Mostra i top 10 geni per significatività\n\nSpiega:\n- Perché usiamo sia padj che LFC per filtrare?\n- Come verificare se i top genes hanno senso biologico (sanity check)?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#output-atteso---step-4",
+    "href": "materials/08_demo_prompts.html#output-atteso---step-4",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Output Atteso - Step 4",
+    "text": "Output Atteso - Step 4\n# Summary atteso\nTotal genes tested:    15234\nSignificant (padj&lt;0.05, |LFC|&gt;1): 1247\n  - UP-regulated:      687\n  - DOWN-regulated:    560\n\n# Top genes\n      gene   baseMean  log2FC    padj\n1     Xist   12453.2    8.23    1e-150\n2     Uty     8234.1   -6.45    3e-120\n..."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.1-volcano-plot",
+    "href": "materials/08_demo_prompts.html#prompt-5.1-volcano-plot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.1: Volcano Plot",
+    "text": "Prompt 5.1: Volcano Plot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un volcano plot publication-ready:\n1. Asse X: log2FoldChange\n2. Asse Y: -log10(pvalue)\n3. Colora: rosso=UP (LFC&gt;1, padj&lt;0.05), blu=DOWN (LFC&lt;-1, padj&lt;0.05), grigio=NS\n4. Aggiungi linee tratteggiate per i cutoff\n5. Etichetta i top 10 geni più significativi con ggrepel\n6. Usa tema minimal senza griglia\n7. Salva come 'results/volcano_plot.pdf' (8x6 inches)\n\nSpiega come leggere il grafico:\n- Dove si trovano i geni più interessanti?\n- Cosa rappresentano i punti grigi?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.2-heatmap-top-genes",
+    "href": "materials/08_demo_prompts.html#prompt-5.2-heatmap-top-genes",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.2: Heatmap Top Genes",
+    "text": "Prompt 5.2: Heatmap Top Genes\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap dei top 50 geni differenzialmente espressi:\n1. Seleziona i 50 geni con padj più basso\n2. Usa i valori VST normalizzati\n3. Scala per riga (z-score)\n4. Aggiungi annotazione colonna per 'condition'\n5. Usa palette RdBu (blue=bassa, red=alta espressione)\n6. Cluster righe e colonne\n7. Non mostrare i nomi dei geni (troppi)\n8. Salva come 'results/heatmap_top50.pdf' (8x10 inches)\n\nSpiega:\n- Cosa rappresentano i colori (Z-score)?\n- Cosa ci dice il clustering sulle righe (geni)?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.3-gene-expression-boxplot",
+    "href": "materials/08_demo_prompts.html#prompt-5.3-gene-expression-boxplot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.3: Gene Expression Boxplot",
+    "text": "Prompt 5.3: Gene Expression Boxplot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nPer i top 4 geni significativi, crea un pannello di boxplot:\n1. Estrai i conteggi normalizzati (counts(dds, normalized=TRUE))\n2. Crea un boxplot per ogni gene con punti sovrapposti\n3. Colora per condizione\n4. Aggiungi il p-value (asterischi) sopra ogni confronto\n5. Disponi in griglia 2x2\n6. Salva come 'results/top_genes_boxplot.pdf'\n\nSpiega:\n- Perché visualizzare i singoli punti è meglio del solo boxplot?\n- Cosa ci dice la distribuzione dei punti sulla variabilità?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#output-atteso---step-5",
+    "href": "materials/08_demo_prompts.html#output-atteso---step-5",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Output Atteso - Step 5",
+    "text": "Output Atteso - Step 5\nI plot salvati in results/:\n\n\n\nFile\nContenuto\n\n\n\n\nvolcano_plot.pdf\nVolcano con geni etichettati\n\n\nheatmap_top50.pdf\nHeatmap clustered\n\n\ntop_genes_boxplot.pdf\nBoxplot 2x2\n\n\npca_plot.pdf\nPCA campioni\n\n\nsample_correlation.pdf\nHeatmap correlazione"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
+    "href": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 6.1: Summary Report",
+    "text": "Prompt 6.1: Summary Report\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nGenera un report summary dell'analisi in formato markdown:\n1. Descrizione dataset (campioni, condizioni)\n2. Filtri applicati (geni rimossi)\n3. Risultati QC (PCA interpretation, outlier?)\n4. Risultati DE (numero geni UP/DOWN)\n5. Top 10 geni per pathway relevance (se conosci la biologia)\n6. Lista dei file generati\n\nFormatta come report professionale breve."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#checklist-finale",
+    "href": "materials/08_demo_prompts.html#checklist-finale",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Checklist Finale ✅",
+    "text": "Checklist Finale ✅\nPrima di concludere, verifica:\n\nLa PCA mostra separazione tra gruppi?\nIl p-value histogram ha la forma attesa?\nI geni DE hanno senso biologico?\nTutti i plot sono salvati?\nIl codice è documentato?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#struttura-di-un-buon-prompt",
+    "href": "materials/08_demo_prompts.html#struttura-di-un-buon-prompt",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Struttura di un Buon Prompt",
+    "text": "Struttura di un Buon Prompt\n[CONTESTO] - Cosa stai facendo\n[INPUT] - Quali dati/variabili hai\n[OUTPUT] - Cosa vuoi ottenere\n[SPECIFICHE] - Dettagli (colori, dimensioni, file)\nEsempio: &gt; “Ho un dataframe res con colonne log2FoldChange e padj. &gt; Voglio un volcano plot con geni significativi (padj&lt;0.05, |LFC|&gt;1) in rosso, &gt; salvato come PDF 8x6.”"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#quando-lai-sbaglia",
+    "href": "materials/08_demo_prompts.html#quando-lai-sbaglia",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Quando l’AI Sbaglia",
+    "text": "Quando l’AI Sbaglia\n\nCodice non funziona: Copia l’errore e chiedi “Correggi questo errore: [errore]”\nPlot brutto: Specifica meglio estetica: “Usa tema_minimal, font size 12, no legenda”\nRisultato sbagliato: Verifica con head(), dim(), summary() e chiedi correzioni\nNon capisce il contesto: Dai più contesto: “Sto usando DESeq2 in R, ho un oggetto dds…”"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#esercizio-finale",
+    "href": "materials/08_demo_prompts.html#esercizio-finale",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Esercizio Finale",
+    "text": "Esercizio Finale\nUsando le stesse tecniche, prova a:\n\nCreare un MA plot personalizzato\nFare clustering gerarchico dei geni (non campioni)\nEsportare una tabella Excel con geni annotati\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati!"
+  },
+  {
+    "objectID": "materials/06_deseq2.html#TitleSlide",
+    "href": "materials/06_deseq2.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Analisi Differenziale\nLa logica statistica di DESeq2\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+  },
+  {
+    "objectID": "materials/06_deseq2.html#section-1",
+    "href": "materials/06_deseq2.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "I tre passi fondamentali\nDESeq2 è lo standard de facto per l’analisi differenziale. Esegue tre passaggi principali automaticamente:\n\nNormalizzazione (Size Factors): Per correggere le differenze di profondità di sequenziamento (Librerie più grandi vs più piccole).\nStima della Dispersione: Per capire quanto varia ogni gene tra i replicati biologici.\nTest Statistico (Wald Test): Per decidere se la differenza tra gruppi è significativa."
+  },
+  {
+    "objectID": "materials/06_deseq2.html#section-3",
+    "href": "materials/06_deseq2.html#section-3",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Median of Ratios\nNon usiamo RPM/CPM (Reads Per Million) perché sensibili a pochi geni molto espressi.\nMetodo: - Si crea un “campione pseudo-reference” (media geometrica). - Si calcola il rapporto tra ogni campione e questo riferimento per ogni gene. - La mediana di questi rapporti è il “Size Factor” del campione.\nSe un campione ha Size Factor = 2, significa che ha sequenziato il doppio del riferimento. Dividiamo i suoi conteggi per 2."
+  },
+  {
+    "objectID": "materials/06_deseq2.html#section-5",
+    "href": "materials/06_deseq2.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Biological Variation\nIn biologia, \\(Media \\neq Varianza\\). Geni molto espressi tendono ad avere alta varianza. Campioni biologici variano più di quelli tecnici.\nIl problema: Con pochi replicati (es. 3 vs 3), è difficile stimare la vera varianza di un gene.\nLa soluzione (Shrinkage): - DESeq2 guarda tutti i 20.000 geni. - “Se questo gene ha una varianza molto diversa dagli altri geni con la stessa espressione media, probabilmente è un errore di stima”. - “Sposta” (shrink) la stima verso la tendenza generale."
+  },
+  {
+    "objectID": "materials/06_deseq2.html#section-7",
+    "href": "materials/06_deseq2.html#section-7",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Definire la Significatività\nPer ogni gene, DESeq2 calcola: - Log2 Fold Change (LFC): Quanto è cambiato? (es. +1 = raddoppiato, -1 = dimezzato). - P-value: Probabilità che questo cambiamento sia dovuto al caso. - Adjusted P-value (FDR): Correzione per test multipli.\n\nRegola d’oro: Filtrare sempre usando padj (es. &lt; 0.05) e non pvalue."
+  },
+  {
+    "objectID": "materials/06_deseq2.html#section-8",
+    "href": "materials/06_deseq2.html#section-8",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "LFC Shrinkage\nPer la visualizzazione e il ranking, correggiamo anche i Fold Change.\nGeni con bassa espressione tendono ad avere Fold Change rumorosi ed enormi (es. da 1 count a 10 counts = 10x!). Lo Shrinkage “schiaccia” questi valori verso zero, lasciando inalterati i geni con segnale forte e solido."
+  },
+  {
+    "objectID": "materials/04_setup_R.html#TitleSlide",
+    "href": "materials/04_setup_R.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Strumenti di Analisi\nRStudio e AI-Assisted Coding\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+  },
+  {
+    "objectID": "materials/04_setup_R.html#section-1",
+    "href": "materials/04_setup_R.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Riproducibilità\nL’analisi bioinformatica deve essere riproducibile.\n\nGUI (Point & Click): Difficile ricordare esattamente quali parametri sono stati usati dopo 6 mesi.\nScripting (R): Il codice è la documentazione esatta di cosa è stato fatto.\n\n\n“Il tuo collaboratore più importante sei tu tra 6 mesi, e non risponde alle email.”"
+  },
+  {
+    "objectID": "materials/04_setup_R.html#section-2",
+    "href": "materials/04_setup_R.html#section-2",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "L’Ambiente RStudio\nNon dovete “imparare a programmare” da zero per analizzare i vostri dati. RStudio è la nostra “cabina di pilotaggio”:\n\nConsole: Dove R esegue i comandi.\nScript/Quarto: Dove scriviamo il nostro “diario di bordo” (codice + testo).\nEnvironment: La lista dei nostri dati (tabelle, variabili).\nPlots/Help: Dove vediamo i risultati grafici."
+  },
+  {
+    "objectID": "materials/04_setup_R.html#section-4",
+    "href": "materials/04_setup_R.html#section-4",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Un nuovo modo di lavorare\nInvece di memorizzare la sintassi, oggi usiamo l’AI (es. Copilot, ChatGPT) come pair programmer.\nIl vostro ruolo: - Capire i concetti biologici e statistici (questo corso!). - Saper chiedere (Prompt Engineering). - Saper valutare se il risultato ha senso (Critical Thinking).\nIl ruolo dell’AI: - Scrivere il codice “noioso” (sintassi). - Risolvere errori (debugging). - Spiegare cosa fa una funzione."
+  },
+  {
+    "objectID": "materials/04_setup_R.html#section-5",
+    "href": "materials/04_setup_R.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Workflow Moderno\n\nChiedi: “Voglio caricare questi 3 file CSV e unirli in una unica tabella basata sulla colonna ‘GeneID’”.\nVerifica: L’AI genera il codice. Tu controlli che i file siano quelli giusti.\nEsegui: Fai girare il codice in RStudio.\nItera: “Ora fammi un grafico a dispersione di questi dati”.\n\nNel laboratorio useremo delle “GitHub Skills” preconfezionate per guidarvi in questo processo."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#TitleSlide",
+    "href": "materials/02_basi_biologiche.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Introduzione all’RNASeq\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2024"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-2",
+    "href": "materials/02_basi_biologiche.html#section-2",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sample Preparation"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-3",
+    "href": "materials/02_basi_biologiche.html#section-3",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "RNA Extraction\n\n\n\n\n\nGoals:\n\nLyse cells/tissues\nRemove contaminants (DNA, proteins, lipids)\nPreserve RNA integrity\n\nMethods:\n\nPhenol-chloroform extraction \nColumn-based kits (silica membrane)"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-4",
+    "href": "materials/02_basi_biologiche.html#section-4",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Importance of High-Quality RNA\n\n\n\n\n\nHigh-quality RNA is the cornerstone of successful RNA-Seq.\nDegraded or contaminated RNA can lead to:\n\nInaccurate gene expression measurements\nMisleading conclusions\nWasted time and resources\n\nPrevent RNA degradation:\n\nUse RNase-free reagents and equipment.\nStore RNA at -80°C.\nMinimize freeze-thaw cycles."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-5",
+    "href": "materials/02_basi_biologiche.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Enrich a specific type of RNA\n\nmRNA\nrRNAs and tRNAs (involved in mRNA translation)\nSmall nuclear RNAs (involved in splicing)\nSmall nucleolar RNAs (involved in the modification of rRNAs)\nmicroRNA (regulate gene expression at the posttranscriptional level)\nLong noncoding RNAs (chromatin remodelling, transcriptional control and posttranscriptional processing)\n\nTwo options for mRNA enrichment\n\nmRNA enrichment – Selectively enriching for poly(A)-tailed transcripts\nRNA depletion – Selectively depleting abundant/off-target transcripts"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-6",
+    "href": "materials/02_basi_biologiche.html#section-6",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "RNA Fragmentation\n\n\n\n\n\n\nImportant\n\n\nA sequencing library is essentially a pool of RNA fragments with adapters attached\n\n\n\n\nWhy?\n\nNGS platform compatibility\nIncreased library complexity\n\nMethods:\n\nEnzymatic digestion (e.g., RNase III)\nMechanical shearing (e.g., sonication)"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-7",
+    "href": "materials/02_basi_biologiche.html#section-7",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Attachment of adapters\n\nAdapters are a short, chemically-synthesised oligonucleotide that can be attached to the ends of DNA molecules (cDNA Synthesis: RNA to DNA)\nAct as barcodes to identify where each nucleotide was originally located"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-8",
+    "href": "materials/02_basi_biologiche.html#section-8",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Library quantification\n\n\n\n\n\nWhy quantify?\n\nOptimal sequencing results\nDetermine loading concentration\nEnsure even coverage\n\nMethods:\n\nFluorometric methods (e.g., Qubit)\nqPCR\nCapillary electrophoresis (e.g., Bioanalyzer)"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-9",
+    "href": "materials/02_basi_biologiche.html#section-9",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "How many samples do I need?"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-10",
+    "href": "materials/02_basi_biologiche.html#section-10",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-11",
+    "href": "materials/02_basi_biologiche.html#section-11",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-12",
+    "href": "materials/02_basi_biologiche.html#section-12",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-13",
+    "href": "materials/02_basi_biologiche.html#section-13",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-14",
+    "href": "materials/02_basi_biologiche.html#section-14",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.\nSample size: the quantity you want to calculate."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-15",
+    "href": "materials/02_basi_biologiche.html#section-15",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Let’s say we want:\n\nType I error of 5%. (α=0.05)\nType II error of 0.2. (Power=1−β=0.8)\nEffect size of 2. (d=2)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 2,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-16",
+    "href": "materials/02_basi_biologiche.html#section-16",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Let’s say we want:\n\nEffect size of 1. (d=1)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 1,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-17",
+    "href": "materials/02_basi_biologiche.html#section-17",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Power analysis for RNA-seq"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-18",
+    "href": "materials/02_basi_biologiche.html#section-18",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-19",
+    "href": "materials/02_basi_biologiche.html#section-19",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-20",
+    "href": "materials/02_basi_biologiche.html#section-20",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings\n\n\n\nThe number of replicates is one of the critical parameter related to the power of an analysis"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-21",
+    "href": "materials/02_basi_biologiche.html#section-21",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Replicates"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-22",
+    "href": "materials/02_basi_biologiche.html#section-22",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Klaus B., EMBO J (2015) 34: 2727-2730\n\nTechnical replicates: use the same biological sample to repeat the technical or experimental steps in order to accurately measure technical variation and remove it during analysis.\nBiological replicates use different biological samples of the same condition to measure the biological variation between samples"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-23",
+    "href": "materials/02_basi_biologiche.html#section-23",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Do we need technical replicates?"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-24",
+    "href": "materials/02_basi_biologiche.html#section-24",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "No"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-25",
+    "href": "materials/02_basi_biologiche.html#section-25",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "No\n\n\n\n\n\n\nImportant\n\n\nWith the current RNA-Seq technologies, technical variation is much lower than biological variation and technical replicates are unneccessary"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-26",
+    "href": "materials/02_basi_biologiche.html#section-26",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Do we need biological replicates?"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-27",
+    "href": "materials/02_basi_biologiche.html#section-27",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "YES"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-28",
+    "href": "materials/02_basi_biologiche.html#section-28",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nBiological replicates are absolutely essential for differential expression analysis"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-29",
+    "href": "materials/02_basi_biologiche.html#section-29",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nFor differential expression analysis, the more biological replicates, the better the estimates of biological variation and the more precise our estimates of the mean expression levels"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-30",
+    "href": "materials/02_basi_biologiche.html#section-30",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Biological replicates are of greater importance than sequencing depth\n\n\n\n\nLiu, Y., et al., Bioinformatics (2014) 30(3): 301–304\n\n\n\nCosa vedete? Come interpretate il grafico\nNote that an increase in the number of replicates tends to return more DE genes than increasing the sequencing depth."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-32",
+    "href": "materials/02_basi_biologiche.html#section-32",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "The central dogma\n\n\n\n\n\nDNA: The blueprint of genetic information\nRNA: The messenger carrying genetic instructions\nProtein: The functional molecules in cells"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-33",
+    "href": "materials/02_basi_biologiche.html#section-33",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Why Study RNA?"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-34",
+    "href": "materials/02_basi_biologiche.html#section-34",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Why Study RNA?\n\n\n\n\n\nDynamic reflection of cellular activity: Unlike DNA, which is relatively static, RNA levels change rapidly in response to internal and external stimuli.\n\nProvides a snapshot of what genes are actively being expressed at a specific time.\n\nUnderstanding gene regulation: Studying RNA helps us understand how genes are turned on or off, and to what extent, in different conditions."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-35",
+    "href": "materials/02_basi_biologiche.html#section-35",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Why Study RNA?\n\n\n\n\n\nInsights into cellular processes: RNA plays diverse roles in many cellular processes, including:\n\nProtein synthesis (mRNA)\nGene regulation (microRNAs, long non-coding RNAs)\nCatalysis (ribozymes)\n\nDisease biomarkers and drug targets: Changes in RNA expression can be indicative of disease states, making RNA a valuable source of biomarkers for diagnosis and prognosis."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-36",
+    "href": "materials/02_basi_biologiche.html#section-36",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "The Power of RNA-Seq\n\n\n\nUnbiased & Comprehensive:\n\nDiscovers novel transcripts\nNot limited to known genes\n\nHigher Sensitivity:\n\nDetects rare transcripts\nWider dynamic range\n\n\n\n\nAlternative Splicing:\n\nIdentifies and quantifies isoforms\n\nMutation Detection:\n\nSNPs, indels, fusion genes\n\nNon-Coding RNAs:\n\nStudies microRNAs, lncRNAs, etc.\n\n\n\n\n\n“Wide dynamic range” refers to the ability of a system or device to accurately capture and represent a broad range of signal intensities\nlncRNAs, or long non-coding RNAs, are a type of RNA molecule that is not translated into protein. They were once considered “junk” DNA, but are now recognized as crucial regulators of gene expression and cellular processes"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-37",
+    "href": "materials/02_basi_biologiche.html#section-37",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "A Brief History of Sequencing"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-38",
+    "href": "materials/02_basi_biologiche.html#section-38",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "First generation NGS"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-39",
+    "href": "materials/02_basi_biologiche.html#section-39",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sanger Sequencing\n\n\n\n\n\n\nI dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3’-OH dei dNTP, essenziale per l’allungamento del filamento mediato dalla polimerasi in una PCR.\nLe marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.\nLa sintesi del filamento di DNA complementare inizia nel sito specifico di innesco e termina con l’incorporazione di un ddNTP terminatore di catena che viene introdotto casualmente al posto del corrispondente dNTP.\nQuando questi frammenti vengono separati su una matrice di gel appropriata, l’informazione sulla sequenza può essere ottenuta dall’ordine di migrazione delle bande (dal basso verso l’alto)."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-40",
+    "href": "materials/02_basi_biologiche.html#section-40",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sanger Sequencing\n\n\n\n\n\n\nLeroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di “codifica a colori” eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.\nHood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.\nddATP, ddCTP, ddGTP e ddUTP marcati con fluorescenza.\nLa successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-41",
+    "href": "materials/02_basi_biologiche.html#section-41",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sanger Sequencing\n\n\nAdvantages \n\nGold standard method for accurate detection of single nucleotide variants and small insertions/deletions\nCost effective where single samples need to be tested very urgently\nLess reliant on computational tools than NGS\nLonger fragments (up to approximately 1000bp) can be sequenced than in short read NGS\n\n\n\n\nLimitations \n\nLimited throughput\nNot cost effective for sequencing many genes in parallel\nCan require a larger amount of input DNA than NGS\nSanger methods can only sequence short pieces of DNA–about 300 to 1000 base pairs.\nThe quality of a Sanger sequence is often not very good in the first 15 to 40 bases because that is where the primer binds.\nSequence quality degrades after 700 to 900 bases"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-42",
+    "href": "materials/02_basi_biologiche.html#section-42",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sanger Sequencing"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-43",
+    "href": "materials/02_basi_biologiche.html#section-43",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Second generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nSecond-generation NGS machines immediately began to drive the ‘genomics revolution’ by massively increased throughput by parallelizing many reactions"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-44",
+    "href": "materials/02_basi_biologiche.html#section-44",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Second generation NGS\n\nSecond-generation sequencing platforms:\n\nSOLiD: Sequencing by Oligonucleotide Ligation and Detection\n454 GS FLX+: It uses pyrosequencing chemistry\nNextSeq 550Dx: Sequence by synthesis\n\n\n\nSOLiD: Life Technologies in 2006\n454: Roche in 2011\nNextSeq 550Dx: Illumina in 2017"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-45",
+    "href": "materials/02_basi_biologiche.html#section-45",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by Ligation\n\n\n\n\n\n\n\n\n\n\n\n Considered to be one of the most accurate second-generation sequencing technologies\n it can take up to seven days to complete a single run and its short read length of 35 bp\n Thermo Fisher Scientific shut down all SOLiD sequencing platforms in 2016\n\n\n\n\n\nFluorescently labeled molecules called 8-mers\n8-mers are short ssDNA fragments where:\n\nthe first and second nucleotides are the next two nucleotides of the elongating DNA strand\n\nthe third-to-fifth nucleotides are degenerate\n\nthe sixth to eighth nucleotides are inosine bases, where the eighth inosine base is attached to a characteristic fluorescent dye\n\n\nA. The addition of primer and 8-mers, where if the first two nucleotides are complementary, DNA ligase ligates it to the primer.\nB. Unbound 8-mers are washed away, and a laser excites the fluorescent tag on the 8-mer to emit a detectable light signal that is captured\nC. A-B is repeated until the end of the DNA fragment.\nD. The newly synthesized DNA strand is melted off, and A-C is repeated using a primer with a length of N-1, N-2, and N-3"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-46",
+    "href": "materials/02_basi_biologiche.html#section-46",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pyrosequencing\n\n\n\n\n\n\n\n\n \n\n\n Large read lenght generation\n High reagent cost\n High error rate for homopolymers\n\n\n\n\nDurante il sequenziamento vengono, di volta in volta, aggiunti dei nucleotidi.\nSe il nucleotide viene incorporato viene rilasciato un pirofosfato\nPoi utilizzato come substrato dall’enzima ATP solforilasi.\nQuest’ultimo enzima catalizza la conversione del pirofosfato in ATP.\nL’ATP a sua volta è il cofattore utilizzato dalla luciferasi per catalizzare la reazione che coinvolge la luciferina e che porta alla produzione di luce.\nLa luce generata, solo in seguito alla incorporazione del nucleotide corretto,viene rilevata grazie ad un detector."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-47",
+    "href": "materials/02_basi_biologiche.html#section-47",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-48",
+    "href": "materials/02_basi_biologiche.html#section-48",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Birthplace of high-throughput sequencing"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-49",
+    "href": "materials/02_basi_biologiche.html#section-49",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis - History\n\n1997: Evolution of a Novel Approach to Sequencing\n\n\n\n\nShankar Balasubramanian and David Klenerman\n\n\n\nCambridge scientists Shankar Balasubramanian, Ph.D. and David Klenerman, Ph.D. were using fluorescently labeled nucleotides to observe the motion of a polymerase at the single molecule level as it synthesized DNA immobilized to a surface\nduring the summer of 1997 sparked ideas surrounding the use of clonal arrays and massively parallel sequencing of short reads using solid phase sequencing by reversible terminators\nThis technology was subsequently referred to as sequencing by synthesis technology, or SBS. This became the basis of an innovative DNA sequencing approach."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-50",
+    "href": "materials/02_basi_biologiche.html#section-50",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis - History\n\n1998: Formation of Solexa"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-51",
+    "href": "materials/02_basi_biologiche.html#section-51",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis - History\n\n2004: Molecular Clustering Technology Integration\n\n\n\n\nCluster generation (also known as “bridge amplification”)\n\n\n\nSolexa acquired molecular clustering technology from Manteia.\nThe amplification of single DNA molecules into clusters enhanced the fidelity and accuracy of gene calling, while reducing the cost of the system optics through generation of a stronger signal."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-52",
+    "href": "materials/02_basi_biologiche.html#section-52",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis - History\n\n2005: phiX-174 Genome Sequencing\n\n2005: Integration of Lynx Therapeutics\n\n\n2007: Illumina Acquires Solexa\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Solexa team sequenced the complete genome of the bacteriophage phiX-174, the same genome Sanger first sequenced using his method\nHowever, the SBS technology generated significantly more sequencing data, delivering over 3 million bases from a single run.\n\n\n\nSolexa acquired instrumentation company Lynx Therapeutics, transforming the successful Solexa prototype into a commercial sequencing instrument: Genome Analyzer\n\n\n\nSolexa was acquired by Illumina\nNext-generation sequencing (NGS) data output has increased at a rate that outpaces Moore’s law, more than doubling each year"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-53",
+    "href": "materials/02_basi_biologiche.html#section-53",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequence by synthesis - Process"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-54",
+    "href": "materials/02_basi_biologiche.html#section-54",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Third generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nThird-generation methods allow direct sequencing of single DNA molecules"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-55",
+    "href": "materials/02_basi_biologiche.html#section-55",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Third generation NGS\n\nThird-generation NGS platforms:\n\nSingle-molecule real-time sequencing\nNanopore sequencing\n\n\n\nPacific Biosciences in 2011\nOxford Nanopore Technologies on 2014"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-56",
+    "href": "materials/02_basi_biologiche.html#section-56",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "SMRS"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-57",
+    "href": "materials/02_basi_biologiche.html#section-57",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Nanopore sequencing"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-58",
+    "href": "materials/02_basi_biologiche.html#section-58",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Single-Ended vs. Paired-End\nChoosing Your Sequencing Strategy\n\n\n\n\n\n\nSingle-end sequencing:\n\nOne read per fragment\nSimpler, cost-effective\nSuitable for gene expression profiling\n\n\n\n\nPaired-end sequencing:\n\nTwo reads per fragment\nMore information, improved accuracy\nUseful for genome assembly, variant detection, isoform identification\n\n\n\n\nChoice depends on:\n\nResearch question\nBudget\nDesired accuracy"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-59",
+    "href": "materials/02_basi_biologiche.html#section-59",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Single-Ended vs. Paired-End\n\n\n\n\n\n\n\n\nTrade-off\nSingle-End Sequencing\nPaired-End Sequencing\n\n\n\n\nCost\nLower\nHigher\n\n\nInformation\nLess\nMore\n\n\nSimplicity\nSimpler\nMore Complex\n\n\nAccuracy\nLower\nHigher\n\n\nSequencing Depth\nHigher\nPotentially Lower\n\n\nRead Length\nShorter\nLonger (effective)\n\n\nIdeal Applications\nGene expression, small RNA-Seq\nGenome assembly, variant calling, isoform identification"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-60",
+    "href": "materials/02_basi_biologiche.html#section-60",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sequencing Depth\nSequencing Depth: Finding the Right Balance\n\n\n\n\n\n\nWhat it is: The average number of times each base in the genome (or transcriptome) is sequenced.\nWhy it matters:\n\nSensitivity: Higher depth increases the chance of detecting rare transcripts or variants.\nAccuracy: Higher depth improves the accuracy of gene expression quantification and variant calling.\n\n\n\n\nFactors to consider:\n\nResearch goals: Higher depth is needed for detecting rare events or subtle changes.\nGenome size and complexity: Larger genomes require higher depth for adequate coverage.\nBudget: Higher depth increases sequencing costs.\n\n\n\n\nTypical ranges:\n\nRNA-Seq for gene expression: 10-30 million reads per sample\nRNA-Seq for isoform detection: 30-60 million reads per sample\nVariant calling: 30-50x coverage for whole-genome sequencing"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-61",
+    "href": "materials/02_basi_biologiche.html#section-61",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Transcriptome Coverage\nTranscriptome Coverage: Capturing the Full Picture\n\n\n\n\n\n\nWhat it is: The extent to which the sequencing reads represent the entire transcriptome.\nWhy it matters:\n\nCompleteness: High coverage ensures that all expressed transcripts are captured, including rare and low-abundance transcripts.\nAccuracy: Adequate coverage is needed for accurate quantification of gene expression levels.\nDiscovery: High coverage increases the chances of identifying novel transcripts and isoforms.\n\n\n\n\nFactors influencing coverage:\n\nSequencing depth: Higher depth generally leads to better coverage.\nLibrary complexity: A diverse library with a wide range of fragment sizes improves coverage.\nRNA integrity: High-quality RNA ensures that all transcripts are represented in the library.\nSequencing technology: Different platforms have different read lengths and biases, which can affect coverage."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-63",
+    "href": "materials/02_basi_biologiche.html#section-63",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Single-Cell RNA Sequencing\nZooming In: Analyze gene expression in individual cells"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-64",
+    "href": "materials/02_basi_biologiche.html#section-64",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nCellular Heterogeneity: Identify and characterize different cell types within a complex tissue or population.\n\nDiscover new cell subtypes and rare cell populations.\nUnderstand the functional diversity of cells.\n\nDevelopmental Trajectories: Trace cell lineages and reconstruct developmental pathways.\n\nStudy cell differentiation and fate decisions.\nIdentify key genes and regulatory networks involved in development."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-65",
+    "href": "materials/02_basi_biologiche.html#section-65",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nDisease Mechanisms: Investigate the cellular basis of disease.\n\nIdentify disease-associated cell types and gene expression changes.\nStudy the response of individual cells to drugs or treatments.\n\n\n\n\n\n\n\n\nImportant\n\n\nscRNA-seq represents a powerful tool for dissecting the complexities of gene expression and cellular heterogeneity across various biological contexts"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-66",
+    "href": "materials/02_basi_biologiche.html#section-66",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: mapping gene expression in context\n\n\n \n\n\n\nBridges histology and genomics: Combines traditional tissue imaging with high-throughput RNA sequencing.\nPreserves spatial context: Maps gene expression while retaining spatial information, unlike traditional scRNA-seq.\nEnables:\n\nVisualization of gene expression patterns within tissues.\nQuantitative analysis of transcriptomes in a spatial context.\n\nApplications:\n\nUnderstanding tissue organization and cellular interactions.\nInvestigating developmental processes (organogenesis).\nStudying disease progression and heterogeneity."
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-67",
+    "href": "materials/02_basi_biologiche.html#section-67",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: from technology to discovery\n\n\n\n\n\nApplications:\n\nTissue heterogeneity: Studying complex tissues like the cochlea. (Tisi, 2023)\nDisease mechanisms: Uncovering cellular dynamics in diseases like Alzheimer’s. (Chen et al., 2020)\n\nData analysis:\n\nDimension reduction, deconvolution, and integration with histological images.\nSpecialized tools for cell type deconvolution. (Cable et al., 2021)"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-68",
+    "href": "materials/02_basi_biologiche.html#section-68",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Integration of RNA-Seq with other omics data\nBeyond RNA: integrating with other omics data\n\n\nThe Power of Integration: Combining RNA-Seq with other omics data provides a more complete picture of cellular processes.\n\nMetabolomics: Correlate gene expression with metabolic pathways and identify key metabolites.\nChromatin accessibility (ATAC-seq): Link gene expression changes to alterations in chromatin structure.\nOther omics layers: Integrate with genomics, proteomics, and epigenomics for a systems-level understanding.\n\nKey Findings:\n\nLimited overlap between DEGs and chromatin accessibility changes (~10%) (Malvi et al., 2022).\nHighlights the complexity of gene regulation beyond chromatin state. (Miao et al., 2021)"
+  },
+  {
+    "objectID": "materials/02_basi_biologiche.html#section-69",
+    "href": "materials/02_basi_biologiche.html#section-69",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Integration of RNA-Seq with other omics data\nUnlocking biological insights through data integration\n\n\n\n\n\nApplications:\n\nIdentifying key pathways: Integration of RNA-seq and metabolomics reveals regulated pathways in liver metabolism. (Zhang et al., 2020)\nDisease biomarkers: Uncovering disease-specific biomarkers in NAFLD using RNA-seq and metabolomics. (Ji et al., 2022)\n\nTools and Techniques:\n\nMachine learning: rSeqTU for predicting transcription units and integrating with metagenomics and metabolomics. (Hou et al., 2022)\nStatistical analysis: DESeq2 for integrating RNA-seq and ChIP-seq data. (Niu et al., 2019)\nSingle-cell multi-omics: Combining scRNA-seq with lipidomics and metabolomics to study cellular heterogeneity. (Cao et al., 2020)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Questo corso vi guiderà attraverso l’analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all’interpretazione biologica dei risultati.\n\n\nIl corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nImport Dati (tximport)\n\nImportazione e preparazione dati per analisi\n\nAnalisi Differenziale (DESeq2)\n\nStatistica e identificazione geni differenzialmente espressi\n\nVisualizzazione Risultati\n\nVolcano plots, heatmap e altre visualizzazioni\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi\n\n\n\n\n\n\nQuesto corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.\n\n\n\n\nConoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!\n\n\n\n\n\nSetup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili\n\n\n\n\nDurante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.\n\n\n\n\nSlack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
+  },
+  {
+    "objectID": "index.html#struttura-del-corso",
+    "href": "index.html#struttura-del-corso",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Il corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nImport Dati (tximport)\n\nImportazione e preparazione dati per analisi\n\nAnalisi Differenziale (DESeq2)\n\nStatistica e identificazione geni differenzialmente espressi\n\nVisualizzazione Risultati\n\nVolcano plots, heatmap e altre visualizzazioni\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi"
+  },
+  {
+    "objectID": "index.html#filosofia-del-corso",
+    "href": "index.html#filosofia-del-corso",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Questo corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa."
+  },
+  {
+    "objectID": "index.html#prerequisiti",
+    "href": "index.html#prerequisiti",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Conoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!"
+  },
+  {
+    "objectID": "index.html#materiale-didattico",
+    "href": "index.html#materiale-didattico",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Setup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili"
+  },
+  {
+    "objectID": "index.html#dataset",
+    "href": "index.html#dataset",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Durante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica."
+  },
+  {
+    "objectID": "index.html#supporto",
+    "href": "index.html#supporto",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Slack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#TitleSlide",
+    "href": "materials/01_introduzione.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Introduzione al Corso\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2025"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-1",
+    "href": "materials/01_introduzione.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Ci dedichiamo a fornire un ambiente accogliente e di supporto per tutte le persone, indipendentemente dal background o dall’identità.\nPartecipando a questo corso, i partecipanti accettano il Codice di Condotta.\nQualsiasi forma di comportamento volto a escludere, intimidire o causare disagio è una violazione del Codice di Condotta. Per favorire un ambiente di apprendimento positivo e professionale, incoraggiamo i seguenti comportamenti:\n\n\nUsare un linguaggio accogliente e inclusivo\n\n\n\n\nEssere rispettosi dei diversi punti di vista ed esperienze\n\n\n\n\nAccettare con grazia le critiche costruttive\n\n\n\n\nConcentrarsi su ciò che è meglio per la comunità\n\n\n\n\nMostrare cortesia e rispetto verso gli altri membri della comunità"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-3",
+    "href": "materials/01_introduzione.html#section-3",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Chi sei?\n\n\n\n Cosa hai studiato?\n\n\n\n Quali sono i tuoi obiettivi?\n\n\n\n Quali sono le aspettative per il corso?\n\n\n\nMarco - datemi del tu - Agilent - 2 figli, una quasi moglie - Pallavolo\nLaurea - Dottorato - Bioinformatica\nPortare un po di open sourse nel mondo company\nChe andiate a casa con qualche idea"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-5",
+    "href": "materials/01_introduzione.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Website\n\n\n\n\n\n\n\n\nhttp://bit.ly/4hKN5OA"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-6",
+    "href": "materials/01_introduzione.html#section-6",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Agenda\n\n\nGiorno 1 Sequenziamento & Pipeline\n\n\nOrari\n9:30 : Introduzione al Corso\n10:00: Biologia del RNA-Seq (Design, NGS)\n10:45: Pausa\n11:00: Pipeline nf-core/rnaseq (QC, Trimming)\n12:30: Pausa pranzo\n13:30: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)\n14:45: Pausa\n15:00: Interpretazione MultiQC\n16:30: Considerazioni finali\n\n\nGiorno 2 Analisi & Visualizzazione\n\n\nOrari\n9:30 : Introduzione a R & Tidyverse\n10:45: Pausa\n11:00: Importazione Dati (tximport)\n12:30: Pausa pranzo\n13:30: Analisi Differenziale (DESeq2)\n14:45: Pausa\n15:00: Visualizzazione dei Risultati\n16:30: Chiusura Corso"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-8",
+    "href": "materials/01_introduzione.html#section-8",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Approccio\n\n\nStrumenti Open Source\nCommunity di supporto\nIl tuo laptop è tutto ciò che serve\nFeedback costante\nFai domande!"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-9",
+    "href": "materials/01_introduzione.html#section-9",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Feedbacks\n\nImmediati\n\nSticky notes\n\nFormative assessment\n\nVeloci questionari o esercizi\n\nAlla fine di ogni modulo\n\nSticky notes"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-10",
+    "href": "materials/01_introduzione.html#section-10",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Strumenti\n\nWebsite\nSlack\n\nStrumento di comunicazione\n\n\n \nEntrambi rimarranno online per sempre"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-12",
+    "href": "materials/01_introduzione.html#section-12",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivi\n\n\n\n\nDiventare un data scientist migliore\n\n\n\n\n\n\nImparare le best practices per lavorare con R/Bioconductor e Nextflow\n\n\n\n\n\n\nComprendere come analizzare dati di Bulk RNA-Seq\n\n\n\n\n\n\nSviluppare una pipeline RNASeq leggera e riutilizzabile"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#TitleSlide",
+    "href": "materials/03_pipeline_nfcore.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pipeline di Analisi: nf-core/rnaseq\nDalla QC alla Quantificazione\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-1",
+    "href": "materials/03_pipeline_nfcore.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Riproducibilità e Scalabilità\n\n\nLa sfida dell’analisi manuale: - Installazione complessa di software. - Versioni conflittuali. - Difficile tenere traccia di parametri e passaggi. - Impossibile da riprodurre su un altro computer.\n\nLa soluzione: Nextflow + nf-core: - Portabilità: Esegue ovunque (laptop, cluster, cloud). - Container: Ogni step usa Docker/Singularity (software pre-installato). - Standardizzazione: Pipeline curate dalla community bioinformatica."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-3",
+    "href": "materials/03_pipeline_nfcore.html#section-3",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Workflow Overview"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-4",
+    "href": "materials/03_pipeline_nfcore.html#section-4",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Input della Pipeline\nIl Samplesheet\nIl punto di ingresso è un file CSV che descrive i campioni:\nsample,fastq_1,fastq_2,strandedness\nCONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz,auto\nCONTROL_REP2,AEG588A1_S2_L002_R1_001.fastq.gz,AEG588A1_S2_L002_R2_001.fastq.gz,auto\nTREAT_REP1,AEG588A1_S3_L002_R1_001.fastq.gz,AEG588A1_S3_L002_R2_001.fastq.gz,auto\n\n\n\n\n\n\nNote\n\n\nStrandedness: auto permette alla pipeline di inferire automaticamente la strandness del protocollo (es. dUTP, unstranded)."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-6",
+    "href": "materials/03_pipeline_nfcore.html#section-6",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Preprocessing\nFastQC + Trim Galore! / FastP\nLa pipeline esegue automaticamente: 1. FastQC: Analisi qualità preliminare. 2. Trimming: Rimozione adattatori e basi a bassa qualità. - Trim Galore! (default) o FastP. 3. Removal rRNA: Opzionale (--remove_ribo_rna), utile se la deplezione in laboratorio non è stata perfetta."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-8",
+    "href": "materials/03_pipeline_nfcore.html#section-8",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Due Strategie Principali\n\n\n1. Allineamento Classico (STAR)\n\nMappa le reads sul genoma di riferimento.\nProduce file BAM (visualizzabili su IGV).\nQuantificazione gene-level via Salmon o featureCounts.\nPro: Permette di vedere le reads, scoprire nuovi trascritti.\nContro: Lento, file pesanti.\n\n\n2. Pseudo-allineamento (Salmon/Kallisto)\n\nMappa le reads sul trascrittoma.\nNon produce BAM (niente coordinate genomiche).\nStima abbondanza trascritti velocemente.\nPro: Velocissimo, accurato per la quantificazione.\nContro: Meno utile per QC visuale (IGV)."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-9",
+    "href": "materials/03_pipeline_nfcore.html#section-9",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Salmon: Quasi-mapping\nLa pipeline usa Salmon come standard per la quantificazione (sia in mode pseudo-alignment che alignment-based).\n\nIndex: Costruisce un indice del trascrittoma.\nQuant: Stima l’espressione (TPM, NumReads).\nBias Correction: Corregge bias di sequenziamento (GC content, posizione).\n\nOutput principale: quant.sf per ogni campione."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-11",
+    "href": "materials/03_pipeline_nfcore.html#section-11",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "MultiQC\nUn singolo report HTML che aggrega i risultati di tutti gli step e tutti i campioni.\n\n\nCosa controllare: - General Stats: Quante reads sono sopravvissute al trimming? - Alignment Score: % di reads allineate univocamente (ideale &gt; 80%). - Complexity: Duplicati PCR. - Strand Check: Conferma del protocollo di libreria."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-13",
+    "href": "materials/03_pipeline_nfcore.html#section-13",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Il Comando Magico\nnextflow run nf-core/rnaseq \\\n    --input samplesheet.csv \\\n    --outdir ./results \\\n    --genome GRCh38 \\\n    -profile docker\n\n--input: Il file CSV creato prima.\n--genome: Il genoma di riferimento (es. Umano GRCh38). Nextflow scarica indici e annotazioni automaticamente da AWS iGenomes.\n-profile docker: Usa Docker per gestire le dipendenze."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-14",
+    "href": "materials/03_pipeline_nfcore.html#section-14",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Risultati: Output Folder\nresults/\n├── multiqc/\n│   └── multiqc_report.html  &lt;-- START HERE\n├── star_salmon/\n│   ├── salmon.merged.gene_counts.tsv\n│   ├── salmon.merged.gene_tpm.tsv\n│   └── ...\n├── pipeline_info/\n└── ...\nI file salmon.merged.gene_counts.tsv sono pronti per essere importati in R per l’analisi differenziale!"
+  },
+  {
+    "objectID": "materials/05_import_dati.html#TitleSlide",
+    "href": "materials/05_import_dati.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Importazione Dati\nDai Trascitti ai Geni\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+  },
+  {
+    "objectID": "materials/05_import_dati.html#section-1",
+    "href": "materials/05_import_dati.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Transcript vs Gene Level\nOutput Pipeline (Salmon): - Quantificazione a livello di trascritto (isoforma). - Una riga per ogni variante di splicing.\nInput Analisi Differenziale (DESeq2): - Vogliamo confrontare l’espressione dei geni. - Statisticamente più robusto (più reads per feature, meno features totali)."
+  },
+  {
+    "objectID": "materials/05_import_dati.html#section-2",
+    "href": "materials/05_import_dati.html#section-2",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Perché non sommare i conteggi?\nNon basta sommare i conteggi grezzi delle isoforme.\n\nIsoforma A: Lunga (5000 bp). Produce molte reads.\nIsoforma B: Corta (500 bp). Produce poche reads.\n\nSe un gene passa da esprimere A a esprimere B (allo stesso livello molare), il numero di reads crolla. Sembrerebbe un gene “Down-regulated”, ma è solo diventato “più corto”."
+  },
+  {
+    "objectID": "materials/05_import_dati.html#section-4",
+    "href": "materials/05_import_dati.html#section-4",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Come funziona\n\nInput: File quant.sf (da Salmon) per ogni campione.\nMappatura: Tabella che associa ogni TranscriptID -&gt; GeneID.\nCalcolo Offset:\n\nCalcola la lunghezza media ponderata del gene in ogni campione.\nUsa questa informazione per generare un “offset”.\n\nOutput: Matrice di conteggi per gene corretti per la lunghezza."
+  },
+  {
+    "objectID": "materials/05_import_dati.html#section-5",
+    "href": "materials/05_import_dati.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Il Risultato Finale\nAlla fine di questa fase, otteniamo una Count Matrix.\n\n\n\nGene\nCTRL_1\nCTRL_2\nTREAT_1\nTREAT_2\n\n\n\n\nMAPK1\n450\n432\n900\n880\n\n\nTP53\n20\n25\n22\n18\n\n\nACTB\n20000\n19500\n20100\n19800\n\n\n\nQuesta matrice (numeri interi) è il punto di partenza per l’analisi statistica."
+  },
+  {
+    "objectID": "materials/07_visualizzazione.html#TitleSlide",
+    "href": "materials/07_visualizzazione.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Visualizzazione Dati\nEsplorare e Comunicare i Risultati\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+  },
+  {
+    "objectID": "materials/07_visualizzazione.html#section-1",
+    "href": "materials/07_visualizzazione.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "PCA - Principal Component Analysis\nLa “mappa” dei vostri campioni. Riduce 20.000 dimensioni (geni) a 2 dimensioni principali (PC1 e PC2) che spiegano la massima varianza.\nCosa cercare: 1. Raggruppamento: I replicati biologici devono stare vicini. 2. Separazione: Il trattamento sperimentale dovrebbe separare i gruppi lungo l’asse principale (PC1). 3. Outliers: Un campione “lontano da tutti” indica problemi tecnici o biologici. 4. Batch Effects: Se i campioni si raggruppano per “data di estrazione” invece che per trattamento."
+  },
+  {
+    "objectID": "materials/07_visualizzazione.html#section-2",
+    "href": "materials/07_visualizzazione.html#section-2",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Sample Correlation Heatmap\nUn altro modo per vedere la somiglianza globale. Calcola la distanza (es. Euclidea) tra ogni coppia di campioni.\n\nColori scuri (blu) = Campioni simili.\nColori chiari (bianco/rosso) = Campioni diversi.\n\nCi aspettiamo blocchi di colori “scuri” corrispondenti ai gruppi sperimentali (es. tutti i CTRL simili tra loro)."
+  },
+  {
+    "objectID": "materials/07_visualizzazione.html#section-4",
+    "href": "materials/07_visualizzazione.html#section-4",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Volcano Plot\nLa visione d’insieme dei risultati differenziali.\n\nAsse X (Effetto): Log2 Fold Change. (A destra UP, a sinistra DOWN).\nAsse Y (Significatività): -log10 P-value aggiustato. (In alto i più significativi).\n\nCercate punti agli angoli superiori: - Alta magnitudo di cambiamento. - Alta confidenza statistica."
+  },
+  {
+    "objectID": "materials/07_visualizzazione.html#section-5",
+    "href": "materials/07_visualizzazione.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Heatmap dei Geni\n“Chi va su e chi giù insieme?”\nA differenza della Sample Heatmap, qui mostriamo i Geni sulle righe. - Di solito si selezionano i top 20-50 geni più significativi. - Z-score: I colori rappresentano la deviazione dalla media del gene. - Rosso: Espressione sopra la media. - Blu: Espressione sotto la media.\nIl Clustering (l’albero a lato) raggruppa geni che hanno profili di espressione simili tra le condizioni."
+  },
+  {
+    "objectID": "materials/images/mermaid.html",
+    "href": "materials/images/mermaid.html",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "fontawesome::fa_html_dependency()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngraph LR\n%% classDef\nclassDef classBlue color: #55a5f6,fill:#f1f1f1,stroke-width:2px,stroke:#55a5f6,font-weight:bold\nclassDef classRed color: #af0659,fill:#e0e5eb,stroke-width:2px,stroke:#af0659\nclassDef classMd color: #c96195,fill:#f1f1f1,stroke-width:2px,stroke:#c96195,font-weight:bold\nclassDef classPandoc color: #0980b0,fill:#e0e5eb,stroke-width:2px,stroke:#0980b0\nclassDef classFile color:#17559e,fill:#f1f1f1,stroke:#55a5f6\nclassDef classFile2 color:#17559e,fill:#f1f1f1,stroke:#55a5f6\n\n    A(fa:fa-file-code .qmd) -.-&gt; B{{fa:fa-code knitr}}\n    B -.-&gt; C(fa:fa-file md)\n    C -.-&gt; D{{pandoc with&lt;br&gt;Lua filters}}\n    D --&gt;| Report| E[fa:fa-file-pdf, fa:fa-file, fa:fa-file-word]\n    D --&gt;|Presentation| F[revealjs, fa:fa-file-powerpoint ]\n    D --&gt;|Projects| G[fa:fa-globe,fa:fa-book]\n\n%%Style\n\nclass A classBlue\nclass B classRed\nclass C classMd\nclass D classPandoc\nclass E,F classFile\nclass G classFile2\n\n\n\n\n\n\n\n\n\n\n\ngraph LR\n%% classDef\nclassDef classBlue color: #55a5f6,fill:#f1f1f1,stroke-width:2px,stroke:#55a5f6,font-weight:bold\nclassDef classRed color: #e05b00,fill:#e0e5eb,stroke-width:2px,stroke:#e05b00\nclassDef classMd color: #c96195,fill:#f1f1f1,stroke-width:2px,stroke:#c96195,font-weight:bold\nclassDef classPandoc color: #0980b0,fill:#e0e5eb,stroke-width:2px,stroke:#0980b0\nclassDef classFile color:#17559e,fill:#f1f1f1,stroke:#55a5f6\nclassDef classFile2 color:#17559e,fill:#f1f1f1,stroke:#55a5f6\n\n    A(fa:fa-file-code .qmd) -.-&gt; B{{fa:fa-code jupyter}}\n    B -.-&gt; C(fa:fa-file md)\n    C -.-&gt; D{{pandoc with&lt;br&gt;Lua filters}}\n    D --&gt;| Report| E[fa:fa-file-pdf, fa:fa-file, fa:fa-file-word]\n    D --&gt;|Presentation| F[revealjs, fa:fa-file-powerpoint ]\n    D --&gt;|Projects| G[fa:fa-globe,fa:fa-book]\n\n%%Style\n\nclass A classBlue\nclass B classRed\nclass C classMd\nclass D classPandoc\nclass E,F classFile\nclass G classFile2\n\n\n\n\n\n\n\n\n\n\n\ngraph LR\n%% classDef\nclassDef classBlue color: #55a5f6,fill:#f1f1f1,stroke-width:2px,stroke:#55a5f6,font-weight:bold\nclassDef classRed color: #e05b00,fill:#e0e5eb,stroke-width:2px,stroke:#e05b00\nclassDef classMd color: #c96195,fill:#f1f1f1,stroke-width:2px,stroke:#c96195,font-weight:bold\nclassDef classPandoc color: #0980b0,fill:#e0e5eb,stroke-width:2px,stroke:#0980b0\nclassDef classFile color:#17559e,fill:#f1f1f1,stroke:#55a5f6\nclassDef classFile2 color:#17559e,fill:#f1f1f1,stroke:#55a5f6\n\n    B{{fa:fa-code jupyter}} -.-&gt; C(fa:fa-file md)\n    C -.-&gt; D{{pandoc with&lt;br&gt;Lua filters}}\n    D --&gt;| Report| E[fa:fa-file-pdf, fa:fa-file, fa:fa-file-word]\n    D --&gt;|Presentation| F[revealjs, fa:fa-file-powerpoint ]\n    D --&gt;|Projects| G[fa:fa-globe,fa:fa-book &nbsp]\n\n%%Style\n\nclass A classBlue\nclass B classRed\nclass C classMd\nclass D classPandoc\nclass E,F classFile\nclass G classFile2\n\n\n\n\n\n\n\n\n\n\n\ngraph LR\n%% classDef\nclassDef classBlue color: #55a5f6,fill:#f1f1f1,stroke-width:2px,stroke:#55a5f6,font-weight:bold\nclassDef classRed color: #af0659,fill:#e0e5eb,stroke-width:2px,stroke:#af0659\nclassDef classMd color: #c96195,fill:#f1f1f1,stroke-width:2px,stroke:#c96195,font-weight:bold\nclassDef classPandoc color: #0980b0,fill:#e0e5eb,stroke-width:2px,stroke:#0980b0\nclassDef classFile color:#17559e,fill:#f1f1f1,stroke:#55a5f6\nclassDef classFile2 color:#17559e,fill:#f1f1f1,stroke:#55a5f6\n\n    A(Liquor&nbsp) -.-&gt; B{{fa:fa-lemon Citrus&nbsp}}\n    B -.-&gt; C(Sugar)\n    C -.-&gt; D{{Shaker}}\n    D --&gt;| Whiskey| E[Whiskey Sour]\n    D --&gt;|Rum| F[Daquiri]\n    D --&gt;|Gin| G[Gimlet]\n\n%%Style\n\nclass A classBlue\nclass B classRed\nclass C classMd\nclass D classPandoc\nclass E,F classFile\nclass G classFile2"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05\nImport Dati (tximport)\n05_import_dati.qmd\n\n\n06\nAnalisi Differenziale (DESeq2)\n06_deseq2.qmd\n\n\n07\nVisualizzazione Risultati\n07_visualizzazione.qmd\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
+  },
+  {
+    "objectID": "resources.html#materiali-del-corso",
+    "href": "resources.html#materiali-del-corso",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05\nImport Dati (tximport)\n05_import_dati.qmd\n\n\n06\nAnalisi Differenziale (DESeq2)\n06_deseq2.qmd\n\n\n07\nVisualizzazione Risultati\n07_visualizzazione.qmd\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
+  },
+  {
+    "objectID": "resources.html#documentazione-ufficiale",
+    "href": "resources.html#documentazione-ufficiale",
+    "title": "Risorse e Riferimenti",
+    "section": "Documentazione Ufficiale",
+    "text": "Documentazione Ufficiale\n\nnf-core/rnaseq\n\nDocumentazione Pipeline\nGitHub Repository\nUsage Docs\nParameter Reference\n\n\n\nNextflow\n\nNextflow Documentation\nGetting Started\nConfiguration\n\n\n\nBioconductor\n\nBioconductor\ntximport\nDESeq2\nComplexHeatmap\nclusterProfiler"
+  },
+  {
+    "objectID": "resources.html#libri-e-tutorial",
+    "href": "resources.html#libri-e-tutorial",
+    "title": "Risorse e Riferimenti",
+    "section": "Libri e Tutorial",
+    "text": "Libri e Tutorial\n\nRNA-Seq Analysis\n\nRNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR\n\nAutori: Law et al. (2016)\nLink\nTutorial F1000Research\n\nOrchestrating high-throughput genomic analysis with Bioconductor\n\nAutori: Huber et al. (2015)\nLink\nNature Methods - Overview Bioconductor\n\nA guide to creating design matrices for gene expression experiments\n\nAutori: Law et al. (2020)\nLink\nDesign sperimentale per RNA-Seq\n\nRNA-seqlopedia\n\nLink\nPanoramica completa delle tecnologie RNA-Seq\n\n\n\n\nGratuiti Online\n\nModern Statistics for Modern Biology\n\nAutori: Susan Holmes & Wolfgang Huber\nLink\nInclude capitoli su RNA-Seq\n\nIntroduction to RNA-Seq using high-performance computing\n\nHarvard Chan Bioinformatics Core\nLink"
+  },
+  {
+    "objectID": "resources.html#workflow-e-best-practices",
+    "href": "resources.html#workflow-e-best-practices",
+    "title": "Risorse e Riferimenti",
+    "section": "Workflow e Best Practices",
+    "text": "Workflow e Best Practices\n\nnf-core Best Practices\n\nnf-core Tools - Strumenti per gestire pipeline\nnf-core Configs - Profili istituzionali\nPipeline Tutorial - Tutorial step-by-step\n\n\n\nBioconductor Workflows\n\nRNA-seq workflow: gene-level exploratory analysis and differential expression\nRNA-Seq Data Analysis"
+  },
+  {
+    "objectID": "resources.html#strumenti-esterni",
+    "href": "resources.html#strumenti-esterni",
+    "title": "Risorse e Riferimenti",
+    "section": "Strumenti Esterni",
+    "text": "Strumenti Esterni\n\nQuality Control\n\nFastQC\nMultiQC\nRSeQC - RNA-seq QC specifico\n\n\n\nQuantificazione\n\nSalmon\nKallisto\nSTAR\n\n\n\nVisualizzazione\n\nIGV (Integrative Genomics Viewer)\nUCSC Genome Browser"
+  },
+  {
+    "objectID": "resources.html#dataset-per-esercitarsi",
+    "href": "resources.html#dataset-per-esercitarsi",
+    "title": "Risorse e Riferimenti",
+    "section": "Dataset per Esercitarsi",
+    "text": "Dataset per Esercitarsi\n\nBioconductor Data Packages\n# Dataset airway (usato nel corso)\nBiocManager::install(\"airway\")\nlibrary(airway)\ndata(airway)\n\n# Altri dataset utili\nBiocManager::install(\"parathyroidSE\")\nBiocManager::install(\"fission\")\n\n\nRepository Pubblici\n\nGEO (Gene Expression Omnibus)\nENA (European Nucleotide Archive)\nSRA (Sequence Read Archive)\n\n\n\nTutorial con Dataset Pubblici\n\nnf-core/rnaseq test dataset"
+  },
+  {
+    "objectID": "resources.html#pacchetti-rbioconductor-utili",
+    "href": "resources.html#pacchetti-rbioconductor-utili",
+    "title": "Risorse e Riferimenti",
+    "section": "Pacchetti R/Bioconductor Utili",
+    "text": "Pacchetti R/Bioconductor Utili\n\nAnalisi Differenziale\n# Principali\nBiocManager::install(c(\"DESeq2\", \"edgeR\", \"limma\"))\n\n# Utilities\nBiocManager::install(c(\"tximport\", \"GenomicFeatures\", \"rtracklayer\"))\n\n\nAnnotazioni\n# Organismi comuni\nBiocManager::install(\"org.Hs.eg.db\")      # Homo sapiens\nBiocManager::install(\"org.Mm.eg.db\")      # Mus musculus\nBiocManager::install(\"org.Dm.eg.db\")      # Drosophila\nBiocManager::install(\"org.Ce.eg.db\")      # C. elegans\n\n# Annotazioni genomiche\nBiocManager::install(\"TxDb.Hsapiens.UCSC.hg38.knownGene\")\n\n\nFunctional Enrichment\nBiocManager::install(c(\n  \"clusterProfiler\",\n  \"enrichplot\",\n  \"DOSE\",\n  \"pathview\",\n  \"ReactomePA\"\n))\n\n\nVisualizzazione\n# Heatmaps\nBiocManager::install(c(\"ComplexHeatmap\", \"pheatmap\"))\n\n# Plot specializzati  \ninstall.packages(c(\"ggplot2\", \"ggrepel\", \"EnhancedVolcano\"))"
+  },
+  {
+    "objectID": "resources.html#comunità-e-supporto",
+    "href": "resources.html#comunità-e-supporto",
+    "title": "Risorse e Riferimenti",
+    "section": "Comunità e Supporto",
+    "text": "Comunità e Supporto\n\nForum e Q&A\n\nBioconductor Support Site\nBiostars\nSEQanswers\nnf-core Slack - Canale #rnaseq\n\n\n\nSocial Media\n\n#rstats su Twitter/X\n#bioinformatics\nReddit r/bioinformatics"
+  },
+  {
+    "objectID": "resources.html#corsi-online",
+    "href": "resources.html#corsi-online",
+    "title": "Risorse e Riferimenti",
+    "section": "Corsi Online",
+    "text": "Corsi Online\n\nGratuiti\n\nCoursera - Genomic Data Science Specialization\nedX - Data Analysis for Life Sciences\nEMBL-EBI Training - Vari corsi RNA-Seq\nPhysalia Courses - Corsi bioinformatica avanzati\n\n\n\nYouTube Channels\n\nStatQuest with Josh Starmer - Spiegazioni statistiche RNA-Seq\nBioconductor YouTube"
+  },
+  {
+    "objectID": "resources.html#papers-fondamentali",
+    "href": "resources.html#papers-fondamentali",
+    "title": "Risorse e Riferimenti",
+    "section": "Papers Fondamentali",
+    "text": "Papers Fondamentali\n\nMetodologici\n\nModerated estimation of fold change and dispersion for RNA-seq data with DESeq2\n\nLove et al. (2014), Genome Biology\nLink\n\nSalmon provides fast and bias-aware quantification of transcript expression\n\nPatro et al. (2017), Nature Methods\nLink\n\nDifferential analyses for RNA-seq: transcript-level estimates improve gene-level inferences\n\nSoneson et al. (2015), F1000Research\nLink\n\n\n\n\nDesign Sperimentale\n\nRNA-seq: impact of RNA degradation on transcript quantification\n\nGallego Romero et al. (2014), BMC Biology\nLink\n\nHow many biological replicates are needed in an RNA-seq experiment and which differential expression tool should you use?\n\nSchurch et al. (2016), RNA\nLink"
+  },
+  {
+    "objectID": "resources.html#risorse-galaxy",
+    "href": "resources.html#risorse-galaxy",
+    "title": "Risorse e Riferimenti",
+    "section": "Risorse Galaxy",
+    "text": "Risorse Galaxy\nPer chi preferisce interfacce grafiche:\n\nGalaxy Training Network - RNA-Seq\nUseGalaxy.org"
+  },
+  {
+    "objectID": "resources.html#cheatsheets",
+    "href": "resources.html#cheatsheets",
+    "title": "Risorse e Riferimenti",
+    "section": "Cheatsheets",
+    "text": "Cheatsheets\n\nDESeq2 Cheatsheet\ndplyr Data Wrangling\nggplot2 Visualization"
+  },
+  {
+    "objectID": "resources.html#glossario-rna-seq",
+    "href": "resources.html#glossario-rna-seq",
+    "title": "Risorse e Riferimenti",
+    "section": "Glossario RNA-Seq",
+    "text": "Glossario RNA-Seq\n\n\n\n\n\n\n\nTermine\nSignificato\n\n\n\n\nTPM\nTranscripts Per Million - Normalizzazione per lunghezza trascritto e profondità libreria\n\n\nFPKM/RPKM\nFragments/Reads Per Kilobase Million - Normalizzazione simile a TPM\n\n\nDEG\nDifferentially Expressed Gene\n\n\nFDR\nFalse Discovery Rate - Correzione p-value multipli test\n\n\nlog2FC\nlog2 Fold Change - Differenza espressione in scala logaritmica\n\n\npadj\np-value aggiustato (adjusted p-value) per multiple testing\n\n\nbaseMean\nMedia dei conteggi normalizzati (DESeq2)"
+  },
+  {
+    "objectID": "resources.html#repository-github-utili",
+    "href": "resources.html#repository-github-utili",
+    "title": "Risorse e Riferimenti",
+    "section": "Repository GitHub Utili",
+    "text": "Repository GitHub Utili\n\nawesome-bioinformatics\nawesome-rnaseq\nnf-core/rnaseq"
+  },
+  {
+    "objectID": "resources.html#contatti",
+    "href": "resources.html#contatti",
+    "title": "Risorse e Riferimenti",
+    "section": "Contatti",
+    "text": "Contatti\nPer domande sul corso:\n\nEmail: [email del docente]\nSlack: [link workspace Slack]\nGitHub Issues: [repository del corso]\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Novembre 2025"
+  }
+]
