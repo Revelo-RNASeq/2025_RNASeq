@@ -1,9 +1,6 @@
 {
-  "name": "RNA-seq Course 2025 - Build Version",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
+  "name": "RNA-seq Course 2025",
+  "image": "chiapellom/rnaseq-course:2025",
 
   "customizations": {
     "vscode": {
@@ -30,5 +27,7 @@
   
   "remoteUser": "rstudio",
   "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  
+  "postCreateCommand": "echo '✅ Container ready! Type: quarto --version to verify installation'"
 }
