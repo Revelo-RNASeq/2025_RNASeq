@@ -52,6 +52,19 @@ RNASeq_Course_2025/
 └── resources/                ❌ NEVER RENDER (external reference only)
 ```
 
+**Required Configuration**: `RNASeq_Course_2025/_quarto.yml` MUST include:
+```yaml
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "modules/**/*.qmd"
+    - "!resources/**"    # EXCLUDES resources folder
+```
+
+The `!resources/**` pattern explicitly prevents Quarto from rendering any files in the resources folder.
+
 ### Commands Reference
 
 **Correct preview command**:

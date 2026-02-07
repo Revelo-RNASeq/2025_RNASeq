@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "modules/**/*.qmd"
+    - "!resources/**"
 
 website:
   title: "Analisi Bulk RNA-Seq per Dottorandi"
