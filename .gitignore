@@ -7,3 +7,8 @@ data/
 .DS_Store
 *.Rproj
 .Rproj.user
+
+# Docker Hub credentials - NEVER COMMIT
+.devcontainer/.docker-token
+*.docker-token
+.env

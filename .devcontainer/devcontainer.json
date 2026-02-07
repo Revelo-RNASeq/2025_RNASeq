@@ -1,0 +1,34 @@
+{
+  "name": "RNA-seq Course 2025 - Build Version",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "quarto.quarto",
+        "REditorSupport.r",
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": ["-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate rnaseq && exec bash"]
+          }
+        },
+        "r.rterm.linux": "/opt/conda/envs/rnaseq/bin/R",
+        "r.rpath.linux": "/opt/conda/envs/rnaseq/bin/R",
+        "python.defaultInterpreterPath": "/opt/conda/envs/rnaseq/bin/python"
+      }
+    }
+  },
+  
+  "remoteUser": "rstudio",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+}
