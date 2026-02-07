@@ -3,6 +3,7 @@ Carpentries/
 RNASeq/
 dataViz/
 resources/external/
+resources/
 results/
 .DS_Store
 *.Rproj
