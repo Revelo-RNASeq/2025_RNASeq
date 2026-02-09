@@ -2,7 +2,7 @@
 format: 
   revealjs:
     navigation-mode: vertical
-    slide-number: true
+    slide-number: false
     width: 1600
     height: 900
     logo: "images/revelo.png"
@@ -24,203 +24,946 @@ editor_options:
 library(fontawesome)
 library(tidyverse)
 library(quarto)
+library(gt)
+library(gtExtras)
+library(gtsummary)
+
+# font-family: 'Architects Daughter', cursive;
+# font-family: 'Julius Sans One', sans-serif;
+# font-family: 'Montserrat', san  s-serif;
+# font-family: 'Rock Salt', cursive;
 ```
 
-::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
-[Pipeline di Analisi: nf-core/rnaseq]{style="font-size: 80px; font-weight: bold; line-height: 1em; margin: 0px;"}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Julius+Sans+One&family=Montserrat:wght@300&family=Rock+Salt&display=swap');
+</style>
 
-[Dalla QC alla Quantificazione]{style="font-size: 40px;font-weight: bold;"}
+::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
+[Introduzione all'RNASeq]{style="font-size: 120px; font-weight: bold; line-height: 1em; margin: 0px; font-family: 'Architects Daughter', cursive;"}
+
+[Introduzione all'analisi RNASeq in R]{style="font-size: 40px;font-weight: bold;"}
+
+[Dipartimento di Biomedicina e Prevenzione]{style="font-size: 40px;font-weight: bold;"}
 
 <br> <br>
 
-[Analisi Bulk RNA-Seq per Dottorandi]{style="font-size: 40px; font-weight: bold;"}
+[Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
+
+[Nomber 2024]{style="font-size: 30px;font-weight: bold;"}
 :::
 
-#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Perché una Pipeline?]{.tit .p-span-center}
+<!-- #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+[Overview]{.f60 .p-span-center}
 
-[Riproducibilità e Scalabilità]{.subtit}
-
-:::: {.columns}
-::: {.column width="50%" .f30}
-**La sfida dell'analisi manuale:**
-- Installazione complessa di software.
-- Versioni conflittuali.
-- Difficile tenere traccia di parametri e passaggi.
-- Impossibile da riprodurre su un altro computer.
-:::
-
-::: {.column width="50%" .f30}
-**La soluzione: Nextflow + nf-core:**
-- **Portabilità**: Esegue ovunque (laptop, cluster, cloud).
-- **Container**: Ogni step usa Docker/Singularity (software pre-installato).
-- **Standardizzazione**: Pipeline curate dalla community bioinformatica.
-:::
-::::
+:::{.p-img-center}
+![](images/pst.jpg){width=1000}
+::: -->
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
-![](images/nfcore.png){width=1500}
+![](images/nfcore.png){width=2000}
 :::
 
-[La Pipeline Standard De-Facto]{.p-span-center .f40}
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pre-processing and Quality Control]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Workflow Overview]{.subtit}
 
 :::{.p-img-center}
-![](images/metro_map.png){width=1800}
-:::
-<!-- Note: Ensure metro_map.png is available in images folder or replace with a mermaid diagram if preferable -->
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Input della Pipeline]{.subtit}
-
-### Il Samplesheet
-
-Il punto di ingresso è un file CSV che descrive i campioni:
-
-```csv
-sample,fastq_1,fastq_2,strandedness
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz,auto
-CONTROL_REP2,AEG588A1_S2_L002_R1_001.fastq.gz,AEG588A1_S2_L002_R2_001.fastq.gz,auto
-TREAT_REP1,AEG588A1_S3_L002_R1_001.fastq.gz,AEG588A1_S3_L002_R2_001.fastq.gz,auto
-```
-
-::: {.callout-note}
-**Strandedness**: `auto` permette alla pipeline di inferire automaticamente la strandness del protocollo (es. dUTP, unstranded).
+![](images/nfcore.png){width=2000}
 :::
 
-#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Step 1: Raw QC & Trimming]{.tit .p-span-center}
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTA file
+
+::: {.callout-important icon="false"}
+## Definition
+
+The FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the ">" symbol.
+:::
+
+File extension could be: fasta, fna, ffn, faa, fa, frn
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Preprocessing]{.subtit}
+[Raw reads: The Starting Point]{.subtit}
 
-### FastQC + Trim Galore! / FastP
+### FASTA file
 
-La pipeline esegue automaticamente:
-1.  **FastQC**: Analisi qualità preliminare.
-2.  **Trimming**: Rimozione adattatori e basi a bassa qualità.
-    -   *Trim Galore!* (default) o *FastP*.
-3.  **Removal rRNA**: Opzionale (`--remove_ribo_rna`), utile se la deplezione in laboratorio non è stata perfetta.
+::: {.callout-important icon="false"}
+## Definition
 
-#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+The FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the ">" symbol.
+:::
 
-[Step 2: Allineamento e Quantificazione]{.tit .p-span-center}
+    >NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A
+    CTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT
+    ATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN
+
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Due Strategie Principali]{.subtit}
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTA file
+
+Multi-fasta file:
+
+    >MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
+    MADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID
+    FPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA
+    DIDGDGQVNYEEFVQMMTAK
+
+    >NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A
+    CTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT
+    ATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN
+    >HF583486.1 Homo sapiens SOD1 gene for alternative protein SOD1, isolate 144496
+    ATGGATTCCATGTTCATGAGTTTGGAGATAATACAGCAGGCTGTACCAGTGCAGGTCCTCACTTTAATCC
+    TCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+::: {.callout-important icon="false"}
+## Definition
+
+The FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.   
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+::: {.callout-important icon="false"}
+## Definition
+
+The FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.   
+:::
+
+::: f30
+A FASTQ file is identified by 4 lines:
+
+- Line 1: begins with the "@" symbol and is followed by the sequence identifier (as in FASTA sequences)    
+- Line 2: contains the nucleotide sequence    
+- Line 3: begins with a "+" and may contain additional sequence descriptions    
+- Line 4: contains the quality values for the individual nucleotides
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+::: {.callout-important icon="false"}
+## Definition
+The FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.   
+
+:::
+
+::: f35
+    @SEQ_ID
+    GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
+    +
+    !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+#### What does "quality score" mean?
+
+::: f20
+The quality score is used to identify the **probability of the correct identification of the corresponding nucleotide**.
+:::
+
+![](images/phred1.png)
+
+::: notes
+-   I numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano
+-   Score più alto osservato 40, quindi molti si fermano li
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+#### What does "quality score" mean?
+
+::: f20
+The quality score is used to identify the **probability of the correct identification of the corresponding nucleotide**.
+:::
+
+::: centerI
+![](images/phred2.png){width=900}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Raw reads: The Starting Point]{.subtit}
+
+### FASTQ format
+
+- FASTQ files can be very large, so in most cases you won't be dealing with myFile.fastq, but with myFile.fastq.gz.
+
+- This means that the file is compressed, so it is not readable by a text editor without first being decompressed.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pre-processing Tools]{.subtit}
+
+### FastQC
+
+:::: {.columns}
+::: {.column width="60%" .f30}
+*   **What it is:** 
+    * A widely used tool for quality assessment of raw sequencing data.
+*   **What it does:**
+    *   Generates comprehensive reports with various quality metrics.
+    *   Visualizes data quality using interactive plots and graphs.
+*   **Key metrics:**
+    *   Per base sequence quality
+    *   Per sequence quality scores
+    *   Sequence length distribution
+    *   GC content
+    *   Adapter content
+    *   Overrepresented sequences
+:::
+::: {.column width="30%"}
+<br>
+<br>
+[[FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)]{.p-spam.center}
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pre-processing Tools]{.subtit}
+
+### UMI-tools extract
+
+:::: {.columns}
+::: {.column width="50%" .f25}
+*   **What are UMIs?**
+    *   Unique Molecular Identifiers (UMIs) are short random sequences attached to each cDNA molecule during library preparation.
+    *   They act as "molecular barcodes" to identify unique molecules.
+*   **Why are UMIs important?**
+    *   UMIs help to distinguish PCR duplicates from true biological duplicates.
+    *   This improves the accuracy of gene expression quantification, especially for low-abundance transcripts.
+:::
+::: {.column width="50%" .f25}
+*   **What does `UMI-tools extract` do?**
+    *   Identifies and extracts UMIs from sequencing reads.
+    *   Moves UMIs to the read name for downstream analysis.
+    *   Requires information about the UMI location in the read.
+*   **Benefits:**
+    *   Improved accuracy in gene expression quantification.
+    *   Reduced bias due to PCR amplification.<br>
+<br>
+[[UMI-tools](https://umi-tools.readthedocs.io/en/latest/index.html)]{.p-spam.center}
+:::
+:::: 
+
+:::{.p-img-center}
+![](images/umi.png){width=1000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pre-processing Tools]{.subtit}
+
+### [FastP](https://github.com/OpenGene/fastp) & [Trim Galore!](https://github.com/FelixKrueger/TrimGalore)
 
 :::: {.columns}
 ::: {.column width="50%" .f30}
-### 1. Allineamento Classico (STAR)
+*   **Purpose:**  
+    * To clean up raw sequencing data and improve the accuracy of downstream analysis.
+*   **Key functions:**
+    *   **Adapter trimming:**  Remove adapter sequences from reads.
+    *   **Quality trimming:**  Trim low-quality bases from the ends of reads.
+*   **FastP:**
+    *   All-in-one tool with extensive pre-processing features.
+    *   Includes quality filtering, error correction, UMI handling, and more.
 
--   Mappa le reads sul genoma di riferimento.
--   Produce file BAM (visualizzabili su IGV).
--   Quantificazione gene-level via **Salmon** o **featureCounts**.
--   **Pro**: Permette di vedere le reads, scoprire nuovi trascritti.
--   **Contro**: Lento, file pesanti.
 :::
-
 ::: {.column width="50%" .f30}
-### 2. Pseudo-allineamento (Salmon/Kallisto)
-
--   Mappa le reads sul *trascrittoma*.
--   Non produce BAM (niente coordinate genomiche).
--   Stima abbondanza trascritti velocemente.
--   **Pro**: Velocissimo, accurato per la quantificazione.
--   **Contro**: Meno utile per QC visuale (IGV).
+*   **Trim Galore!:**
+    *   Wrapper script for `cutadapt` (adapter trimming) and often includes `FastQC` (quality assessment).
+    *   Focuses on adapter and quality trimming with optimized parameters.
+*   **Benefits:**
+    *   Improved alignment accuracy.
+    *   Reduced false positives in variant calling and gene expression analysis.
+    *   Increased efficiency of downstream analysis.
 :::
-::::
+:::: 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Salmon: Quasi-mapping]{.subtit}
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
 
-La pipeline usa **Salmon** come standard per la quantificazione (sia in mode pseudo-alignment che alignment-based).
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-1.  **Index**: Costruisce un indice del trascrittoma.
-2.  **Quant**: Stima l'espressione (TPM, NumReads).
-3.  **Bias Correction**: Corregge bias di sequenziamento (GC content, posizione).
+[Pre-processing Tools]{.subtit}
 
-Output principale: `quant.sf` per ogni campione.
+### BBSplit
+
+:::: {.columns}
+::: {.column width="60%" .f30}
+*   **What it is:**  
+    * A tool for removing contaminant reads from sequencing data.
+*   **Types of contamination:**
+    *   Microbial DNA or RNA
+    *   Host DNA (in the case of RNA-Seq from host-associated samples)
+    *   Other unwanted sequences
+*   **How it works:**
+    *   Aligns reads to a database of contaminant sequences.
+    *   Removes reads that map to the contaminant database.
+
+:::
+::: {.column width="30%"}
+<br>
+<br>
+[[BBMap](https://sourceforge.net/projects/bbmap/)]{.p-spam.center}
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pre-processing Tools]{.subtit}
+
+### SortMeRNA
+
+:::: {.columns}
+::: {.column width="60%" .f30}
+*   **What it is:**  
+    * A tool for filtering ribosomal RNA (rRNA) reads from sequencing data.
+*   **Why is it important?**
+    *   rRNA often makes up a large proportion of total RNA.
+    *   Removing rRNA enriches for mRNA and other non-coding RNAs of interest.
+*   **How it works:**
+    *   Uses a database of rRNA sequences to identify and remove rRNA reads.
+    *   Can be used with both single-end and paired-end data.
+
+:::
+::: {.column width="30%"}
+<br>
+<br>
+[[SortMeRNA](https://sortmerna.readthedocs.io/en/latest/)]{.p-spam.center}
+:::
+:::: 
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[Step 3: Quality Control Finale]{.tit .p-span-center}
+[Alignment and Quantification]{.tit .p-span-center}
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[MultiQC]{.subtit}
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
 
-Un singolo report HTML che aggrega i risultati di tutti gli step e tutti i campioni.
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### Read Alignment
+
 
 :::: {.columns}
+::: {.column width="50%" .f30}
+*   **Purpose:** 
+    * To map sequencing reads to a reference genome or transcriptome.
+*   **Why is it important?**
+    *   Identify the genomic origin of each read.
+    *   Determine which genes or transcripts are expressed.
+    *   Discover genetic variations (SNPs, indels).
+:::
+::: {.column width="50%" .f30}
+*   **Challenges:**
+    *   Reads may contain sequencing errors.
+    *   Reads may map to multiple locations (multi-mapping reads).
+    *   Genomes contain repetitive regions.
+*   **Output:**  A BAM (Binary Alignment/Map) file containing alignment information.
+
+:::
+:::: 
+
+:::{.p-img-center}
+![](images/align.png){width=1000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### SAM/BAM Format:  Storing Alignment Information
+
+*   **What it is:**  
+    *   The standard file format for storing read alignments.
+    *   **SAM (Sequence Alignment/Map):**  A text-based format.
+    *   **BAM (Binary Alignment/Map):**  A compressed binary version of SAM.
+*   **Why is it important?**
+    *   Provides a standardized way to store alignment information.
+    *   Allows for efficient storage and retrieval of large alignment datasets.
+    *   Facilitates compatibility between different bioinformatics tools.
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### SAM/BAM Format:  Storing Alignment Information
+
+*   **Content:**
+    *   **Header section**: Contains metadata about the alignment (reference genome, aligner used, etc.).
+
+::: code
+    @RG     ID:1    SM:C5926_BM_IonCode_0118
+    @PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam
+:::
+
+
+::: notes
+-   @RG = read group
+    -   ID = Read group identifier
+    -   SM = Sample
+-   @PG = Program
+    -   ID = Program record identifier
+    -   PN = Program name
+    -   VN = software version
+    -   Cl = command line
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### SAM/BAM Format:  Storing Alignment Information
+
+*   **Alignment section**:  Each line represents a single read and its alignment to the reference.
+    *   Includes information about mapping position, quality scores, alignment flags, and more.
+
+![](images/bam2.png){.absolute top="500" left="0" width="800" height="auto"}
+
+![](images/bam1.png){.absolute top="400" right="20" width="550" height="auto"}
+
+::: notes
+-   11 campi obbligatori
+
+-   Metadati non obbligatori
+
+-   Concise Idiosyncratic Gapped Alignment Report (CIGAR) string
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### [STAR Aligner](https://github.com/alexdobin/STAR)
+
+
+:::: {.columns}
+::: {.column width="30%" .f40}
+![](images/alignment_STAR_step3.png){width=400}
+:::
+::: {.column width="70%" .f30}
+*   **What it is:**  
+    * A widely used splice-aware aligner for RNA-Seq data.
+*   **Key features:**
+    *   Fast and efficient alignment.
+    *   Accurate handling of spliced reads.
+    *   Can detect novel splice junctions.
+    *   Supports various RNA-Seq protocols.
+*   **Advantages:**
+    *   High accuracy
+    *   Speed
+    *   Versatility
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### [HISAT2](http://daehwankimlab.github.io/hisat2/)
+
+
+:::: {.columns}
+::: {.column width="30%" .f40}
+![](images/alignment_STAR_step3.png){width=400}
+:::
+::: {.column width="70%" .f30}
+*   **What it is:** 
+    *   Another popular splice-aware aligner for RNA-Seq.
+*   **Key features:**
+    *   Based on the Burrows-Wheeler transform.
+    *   Fast and memory-efficient.
+    *   Supports both DNA and RNA alignment.
+*   **Comparison to STAR:**
+    *   May be slightly faster for some datasets.
+    *   May have slightly lower accuracy for certain types of reads.
+    *   Choice often depends on specific needs and preferences.
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### UMI-tools dedup
+
+
+:::: {.columns}
+::: {.column width="30%" .f40}
+![](images/dedup.jpg){width=400}
+:::
+::: {.column width="70%" .f25}
+*   **What it does:**
+    *   Identifies and removes PCR duplicates from RNA-Seq data using Unique Molecular Identifiers (UMIs).
+    *   Groups reads with the same UMI and genomic mapping location.
+    *   Selects the read with the highest quality score as the representative read for each group.
+*   **Why is it important?**
+    *   PCR amplification during library preparation can introduce duplicate reads.
+    *   These duplicates can bias gene expression estimates, especially for low-abundance transcripts.
+    *   `UMI-tools dedup` helps to correct for this bias and improve accuracy.
+*   **Benefits:**
+    *   More accurate gene expression quantification.
+    *   Reduced false positives in differential expression analysis.
+    *   Improved sensitivity for detecting rare transcripts.
+
+
+[[UMI-tools](https://umi-tools.readthedocs.io/en/latest/index.html)]{.p-spam.center}
+:::
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Alignment and Quantification]{.subtit}
+
+### [RSEM](https://github.com/deweylab/RSEM)
+
+
+:::: {.columns}
+::: {.column width="50%" .f40}
+<br>
+<br>
+
+![](images/RSEM.png){width=700}
+:::
+::: {.column width="50%" .f30}
+*   **What it is:**  
+    *   RSEM is a software package for estimating gene and isoform expression levels from RNA-Seq data.
+*   **Key features:**
+    *   Uses a statistical model to estimate transcript abundance from aligned reads.
+    *   Can handle different types of RNA-Seq data (single-end, paired-end).
+    *   Provides various output formats (counts, TPM, FPKM).
+:::
+:::: 
+
+::: notes
+
+RPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular
+
+:::
+
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pseudo-aligners]{.tit .p-span-center}
+
+[A New Approach to Quantification]{.f50 .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pseudo-aligners]{.subtit}
+
+### Fast and Efficient Transcript Abundance Estimation
+
+:::: {.columns}
+::: {.column width="60%" .f30}
+*   **What they are:**  
+    * A class of RNA-Seq quantification tools that do not require exact alignment of reads to a reference genome.
+*   **How they work:**
+    *   Use lightweight algorithms to assign reads to transcripts    
+    *   Effectively "pseudo-align" reads to transcripts without determining their precise genomic location.
+*   **Advantages:**
+    *   **Speed:**  Significantly faster than traditional alignment-based methods.
+    *   **Efficiency:**  Reduced computational resources required.
+    *   **Accuracy:**  Comparable or even superior accuracy for transcript quantification.
+:::
+::: {.column width="40%" .f30}
+*   **Popular tools:**
+    *   Salmon
+    *   Kallisto
+*   **Applications:**
+    *   Gene expression profiling
+    *   Differential expression analysis
+    *   Transcript isoform identification
+:::
+:::: 
+
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pseudo-aligners]{.subtit}
+
+### Kallisto vs Salmon
+
+::: f30
+| Feature            | [Kallisto]{.f50} ![](images/bear.jpg){width=100} | [Salmon]{.f50} ![](images/salmon.png){width=190}                |
+|---------------------|------------------------|-------------------------|
+| **Algorithm**       | Pseudoalignment (k-mers) | Quasi-mapping (BWT)     |
+| **Speed**           | Fast                   | Faster                  |
+| **Memory Usage**    | Lower                  | Higher                  |
+| **Features**         | Basic                  | More advanced (library types, bootstrapping) |
+| **Accuracy**        | High                   | High                    |
+| **Ease of Use**     | High                   | High                    |
+| **Output Formats**  | Abundance estimates     | Abundance estimates, counts, TPM, etc. |
+| **Applications**   | Gene expression, DE analysis | Gene expression, DE analysis, isoform quantification |
+
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Pseudo-aligners]{.subtit}
+
+### Salmon Output File Formats
+
+::: {layout="[40,-20,60]"}
+
+![Folder](images/salm1.png)
+
+![quant.sf](images/salmon2.png)
+:::
+
+:::{.notes}
+1. Salmon's main output is its quantification file => quant.sf
+
+1. cmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked
+
+1. Auxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info
+
+     - The auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments
+
+     -  If Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type
+
+1. When run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format
+
+
+:::
+
+d
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Post-alignment Processing]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Post-alignment Processing]{.subtit}
+
+### Refining Your Alignments
+
+::: f30
+*   **What it is:** 
+    * A series of steps performed after read alignment to improve data quality and prepare for downstream analysis.
+*   **Key steps:**
+    *   **Deduplication:**  Removing PCR duplicates to avoid bias in gene expression estimates. (Blue line)
+    *   **Generating coverage tracks:**  Visualizing read distribution and assessing sequencing uniformity.
+    *   **(Optional) Other steps:**  Depending on the analysis goals, this may include filtering reads, recalibrating base quality scores, and other processing steps.
+*   **Why is it important?**
+    *   Improves the accuracy and reliability of downstream analysis.
+    *   Reduces noise and bias in the data.
+    *   Facilitates data interpretation and visualization.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Post-alignment Processing]{.subtit}
+
+### [SAMtools](https://samtools.github.io/): Manipulating and Analyzing Alignments
+
+::: f30
+*   **What it is:**  
+    * A suite of command-line utilities for working with SAM/BAM files.
+    * A Swiss Army Knife for SAM/BAM Files
+*   **Key functions:**
+    *   **`samtools sort`:** Sorts alignments in a BAM file by coordinate.
+        *   Why is sorting important?  Many downstream tools require sorted BAM files for efficient processing.
+    *   **`samtools index`:** Creates an index file for a sorted BAM file.
+        *   Why is indexing important?  Allows for fast retrieval of specific regions of the alignment.
+    *   **`samtools stats`:**  Generates statistics about an alignment file.
+        *   Provides insights into alignment quality, read depth, and other metrics.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Post-alignment Processing]{.subtit}
+
+### [Picard](https://broadinstitute.github.io/picard/) MarkDuplicates:  Deduplication without UMIs
+
+::: f40
+*   **How it works:**
+    *   Identifies duplicates based on mapping coordinates of reads.
+    *   Marks duplicate reads in the BAM file.
+*   **Considerations:**
+    *   Less accurate than UMI-based methods.
+    *   Can be used when UMIs are not available.
+    *   Often used in combination with other filtering steps.
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Post-alignment Processing]{.subtit}
+
+
+### [BEDTools](https://bedtools.readthedocs.io/en/latest/) genomecov:  Quantifying Read Depth
+
+::: f40
+*   **What it does:**
+    *   Calculates the number of reads overlapping each position in the genome.
+    *   Outputs a coverage file in various formats (BEDGRAPH, bed, etc.).
+*   **Options:**
+    *   Calculate coverage for different strand orientations.
+    *   Normalize coverage by library size.
+    *   Generate histograms of coverage depth.
+:::
+
+
+#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.tit .p-span-center}
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+:::{.p-img-center}
+![](images/nfcore.png){width=2000}
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### [RSeQC](https://rseqc.sourceforge.net):  Comprehensive Quality Assessment of Your RNA-Seq Data
+
+::: f25
+*   **What it is:**  
+    * A suite of tools for RNA-Seq quality control and analysis.
+*   **Key functions:**
+    *   **Read distribution:**  Assess the distribution of reads across different genomic features (e.g., coding regions, introns, UTRs).
+    *   **Gene body coverage:**  Evaluate the uniformity of coverage across gene bodies.
+    *   **Strand specificity:**  Check the strand specificity of the library.
+    *   **Junction saturation:**  Determine if sufficient sequencing depth has been achieved for junction detection.
+    *   **Other QC metrics:**  Assess rRNA contamination, insert size distribution, and more.
+*   **Benefits:**
+    *   Provides comprehensive quality assessment of RNA-Seq data.
+    *   Identifies potential biases and issues in library preparation or sequencing.
+    *   Helps to ensure the reliability and accuracy of downstream analysis.
+
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### [Preseq](http://smithlabresearch.org/software/preseq/):  Assessing the Diversity of Your Library
+
+::: f25
+*   **What it is:**  A tool for estimating the complexity of a sequencing library.
+*   **Why is library complexity important?**
+    *   Library complexity refers to the number of unique DNA fragments in your library.
+    *   Higher complexity means a more diverse representation of the original RNA population.
+    *   Low complexity can lead to reduced sequencing efficiency and biased results.
+*   **What does Preseq do?**
+    *   Uses statistical modeling to predict the number of unique reads that would be obtained with deeper sequencing.
+    *   Helps to assess whether additional sequencing is likely to yield new information.
+    *   Can be used to compare the complexity of different libraries.
+*   **Benefits:**
+    *   Optimize sequencing depth.
+    *   Avoid unnecessary sequencing costs.
+    *   Improve the quality and efficiency of RNA-Seq experiments.
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### [Qualimap RNA-Seq](http://qualimap.conesalab.org):  A Deep Dive into Your RNA-Seq Data
+
+
+::: f25
+*   **What it is:**  
+    * A comprehensive tool for quality control and analysis of RNA-Seq data.
+*   **Key features:**
+    *   **Alignment quality:**  Assesses mapping quality, mismatch rates, and indel rates.
+    *   **Coverage analysis:**  Evaluates coverage uniformity across genes and transcripts.
+    *   **Junction analysis:**  Examines splice junctions and identifies non-canonical junctions.
+    *   **Transcript coverage:**  Assesses coverage of known transcripts and identifies potential novel transcripts.
+    *   **rRNA content:**  Estimates the proportion of rRNA reads in the data.
+    *   **5' and 3' bias:**  Detects biases in read coverage towards the 5' or 3' ends of transcripts.
+*   **Benefits:**
+    *   Provides detailed insights into the quality of RNA-Seq alignments.
+    *   Identifies potential biases and technical artifacts.
+    *   Helps to ensure the reliability and accuracy of downstream analysis.
+
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### Kraken2:  Identifying Microbial Communities in Your Samples
+
+:::: {.columns}
+::: {.column width="40%" .f40}
+![](images/kraken.png){width=700}
+:::
 ::: {.column width="60%" .f25}
-**Cosa controllare:**
--   **General Stats**: Quante reads sono sopravvissute al trimming?
--   **Alignment Score**: % di reads allineate univocamente (ideale > 80%).
--   **Complexity**: Duplicati PCR.
--   **Strand Check**: Conferma del protocollo di libreria.
+*   **What it is:**  
+    * A fast and accurate tool for assigning taxonomic labels to sequencing reads.
+*   **Why is it useful for RNA-Seq?**
+    *   RNA-Seq data can sometimes contain reads from microbial organisms (e.g., in microbiome studies, host-associated samples).
+    *   Kraken2 can identify and classify these microbial reads, providing insights into the microbial community present in the sample.
+*   **How it works:**
+    *   Assigns taxonomic classifications to reads based on the best match.
+*   **Benefits:**
+    *   Fast and efficient classification.
+    *   Accurate identification of microbial species.
+    *   Can be used with both DNA and RNA sequencing data.
 :::
-::: {.column width="40%"}
+:::: 
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### Differential Expression:  Finding the Genes that Matter
+
+
+::: f30
+*   **What it is:**  
+    * Identifying genes that are expressed at significantly different levels between two or more conditions (e.g., treated vs. control, healthy vs. diseased).
+*   **Why is it important?**
+    *   Uncover genes involved in specific biological processes or disease states.
+    *   Identify potential biomarkers or therapeutic targets.
+*   **Tools:**
+    *   `DESeq2`:  A popular R package for differential expression analysis.
+    *   `edgeR`:  Another widely used R package.
+    *   `limma`:  A flexible package for linear modeling and differential expression analysis.
+
+
+:::
+
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
+[Downstream Analysis]{.subtit}
+
+### [MultiQC](https://seqera.io/examples/rna-seq/multiqc_report.html):  Your One-Stop Shop for QC Reports
+
+::: f25
+*   **What it is:**  A tool that aggregates results from multiple bioinformatics tools into a single HTML report.
+*   **Why is it useful for RNA-Seq?**
+    *   RNA-Seq analysis involves multiple QC steps (FastQC, SortMeRNA, Trim Galore!, etc.).
+    *   MultiQC combines the results from these tools into a user-friendly report.
+    *   This saves time and simplifies the QC assessment process.
+*   **Key features:**
+    *   Supports a wide range of bioinformatics tools.
+    *   Generates interactive plots and tables for easy visualization.
+    *   Highlights potential issues and inconsistencies in the data.
+    *   Facilitates comparison of QC metrics across multiple samples.
+*   **Benefits:**
+    *   Saves time and effort in QC assessment.
+    *   Improves clarity and organization of QC results.
+    *   Facilitates data interpretation and decision-making.
+:::
+
+##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
+
 :::{.p-img-center}
-![](images/multiqc_logo.png){width=400}
+![](images/nfcore.png){width=2000}
 :::
-:::
-::::
-
-#  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Eseguire la Pipeline]{.tit .p-span-center}
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Il Comando Magico]{.subtit}
-
-```bash
-nextflow run nf-core/rnaseq \
-    --input samplesheet.csv \
-    --outdir ./results \
-    --genome GRCh38 \
-    -profile docker
-```
-
--   `--input`: Il file CSV creato prima.
--   `--genome`: Il genoma di riferimento (es. Umano GRCh38). Nextflow scarica indici e annotazioni automaticamente da AWS iGenomes.
--   `-profile docker`: Usa Docker per gestire le dipendenze.
-
-##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
-
-[Risultati: Output Folder]{.subtit}
-
-```text
-results/
-├── multiqc/
-│   └── multiqc_report.html  <-- START HERE
-├── star_salmon/
-│   ├── salmon.merged.gene_counts.tsv
-│   ├── salmon.merged.gene_tpm.tsv
-│   └── ...
-├── pipeline_info/
-└── ...
-```
-
-I file `salmon.merged.gene_counts.tsv` sono pronti per essere importati in R per l'analisi differenziale!
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 
+
 ::: {style="position: absolute; left: 980px; top: 450px;"}
-[Lab Time!]{style="font-size: 130px; font-weight: bold; color: white"}
+[Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
 :::
 
