@@ -7,31 +7,29 @@ Quarto-based educational course: **"Analisi Bulk RNA-Seq per Dottorandi"** in It
 
 ```
 RNASeq_Course_2025/           # ACTIVE - Website + RevealJS slides
-├── modules/
-│   ├── 01_intro/             # Course introduction
-│   ├── 02_rnaseq_basics/     # RNA-seq biology & experimental design
-│   │   └── index.qmd         # Main slide deck with examples
-│   ├── 03_pipeline_nfcore/   # nf-core/rnaseq pipeline
-│   │   └── index.qmd
-│   └── 04_analysis_R/        # R analysis (AI-driven demos)
-│       ├── index.qmd         # Module landing page
-│       ├── 01_tools.qmd      # RStudio setup
-│       ├── 02_import.qmd     # tximport workflow
-│       ├── 03_deseq2.qmd     # DESeq2 statistics explained
-│       ├── 04_visualization.qmd
-│       ├── demo_prompts.qmd  # ⭐ AI prompt templates (763 lines)
-│       ├── prompt_reference.md
-│       └── review.qmd
-├── data/                     # Demo datasets (airway) + scripts
-│   ├── fastq_SUBSET/         # 4 paired-end samples (SRR1039508-13)
-│   ├── trascriptome_TINY/    # GENCODE v43 subset + Salmon index
-│   ├── scripts/              # Setup & analysis helpers
-│   ├── txi_salmon.rds        # Pre-computed tximport object
-│   └── README.md             # Data setup instructions
-├── _quarto.yml               # Website config (output-dir: docs/)
-└── index.qmd                 # Landing page with module links
+├── materials/                # ⭐ RENDERED CONTENT - Course slides (website navigation)
+│   ├── 01_introduzione.qmd   # Course introduction
+│   ├── 02_basi_biologiche.qmd # RNA-seq biology & experimental design
+│   ├── 03_pipeline_nfcore.qmd # nf-core/rnaseq pipeline
+│   ├── 04_setup_R.qmd        # RStudio setup
+│   ├── 05_import_dati.qmd    # tximport workflow
+│   ├── 06_deseq2.qmd         # DESeq2 statistics explained
+│   ├── 07_visualizzazione.qmd # Visualization
+│   ├── 08_demo_prompts.qmd   # ⭐ AI prompt templates
+│   ├── css/                  # Custom styling
+│   └── images/               # Slide images
+├── modules/                  # ARCHIVED - Previous module structure (NOT rendered)
+│   └── [01-04_*]/            # Historical content - use materials/ instead
+├── data/                     # Demo datasets (compressed archives)
+│   ├── fastq_SUBSET.zip      # 4 paired-end samples (SRR1039508-13)
+│   └── trascriptome_TINY.zip # GENCODE v43 subset + Salmon index
+├── resources/                # External reference materials (NOT rendered)
+│   ├── external/             # EBI, Galaxy Training content
+│   └── references/           # Additional docs
+├── _quarto.yml               # Website config (renders materials/, excludes modules/)
+└── index.qmd                 # Landing page
 
-resources/external/RNASeq/    # REFERENCE BOOK - Deep-dive R tutorials
+resources/external/RNASeq/    # REFERENCE BOOK - Deep-dive R tutorials (separate project)
 ├── 001_sec-preproc*.qmd      # Preprocessing (import, filter, EDA)
 ├── 002_sec-DEG*.qmd          # Differential expression
 ├── 003_sec-vis*.qmd          # Visualization
@@ -41,19 +39,25 @@ resources/external/RNASeq/    # REFERENCE BOOK - Deep-dive R tutorials
 .github/skills/               # AI skills for domain knowledge
 ```
 
-⚠️ **CRITICAL RENDERING POLICY**: The `RNASeq_Course_2025/resources/` folder contains external reference materials (EBI, Galaxy Training) that **MUST NOT be rendered**. Only render content in `RNASeq_Course_2025/modules/` and the root `index.qmd`. See `.github/instructions/resources-folder-policy.md` for full policy details.
+⚠️ **CRITICAL RENDERING POLICY**: 
+- **ONLY render**: `materials/**/*.qmd` and root `index.qmd`
+- **NEVER render**: `resources//**` (external references) or `modules/**` (archived)
+- See `_quarto.yml` render config and `.github/instructions/resources-folder-policy.md`
 
 ## Developer Workflow
 
 ```bash
-# Preview website
+# Preview website (from repo root)
 cd RNASeq_Course_2025 && quarto preview
 
-# Preview reference book
+# Preview reference book (from repo root)
 cd resources/external/RNASeq && quarto preview
 
 # Render single slide deck
-quarto render modules/04_analysis_R/demo_prompts.qmd
+quarto render RNASeq_Course_2025/materials/08_demo_prompts.qmd
+
+# Full website render (output: docs/)
+cd RNASeq_Course_2025 && quarto render
 ```
 
 ## RevealJS Slide Template
@@ -77,7 +81,7 @@ filters:
   - roughnotation
 ```
 
-**Slide patterns** (see `modules/02_rnaseq_basics/index.qmd` and `03_deseq2.qmd`):
+**Slide patterns** (see `materials/02_basi_biologiche.qmd` and `materials/06_deseq2.qmd`):
 
 - **Title slides**: background-image + absolute positioned styled div
   ```markdown
@@ -121,7 +125,7 @@ filters:
 
 **Philosophy**: Students learn to *prompt* and *verify*, not write raw code.
 
-**Module 4 Demo Flow** (see `modules/04_analysis_R/demo_prompts.qmd` - 763 lines):
+**Module 4 Demo Flow** (see `materials/08_demo_prompts.qmd`):
 1. Present concept (Italian explanation)
 2. Show prompt template in `::: {.callout-tip}` block
 3. Student copies prompt → AI generates code → Student runs & verifies
@@ -170,25 +174,23 @@ When creating new demo content, read relevant `SKILL.md` to ensure accuracy.
   - `.callout-tip` - AI prompt templates for students to copy
   - `.callout-note` - Additional context or references
 
-**Biological emphasis examples** (from `03_deseq2.qmd`):
+**Biological emphasis examples** (from `materials/06_deseq2.qmd`):
 - Explain *why* median-of-ratios, not just *how*
 - Teach dispersion shrinkage concept before showing DESeq() function
 - Always contextualize statistics in biological terms
 
 ## File Conventions
 
-- **Naming**: `NN_topic.qmd` (e.g., `01_tools.qmd`, `02_import.qmd`, `03_deseq2.qmd`)
-- **Images**: `modules/<module>/images/` (module-specific) NOT FOUND - check actual paths
+- **Naming**: `NN_topic.qmd` (e.g., `01_introduzione.qmd`, `05_import_dati.qmd`, `06_deseq2.qmd`)
+- **Images**: `materials/images/` (shared) and `materials/css/` for styling
 - **Links**: Relative paths from document root
   ```markdown
-  [Module 4](modules/04_analysis_R/index.qmd)
+  [Demo Prompts](materials/08_demo_prompts.qmd)
   ```
 - **Data structure**:
-  - `data/fastq_SUBSET/` - Raw paired-end FASTQ files
-  - `data/trascriptome_TINY/` - GENCODE v43 subset + Salmon index
-  - `data/scripts/` - Helper scripts (R and bash)
-  - `data/txi_salmon.rds` - Pre-computed tximport object (saves 10-15 min)
-  - `data/README.md` - Instructions for generating demo data from airway package
+  - `data/fastq_SUBSET.zip` - Compressed paired-end FASTQ files (extract before use)
+  - `data/trascriptome_TINY.zip` - GENCODE v43 subset + Salmon index (extract before use)
+  - Extracted data expected at: `data/fastq_SUBSET/` and `data/trascriptome_TINY/my_salmon_index/`
 
 ## Tech Stack
 
@@ -216,13 +218,15 @@ When creating new demo content, read relevant `SKILL.md` to ensure accuracy.
 
 ## Critical Non-Obvious Patterns
 
-1. **Pre-computed data usage**: `data/txi_salmon.rds` lets students skip 10-15 min quantification
-   - Generated from airway package (see `data/README.md`)
-   - Used in Module 4 demos to start directly from count matrix
+1. **Compressed demo data**: `data/` contains `.zip` archives (not extracted directories)
+   - `fastq_SUBSET.zip` - 4 paired-end samples from airway dataset
+   - `trascriptome_TINY.zip` - GENCODE v43 subset for demo speed
+   - Extract before use in analyses or demos
 
-2. **Salmon index structure**: `data/trascriptome_TINY/my_salmon_index/`
-   - GENCODE v43 subset (not full) for demo speed
-   - See `SALMON_INDEX_EXPLAINED.md` for rationale
+2. **materials/ vs modules/**: Two parallel content structures exist
+   - `materials/` - ACTIVE (rendered by _quarto.yml, appears in website)
+   - `modules/` - ARCHIVED (explicitly excluded, contains historical versions)
+   - **Always work in materials/** for course content
 
 3. **Skills-first approach**: Before generating bioinformatics code, **always read relevant skill**
    - Example: Creating volcano plot? Read `bio-data-visualization-specialized-omics-plots/SKILL.md`
@@ -237,7 +241,7 @@ When creating new demo content, read relevant `SKILL.md` to ensure accuracy.
 
 ```bash
 # Test single file render
-quarto render RNASeq_Course_2025/modules/04_analysis_R/03_deseq2.qmd
+quarto render RNASeq_Course_2025/materials/06_deseq2.qmd
 
 # Check for render errors
 echo $?  # Should return 0
