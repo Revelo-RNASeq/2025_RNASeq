@@ -32,6 +32,10 @@ jobs:
         with:
           r-version: '4.3'
 
+      - name: Install required R packages
+        run: |
+          Rscript -e 'install.packages(c("knitr","rmarkdown"), repos="https://cloud.r-project.org")'
+
       - name: Render website
         # Ensure R is available for Rscript during Quarto render
         run: cd RNASeq_Course_2025 && quarto render
