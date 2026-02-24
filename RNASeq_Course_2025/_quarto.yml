@@ -40,7 +40,7 @@ website:
         href: setup.qmd
     right:
       - icon: github
-        href: https://github.com/revelo-rnaseq/2024_RNASeq_website
+        href: https://github.com/Revelo-RNASeq/2025_RNASeq
   page-footer:
     left: |
       This page was built with ❤️, [R](https://cran.r-project.org/), [Bioconductor](https://bioconductor.org/) and [Quarto](https://quarto.org/) by Marco Chiapello.

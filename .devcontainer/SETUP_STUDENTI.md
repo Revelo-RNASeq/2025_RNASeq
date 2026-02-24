@@ -21,8 +21,8 @@
 
 ### Passo 1: Scarica il materiale del corso
 ```bash
-git clone https://github.com/YOUR_REPO/2025_RNASeq_v2.git
-cd 2025_RNASeq_v2
+git clone https://github.com/Revelo-RNASeq/2025_RNASeq.git
+cd 2025_RNASeq
 ```
 
 ### Passo 2: Apri in VS Code

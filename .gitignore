@@ -8,6 +8,7 @@ results/
 .DS_Store
 *.Rproj
 .Rproj.user
+RNASeq_Course_2025/modules/
 
 # Docker Hub credentials - NEVER COMMIT
 .devcontainer/.docker-token

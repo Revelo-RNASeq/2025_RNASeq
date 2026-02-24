@@ -29,5 +29,5 @@
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
   
-  "postCreateCommand": "echo '✅ Container ready! Type: quarto --version to verify installation'"
+  "postCreateCommand": "cd /workspace/RNASeq_Course_2025/data && unzip -n fastq_SUBSET.zip && unzip -n trascriptome_TINY.zip && echo '✅ Container ready! Type: quarto --version to verify installation'"
 }

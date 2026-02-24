@@ -2,6 +2,28 @@
 title: "Setup e Installazione"
 ---
 
+## Opzione Raccomandata: Dev Container (Giorno 2 - Demo)
+
+Per la sessione di demo AI il giorno 2, **non è necessario installare nulla localmente**. Usiamo un ambiente pre-configurato tramite Dev Container.
+
+::: {.callout-tip}
+## Inizia in 3 passi
+
+1. Installa [Docker Desktop](https://www.docker.com/products/docker-desktop) e [VS Code](https://code.visualstudio.com/)
+2. Installa l'estensione **Dev Containers** in VS Code
+3. Clona il repository e apri in VS Code → clicca **"Reopen in Container"**
+
+Tutti gli strumenti (R, DESeq2, Salmon, fastp, Quarto...) sono già installati nell'immagine!
+
+**Guida completa in italiano**: [.devcontainer/SETUP_STUDENTI.md](https://github.com/Revelo-RNASeq/2025_RNASeq/blob/main/.devcontainer/SETUP_STUDENTI.md)
+:::
+
+---
+
+## Installazione Locale (Giorno 1 / Opzionale)
+
+Se preferisci lavorare con un'installazione locale o non puoi usare Docker, segui le istruzioni qui sotto.
+
 ## Requisiti Software
 
 ### R e RStudio
