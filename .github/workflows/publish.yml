@@ -34,7 +34,15 @@ jobs:
 
       - name: Install required R packages
         run: |
-          Rscript -e 'install.packages(c("knitr","rmarkdown"), repos="https://cloud.r-project.org")'
+          Rscript -e 'install.packages(
+            c(
+              "knitr", "rmarkdown",
+              "tidyverse", "fontawesome", "quarto",
+              "pwr", "qrcode",
+              "gt", "gtExtras", "gtsummary"
+            ),
+            repos = "https://cloud.r-project.org"
+          )'
 
       - name: Render website
         # Ensure R is available for Rscript during Quarto render
