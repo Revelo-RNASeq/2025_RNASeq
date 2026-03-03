@@ -32,6 +32,26 @@ jobs:
         with:
           r-version: '4.3'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libharfbuzz-dev \
+            libfribidi-dev
+
+      - name: Install R packages
+        run: |
+          Rscript -e 'install.packages("pak", repos = "https://r-lib.github.io/p/pak/stable/")'
+          Rscript -e 'pak::pak(c(
+            "knitr", "rmarkdown",
+            "tidyverse", "fontawesome", "quarto",
+            "pwr", "qrcode",
+            "gt", "gtExtras", "gtsummary"
+          ))'
+
       - name: Render website
         # Ensure R is available for Rscript during Quarto render
         run: cd RNASeq_Course_2025 && quarto render
