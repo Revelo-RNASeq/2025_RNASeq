@@ -21,7 +21,8 @@ pre {
   overflow-x: auto;
 }
 
-code {
+/* Inline code only — does not affect code inside pre blocks */
+:not(pre) > code {
   color: #e83e8c;
   background-color: #f8f9fa;
   padding: 0.2rem 0.4rem;
@@ -32,9 +33,8 @@ code {
 /* Bash/Shell commands styling */
 pre.bash,
 pre.shell {
-  background-color: #2d2d2d;
-  color: #f8f8f2;
-  border: none;
+  background-color: #edf2fb;
+  border-left: 3px solid #4a6fa5;
 }
 
 /* R code specific styling */

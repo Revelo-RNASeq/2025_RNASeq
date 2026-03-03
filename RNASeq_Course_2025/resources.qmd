@@ -10,9 +10,7 @@ title: "Risorse e Riferimenti"
 | 02 | [Basi Biologiche RNA-Seq](materials/02_basi_biologiche.qmd) | 02_basi_biologiche.qmd |
 | 03 | [Pipeline nf-core/rnaseq](materials/03_pipeline_nfcore.qmd) | 03_pipeline_nfcore.qmd |
 | 04 | [Setup R e Tools](materials/04_setup_R.qmd) | 04_setup_R.qmd |
-| 05 | [Import Dati (tximport)](materials/05_import_dati.qmd) | 05_import_dati.qmd |
-| 06 | [Analisi Differenziale (DESeq2)](materials/06_deseq2.qmd) | 06_deseq2.qmd |
-| 07 | [Visualizzazione Risultati](materials/07_visualizzazione.qmd) | 07_visualizzazione.qmd |
+| 05-07 | [Analisi in R: Import, DESeq2 e Visualizzazione](https://revelo-rnaseq.github.io/2024_RNASeq_book/) | Libro di riferimento online |
 | 08 | [Demo AI-Prompts](materials/08_demo_prompts.qmd) | 08_demo_prompts.qmd |
 
 ## Documentazione Ufficiale

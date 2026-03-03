@@ -4,14 +4,28 @@
     "href": "setup.html",
     "title": "Setup e Installazione",
     "section": "",
-    "text": "R è il linguaggio di programmazione che useremo per l’analisi statistica.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\n\n\nNextflow è necessario per eseguire la pipeline nf-core/rnaseq.\n\n\nNextflow richiede Java 11 o superiore:\n# Verifica se Java è installato\njava -version\n\n# Se non installato, scarica Java da:\n# https://www.oracle.com/java/technologies/downloads/\n\n\n\n# Installa Nextflow\ncurl -s https://get.nextflow.io | bash\n\n# Rendi eseguibile e sposta in una cartella nel PATH\nchmod +x nextflow\nsudo mv nextflow /usr/local/bin/\n\n\n\n\nDocker gestisce automaticamente tutti i software bioinformatici necessari.\n\nWindows/macOS: Docker Desktop\nLinux: Segui le istruzioni per la tua distribuzione qui\n\nAlternativa a Docker: Singularity (per HPC/cluster)"
+    "text": "Per la sessione di demo AI, non è necessario installare nulla localmente. Usiamo un ambiente pre-configurato tramite Dev Container con tutti gli strumenti già installati (R, DESeq2, Salmon, fastp, Quarto…).\n\n\n\n\n\nWindows: Download Docker Desktop per Windows\n\n⚠️ Assicurati che WSL2 sia abilitato (Docker lo chiederà durante l’installazione)\n\nmacOS: Download Docker Desktop per Mac\n\nScegli la versione corretta: Intel Chip oppure Apple Silicon (M1/M2/M3)\n\n\n\n\n\nDownload VS Code\n\n\n\n\nApri VS Code\nClicca sull’icona Extensions (quadratini sulla sinistra)\nCerca: Dev Containers\nClicca su Install\n\n\n\n\n\n# Passo 1: Scarica il materiale del corso\ngit clone https://github.com/Revelo-RNASeq/2025_RNASeq.git\ncd 2025_RNASeq\n\n# Passo 2: Apri in VS Code\ncode .\nPasso 3: VS Code mostrerà un popup “Reopen in Container” → clicca.\nIn alternativa: Cmd+Shift+P (Mac) / Ctrl+Shift+P (Windows) → cerca “Dev Containers: Reopen in Container” → premi Invio.\nPasso 4: Attendi il download (prima volta: ~3–5 minuti / ~3 GB; volte successive: ~30 secondi).\n✅ Fatto! Tutti i tool sono già installati.\n\n\n\nApri il terminale in VS Code (`Ctrl+`` oppure Terminal → New Terminal) ed esegui:\n# Verifica strumenti bioinformatici\nsalmon --version\nfastqc --version\nmultiqc --version\nquarto --version\n\n# Verifica pacchetti R\nR -e \"library(DESeq2); library(tximport); cat('✅ OK\\n')\"\n\n\n\nDocker non parte\n\nWindows: verifica che Docker Desktop sia in esecuzione (icona nella system tray)\nMac: verifica che Docker Desktop sia in esecuzione (icona nella menu bar)\n\nErrore “Cannot connect to Docker daemon”: apri Docker Desktop, attendi “Docker is running”, poi riprova.\nWindows – Errore WSL2: apri PowerShell come Amministratore, esegui wsl --install, riavvia il computer e poi Docker Desktop.\nSpazio su disco insufficiente: servono almeno 10 GB liberi."
+  },
+  {
+    "objectID": "setup.html#opzione-raccomandata-dev-container-giorno-2---demo",
+    "href": "setup.html#opzione-raccomandata-dev-container-giorno-2---demo",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "Per la sessione di demo AI il giorno 2, non è necessario installare nulla localmente. Usiamo un ambiente pre-configurato tramite Dev Container.\n\n\n\n\n\n\nTipInizia in 3 passi\n\n\n\n\nInstalla Docker Desktop e VS Code\nInstalla l’estensione Dev Containers in VS Code\nClona il repository e apri in VS Code → clicca “Reopen in Container”\n\nTutti gli strumenti (R, DESeq2, Salmon, fastp, Quarto…) sono già installati nell’immagine!\nGuida completa in italiano: .devcontainer/SETUP_STUDENTI.md"
+  },
+  {
+    "objectID": "setup.html#installazione-locale-giorno-1-opzionale",
+    "href": "setup.html#installazione-locale-giorno-1-opzionale",
+    "title": "Setup e Installazione",
+    "section": "Installazione Locale (Giorno 1 / Opzionale)",
+    "text": "Installazione Locale (Giorno 1 / Opzionale)\nSe preferisci lavorare con un’installazione locale o non puoi usare Docker, segui le istruzioni qui sotto."
   },
   {
     "objectID": "setup.html#requisiti-software",
     "href": "setup.html#requisiti-software",
     "title": "Setup e Installazione",
-    "section": "",
-    "text": "R è il linguaggio di programmazione che useremo per l’analisi statistica.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\n\n\nNextflow è necessario per eseguire la pipeline nf-core/rnaseq.\n\n\nNextflow richiede Java 11 o superiore:\n# Verifica se Java è installato\njava -version\n\n# Se non installato, scarica Java da:\n# https://www.oracle.com/java/technologies/downloads/\n\n\n\n# Installa Nextflow\ncurl -s https://get.nextflow.io | bash\n\n# Rendi eseguibile e sposta in una cartella nel PATH\nchmod +x nextflow\nsudo mv nextflow /usr/local/bin/\n\n\n\n\nDocker gestisce automaticamente tutti i software bioinformatici necessari.\n\nWindows/macOS: Docker Desktop\nLinux: Segui le istruzioni per la tua distribuzione qui\n\nAlternativa a Docker: Singularity (per HPC/cluster)"
+    "section": "Requisiti Software",
+    "text": "Requisiti Software\n\nR e RStudio\n\nR (≥ 4.3.0)\nR è il linguaggio di programmazione che useremo per l’analisi statistica.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\nRStudio Desktop\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\n\nNextflow (per la Pipeline)\nNextflow è necessario per eseguire la pipeline nf-core/rnaseq.\n\nJava (Prerequisito)\nNextflow richiede Java 11 o superiore:\n# Verifica se Java è installato\njava -version\n\n# Se non installato, scarica Java da:\n# https://www.oracle.com/java/technologies/downloads/\n\n\nInstallazione Nextflow\n# Installa Nextflow\ncurl -s https://get.nextflow.io | bash\n\n# Rendi eseguibile e sposta in una cartella nel PATH\nchmod +x nextflow\nsudo mv nextflow /usr/local/bin/\n\n\n\nDocker (Raccomandato)\nDocker gestisce automaticamente tutti i software bioinformatici necessari.\n\nWindows/macOS: Docker Desktop\nLinux: Segui le istruzioni per la tua distribuzione qui\n\nAlternativa a Docker: Singularity (per HPC/cluster)"
   },
   {
     "objectID": "setup.html#pacchetti-rbioconductor",
@@ -82,6 +96,83 @@
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Demo Data",
     "text": "Demo Data\nFile disponibili in data/:\n\n\n\nCartella\nContenuto\n\n\n\n\nfastq_SUBSET/\n4 campioni paired-end (airway)\n\n\ntrascriptome_TINY/\nGENCODE v43 (subset) + indice Salmon\n\n\n\nCampioni: SRR1039508 (control), SRR1039509 (treatment), SRR1039512 (control), SRR1039513 (treatment)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#perché-il-dev-container",
+    "href": "materials/08_demo_prompts.html#perché-il-dev-container",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Perché il Dev Container?",
+    "text": "Perché il Dev Container?\nI prompt di questo corso funzionano all’interno di un Dev Container: un ambiente pre-configurato che gira in Docker.\n\n\nVantaggi\n\n✅ Tutti i tool già installati: salmon, fastp, R, DESeq2…\n✅ Stesso ambiente per tutti: niente “sul mio PC funziona”\n✅ Nessuna installazione manuale di dipendenze\n✅ Si azzera e riparte facilmente\n\n\nCosa include il container\n\nBioinformatica: salmon, fastp, multiqc, fastqc\nR + Bioconductor: DESeq2, tximport, ComplexHeatmap\nQuarto (per il materiale del corso)\nGitHub Copilot (attivato separatamente)\n\n\n\n\n\n\n\n\nPrerequisiti di sistema\n\n\nServono almeno 10 GB liberi su disco e una buona connessione Internet per il primo download (~3 GB)."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step-a-installare-docker-desktop",
+    "href": "materials/08_demo_prompts.html#step-a-installare-docker-desktop",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step A: Installare Docker Desktop",
+    "text": "Step A: Installare Docker Desktop\nDocker è il motore che esegue il container.\n\n\nmacOS\n\nScarica Docker Desktop per Mac\n\nScegli: Intel Chip oppure Apple Silicon (M1/M2/M3)\n\nApri il .dmg → trascina Docker nelle Applicazioni\nAvvia Docker Desktop → segui la procedura guidata\nAttendi che l’icona nella menu bar mostri “Docker is running”\n\n\nWindows\n\nScarica Docker Desktop per Windows\n\n⚠️ WSL2 deve essere abilitato (Docker lo chiede durante l’installazione)\nSe manca: apri PowerShell come Amministratore → wsl --install → riavvia\n\nEsegui il .exe → segui la procedura guidata\nRiavvia il PC se richiesto\nAvvia Docker Desktop → attendi “Docker is running”"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step-b-installare-lestensione-dev-containers",
+    "href": "materials/08_demo_prompts.html#step-b-installare-lestensione-dev-containers",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step B: Installare l’Estensione Dev Containers",
+    "text": "Step B: Installare l’Estensione Dev Containers\nCon VS Code aperto:\n\nClicca sull’icona Estensioni nella barra laterale sinistra (Ctrl+Shift+X / ⌘+Shift+X)\nCerca “Dev Containers”\nInstalla l’estensione di Microsoft\nNessun riavvio necessario\n\n\n\nVerifica installazione\nPremi Ctrl+Shift+P (Windows) o Cmd+Shift+P (Mac) e cerca “Dev Containers” — dovresti vedere le opzioni disponibili, tra cui “Reopen in Container”.\n\nNota\nL’estensione Dev Containers è separata da GitHub Copilot. Entrambe sono necessarie per questo corso."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step-c-scaricare-il-materiale-del-corso",
+    "href": "materials/08_demo_prompts.html#step-c-scaricare-il-materiale-del-corso",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step C: Scaricare il Materiale del Corso",
+    "text": "Step C: Scaricare il Materiale del Corso\nApri un terminale e clona il repository:\ngit clone https://github.com/Revelo-RNASeq/2025_RNASeq.git\ncd 2025_RNASeq\ncode .\n\n\n\n\n\n\nAlternativa senza git\n\n\nSe non hai git installato, scarica lo ZIP dalla pagina GitHub del corso: Code → Download ZIP → estrai la cartella → aprila in VS Code con File → Open Folder"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step-d-aprire-nel-container",
+    "href": "materials/08_demo_prompts.html#step-d-aprire-nel-container",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step D: Aprire nel Container",
+    "text": "Step D: Aprire nel Container\n\n\nMetodo 1 — Popup automatico\nVS Code mostra in basso a destra:\n“Reopen in Container” → clicca\nMetodo 2 — Command Palette\n\nCtrl+Shift+P (Windows) / Cmd+Shift+P (Mac)\nCerca: “Dev Containers: Reopen in Container”\nPremi Invio\n\n\nPrima apertura\n\nDownload image: ~3–5 minuti (~3 GB)\nVS Code si riapre all’interno del container\nIl terminale mostra un prompt diverso → sei nel container!\n\nAperture successive\n\nAvvio in ~30 secondi\nI file del corso sono persistenti"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step-e-verifica-installazione",
+    "href": "materials/08_demo_prompts.html#step-e-verifica-installazione",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step E: Verifica Installazione",
+    "text": "Step E: Verifica Installazione\nApri il terminale in VS Code (Ctrl+` / ⌃`) ed esegui:\n# Verifica strumenti bioinformatici\nsalmon --version\nfastqc --version\nmultiqc --version\nquarto --version\n\n# Verifica R e pacchetti Bioconductor\nR -e \"library(DESeq2); library(tximport); cat('✅ OK\\n')\"\n\n\n\n\n\n\nTutto pronto!\n\n\nSe vedi le versioni senza errori, l’ambiente è configurato correttamente. Ora puoi proseguire con l’attivazione di GitHub Copilot."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#problemi-comuni",
+    "href": "materials/08_demo_prompts.html#problemi-comuni",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Problemi Comuni",
+    "text": "Problemi Comuni\n\n\n\n\n\n\n\nProblema\nSoluzione\n\n\n\n\nDocker non parte\nVerifica che Docker Desktop sia in esecuzione (icona nella menu bar / system tray)\n\n\n“Cannot connect to Docker daemon”\nApri Docker Desktop, attendi “Docker is running”, riprova\n\n\nErrore WSL2 (Windows)\nApri PowerShell come Admin → wsl --install → riavvia\n\n\nSpazio insufficiente\nLibera almeno 10 GB su disco\n\n\nDownload lento\nNormale la prima volta (~3 GB) — se interrotto, VS Code riprende automaticamente"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step--1-installare-vs-code",
+    "href": "materials/08_demo_prompts.html#step--1-installare-vs-code",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step -1: Installare VS Code",
+    "text": "Step -1: Installare VS Code\nVisual Studio Code è l’editor gratuito di Microsoft in cui eseguiremo il demo.\nDownload: code.visualstudio.com\n\n\nmacOS\n\nScarica il file .zip per Apple Silicon o Intel\nEstrai e trascina Visual Studio Code nella cartella Applicazioni\nAl primo avvio: tasto destro → Apri (per bypassare Gatekeeper)\n\n\nWindows\n\nScarica il file .exe (User Installer)\nEsegui il setup e segui la procedura guidata\nOpzione consigliata: spunta “Aggiungi al PATH” durante l’installazione\n\n\n\n\n\n\n\n\nVerifica installazione\n\n\nApri VS Code: dovresti vedere la schermata di benvenuto Welcome."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step--2-creare-un-account-github",
+    "href": "materials/08_demo_prompts.html#step--2-creare-un-account-github",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step -2: Creare un Account GitHub",
+    "text": "Step -2: Creare un Account GitHub\nGitHub è necessario per attivare GitHub Copilot (gratuito per studenti e privati).\n\nVai su github.com → clicca Sign up\nInserisci email, password e username\nVerifica l’email ricevuta\nCompleta il setup del profilo\n\n\n\n\n\n\n\nPiano gratuito (Copilot Free)\n\n\nDal 2025 GitHub offre Copilot Free per tutti gli account personali: - 2.000 completamenti di codice / mese - 50 messaggi in chat / mese - Nessuna carta di credito richiesta\n\n\n\n\n\n\n\n\n\nSei studente universitario?\n\n\nRichiedi GitHub Education (gratuito) su education.github.com per avere Copilot Pro senza limiti."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step--3-installare-lestensione-github-copilot",
+    "href": "materials/08_demo_prompts.html#step--3-installare-lestensione-github-copilot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step -3: Installare l’Estensione GitHub Copilot",
+    "text": "Step -3: Installare l’Estensione GitHub Copilot\nCon VS Code aperto:\n\nClicca sull’icona Estensioni nella barra laterale sinistra (Ctrl+Shift+X / ⌘+Shift+X)\nCerca “GitHub Copilot”\nInstalla l’estensione di GitHub (include automaticamente Copilot Chat)\nRiavvia VS Code se richiesto\n\n\n\nLogin a GitHub\nDopo l’installazione, VS Code mostra in basso a sinistra un’icona account. Clicca → Sign in with GitHub → segui il browser.\n\nVerifica attivazione\nIn basso a destra nella barra di stato compare l’icona di Copilot (due cerchi). Se è attiva, il colore è bianco/blu — non grigio."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#step--4-aprire-la-copilot-chat",
+    "href": "materials/08_demo_prompts.html#step--4-aprire-la-copilot-chat",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Step -4: Aprire la Copilot Chat",
+    "text": "Step -4: Aprire la Copilot Chat\n\n\nAprire la chat\n\nClicca sull’icona Copilot Chat nella barra laterale sinistra (fumetto con stellina)\nOppure usa la scorciatoia Ctrl+Alt+I (Windows) / ⌃⌘I (macOS)\n\nTestare che funzioni\nScrivi nella chat:\nCosa è DESeq2 e per cosa si usa?\nSe Copilot risponde → tutto pronto! ✅\n\nDove incollare i prompt di questo corso\nDurante il demo, ogni slide mostra un riquadro blu “Copia questo prompt”.\n\nCopia il testo del prompt\nIncollalo nella Copilot Chat di VS Code\nPremi Invio e attendi la risposta\nCopia il codice generato nel tuo script R / nel terminale\n\n\n\n\n\n\n\n\nAlternative a VS Code\n\n\nI prompt funzionano anche su ChatGPT, Claude o Gemini — ma VS Code con Copilot permette di eseguire il codice direttamente nell’editor."
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-0a-qc-con-fastp",
@@ -301,81 +392,368 @@
     "text": "Esercizio Finale\nUsando le stesse tecniche, prova a:\n\nCreare un MA plot personalizzato\nFare clustering gerarchico dei geni (non campioni)\nEsportare una tabella Excel con geni annotati\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati!"
   },
   {
-    "objectID": "materials/06_deseq2.html#TitleSlide",
-    "href": "materials/06_deseq2.html#TitleSlide",
+    "objectID": "materials/03_pipeline_nfcore.html#TitleSlide",
+    "href": "materials/03_pipeline_nfcore.html#TitleSlide",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Analisi Differenziale\nLa logica statistica di DESeq2\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+    "text": "Introduzione all’RNASeq\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNomber 2024"
   },
   {
-    "objectID": "materials/06_deseq2.html#section-1",
-    "href": "materials/06_deseq2.html#section-1",
+    "objectID": "materials/03_pipeline_nfcore.html#section-3",
+    "href": "materials/03_pipeline_nfcore.html#section-3",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "I tre passi fondamentali\nDESeq2 è lo standard de facto per l’analisi differenziale. Esegue tre passaggi principali automaticamente:\n\nNormalizzazione (Size Factors): Per correggere le differenze di profondità di sequenziamento (Librerie più grandi vs più piccole).\nStima della Dispersione: Per capire quanto varia ogni gene tra i replicati biologici.\nTest Statistico (Wald Test): Per decidere se la differenza tra gruppi è significativa."
+    "text": "Raw reads: The Starting Point\nFASTA file\n\n\n\nDefinition\n\n\nThe FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the “&gt;” symbol.\n\n\n\nFile extension could be: fasta, fna, ffn, faa, fa, frn"
   },
   {
-    "objectID": "materials/06_deseq2.html#section-3",
-    "href": "materials/06_deseq2.html#section-3",
+    "objectID": "materials/03_pipeline_nfcore.html#section-4",
+    "href": "materials/03_pipeline_nfcore.html#section-4",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Median of Ratios\nNon usiamo RPM/CPM (Reads Per Million) perché sensibili a pochi geni molto espressi.\nMetodo: - Si crea un “campione pseudo-reference” (media geometrica). - Si calcola il rapporto tra ogni campione e questo riferimento per ogni gene. - La mediana di questi rapporti è il “Size Factor” del campione.\nSe un campione ha Size Factor = 2, significa che ha sequenziato il doppio del riferimento. Dividiamo i suoi conteggi per 2."
+    "text": "Raw reads: The Starting Point\nFASTA file\n\n\n\nDefinition\n\n\nThe FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the “&gt;” symbol.\n\n\n\n&gt;NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A\nCTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT\nATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN"
   },
   {
-    "objectID": "materials/06_deseq2.html#section-5",
-    "href": "materials/06_deseq2.html#section-5",
+    "objectID": "materials/03_pipeline_nfcore.html#section-5",
+    "href": "materials/03_pipeline_nfcore.html#section-5",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Biological Variation\nIn biologia, \\(Media \\neq Varianza\\). Geni molto espressi tendono ad avere alta varianza. Campioni biologici variano più di quelli tecnici.\nIl problema: Con pochi replicati (es. 3 vs 3), è difficile stimare la vera varianza di un gene.\nLa soluzione (Shrinkage): - DESeq2 guarda tutti i 20.000 geni. - “Se questo gene ha una varianza molto diversa dagli altri geni con la stessa espressione media, probabilmente è un errore di stima”. - “Sposta” (shrink) la stima verso la tendenza generale."
+    "text": "Raw reads: The Starting Point\nFASTA file\nMulti-fasta file:\n&gt;MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken\nMADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID\nFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA\nDIDGDGQVNYEEFVQMMTAK\n\n&gt;NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A\nCTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT\nATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN\n&gt;HF583486.1 Homo sapiens SOD1 gene for alternative protein SOD1, isolate 144496\nATGGATTCCATGTTCATGAGTTTGGAGATAATACAGCAGGCTGTACCAGTGCAGGTCCTCACTTTAATCC\nTCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA"
   },
   {
-    "objectID": "materials/06_deseq2.html#section-7",
-    "href": "materials/06_deseq2.html#section-7",
+    "objectID": "materials/03_pipeline_nfcore.html#section-6",
+    "href": "materials/03_pipeline_nfcore.html#section-6",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Definire la Significatività\nPer ogni gene, DESeq2 calcola: - Log2 Fold Change (LFC): Quanto è cambiato? (es. +1 = raddoppiato, -1 = dimezzato). - P-value: Probabilità che questo cambiamento sia dovuto al caso. - Adjusted P-value (FDR): Correzione per test multipli.\n\nRegola d’oro: Filtrare sempre usando padj (es. &lt; 0.05) e non pvalue."
+    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity."
   },
   {
-    "objectID": "materials/06_deseq2.html#section-8",
-    "href": "materials/06_deseq2.html#section-8",
+    "objectID": "materials/03_pipeline_nfcore.html#section-7",
+    "href": "materials/03_pipeline_nfcore.html#section-7",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "LFC Shrinkage\nPer la visualizzazione e il ranking, correggiamo anche i Fold Change.\nGeni con bassa espressione tendono ad avere Fold Change rumorosi ed enormi (es. da 1 count a 10 counts = 10x!). Lo Shrinkage “schiaccia” questi valori verso zero, lasciando inalterati i geni con segnale forte e solido."
+    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.\n\n\n\n\nA FASTQ file is identified by 4 lines:\n\nLine 1: begins with the “@” symbol and is followed by the sequence identifier (as in FASTA sequences)\n\nLine 2: contains the nucleotide sequence\n\nLine 3: begins with a “+” and may contain additional sequence descriptions\n\nLine 4: contains the quality values for the individual nucleotides"
   },
   {
-    "objectID": "materials/04_setup_R.html#TitleSlide",
-    "href": "materials/04_setup_R.html#TitleSlide",
+    "objectID": "materials/03_pipeline_nfcore.html#section-8",
+    "href": "materials/03_pipeline_nfcore.html#section-8",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Strumenti di Analisi\nRStudio e AI-Assisted Coding\n \nAnalisi Bulk RNA-Seq per Dottorandi"
+    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.\n\n\n\n\n@SEQ_ID\nGATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT\n+\n!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65"
   },
   {
-    "objectID": "materials/04_setup_R.html#section-1",
-    "href": "materials/04_setup_R.html#section-1",
+    "objectID": "materials/03_pipeline_nfcore.html#section-9",
+    "href": "materials/03_pipeline_nfcore.html#section-9",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Riproducibilità\nL’analisi bioinformatica deve essere riproducibile.\n\nGUI (Point & Click): Difficile ricordare esattamente quali parametri sono stati usati dopo 6 mesi.\nScripting (R): Il codice è la documentazione esatta di cosa è stato fatto.\n\n\n“Il tuo collaboratore più importante sei tu tra 6 mesi, e non risponde alle email.”"
+    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide.\n\n\n\n\nI numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano\nScore più alto osservato 40, quindi molti si fermano li"
   },
   {
-    "objectID": "materials/04_setup_R.html#section-2",
-    "href": "materials/04_setup_R.html#section-2",
+    "objectID": "materials/03_pipeline_nfcore.html#section-10",
+    "href": "materials/03_pipeline_nfcore.html#section-10",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "L’Ambiente RStudio\nNon dovete “imparare a programmare” da zero per analizzare i vostri dati. RStudio è la nostra “cabina di pilotaggio”:\n\nConsole: Dove R esegue i comandi.\nScript/Quarto: Dove scriviamo il nostro “diario di bordo” (codice + testo).\nEnvironment: La lista dei nostri dati (tabelle, variabili).\nPlots/Help: Dove vediamo i risultati grafici."
+    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide."
   },
   {
-    "objectID": "materials/04_setup_R.html#section-4",
-    "href": "materials/04_setup_R.html#section-4",
+    "objectID": "materials/03_pipeline_nfcore.html#section-11",
+    "href": "materials/03_pipeline_nfcore.html#section-11",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Un nuovo modo di lavorare\nInvece di memorizzare la sintassi, oggi usiamo l’AI (es. Copilot, ChatGPT) come pair programmer.\nIl vostro ruolo: - Capire i concetti biologici e statistici (questo corso!). - Saper chiedere (Prompt Engineering). - Saper valutare se il risultato ha senso (Critical Thinking).\nIl ruolo dell’AI: - Scrivere il codice “noioso” (sintassi). - Risolvere errori (debugging). - Spiegare cosa fa una funzione."
+    "text": "Raw reads: The Starting Point\nFASTQ format\n\nFASTQ files can be very large, so in most cases you won’t be dealing with myFile.fastq, but with myFile.fastq.gz.\nThis means that the file is compressed, so it is not readable by a text editor without first being decompressed."
   },
   {
-    "objectID": "materials/04_setup_R.html#section-5",
-    "href": "materials/04_setup_R.html#section-5",
+    "objectID": "materials/03_pipeline_nfcore.html#section-13",
+    "href": "materials/03_pipeline_nfcore.html#section-13",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Workflow Moderno\n\nChiedi: “Voglio caricare questi 3 file CSV e unirli in una unica tabella basata sulla colonna ‘GeneID’”.\nVerifica: L’AI genera il codice. Tu controlli che i file siano quelli giusti.\nEsegui: Fai girare il codice in RStudio.\nItera: “Ora fammi un grafico a dispersione di questi dati”.\n\nNel laboratorio useremo delle “GitHub Skills” preconfezionate per guidarvi in questo processo."
+    "text": "Pre-processing Tools\nFastQC\n\n\n\nWhat it is:\n\nA widely used tool for quality assessment of raw sequencing data.\n\nWhat it does:\n\nGenerates comprehensive reports with various quality metrics.\nVisualizes data quality using interactive plots and graphs.\n\nKey metrics:\n\nPer base sequence quality\nPer sequence quality scores\nSequence length distribution\nGC content\nAdapter content\nOverrepresented sequences\n\n\n\n  FastQC"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-15",
+    "href": "materials/03_pipeline_nfcore.html#section-15",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pre-processing Tools\nUMI-tools extract\n\n\n\nWhat are UMIs?\n\nUnique Molecular Identifiers (UMIs) are short random sequences attached to each cDNA molecule during library preparation.\nThey act as “molecular barcodes” to identify unique molecules.\n\nWhy are UMIs important?\n\nUMIs help to distinguish PCR duplicates from true biological duplicates.\nThis improves the accuracy of gene expression quantification, especially for low-abundance transcripts.\n\n\n\n\nWhat does UMI-tools extract do?\n\nIdentifies and extracts UMIs from sequencing reads.\nMoves UMIs to the read name for downstream analysis.\nRequires information about the UMI location in the read.\n\nBenefits:\n\nImproved accuracy in gene expression quantification.\nReduced bias due to PCR amplification.  UMI-tools"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-17",
+    "href": "materials/03_pipeline_nfcore.html#section-17",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pre-processing Tools\nFastP & Trim Galore!\n\n\n\nPurpose:\n\nTo clean up raw sequencing data and improve the accuracy of downstream analysis.\n\nKey functions:\n\nAdapter trimming: Remove adapter sequences from reads.\nQuality trimming: Trim low-quality bases from the ends of reads.\n\nFastP:\n\nAll-in-one tool with extensive pre-processing features.\nIncludes quality filtering, error correction, UMI handling, and more.\n\n\n\n\nTrim Galore!:\n\nWrapper script for cutadapt (adapter trimming) and often includes FastQC (quality assessment).\nFocuses on adapter and quality trimming with optimized parameters.\n\nBenefits:\n\nImproved alignment accuracy.\nReduced false positives in variant calling and gene expression analysis.\nIncreased efficiency of downstream analysis."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-19",
+    "href": "materials/03_pipeline_nfcore.html#section-19",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pre-processing Tools\nBBSplit\n\n\n\nWhat it is:\n\nA tool for removing contaminant reads from sequencing data.\n\nTypes of contamination:\n\nMicrobial DNA or RNA\nHost DNA (in the case of RNA-Seq from host-associated samples)\nOther unwanted sequences\n\nHow it works:\n\nAligns reads to a database of contaminant sequences.\nRemoves reads that map to the contaminant database.\n\n\n\n  BBMap"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-20",
+    "href": "materials/03_pipeline_nfcore.html#section-20",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pre-processing Tools\nSortMeRNA\n\n\n\nWhat it is:\n\nA tool for filtering ribosomal RNA (rRNA) reads from sequencing data.\n\nWhy is it important?\n\nrRNA often makes up a large proportion of total RNA.\nRemoving rRNA enriches for mRNA and other non-coding RNAs of interest.\n\nHow it works:\n\nUses a database of rRNA sequences to identify and remove rRNA reads.\nCan be used with both single-end and paired-end data.\n\n\n\n  SortMeRNA"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-23",
+    "href": "materials/03_pipeline_nfcore.html#section-23",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nRead Alignment\n\n\n\nPurpose:\n\nTo map sequencing reads to a reference genome or transcriptome.\n\nWhy is it important?\n\nIdentify the genomic origin of each read.\nDetermine which genes or transcripts are expressed.\nDiscover genetic variations (SNPs, indels).\n\n\n\n\nChallenges:\n\nReads may contain sequencing errors.\nReads may map to multiple locations (multi-mapping reads).\nGenomes contain repetitive regions.\n\nOutput: A BAM (Binary Alignment/Map) file containing alignment information."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-24",
+    "href": "materials/03_pipeline_nfcore.html#section-24",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nWhat it is:\n\nThe standard file format for storing read alignments.\nSAM (Sequence Alignment/Map): A text-based format.\nBAM (Binary Alignment/Map): A compressed binary version of SAM.\n\nWhy is it important?\n\nProvides a standardized way to store alignment information.\nAllows for efficient storage and retrieval of large alignment datasets.\nFacilitates compatibility between different bioinformatics tools."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-25",
+    "href": "materials/03_pipeline_nfcore.html#section-25",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nContent:\n\nHeader section: Contains metadata about the alignment (reference genome, aligner used, etc.).\n\n\n\n@RG     ID:1    SM:C5926_BM_IonCode_0118\n@PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam\n\n\n\n@RG = read group\n\nID = Read group identifier\nSM = Sample\n\n@PG = Program\n\nID = Program record identifier\nPN = Program name\nVN = software version\nCl = command line"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-26",
+    "href": "materials/03_pipeline_nfcore.html#section-26",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nAlignment section: Each line represents a single read and its alignment to the reference.\n\nIncludes information about mapping position, quality scores, alignment flags, and more.\n\n\n\n\n\n\n11 campi obbligatori\nMetadati non obbligatori\nConcise Idiosyncratic Gapped Alignment Report (CIGAR) string"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-28",
+    "href": "materials/03_pipeline_nfcore.html#section-28",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSTAR Aligner\n\n\n\n\n\nWhat it is:\n\nA widely used splice-aware aligner for RNA-Seq data.\n\nKey features:\n\nFast and efficient alignment.\nAccurate handling of spliced reads.\nCan detect novel splice junctions.\nSupports various RNA-Seq protocols.\n\nAdvantages:\n\nHigh accuracy\nSpeed\nVersatility"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-29",
+    "href": "materials/03_pipeline_nfcore.html#section-29",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nHISAT2\n\n\n\n\n\nWhat it is:\n\nAnother popular splice-aware aligner for RNA-Seq.\n\nKey features:\n\nBased on the Burrows-Wheeler transform.\nFast and memory-efficient.\nSupports both DNA and RNA alignment.\n\nComparison to STAR:\n\nMay be slightly faster for some datasets.\nMay have slightly lower accuracy for certain types of reads.\nChoice often depends on specific needs and preferences."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-31",
+    "href": "materials/03_pipeline_nfcore.html#section-31",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nUMI-tools dedup\n\n\n\n\n\nWhat it does:\n\nIdentifies and removes PCR duplicates from RNA-Seq data using Unique Molecular Identifiers (UMIs).\nGroups reads with the same UMI and genomic mapping location.\nSelects the read with the highest quality score as the representative read for each group.\n\nWhy is it important?\n\nPCR amplification during library preparation can introduce duplicate reads.\nThese duplicates can bias gene expression estimates, especially for low-abundance transcripts.\nUMI-tools dedup helps to correct for this bias and improve accuracy.\n\nBenefits:\n\nMore accurate gene expression quantification.\nReduced false positives in differential expression analysis.\nImproved sensitivity for detecting rare transcripts.\n\n\nUMI-tools"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-33",
+    "href": "materials/03_pipeline_nfcore.html#section-33",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nRSEM\n\n\n \n\n\n\nWhat it is:\n\nRSEM is a software package for estimating gene and isoform expression levels from RNA-Seq data.\n\nKey features:\n\nUses a statistical model to estimate transcript abundance from aligned reads.\nCan handle different types of RNA-Seq data (single-end, paired-end).\nProvides various output formats (counts, TPM, FPKM).\n\n\n\n\nRPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-36",
+    "href": "materials/03_pipeline_nfcore.html#section-36",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pseudo-aligners\nFast and Efficient Transcript Abundance Estimation\n\n\n\nWhat they are:\n\nA class of RNA-Seq quantification tools that do not require exact alignment of reads to a reference genome.\n\nHow they work:\n\nUse lightweight algorithms to assign reads to transcripts\n\nEffectively “pseudo-align” reads to transcripts without determining their precise genomic location.\n\nAdvantages:\n\nSpeed: Significantly faster than traditional alignment-based methods.\nEfficiency: Reduced computational resources required.\nAccuracy: Comparable or even superior accuracy for transcript quantification.\n\n\n\n\nPopular tools:\n\nSalmon\nKallisto\n\nApplications:\n\nGene expression profiling\nDifferential expression analysis\nTranscript isoform identification"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-37",
+    "href": "materials/03_pipeline_nfcore.html#section-37",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pseudo-aligners\nKallisto vs Salmon\n\n\n\n\n\n\n\n\n\nFeature\nKallisto \nSalmon \n\n\n\n\nAlgorithm\nPseudoalignment (k-mers)\nQuasi-mapping (BWT)\n\n\nSpeed\nFast\nFaster\n\n\nMemory Usage\nLower\nHigher\n\n\nFeatures\nBasic\nMore advanced (library types, bootstrapping)\n\n\nAccuracy\nHigh\nHigh\n\n\nEase of Use\nHigh\nHigh\n\n\nOutput Formats\nAbundance estimates\nAbundance estimates, counts, TPM, etc.\n\n\nApplications\nGene expression, DE analysis\nGene expression, DE analysis, isoform quantification"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-38",
+    "href": "materials/03_pipeline_nfcore.html#section-38",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pseudo-aligners\nSalmon Output File Formats\n\n\n\n\n\n\nFolder\n\n\n\n\n \n\n\n\n\n\nquant.sf\n\n\n\n\n\n\n\nSalmon’s main output is its quantification file =&gt; quant.sf\ncmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked\nAuxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info\n\nThe auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments\nIf Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type\n\nWhen run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format\n\n\nd"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-41",
+    "href": "materials/03_pipeline_nfcore.html#section-41",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Post-alignment Processing\nRefining Your Alignments\n\n\nWhat it is:\n\nA series of steps performed after read alignment to improve data quality and prepare for downstream analysis.\n\nKey steps:\n\nDeduplication: Removing PCR duplicates to avoid bias in gene expression estimates. (Blue line)\nGenerating coverage tracks: Visualizing read distribution and assessing sequencing uniformity.\n(Optional) Other steps: Depending on the analysis goals, this may include filtering reads, recalibrating base quality scores, and other processing steps.\n\nWhy is it important?\n\nImproves the accuracy and reliability of downstream analysis.\nReduces noise and bias in the data.\nFacilitates data interpretation and visualization."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-42",
+    "href": "materials/03_pipeline_nfcore.html#section-42",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Post-alignment Processing\nSAMtools: Manipulating and Analyzing Alignments\n\n\nWhat it is:\n\nA suite of command-line utilities for working with SAM/BAM files.\nA Swiss Army Knife for SAM/BAM Files\n\nKey functions:\n\nsamtools sort: Sorts alignments in a BAM file by coordinate.\n\nWhy is sorting important? Many downstream tools require sorted BAM files for efficient processing.\n\nsamtools index: Creates an index file for a sorted BAM file.\n\nWhy is indexing important? Allows for fast retrieval of specific regions of the alignment.\n\nsamtools stats: Generates statistics about an alignment file.\n\nProvides insights into alignment quality, read depth, and other metrics."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-43",
+    "href": "materials/03_pipeline_nfcore.html#section-43",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Post-alignment Processing\nPicard MarkDuplicates: Deduplication without UMIs\n\n\nHow it works:\n\nIdentifies duplicates based on mapping coordinates of reads.\nMarks duplicate reads in the BAM file.\n\nConsiderations:\n\nLess accurate than UMI-based methods.\nCan be used when UMIs are not available.\nOften used in combination with other filtering steps."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-44",
+    "href": "materials/03_pipeline_nfcore.html#section-44",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Post-alignment Processing\nBEDTools genomecov: Quantifying Read Depth\n\n\nWhat it does:\n\nCalculates the number of reads overlapping each position in the genome.\nOutputs a coverage file in various formats (BEDGRAPH, bed, etc.).\n\nOptions:\n\nCalculate coverage for different strand orientations.\nNormalize coverage by library size.\nGenerate histograms of coverage depth."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-47",
+    "href": "materials/03_pipeline_nfcore.html#section-47",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nRSeQC: Comprehensive Quality Assessment of Your RNA-Seq Data\n\n\nWhat it is:\n\nA suite of tools for RNA-Seq quality control and analysis.\n\nKey functions:\n\nRead distribution: Assess the distribution of reads across different genomic features (e.g., coding regions, introns, UTRs).\nGene body coverage: Evaluate the uniformity of coverage across gene bodies.\nStrand specificity: Check the strand specificity of the library.\nJunction saturation: Determine if sufficient sequencing depth has been achieved for junction detection.\nOther QC metrics: Assess rRNA contamination, insert size distribution, and more.\n\nBenefits:\n\nProvides comprehensive quality assessment of RNA-Seq data.\nIdentifies potential biases and issues in library preparation or sequencing.\nHelps to ensure the reliability and accuracy of downstream analysis."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-48",
+    "href": "materials/03_pipeline_nfcore.html#section-48",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nPreseq: Assessing the Diversity of Your Library\n\n\nWhat it is: A tool for estimating the complexity of a sequencing library.\nWhy is library complexity important?\n\nLibrary complexity refers to the number of unique DNA fragments in your library.\nHigher complexity means a more diverse representation of the original RNA population.\nLow complexity can lead to reduced sequencing efficiency and biased results.\n\nWhat does Preseq do?\n\nUses statistical modeling to predict the number of unique reads that would be obtained with deeper sequencing.\nHelps to assess whether additional sequencing is likely to yield new information.\nCan be used to compare the complexity of different libraries.\n\nBenefits:\n\nOptimize sequencing depth.\nAvoid unnecessary sequencing costs.\nImprove the quality and efficiency of RNA-Seq experiments."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-49",
+    "href": "materials/03_pipeline_nfcore.html#section-49",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nQualimap RNA-Seq: A Deep Dive into Your RNA-Seq Data\n\n\nWhat it is:\n\nA comprehensive tool for quality control and analysis of RNA-Seq data.\n\nKey features:\n\nAlignment quality: Assesses mapping quality, mismatch rates, and indel rates.\nCoverage analysis: Evaluates coverage uniformity across genes and transcripts.\nJunction analysis: Examines splice junctions and identifies non-canonical junctions.\nTranscript coverage: Assesses coverage of known transcripts and identifies potential novel transcripts.\nrRNA content: Estimates the proportion of rRNA reads in the data.\n5’ and 3’ bias: Detects biases in read coverage towards the 5’ or 3’ ends of transcripts.\n\nBenefits:\n\nProvides detailed insights into the quality of RNA-Seq alignments.\nIdentifies potential biases and technical artifacts.\nHelps to ensure the reliability and accuracy of downstream analysis."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-50",
+    "href": "materials/03_pipeline_nfcore.html#section-50",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nKraken2: Identifying Microbial Communities in Your Samples\n\n\n\n\n\nWhat it is:\n\nA fast and accurate tool for assigning taxonomic labels to sequencing reads.\n\nWhy is it useful for RNA-Seq?\n\nRNA-Seq data can sometimes contain reads from microbial organisms (e.g., in microbiome studies, host-associated samples).\nKraken2 can identify and classify these microbial reads, providing insights into the microbial community present in the sample.\n\nHow it works:\n\nAssigns taxonomic classifications to reads based on the best match.\n\nBenefits:\n\nFast and efficient classification.\nAccurate identification of microbial species.\nCan be used with both DNA and RNA sequencing data."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-51",
+    "href": "materials/03_pipeline_nfcore.html#section-51",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nDifferential Expression: Finding the Genes that Matter\n\n\nWhat it is:\n\nIdentifying genes that are expressed at significantly different levels between two or more conditions (e.g., treated vs. control, healthy vs. diseased).\n\nWhy is it important?\n\nUncover genes involved in specific biological processes or disease states.\nIdentify potential biomarkers or therapeutic targets.\n\nTools:\n\nDESeq2: A popular R package for differential expression analysis.\nedgeR: Another widely used R package.\nlimma: A flexible package for linear modeling and differential expression analysis."
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-52",
+    "href": "materials/03_pipeline_nfcore.html#section-52",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nMultiQC: Your One-Stop Shop for QC Reports\n\n\nWhat it is: A tool that aggregates results from multiple bioinformatics tools into a single HTML report.\nWhy is it useful for RNA-Seq?\n\nRNA-Seq analysis involves multiple QC steps (FastQC, SortMeRNA, Trim Galore!, etc.).\nMultiQC combines the results from these tools into a user-friendly report.\nThis saves time and simplifies the QC assessment process.\n\nKey features:\n\nSupports a wide range of bioinformatics tools.\nGenerates interactive plots and tables for easy visualization.\nHighlights potential issues and inconsistencies in the data.\nFacilitates comparison of QC metrics across multiple samples.\n\nBenefits:\n\nSaves time and effort in QC assessment.\nImproves clarity and organization of QC results.\nFacilitates data interpretation and decision-making."
+  },
+  {
+    "objectID": "materials/01_introduzione.html#TitleSlide",
+    "href": "materials/01_introduzione.html#TitleSlide",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Introduzione al Corso\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2025"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-1",
+    "href": "materials/01_introduzione.html#section-1",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Ci dedichiamo a fornire un ambiente accogliente e di supporto per tutte le persone, indipendentemente dal background o dall’identità.\nPartecipando a questo corso, i partecipanti accettano il Codice di Condotta.\nQualsiasi forma di comportamento volto a escludere, intimidire o causare disagio è una violazione del Codice di Condotta. Per favorire un ambiente di apprendimento positivo e professionale, incoraggiamo i seguenti comportamenti:\n\n\nUsare un linguaggio accogliente e inclusivo\n\n\n\n\nEssere rispettosi dei diversi punti di vista ed esperienze\n\n\n\n\nAccettare con grazia le critiche costruttive\n\n\n\n\nConcentrarsi su ciò che è meglio per la comunità\n\n\n\n\nMostrare cortesia e rispetto verso gli altri membri della comunità"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-3",
+    "href": "materials/01_introduzione.html#section-3",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Chi sei?\n\n\n\n Cosa hai studiato?\n\n\n\n Quali sono i tuoi obiettivi?\n\n\n\n Quali sono le aspettative per il corso?\n\n\n\nMarco - datemi del tu - Agilent - 2 figli, una quasi moglie - Pallavolo\nLaurea - Dottorato - Bioinformatica\nPortare un po di open sourse nel mondo company\nChe andiate a casa con qualche idea"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-5",
+    "href": "materials/01_introduzione.html#section-5",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Website\n\n\n\n\n\n\n\n\nhttp://bit.ly/4hKN5OA"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-6",
+    "href": "materials/01_introduzione.html#section-6",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Agenda\n\n\nGiorno 1 Sequenziamento & Pipeline\n\n\nOrari\n9:30 : Introduzione al Corso\n10:00: Biologia del RNA-Seq (Design, NGS)\n10:45: Pausa\n11:00: Pipeline nf-core/rnaseq (QC, Trimming)\n12:30: Pausa pranzo\n13:30: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)\n14:45: Pausa\n15:00: Interpretazione MultiQC\n16:30: Considerazioni finali\n\n\nGiorno 2 Analisi & Visualizzazione\n\n\nOrari\n9:30 : Introduzione a R & Tidyverse\n10:45: Pausa\n11:00: Importazione Dati (tximport)\n12:30: Pausa pranzo\n13:30: Analisi Differenziale (DESeq2)\n14:45: Pausa\n15:00: Visualizzazione dei Risultati\n16:30: Chiusura Corso"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-8",
+    "href": "materials/01_introduzione.html#section-8",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Approccio\n\n\nStrumenti Open Source\nCommunity di supporto\nIl tuo laptop è tutto ciò che serve\nFeedback costante\nFai domande!"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-9",
+    "href": "materials/01_introduzione.html#section-9",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Feedbacks\n\nImmediati\n\nSticky notes\n\nFormative assessment\n\nVeloci questionari o esercizi\n\nAlla fine di ogni modulo\n\nSticky notes"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-10",
+    "href": "materials/01_introduzione.html#section-10",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Strumenti\n\nWebsite\nSlack\n\nStrumento di comunicazione\n\n\n \nEntrambi rimarranno online per sempre"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#section-12",
+    "href": "materials/01_introduzione.html#section-12",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivi\n\n\n\n\nDiventare un data scientist migliore\n\n\n\n\n\n\nImparare le best practices per lavorare con R/Bioconductor e Nextflow\n\n\n\n\n\n\nComprendere come analizzare dati di Bulk RNA-Seq\n\n\n\n\n\n\nSviluppare una pipeline RNASeq leggera e riutilizzabile"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Questo corso vi guiderà attraverso l’analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all’interpretazione biologica dei risultati.\n\n\nIl corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nAnalisi in R: Import, DESeq2 e Visualizzazione\n\nGuida dettagliata all’importazione dati, analisi differenziale e visualizzazione dei risultati\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi\n\n\n\n\n\n\nQuesto corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.\n\n\n\n\nConoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!\n\n\n\n\n\nSetup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili\n\n\n\n\nDurante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.\n\n\n\n\nSlack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
+  },
+  {
+    "objectID": "index.html#struttura-del-corso",
+    "href": "index.html#struttura-del-corso",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Il corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nAnalisi in R: Import, DESeq2 e Visualizzazione\n\nGuida dettagliata all’importazione dati, analisi differenziale e visualizzazione dei risultati\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi"
+  },
+  {
+    "objectID": "index.html#filosofia-del-corso",
+    "href": "index.html#filosofia-del-corso",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Questo corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa."
+  },
+  {
+    "objectID": "index.html#prerequisiti",
+    "href": "index.html#prerequisiti",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Conoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!"
+  },
+  {
+    "objectID": "index.html#materiale-didattico",
+    "href": "index.html#materiale-didattico",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Setup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili"
+  },
+  {
+    "objectID": "index.html#dataset",
+    "href": "index.html#dataset",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Durante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica."
+  },
+  {
+    "objectID": "index.html#supporto",
+    "href": "index.html#supporto",
+    "title": "Analisi Dati di Bulk RNA-Seq",
+    "section": "",
+    "text": "Slack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#TitleSlide",
@@ -847,438 +1225,39 @@
     "text": "Integration of RNA-Seq with other omics data\nUnlocking biological insights through data integration\n\n\n\n\n\nApplications:\n\nIdentifying key pathways: Integration of RNA-seq and metabolomics reveals regulated pathways in liver metabolism. (Zhang et al., 2020)\nDisease biomarkers: Uncovering disease-specific biomarkers in NAFLD using RNA-seq and metabolomics. (Ji et al., 2022)\n\nTools and Techniques:\n\nMachine learning: rSeqTU for predicting transcription units and integrating with metagenomics and metabolomics. (Hou et al., 2022)\nStatistical analysis: DESeq2 for integrating RNA-seq and ChIP-seq data. (Niu et al., 2019)\nSingle-cell multi-omics: Combining scRNA-seq with lipidomics and metabolomics to study cellular heterogeneity. (Cao et al., 2020)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Questo corso vi guiderà attraverso l’analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all’interpretazione biologica dei risultati.\n\n\nIl corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nImport Dati (tximport)\n\nImportazione e preparazione dati per analisi\n\nAnalisi Differenziale (DESeq2)\n\nStatistica e identificazione geni differenzialmente espressi\n\nVisualizzazione Risultati\n\nVolcano plots, heatmap e altre visualizzazioni\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi\n\n\n\n\n\n\nQuesto corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.\n\n\n\n\nConoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!\n\n\n\n\n\nSetup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili\n\n\n\n\nDurante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.\n\n\n\n\nSlack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
-  },
-  {
-    "objectID": "index.html#struttura-del-corso",
-    "href": "index.html#struttura-del-corso",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Il corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nImport Dati (tximport)\n\nImportazione e preparazione dati per analisi\n\nAnalisi Differenziale (DESeq2)\n\nStatistica e identificazione geni differenzialmente espressi\n\nVisualizzazione Risultati\n\nVolcano plots, heatmap e altre visualizzazioni\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi"
-  },
-  {
-    "objectID": "index.html#filosofia-del-corso",
-    "href": "index.html#filosofia-del-corso",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Questo corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa."
-  },
-  {
-    "objectID": "index.html#prerequisiti",
-    "href": "index.html#prerequisiti",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Conoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!"
-  },
-  {
-    "objectID": "index.html#materiale-didattico",
-    "href": "index.html#materiale-didattico",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Setup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili"
-  },
-  {
-    "objectID": "index.html#dataset",
-    "href": "index.html#dataset",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Durante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica."
-  },
-  {
-    "objectID": "index.html#supporto",
-    "href": "index.html#supporto",
-    "title": "Analisi Dati di Bulk RNA-Seq",
-    "section": "",
-    "text": "Slack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#TitleSlide",
-    "href": "materials/01_introduzione.html#TitleSlide",
+    "objectID": "materials/04_setup_R.html#TitleSlide",
+    "href": "materials/04_setup_R.html#TitleSlide",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Introduzione al Corso\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2025"
+    "text": "Strumenti di Analisi\nVS Code e AI-Assisted Coding\n \nAnalisi Bulk RNA-Seq per Dottorandi"
   },
   {
-    "objectID": "materials/01_introduzione.html#section-1",
-    "href": "materials/01_introduzione.html#section-1",
+    "objectID": "materials/04_setup_R.html#section-1",
+    "href": "materials/04_setup_R.html#section-1",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Ci dedichiamo a fornire un ambiente accogliente e di supporto per tutte le persone, indipendentemente dal background o dall’identità.\nPartecipando a questo corso, i partecipanti accettano il Codice di Condotta.\nQualsiasi forma di comportamento volto a escludere, intimidire o causare disagio è una violazione del Codice di Condotta. Per favorire un ambiente di apprendimento positivo e professionale, incoraggiamo i seguenti comportamenti:\n\n\nUsare un linguaggio accogliente e inclusivo\n\n\n\n\nEssere rispettosi dei diversi punti di vista ed esperienze\n\n\n\n\nAccettare con grazia le critiche costruttive\n\n\n\n\nConcentrarsi su ciò che è meglio per la comunità\n\n\n\n\nMostrare cortesia e rispetto verso gli altri membri della comunità"
+    "text": "Riproducibilità\nL’analisi bioinformatica deve essere riproducibile.\n\nGUI (Point & Click): Difficile ricordare esattamente quali parametri sono stati usati dopo 6 mesi.\nScripting (R): Il codice è la documentazione esatta di cosa è stato fatto.\n\n\n“Il tuo collaboratore più importante sei tu tra 6 mesi, e non risponde alle email.”"
   },
   {
-    "objectID": "materials/01_introduzione.html#section-3",
-    "href": "materials/01_introduzione.html#section-3",
+    "objectID": "materials/04_setup_R.html#section-2",
+    "href": "materials/04_setup_R.html#section-2",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Chi sei?\n\n\n\n Cosa hai studiato?\n\n\n\n Quali sono i tuoi obiettivi?\n\n\n\n Quali sono le aspettative per il corso?\n\n\n\nMarco - datemi del tu - Agilent - 2 figli, una quasi moglie - Pallavolo\nLaurea - Dottorato - Bioinformatica\nPortare un po di open sourse nel mondo company\nChe andiate a casa con qualche idea"
+    "text": "L’Ambiente VS Code\nNon dovete “imparare a programmare” da zero per analizzare i vostri dati. VS Code è la nostra “cabina di pilotaggio”:\n\nTerminale: Dove R (e gli altri tool bioinformatici) esegue i comandi.\nEditor: Dove scriviamo il nostro “diario di bordo” (codice + testo Quarto).\nExplorer: La navigazione tra file e cartelle del progetto.\nOutput/Plots: Dove vediamo i risultati grafici (estensione R)."
   },
   {
-    "objectID": "materials/01_introduzione.html#section-5",
-    "href": "materials/01_introduzione.html#section-5",
+    "objectID": "materials/04_setup_R.html#section-4",
+    "href": "materials/04_setup_R.html#section-4",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Website\n\n\n\n\n\n\n\n\nhttp://bit.ly/4hKN5OA"
+    "text": "Un nuovo modo di lavorare\nInvece di memorizzare la sintassi, oggi usiamo l’AI (es. Copilot, ChatGPT) come pair programmer.\nIl vostro ruolo: - Capire i concetti biologici e statistici (questo corso!). - Saper chiedere (Prompt Engineering). - Saper valutare se il risultato ha senso (Critical Thinking).\nIl ruolo dell’AI: - Scrivere il codice “noioso” (sintassi). - Risolvere errori (debugging). - Spiegare cosa fa una funzione."
   },
   {
-    "objectID": "materials/01_introduzione.html#section-6",
-    "href": "materials/01_introduzione.html#section-6",
+    "objectID": "materials/04_setup_R.html#section-5",
+    "href": "materials/04_setup_R.html#section-5",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Agenda\n\n\nGiorno 1 Sequenziamento & Pipeline\n\n\nOrari\n9:30 : Introduzione al Corso\n10:00: Biologia del RNA-Seq (Design, NGS)\n10:45: Pausa\n11:00: Pipeline nf-core/rnaseq (QC, Trimming)\n12:30: Pausa pranzo\n13:30: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)\n14:45: Pausa\n15:00: Interpretazione MultiQC\n16:30: Considerazioni finali\n\n\nGiorno 2 Analisi & Visualizzazione\n\n\nOrari\n9:30 : Introduzione a R & Tidyverse\n10:45: Pausa\n11:00: Importazione Dati (tximport)\n12:30: Pausa pranzo\n13:30: Analisi Differenziale (DESeq2)\n14:45: Pausa\n15:00: Visualizzazione dei Risultati\n16:30: Chiusura Corso"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#section-8",
-    "href": "materials/01_introduzione.html#section-8",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Approccio\n\n\nStrumenti Open Source\nCommunity di supporto\nIl tuo laptop è tutto ciò che serve\nFeedback costante\nFai domande!"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#section-9",
-    "href": "materials/01_introduzione.html#section-9",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Feedbacks\n\nImmediati\n\nSticky notes\n\nFormative assessment\n\nVeloci questionari o esercizi\n\nAlla fine di ogni modulo\n\nSticky notes"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#section-10",
-    "href": "materials/01_introduzione.html#section-10",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Strumenti\n\nWebsite\nSlack\n\nStrumento di comunicazione\n\n\n \nEntrambi rimarranno online per sempre"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#section-12",
-    "href": "materials/01_introduzione.html#section-12",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Obiettivi\n\n\n\n\nDiventare un data scientist migliore\n\n\n\n\n\n\nImparare le best practices per lavorare con R/Bioconductor e Nextflow\n\n\n\n\n\n\nComprendere come analizzare dati di Bulk RNA-Seq\n\n\n\n\n\n\nSviluppare una pipeline RNASeq leggera e riutilizzabile"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#TitleSlide",
-    "href": "materials/03_pipeline_nfcore.html#TitleSlide",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Introduzione all’RNASeq\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNomber 2024"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-3",
-    "href": "materials/03_pipeline_nfcore.html#section-3",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTA file\n\n\n\nDefinition\n\n\nThe FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the “&gt;” symbol.\n\n\n\nFile extension could be: fasta, fna, ffn, faa, fa, frn"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-4",
-    "href": "materials/03_pipeline_nfcore.html#section-4",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTA file\n\n\n\nDefinition\n\n\nThe FASTA format is a text-based format for representing either nucleotide sequences or amino acid sequences. Both nucleotides and amino acids are represented using single-letter codes. The first line before the nucleotide/amino acid sequence contains the name of the sequence, preceded by the “&gt;” symbol.\n\n\n\n&gt;NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A\nCTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT\nATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-5",
-    "href": "materials/03_pipeline_nfcore.html#section-5",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTA file\nMulti-fasta file:\n&gt;MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken\nMADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID\nFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA\nDIDGDGQVNYEEFVQMMTAK\n\n&gt;NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A\nCTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT\nATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN\n&gt;HF583486.1 Homo sapiens SOD1 gene for alternative protein SOD1, isolate 144496\nATGGATTCCATGTTCATGAGTTTGGAGATAATACAGCAGGCTGTACCAGTGCAGGTCCTCACTTTAATCC\nTCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-6",
-    "href": "materials/03_pipeline_nfcore.html#section-6",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-7",
-    "href": "materials/03_pipeline_nfcore.html#section-7",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.\n\n\n\n\nA FASTQ file is identified by 4 lines:\n\nLine 1: begins with the “@” symbol and is followed by the sequence identifier (as in FASTA sequences)\n\nLine 2: contains the nucleotide sequence\n\nLine 3: begins with a “+” and may contain additional sequence descriptions\n\nLine 4: contains the quality values for the individual nucleotides"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-8",
-    "href": "materials/03_pipeline_nfcore.html#section-8",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\n\n\n\nDefinition\n\n\nThe FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.\n\n\n\n\n@SEQ_ID\nGATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT\n+\n!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-9",
-    "href": "materials/03_pipeline_nfcore.html#section-9",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide.\n\n\n\n\nI numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano\nScore più alto osservato 40, quindi molti si fermano li"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-10",
-    "href": "materials/03_pipeline_nfcore.html#section-10",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-11",
-    "href": "materials/03_pipeline_nfcore.html#section-11",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\n\nFASTQ files can be very large, so in most cases you won’t be dealing with myFile.fastq, but with myFile.fastq.gz.\nThis means that the file is compressed, so it is not readable by a text editor without first being decompressed."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-13",
-    "href": "materials/03_pipeline_nfcore.html#section-13",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pre-processing Tools\nFastQC\n\n\n\nWhat it is:\n\nA widely used tool for quality assessment of raw sequencing data.\n\nWhat it does:\n\nGenerates comprehensive reports with various quality metrics.\nVisualizes data quality using interactive plots and graphs.\n\nKey metrics:\n\nPer base sequence quality\nPer sequence quality scores\nSequence length distribution\nGC content\nAdapter content\nOverrepresented sequences\n\n\n\n  FastQC"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-15",
-    "href": "materials/03_pipeline_nfcore.html#section-15",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pre-processing Tools\nUMI-tools extract\n\n\n\nWhat are UMIs?\n\nUnique Molecular Identifiers (UMIs) are short random sequences attached to each cDNA molecule during library preparation.\nThey act as “molecular barcodes” to identify unique molecules.\n\nWhy are UMIs important?\n\nUMIs help to distinguish PCR duplicates from true biological duplicates.\nThis improves the accuracy of gene expression quantification, especially for low-abundance transcripts.\n\n\n\n\nWhat does UMI-tools extract do?\n\nIdentifies and extracts UMIs from sequencing reads.\nMoves UMIs to the read name for downstream analysis.\nRequires information about the UMI location in the read.\n\nBenefits:\n\nImproved accuracy in gene expression quantification.\nReduced bias due to PCR amplification.  UMI-tools"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-17",
-    "href": "materials/03_pipeline_nfcore.html#section-17",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pre-processing Tools\nFastP & Trim Galore!\n\n\n\nPurpose:\n\nTo clean up raw sequencing data and improve the accuracy of downstream analysis.\n\nKey functions:\n\nAdapter trimming: Remove adapter sequences from reads.\nQuality trimming: Trim low-quality bases from the ends of reads.\n\nFastP:\n\nAll-in-one tool with extensive pre-processing features.\nIncludes quality filtering, error correction, UMI handling, and more.\n\n\n\n\nTrim Galore!:\n\nWrapper script for cutadapt (adapter trimming) and often includes FastQC (quality assessment).\nFocuses on adapter and quality trimming with optimized parameters.\n\nBenefits:\n\nImproved alignment accuracy.\nReduced false positives in variant calling and gene expression analysis.\nIncreased efficiency of downstream analysis."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-19",
-    "href": "materials/03_pipeline_nfcore.html#section-19",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pre-processing Tools\nBBSplit\n\n\n\nWhat it is:\n\nA tool for removing contaminant reads from sequencing data.\n\nTypes of contamination:\n\nMicrobial DNA or RNA\nHost DNA (in the case of RNA-Seq from host-associated samples)\nOther unwanted sequences\n\nHow it works:\n\nAligns reads to a database of contaminant sequences.\nRemoves reads that map to the contaminant database.\n\n\n\n  BBMap"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-20",
-    "href": "materials/03_pipeline_nfcore.html#section-20",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pre-processing Tools\nSortMeRNA\n\n\n\nWhat it is:\n\nA tool for filtering ribosomal RNA (rRNA) reads from sequencing data.\n\nWhy is it important?\n\nrRNA often makes up a large proportion of total RNA.\nRemoving rRNA enriches for mRNA and other non-coding RNAs of interest.\n\nHow it works:\n\nUses a database of rRNA sequences to identify and remove rRNA reads.\nCan be used with both single-end and paired-end data.\n\n\n\n  SortMeRNA"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-23",
-    "href": "materials/03_pipeline_nfcore.html#section-23",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nRead Alignment\n\n\n\nPurpose:\n\nTo map sequencing reads to a reference genome or transcriptome.\n\nWhy is it important?\n\nIdentify the genomic origin of each read.\nDetermine which genes or transcripts are expressed.\nDiscover genetic variations (SNPs, indels).\n\n\n\n\nChallenges:\n\nReads may contain sequencing errors.\nReads may map to multiple locations (multi-mapping reads).\nGenomes contain repetitive regions.\n\nOutput: A BAM (Binary Alignment/Map) file containing alignment information."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-24",
-    "href": "materials/03_pipeline_nfcore.html#section-24",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nWhat it is:\n\nThe standard file format for storing read alignments.\nSAM (Sequence Alignment/Map): A text-based format.\nBAM (Binary Alignment/Map): A compressed binary version of SAM.\n\nWhy is it important?\n\nProvides a standardized way to store alignment information.\nAllows for efficient storage and retrieval of large alignment datasets.\nFacilitates compatibility between different bioinformatics tools."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-25",
-    "href": "materials/03_pipeline_nfcore.html#section-25",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nContent:\n\nHeader section: Contains metadata about the alignment (reference genome, aligner used, etc.).\n\n\n\n@RG     ID:1    SM:C5926_BM_IonCode_0118\n@PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam\n\n\n\n@RG = read group\n\nID = Read group identifier\nSM = Sample\n\n@PG = Program\n\nID = Program record identifier\nPN = Program name\nVN = software version\nCl = command line"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-26",
-    "href": "materials/03_pipeline_nfcore.html#section-26",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nAlignment section: Each line represents a single read and its alignment to the reference.\n\nIncludes information about mapping position, quality scores, alignment flags, and more.\n\n\n\n\n\n\n11 campi obbligatori\nMetadati non obbligatori\nConcise Idiosyncratic Gapped Alignment Report (CIGAR) string"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-28",
-    "href": "materials/03_pipeline_nfcore.html#section-28",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nSTAR Aligner\n\n\n\n\n\nWhat it is:\n\nA widely used splice-aware aligner for RNA-Seq data.\n\nKey features:\n\nFast and efficient alignment.\nAccurate handling of spliced reads.\nCan detect novel splice junctions.\nSupports various RNA-Seq protocols.\n\nAdvantages:\n\nHigh accuracy\nSpeed\nVersatility"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-29",
-    "href": "materials/03_pipeline_nfcore.html#section-29",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nHISAT2\n\n\n\n\n\nWhat it is:\n\nAnother popular splice-aware aligner for RNA-Seq.\n\nKey features:\n\nBased on the Burrows-Wheeler transform.\nFast and memory-efficient.\nSupports both DNA and RNA alignment.\n\nComparison to STAR:\n\nMay be slightly faster for some datasets.\nMay have slightly lower accuracy for certain types of reads.\nChoice often depends on specific needs and preferences."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-31",
-    "href": "materials/03_pipeline_nfcore.html#section-31",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nUMI-tools dedup\n\n\n\n\n\nWhat it does:\n\nIdentifies and removes PCR duplicates from RNA-Seq data using Unique Molecular Identifiers (UMIs).\nGroups reads with the same UMI and genomic mapping location.\nSelects the read with the highest quality score as the representative read for each group.\n\nWhy is it important?\n\nPCR amplification during library preparation can introduce duplicate reads.\nThese duplicates can bias gene expression estimates, especially for low-abundance transcripts.\nUMI-tools dedup helps to correct for this bias and improve accuracy.\n\nBenefits:\n\nMore accurate gene expression quantification.\nReduced false positives in differential expression analysis.\nImproved sensitivity for detecting rare transcripts.\n\n\nUMI-tools"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-33",
-    "href": "materials/03_pipeline_nfcore.html#section-33",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Alignment and Quantification\nRSEM\n\n\n \n\n\n\nWhat it is:\n\nRSEM is a software package for estimating gene and isoform expression levels from RNA-Seq data.\n\nKey features:\n\nUses a statistical model to estimate transcript abundance from aligned reads.\nCan handle different types of RNA-Seq data (single-end, paired-end).\nProvides various output formats (counts, TPM, FPKM).\n\n\n\n\nRPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-36",
-    "href": "materials/03_pipeline_nfcore.html#section-36",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pseudo-aligners\nFast and Efficient Transcript Abundance Estimation\n\n\n\nWhat they are:\n\nA class of RNA-Seq quantification tools that do not require exact alignment of reads to a reference genome.\n\nHow they work:\n\nUse lightweight algorithms to assign reads to transcripts\n\nEffectively “pseudo-align” reads to transcripts without determining their precise genomic location.\n\nAdvantages:\n\nSpeed: Significantly faster than traditional alignment-based methods.\nEfficiency: Reduced computational resources required.\nAccuracy: Comparable or even superior accuracy for transcript quantification.\n\n\n\n\nPopular tools:\n\nSalmon\nKallisto\n\nApplications:\n\nGene expression profiling\nDifferential expression analysis\nTranscript isoform identification"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-37",
-    "href": "materials/03_pipeline_nfcore.html#section-37",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pseudo-aligners\nKallisto vs Salmon\n\n\n\n\n\n\n\n\n\nFeature\nKallisto \nSalmon \n\n\n\n\nAlgorithm\nPseudoalignment (k-mers)\nQuasi-mapping (BWT)\n\n\nSpeed\nFast\nFaster\n\n\nMemory Usage\nLower\nHigher\n\n\nFeatures\nBasic\nMore advanced (library types, bootstrapping)\n\n\nAccuracy\nHigh\nHigh\n\n\nEase of Use\nHigh\nHigh\n\n\nOutput Formats\nAbundance estimates\nAbundance estimates, counts, TPM, etc.\n\n\nApplications\nGene expression, DE analysis\nGene expression, DE analysis, isoform quantification"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-38",
-    "href": "materials/03_pipeline_nfcore.html#section-38",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Pseudo-aligners\nSalmon Output File Formats\n\n\n\n\n\n\nFolder\n\n\n\n\n \n\n\n\n\n\nquant.sf\n\n\n\n\n\n\n\nSalmon’s main output is its quantification file =&gt; quant.sf\ncmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked\nAuxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info\n\nThe auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments\nIf Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type\n\nWhen run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format\n\n\nd"
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-41",
-    "href": "materials/03_pipeline_nfcore.html#section-41",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Post-alignment Processing\nRefining Your Alignments\n\n\nWhat it is:\n\nA series of steps performed after read alignment to improve data quality and prepare for downstream analysis.\n\nKey steps:\n\nDeduplication: Removing PCR duplicates to avoid bias in gene expression estimates. (Blue line)\nGenerating coverage tracks: Visualizing read distribution and assessing sequencing uniformity.\n(Optional) Other steps: Depending on the analysis goals, this may include filtering reads, recalibrating base quality scores, and other processing steps.\n\nWhy is it important?\n\nImproves the accuracy and reliability of downstream analysis.\nReduces noise and bias in the data.\nFacilitates data interpretation and visualization."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-42",
-    "href": "materials/03_pipeline_nfcore.html#section-42",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Post-alignment Processing\nSAMtools: Manipulating and Analyzing Alignments\n\n\nWhat it is:\n\nA suite of command-line utilities for working with SAM/BAM files.\nA Swiss Army Knife for SAM/BAM Files\n\nKey functions:\n\nsamtools sort: Sorts alignments in a BAM file by coordinate.\n\nWhy is sorting important? Many downstream tools require sorted BAM files for efficient processing.\n\nsamtools index: Creates an index file for a sorted BAM file.\n\nWhy is indexing important? Allows for fast retrieval of specific regions of the alignment.\n\nsamtools stats: Generates statistics about an alignment file.\n\nProvides insights into alignment quality, read depth, and other metrics."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-43",
-    "href": "materials/03_pipeline_nfcore.html#section-43",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Post-alignment Processing\nPicard MarkDuplicates: Deduplication without UMIs\n\n\nHow it works:\n\nIdentifies duplicates based on mapping coordinates of reads.\nMarks duplicate reads in the BAM file.\n\nConsiderations:\n\nLess accurate than UMI-based methods.\nCan be used when UMIs are not available.\nOften used in combination with other filtering steps."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-44",
-    "href": "materials/03_pipeline_nfcore.html#section-44",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Post-alignment Processing\nBEDTools genomecov: Quantifying Read Depth\n\n\nWhat it does:\n\nCalculates the number of reads overlapping each position in the genome.\nOutputs a coverage file in various formats (BEDGRAPH, bed, etc.).\n\nOptions:\n\nCalculate coverage for different strand orientations.\nNormalize coverage by library size.\nGenerate histograms of coverage depth."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-47",
-    "href": "materials/03_pipeline_nfcore.html#section-47",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nRSeQC: Comprehensive Quality Assessment of Your RNA-Seq Data\n\n\nWhat it is:\n\nA suite of tools for RNA-Seq quality control and analysis.\n\nKey functions:\n\nRead distribution: Assess the distribution of reads across different genomic features (e.g., coding regions, introns, UTRs).\nGene body coverage: Evaluate the uniformity of coverage across gene bodies.\nStrand specificity: Check the strand specificity of the library.\nJunction saturation: Determine if sufficient sequencing depth has been achieved for junction detection.\nOther QC metrics: Assess rRNA contamination, insert size distribution, and more.\n\nBenefits:\n\nProvides comprehensive quality assessment of RNA-Seq data.\nIdentifies potential biases and issues in library preparation or sequencing.\nHelps to ensure the reliability and accuracy of downstream analysis."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-48",
-    "href": "materials/03_pipeline_nfcore.html#section-48",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nPreseq: Assessing the Diversity of Your Library\n\n\nWhat it is: A tool for estimating the complexity of a sequencing library.\nWhy is library complexity important?\n\nLibrary complexity refers to the number of unique DNA fragments in your library.\nHigher complexity means a more diverse representation of the original RNA population.\nLow complexity can lead to reduced sequencing efficiency and biased results.\n\nWhat does Preseq do?\n\nUses statistical modeling to predict the number of unique reads that would be obtained with deeper sequencing.\nHelps to assess whether additional sequencing is likely to yield new information.\nCan be used to compare the complexity of different libraries.\n\nBenefits:\n\nOptimize sequencing depth.\nAvoid unnecessary sequencing costs.\nImprove the quality and efficiency of RNA-Seq experiments."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-49",
-    "href": "materials/03_pipeline_nfcore.html#section-49",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nQualimap RNA-Seq: A Deep Dive into Your RNA-Seq Data\n\n\nWhat it is:\n\nA comprehensive tool for quality control and analysis of RNA-Seq data.\n\nKey features:\n\nAlignment quality: Assesses mapping quality, mismatch rates, and indel rates.\nCoverage analysis: Evaluates coverage uniformity across genes and transcripts.\nJunction analysis: Examines splice junctions and identifies non-canonical junctions.\nTranscript coverage: Assesses coverage of known transcripts and identifies potential novel transcripts.\nrRNA content: Estimates the proportion of rRNA reads in the data.\n5’ and 3’ bias: Detects biases in read coverage towards the 5’ or 3’ ends of transcripts.\n\nBenefits:\n\nProvides detailed insights into the quality of RNA-Seq alignments.\nIdentifies potential biases and technical artifacts.\nHelps to ensure the reliability and accuracy of downstream analysis."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-50",
-    "href": "materials/03_pipeline_nfcore.html#section-50",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nKraken2: Identifying Microbial Communities in Your Samples\n\n\n\n\n\nWhat it is:\n\nA fast and accurate tool for assigning taxonomic labels to sequencing reads.\n\nWhy is it useful for RNA-Seq?\n\nRNA-Seq data can sometimes contain reads from microbial organisms (e.g., in microbiome studies, host-associated samples).\nKraken2 can identify and classify these microbial reads, providing insights into the microbial community present in the sample.\n\nHow it works:\n\nAssigns taxonomic classifications to reads based on the best match.\n\nBenefits:\n\nFast and efficient classification.\nAccurate identification of microbial species.\nCan be used with both DNA and RNA sequencing data."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-51",
-    "href": "materials/03_pipeline_nfcore.html#section-51",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nDifferential Expression: Finding the Genes that Matter\n\n\nWhat it is:\n\nIdentifying genes that are expressed at significantly different levels between two or more conditions (e.g., treated vs. control, healthy vs. diseased).\n\nWhy is it important?\n\nUncover genes involved in specific biological processes or disease states.\nIdentify potential biomarkers or therapeutic targets.\n\nTools:\n\nDESeq2: A popular R package for differential expression analysis.\nedgeR: Another widely used R package.\nlimma: A flexible package for linear modeling and differential expression analysis."
-  },
-  {
-    "objectID": "materials/03_pipeline_nfcore.html#section-52",
-    "href": "materials/03_pipeline_nfcore.html#section-52",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Downstream Analysis\nMultiQC: Your One-Stop Shop for QC Reports\n\n\nWhat it is: A tool that aggregates results from multiple bioinformatics tools into a single HTML report.\nWhy is it useful for RNA-Seq?\n\nRNA-Seq analysis involves multiple QC steps (FastQC, SortMeRNA, Trim Galore!, etc.).\nMultiQC combines the results from these tools into a user-friendly report.\nThis saves time and simplifies the QC assessment process.\n\nKey features:\n\nSupports a wide range of bioinformatics tools.\nGenerates interactive plots and tables for easy visualization.\nHighlights potential issues and inconsistencies in the data.\nFacilitates comparison of QC metrics across multiple samples.\n\nBenefits:\n\nSaves time and effort in QC assessment.\nImproves clarity and organization of QC results.\nFacilitates data interpretation and decision-making."
-  },
-  {
-    "objectID": "materials/05_import_dati.html#TitleSlide",
-    "href": "materials/05_import_dati.html#TitleSlide",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Importazione Dati\nDai Trascitti ai Geni\n \nAnalisi Bulk RNA-Seq per Dottorandi"
-  },
-  {
-    "objectID": "materials/05_import_dati.html#section-1",
-    "href": "materials/05_import_dati.html#section-1",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Transcript vs Gene Level\nOutput Pipeline (Salmon): - Quantificazione a livello di trascritto (isoforma). - Una riga per ogni variante di splicing.\nInput Analisi Differenziale (DESeq2): - Vogliamo confrontare l’espressione dei geni. - Statisticamente più robusto (più reads per feature, meno features totali)."
-  },
-  {
-    "objectID": "materials/05_import_dati.html#section-2",
-    "href": "materials/05_import_dati.html#section-2",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Perché non sommare i conteggi?\nNon basta sommare i conteggi grezzi delle isoforme.\n\nIsoforma A: Lunga (5000 bp). Produce molte reads.\nIsoforma B: Corta (500 bp). Produce poche reads.\n\nSe un gene passa da esprimere A a esprimere B (allo stesso livello molare), il numero di reads crolla. Sembrerebbe un gene “Down-regulated”, ma è solo diventato “più corto”."
-  },
-  {
-    "objectID": "materials/05_import_dati.html#section-4",
-    "href": "materials/05_import_dati.html#section-4",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Come funziona\n\nInput: File quant.sf (da Salmon) per ogni campione.\nMappatura: Tabella che associa ogni TranscriptID -&gt; GeneID.\nCalcolo Offset:\n\nCalcola la lunghezza media ponderata del gene in ogni campione.\nUsa questa informazione per generare un “offset”.\n\nOutput: Matrice di conteggi per gene corretti per la lunghezza."
-  },
-  {
-    "objectID": "materials/05_import_dati.html#section-5",
-    "href": "materials/05_import_dati.html#section-5",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Il Risultato Finale\nAlla fine di questa fase, otteniamo una Count Matrix.\n\n\n\nGene\nCTRL_1\nCTRL_2\nTREAT_1\nTREAT_2\n\n\n\n\nMAPK1\n450\n432\n900\n880\n\n\nTP53\n20\n25\n22\n18\n\n\nACTB\n20000\n19500\n20100\n19800\n\n\n\nQuesta matrice (numeri interi) è il punto di partenza per l’analisi statistica."
-  },
-  {
-    "objectID": "materials/07_visualizzazione.html#TitleSlide",
-    "href": "materials/07_visualizzazione.html#TitleSlide",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Visualizzazione Dati\nEsplorare e Comunicare i Risultati\n \nAnalisi Bulk RNA-Seq per Dottorandi"
-  },
-  {
-    "objectID": "materials/07_visualizzazione.html#section-1",
-    "href": "materials/07_visualizzazione.html#section-1",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "PCA - Principal Component Analysis\nLa “mappa” dei vostri campioni. Riduce 20.000 dimensioni (geni) a 2 dimensioni principali (PC1 e PC2) che spiegano la massima varianza.\nCosa cercare: 1. Raggruppamento: I replicati biologici devono stare vicini. 2. Separazione: Il trattamento sperimentale dovrebbe separare i gruppi lungo l’asse principale (PC1). 3. Outliers: Un campione “lontano da tutti” indica problemi tecnici o biologici. 4. Batch Effects: Se i campioni si raggruppano per “data di estrazione” invece che per trattamento."
-  },
-  {
-    "objectID": "materials/07_visualizzazione.html#section-2",
-    "href": "materials/07_visualizzazione.html#section-2",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Sample Correlation Heatmap\nUn altro modo per vedere la somiglianza globale. Calcola la distanza (es. Euclidea) tra ogni coppia di campioni.\n\nColori scuri (blu) = Campioni simili.\nColori chiari (bianco/rosso) = Campioni diversi.\n\nCi aspettiamo blocchi di colori “scuri” corrispondenti ai gruppi sperimentali (es. tutti i CTRL simili tra loro)."
-  },
-  {
-    "objectID": "materials/07_visualizzazione.html#section-4",
-    "href": "materials/07_visualizzazione.html#section-4",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Volcano Plot\nLa visione d’insieme dei risultati differenziali.\n\nAsse X (Effetto): Log2 Fold Change. (A destra UP, a sinistra DOWN).\nAsse Y (Significatività): -log10 P-value aggiustato. (In alto i più significativi).\n\nCercate punti agli angoli superiori: - Alta magnitudo di cambiamento. - Alta confidenza statistica."
-  },
-  {
-    "objectID": "materials/07_visualizzazione.html#section-5",
-    "href": "materials/07_visualizzazione.html#section-5",
-    "title": "Analisi Bulk RNA-Seq per Dottorandi",
-    "section": "",
-    "text": "Heatmap dei Geni\n“Chi va su e chi giù insieme?”\nA differenza della Sample Heatmap, qui mostriamo i Geni sulle righe. - Di solito si selezionano i top 20-50 geni più significativi. - Z-score: I colori rappresentano la deviazione dalla media del gene. - Rosso: Espressione sopra la media. - Blu: Espressione sotto la media.\nIl Clustering (l’albero a lato) raggruppa geni che hanno profili di espressione simili tra le condizioni."
+    "text": "Workflow Moderno\n\nChiedi: “Voglio caricare questi 3 file CSV e unirli in una unica tabella basata sulla colonna ‘GeneID’”.\nVerifica: L’AI genera il codice. Tu controlli che i file siano quelli giusti.\nEsegui: Fai girare il codice in VS Code.\nItera: “Ora fammi un grafico a dispersione di questi dati”.\n\nNel laboratorio useremo delle “GitHub Skills” preconfezionate per guidarvi in questo processo."
   },
   {
     "objectID": "materials/images/mermaid.html",
@@ -1292,14 +1271,14 @@
     "href": "resources.html",
     "title": "Risorse e Riferimenti",
     "section": "",
-    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05\nImport Dati (tximport)\n05_import_dati.qmd\n\n\n06\nAnalisi Differenziale (DESeq2)\n06_deseq2.qmd\n\n\n07\nVisualizzazione Risultati\n07_visualizzazione.qmd\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
+    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05-07\nAnalisi in R: Import, DESeq2 e Visualizzazione\nLibro di riferimento online\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
   },
   {
     "objectID": "resources.html#materiali-del-corso",
     "href": "resources.html#materiali-del-corso",
     "title": "Risorse e Riferimenti",
     "section": "",
-    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05\nImport Dati (tximport)\n05_import_dati.qmd\n\n\n06\nAnalisi Differenziale (DESeq2)\n06_deseq2.qmd\n\n\n07\nVisualizzazione Risultati\n07_visualizzazione.qmd\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
+    "text": "Modulo\nTitolo\nFile\n\n\n\n\n01\nIntroduzione al Corso\n01_introduzione.qmd\n\n\n02\nBasi Biologiche RNA-Seq\n02_basi_biologiche.qmd\n\n\n03\nPipeline nf-core/rnaseq\n03_pipeline_nfcore.qmd\n\n\n04\nSetup R e Tools\n04_setup_R.qmd\n\n\n05-07\nAnalisi in R: Import, DESeq2 e Visualizzazione\nLibro di riferimento online\n\n\n08\nDemo AI-Prompts\n08_demo_prompts.qmd"
   },
   {
     "objectID": "resources.html#documentazione-ufficiale",
@@ -1398,5 +1377,33 @@
     "title": "Risorse e Riferimenti",
     "section": "Contatti",
     "text": "Contatti\nPer domande sul corso:\n\nEmail: [email del docente]\nSlack: [link workspace Slack]\nGitHub Issues: [repository del corso]\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Novembre 2025"
+  },
+  {
+    "objectID": "setup.html#opzione-raccomandata-dev-container",
+    "href": "setup.html#opzione-raccomandata-dev-container",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "Per la sessione di demo AI, non è necessario installare nulla localmente. Usiamo un ambiente pre-configurato tramite Dev Container con tutti gli strumenti già installati (R, DESeq2, Salmon, fastp, Quarto…).\n\n\n\n\n\nWindows: Download Docker Desktop per Windows\n\n⚠️ Assicurati che WSL2 sia abilitato (Docker lo chiederà durante l’installazione)\n\nmacOS: Download Docker Desktop per Mac\n\nScegli la versione corretta: Intel Chip oppure Apple Silicon (M1/M2/M3)\n\n\n\n\n\nDownload VS Code\n\n\n\n\nApri VS Code\nClicca sull’icona Extensions (quadratini sulla sinistra)\nCerca: Dev Containers\nClicca su Install\n\n\n\n\n\n# Passo 1: Scarica il materiale del corso\ngit clone https://github.com/Revelo-RNASeq/2025_RNASeq.git\ncd 2025_RNASeq\n\n# Passo 2: Apri in VS Code\ncode .\nPasso 3: VS Code mostrerà un popup “Reopen in Container” → clicca.\nIn alternativa: Cmd+Shift+P (Mac) / Ctrl+Shift+P (Windows) → cerca “Dev Containers: Reopen in Container” → premi Invio.\nPasso 4: Attendi il download (prima volta: ~3–5 minuti / ~3 GB; volte successive: ~30 secondi).\n✅ Fatto! Tutti i tool sono già installati.\n\n\n\nApri il terminale in VS Code (`Ctrl+`` oppure Terminal → New Terminal) ed esegui:\n# Verifica strumenti bioinformatici\nsalmon --version\nfastqc --version\nmultiqc --version\nquarto --version\n\n# Verifica pacchetti R\nR -e \"library(DESeq2); library(tximport); cat('✅ OK\\n')\"\n\n\n\nDocker non parte\n\nWindows: verifica che Docker Desktop sia in esecuzione (icona nella system tray)\nMac: verifica che Docker Desktop sia in esecuzione (icona nella menu bar)\n\nErrore “Cannot connect to Docker daemon”: apri Docker Desktop, attendi “Docker is running”, poi riprova.\nWindows – Errore WSL2: apri PowerShell come Amministratore, esegui wsl --install, riavvia il computer e poi Docker Desktop.\nSpazio su disco insufficiente: servono almeno 10 GB liberi."
+  },
+  {
+    "objectID": "setup.html#installazione-locale-opzionale",
+    "href": "setup.html#installazione-locale-opzionale",
+    "title": "Setup e Installazione",
+    "section": "Installazione Locale (Opzionale)",
+    "text": "Installazione Locale (Opzionale)\nSe preferisci lavorare con un’installazione locale o non puoi usare Docker, segui le istruzioni qui sotto."
+  },
+  {
+    "objectID": "setup.html#verifica-installazione-1",
+    "href": "setup.html#verifica-installazione-1",
+    "title": "Setup e Installazione",
+    "section": "Verifica Installazione",
+    "text": "Verifica Installazione\n\nTest R/Bioconductor\n# Carica le librerie\nlibrary(tximport)\nlibrary(DESeq2)\nlibrary(tidyverse)\n\n# Se nessun errore appare, tutto funziona! ✅\nprint(\"Setup completato correttamente!\")\n\n\nTest Nextflow\n# Verifica installazione\nnextflow -version\n\n# Dovrebbe mostrare qualcosa come:\n#   nextflow version 23.10.0.xxxx\n\n\nTest Docker\n# Verifica installazione\ndocker --version\n\n# Test di funzionamento\ndocker run hello-world"
+  },
+  {
+    "objectID": "setup.html#problemi-comuni-1",
+    "href": "setup.html#problemi-comuni-1",
+    "title": "Setup e Installazione",
+    "section": "Problemi Comuni",
+    "text": "Problemi Comuni\n\nWindows: Path troppo lungo\nNextflow può avere problemi con path lunghi su Windows. Soluzioni:\n\nLavora in C:\\rnaseq\\ invece di cartelle profonde\nAbilita Long Path Support: Guida Microsoft\n\n\n\nmacOS: Permessi Docker\nSe Docker non parte:\n# Aggiungi il tuo utente al gruppo docker (solo Linux)\nsudo usermod -aG docker $USER\nPoi riavvia il sistema.\n\n\nLinux: Librerie di Sistema\nPer compilare alcuni pacchetti R:\n# Ubuntu/Debian\nsudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev\n\n# Fedora/RedHat\nsudo yum install libcurl-devel openssl-devel libxml2-devel"
   }
 ]

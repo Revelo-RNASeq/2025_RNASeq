@@ -6,7 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/roughnotation-0.5.1/rough-notation.iife.js"></script>
+<script src="../site_libs/quarto-contrib/roughnotation-init-1.0.0/rough.js"></script>
+<link href="../site_libs/quarto-contrib/roughnotation-init-1.0.0/rough.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/roughnotation-flourish-bridge-1.0.0/flourish-bridge.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.27">
 
   <title>Analisi Bulk RNA-Seq per Dottorandi – Demo: Analisi RNA-Seq con AI</title>
@@ -95,6 +99,8 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/custom.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -239,6 +245,338 @@
 <section class="slide level2">
 
 </section>
+<section>
+<section id="setup-dev-container" class="title-slide slide level1 center" data-background-color="#1A1A2E">
+<h1>Setup: Dev Container</h1>
+
+</section>
+<section id="perché-il-dev-container" class="slide level2">
+<h2>Perché il Dev Container?</h2>
+<p>I prompt di questo corso funzionano all’interno di un <strong>Dev Container</strong>: un ambiente pre-configurato che gira in Docker.</p>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>Vantaggi</strong></p>
+<ul>
+<li>✅ Tutti i tool già installati: <code>salmon</code>, <code>fastp</code>, <code>R</code>, <code>DESeq2</code>…</li>
+<li>✅ Stesso ambiente per tutti: niente “sul mio PC funziona”</li>
+<li>✅ Nessuna installazione manuale di dipendenze</li>
+<li>✅ Si azzera e riparte facilmente</li>
+</ul>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Cosa include il container</strong></p>
+<ul>
+<li>Bioinformatica: <code>salmon</code>, <code>fastp</code>, <code>multiqc</code>, <code>fastqc</code></li>
+<li>R + Bioconductor: <code>DESeq2</code>, <code>tximport</code>, <code>ComplexHeatmap</code></li>
+<li>Quarto (per il materiale del corso)</li>
+<li>GitHub Copilot (attivato separatamente)</li>
+</ul>
+</div></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Prerequisiti di sistema</strong></p>
+</div>
+<div class="callout-content">
+<p>Servono almeno <strong>10 GB liberi</strong> su disco e una buona connessione Internet per il primo download (~3 GB).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="step-a-installare-docker-desktop" class="slide level2">
+<h2>Step A: Installare Docker Desktop</h2>
+<p>Docker è il motore che esegue il container.</p>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>macOS</strong></p>
+<ol type="1">
+<li>Scarica <a href="https://www.docker.com/products/docker-desktop">Docker Desktop per Mac</a>
+<ul>
+<li>Scegli: <strong>Intel Chip</strong> oppure <strong>Apple Silicon (M1/M2/M3)</strong></li>
+</ul></li>
+<li>Apri il <code>.dmg</code> → trascina Docker nelle <strong>Applicazioni</strong></li>
+<li>Avvia Docker Desktop → segui la procedura guidata</li>
+<li>Attendi che l’icona nella menu bar mostri <strong>“Docker is running”</strong></li>
+</ol>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Windows</strong></p>
+<ol type="1">
+<li>Scarica <a href="https://www.docker.com/products/docker-desktop">Docker Desktop per Windows</a>
+<ul>
+<li>⚠️ <strong>WSL2 deve essere abilitato</strong> (Docker lo chiede durante l’installazione)</li>
+<li>Se manca: apri PowerShell come Amministratore → <code>wsl --install</code> → riavvia</li>
+</ul></li>
+<li>Esegui il <code>.exe</code> → segui la procedura guidata</li>
+<li>Riavvia il PC se richiesto</li>
+<li>Avvia Docker Desktop → attendi <strong>“Docker is running”</strong></li>
+</ol>
+</div></div>
+</section>
+<section id="step-b-installare-lestensione-dev-containers" class="slide level2">
+<h2>Step B: Installare l’Estensione Dev Containers</h2>
+<p>Con VS Code aperto:</p>
+<ol type="1">
+<li>Clicca sull’icona <strong>Estensioni</strong> nella barra laterale sinistra (<code>Ctrl+Shift+X</code> / <code>⌘+Shift+X</code>)</li>
+<li>Cerca <strong>“Dev Containers”</strong></li>
+<li>Installa l’estensione di <strong>Microsoft</strong></li>
+<li>Nessun riavvio necessario</li>
+</ol>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>Verifica installazione</strong></p>
+<p>Premi <code>Ctrl+Shift+P</code> (Windows) o <code>Cmd+Shift+P</code> (Mac) e cerca “Dev Containers” — dovresti vedere le opzioni disponibili, tra cui <strong>“Reopen in Container”</strong>.</p>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Nota</strong></p>
+<p>L’estensione <strong>Dev Containers</strong> è separata da <strong>GitHub Copilot</strong>. Entrambe sono necessarie per questo corso.</p>
+</div></div>
+</section>
+<section id="step-c-scaricare-il-materiale-del-corso" class="slide level2">
+<h2>Step C: Scaricare il Materiale del Corso</h2>
+<p>Apri un terminale e clona il repository:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="fu">git</span> clone https://github.com/Revelo-RNASeq/2025_RNASeq.git</span>
+<span id="cb1-2"><a></a><span class="bu">cd</span> 2025_RNASeq</span>
+<span id="cb1-3"><a></a><span class="ex">code</span> .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Alternativa senza git</strong></p>
+</div>
+<div class="callout-content">
+<p>Se non hai git installato, scarica lo ZIP dalla pagina GitHub del corso: <strong>Code → Download ZIP</strong> → estrai la cartella → aprila in VS Code con <strong>File → Open Folder</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="step-d-aprire-nel-container" class="slide level2">
+<h2>Step D: Aprire nel Container</h2>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>Metodo 1 — Popup automatico</strong></p>
+<p>VS Code mostra in basso a destra:</p>
+<p><strong>“Reopen in Container”</strong> → clicca</p>
+<p><strong>Metodo 2 — Command Palette</strong></p>
+<ol type="1">
+<li><code>Ctrl+Shift+P</code> (Windows) / <code>Cmd+Shift+P</code> (Mac)</li>
+<li>Cerca: <strong>“Dev Containers: Reopen in Container”</strong></li>
+<li>Premi <strong>Invio</strong></li>
+</ol>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Prima apertura</strong></p>
+<ul>
+<li>Download image: <strong>~3–5 minuti</strong> (~3 GB)</li>
+<li>VS Code si riapre all’interno del container</li>
+<li>Il terminale mostra un prompt diverso → sei nel container!</li>
+</ul>
+<p><strong>Aperture successive</strong></p>
+<ul>
+<li>Avvio in ~30 secondi</li>
+<li>I file del corso sono persistenti</li>
+</ul>
+</div></div>
+</section>
+<section id="step-e-verifica-installazione" class="slide level2">
+<h2>Step E: Verifica Installazione</h2>
+<p>Apri il terminale in VS Code (<code>Ctrl+`</code> / <code>⌃`</code>) ed esegui:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="co"># Verifica strumenti bioinformatici</span></span>
+<span id="cb2-2"><a></a><span class="ex">salmon</span> <span class="at">--version</span></span>
+<span id="cb2-3"><a></a><span class="ex">fastqc</span> <span class="at">--version</span></span>
+<span id="cb2-4"><a></a><span class="ex">multiqc</span> <span class="at">--version</span></span>
+<span id="cb2-5"><a></a><span class="ex">quarto</span> <span class="at">--version</span></span>
+<span id="cb2-6"><a></a></span>
+<span id="cb2-7"><a></a><span class="co"># Verifica R e pacchetti Bioconductor</span></span>
+<span id="cb2-8"><a></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">"library(DESeq2); library(tximport); cat('✅ OK\n')"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tutto pronto!</strong></p>
+</div>
+<div class="callout-content">
+<p>Se vedi le versioni senza errori, l’ambiente è configurato correttamente. Ora puoi proseguire con l’attivazione di <strong>GitHub Copilot</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="problemi-comuni" class="slide level2">
+<h2>Problemi Comuni</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problema</th>
+<th>Soluzione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Docker non parte</td>
+<td>Verifica che Docker Desktop sia in esecuzione (icona nella menu bar / system tray)</td>
+</tr>
+<tr class="even">
+<td>“Cannot connect to Docker daemon”</td>
+<td>Apri Docker Desktop, attendi “Docker is running”, riprova</td>
+</tr>
+<tr class="odd">
+<td>Errore WSL2 (Windows)</td>
+<td>Apri PowerShell come Admin → <code>wsl --install</code> → riavvia</td>
+</tr>
+<tr class="even">
+<td>Spazio insufficiente</td>
+<td>Libera almeno 10 GB su disco</td>
+</tr>
+<tr class="odd">
+<td>Download lento</td>
+<td>Normale la prima volta (~3 GB) — se interrotto, VS Code riprende automaticamente</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="setup-vs-code-e-github-copilot" class="title-slide slide level1 center" data-background-color="#2D2D2D">
+<h1>Setup: VS Code e GitHub Copilot</h1>
+
+</section>
+<section id="step--1-installare-vs-code" class="slide level2">
+<h2>Step -1: Installare VS Code</h2>
+<p><strong>Visual Studio Code</strong> è l’editor gratuito di Microsoft in cui eseguiremo il demo.</p>
+<p><strong>Download</strong>: <a href="https://code.visualstudio.com">code.visualstudio.com</a></p>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>macOS</strong></p>
+<ol type="1">
+<li>Scarica il file <code>.zip</code> per Apple Silicon o Intel</li>
+<li>Estrai e trascina <strong>Visual Studio Code</strong> nella cartella <strong>Applicazioni</strong></li>
+<li>Al primo avvio: tasto destro → <em>Apri</em> (per bypassare Gatekeeper)</li>
+</ol>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Windows</strong></p>
+<ol type="1">
+<li>Scarica il file <code>.exe</code> (User Installer)</li>
+<li>Esegui il setup e segui la procedura guidata</li>
+<li>Opzione consigliata: spunta <em>“Aggiungi al PATH”</em> durante l’installazione</li>
+</ol>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Verifica installazione</strong></p>
+</div>
+<div class="callout-content">
+<p>Apri VS Code: dovresti vedere la schermata di benvenuto <strong>Welcome</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="step--2-creare-un-account-github" class="slide level2">
+<h2>Step -2: Creare un Account GitHub</h2>
+<p>GitHub è necessario per attivare <strong>GitHub Copilot</strong> (gratuito per studenti e privati).</p>
+<ol type="1">
+<li>Vai su <strong><a href="https://github.com">github.com</a></strong> → clicca <strong>Sign up</strong></li>
+<li>Inserisci email, password e username</li>
+<li>Verifica l’email ricevuta</li>
+<li>Completa il setup del profilo</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Piano gratuito (Copilot Free)</strong></p>
+</div>
+<div class="callout-content">
+<p>Dal 2025 GitHub offre <strong>Copilot Free</strong> per tutti gli account personali: - 2.000 completamenti di codice / mese - 50 messaggi in chat / mese - Nessuna carta di credito richiesta</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Sei studente universitario?</strong></p>
+</div>
+<div class="callout-content">
+<p>Richiedi <strong>GitHub Education</strong> (gratuito) su <a href="https://education.github.com">education.github.com</a> per avere Copilot Pro senza limiti.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="step--3-installare-lestensione-github-copilot" class="slide level2">
+<h2>Step -3: Installare l’Estensione GitHub Copilot</h2>
+<p>Con VS Code aperto:</p>
+<ol type="1">
+<li>Clicca sull’icona <strong>Estensioni</strong> nella barra laterale sinistra (Ctrl+Shift+X / ⌘+Shift+X)</li>
+<li>Cerca <strong>“GitHub Copilot”</strong></li>
+<li>Installa l’estensione di <strong>GitHub</strong> (include automaticamente <em>Copilot Chat</em>)</li>
+<li>Riavvia VS Code se richiesto</li>
+</ol>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>Login a GitHub</strong></p>
+<p>Dopo l’installazione, VS Code mostra in basso a sinistra un’icona account. Clicca → <strong>Sign in with GitHub</strong> → segui il browser.</p>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Verifica attivazione</strong></p>
+<p>In basso a destra nella barra di stato compare l’icona di Copilot (due cerchi). Se è attiva, il colore è <strong>bianco/blu</strong> — non grigio.</p>
+</div></div>
+</section>
+<section id="step--4-aprire-la-copilot-chat" class="slide level2">
+<h2>Step -4: Aprire la Copilot Chat</h2>
+<div class="columns">
+<div class="column f30" style="width:50%;">
+<p><strong>Aprire la chat</strong></p>
+<ul>
+<li>Clicca sull’icona <strong>Copilot Chat</strong> nella barra laterale sinistra (fumetto con stellina)</li>
+<li>Oppure usa la scorciatoia <strong>Ctrl+Alt+I</strong> (Windows) / <strong>⌃⌘I</strong> (macOS)</li>
+</ul>
+<p><strong>Testare che funzioni</strong></p>
+<p>Scrivi nella chat:</p>
+<pre><code>Cosa è DESeq2 e per cosa si usa?</code></pre>
+<p>Se Copilot risponde → tutto pronto! ✅</p>
+</div><div class="column f30" style="width:50%;">
+<p><strong>Dove incollare i prompt di questo corso</strong></p>
+<p>Durante il demo, ogni slide mostra un riquadro blu <strong>“Copia questo prompt”</strong>.</p>
+<ol type="1">
+<li>Copia il testo del prompt</li>
+<li>Incollalo nella <strong>Copilot Chat</strong> di VS Code</li>
+<li>Premi <strong>Invio</strong> e attendi la risposta</li>
+<li>Copia il codice generato nel tuo script R / nel terminale</li>
+</ol>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Alternative a VS Code</strong></p>
+</div>
+<div class="callout-content">
+<p>I prompt funzionano anche su <strong>ChatGPT</strong>, <strong>Claude</strong> o <strong>Gemini</strong> — ma VS Code con Copilot permette di eseguire il codice direttamente nell’editor.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
 <section>
 <section id="step-0-qc-e-trimming" class="title-slide slide level1 center" data-background-color="#555">
 <h1>Step 0: QC e Trimming</h1>
@@ -552,16 +890,16 @@ Inoltre spiega:
 </section>
 <section id="output-atteso---step-1" class="slide level2">
 <h2>Output Atteso - Step 1</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># Dovresti vedere qualcosa come:</span></span>
-<span id="cb11-2"><a></a><span class="sc">&gt;</span> <span class="fu">dim</span>(counts)</span>
-<span id="cb11-3"><a></a>[<span class="dv">1</span>] <span class="dv">22485</span>     <span class="dv">6</span></span>
-<span id="cb11-4"><a></a></span>
-<span id="cb11-5"><a></a><span class="sc">&gt;</span> <span class="fu">head</span>(metadata)</span>
-<span id="cb11-6"><a></a>  sample_id condition batch</span>
-<span id="cb11-7"><a></a><span class="dv">1</span>   sample1   control     A</span>
-<span id="cb11-8"><a></a><span class="dv">2</span>   sample2   control     A</span>
-<span id="cb11-9"><a></a><span class="dv">3</span>   sample3   control     B</span>
-<span id="cb11-10"><a></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Dovresti vedere qualcosa come:</span></span>
+<span id="cb14-2"><a></a><span class="sc">&gt;</span> <span class="fu">dim</span>(counts)</span>
+<span id="cb14-3"><a></a>[<span class="dv">1</span>] <span class="dv">22485</span>     <span class="dv">6</span></span>
+<span id="cb14-4"><a></a></span>
+<span id="cb14-5"><a></a><span class="sc">&gt;</span> <span class="fu">head</span>(metadata)</span>
+<span id="cb14-6"><a></a>  sample_id condition batch</span>
+<span id="cb14-7"><a></a><span class="dv">1</span>   sample1   control     A</span>
+<span id="cb14-8"><a></a><span class="dv">2</span>   sample2   control     A</span>
+<span id="cb14-9"><a></a><span class="dv">3</span>   sample3   control     B</span>
+<span id="cb14-10"><a></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 
@@ -623,16 +961,16 @@ Spiega il razionale:
 </section>
 <section id="output-atteso---step-2" class="slide level2">
 <h2>Output Atteso - Step 2</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Prima del filtro</span></span>
-<span id="cb14-2"><a></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(counts)</span>
-<span id="cb14-3"><a></a>[<span class="dv">1</span>] <span class="dv">22485</span></span>
-<span id="cb14-4"><a></a></span>
-<span id="cb14-5"><a></a><span class="co"># Dopo il filtro</span></span>
-<span id="cb14-6"><a></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(counts_filtered)</span>
-<span id="cb14-7"><a></a>[<span class="dv">1</span>] <span class="dv">15234</span></span>
-<span id="cb14-8"><a></a></span>
-<span id="cb14-9"><a></a><span class="co"># Riduzione</span></span>
-<span id="cb14-10"><a></a><span class="st">"32% dei geni rimossi (principalmente non espressi)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Prima del filtro</span></span>
+<span id="cb17-2"><a></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(counts)</span>
+<span id="cb17-3"><a></a>[<span class="dv">1</span>] <span class="dv">22485</span></span>
+<span id="cb17-4"><a></a></span>
+<span id="cb17-5"><a></a><span class="co"># Dopo il filtro</span></span>
+<span id="cb17-6"><a></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(counts_filtered)</span>
+<span id="cb17-7"><a></a>[<span class="dv">1</span>] <span class="dv">15234</span></span>
+<span id="cb17-8"><a></a></span>
+<span id="cb17-9"><a></a><span class="co"># Riduzione</span></span>
+<span id="cb17-10"><a></a><span class="st">"32% dei geni rimossi (principalmente non espressi)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 
@@ -816,17 +1154,17 @@ Spiega:
 </section>
 <section id="output-atteso---step-4" class="slide level2">
 <h2>Output Atteso - Step 4</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># Summary atteso</span></span>
-<span id="cb21-2"><a></a>Total genes tested<span class="sc">:</span>    <span class="dv">15234</span></span>
-<span id="cb21-3"><a></a><span class="fu">Significant</span> (padj<span class="sc">&lt;</span><span class="fl">0.05</span>, <span class="sc">|</span>LFC<span class="sc">|&gt;</span><span class="dv">1</span>)<span class="sc">:</span> <span class="dv">1247</span></span>
-<span id="cb21-4"><a></a>  <span class="sc">-</span> UP<span class="sc">-</span>regulated<span class="sc">:</span>      <span class="dv">687</span></span>
-<span id="cb21-5"><a></a>  <span class="sc">-</span> DOWN<span class="sc">-</span>regulated<span class="sc">:</span>    <span class="dv">560</span></span>
-<span id="cb21-6"><a></a></span>
-<span id="cb21-7"><a></a><span class="co"># Top genes</span></span>
-<span id="cb21-8"><a></a>      gene   baseMean  log2FC    padj</span>
-<span id="cb21-9"><a></a><span class="dv">1</span>     Xist   <span class="fl">12453.2</span>    <span class="fl">8.23</span>    <span class="fl">1e-150</span></span>
-<span id="cb21-10"><a></a><span class="dv">2</span>     Uty     <span class="fl">8234.1</span>   <span class="sc">-</span><span class="fl">6.45</span>    <span class="fl">3e-120</span></span>
-<span id="cb21-11"><a></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Summary atteso</span></span>
+<span id="cb24-2"><a></a>Total genes tested<span class="sc">:</span>    <span class="dv">15234</span></span>
+<span id="cb24-3"><a></a><span class="fu">Significant</span> (padj<span class="sc">&lt;</span><span class="fl">0.05</span>, <span class="sc">|</span>LFC<span class="sc">|&gt;</span><span class="dv">1</span>)<span class="sc">:</span> <span class="dv">1247</span></span>
+<span id="cb24-4"><a></a>  <span class="sc">-</span> UP<span class="sc">-</span>regulated<span class="sc">:</span>      <span class="dv">687</span></span>
+<span id="cb24-5"><a></a>  <span class="sc">-</span> DOWN<span class="sc">-</span>regulated<span class="sc">:</span>    <span class="dv">560</span></span>
+<span id="cb24-6"><a></a></span>
+<span id="cb24-7"><a></a><span class="co"># Top genes</span></span>
+<span id="cb24-8"><a></a>      gene   baseMean  log2FC    padj</span>
+<span id="cb24-9"><a></a><span class="dv">1</span>     Xist   <span class="fl">12453.2</span>    <span class="fl">8.23</span>    <span class="fl">1e-150</span></span>
+<span id="cb24-10"><a></a><span class="dv">2</span>     Uty     <span class="fl">8234.1</span>   <span class="sc">-</span><span class="fl">6.45</span>    <span class="fl">3e-120</span></span>
+<span id="cb24-11"><a></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 
@@ -1042,8 +1380,9 @@ Formatta come report professionale breve.</code></pre>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/revelo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p><a href="https://revelo-rnaseq.github.io/2025_RNASeq/">home page</a></p>
 </div>
 </div></div>
 

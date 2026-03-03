@@ -2,265 +2,73 @@
 title: "Setup e Installazione"
 ---
 
-## Opzione Raccomandata: Dev Container (Giorno 2 - Demo)
+## Opzione Raccomandata: Dev Container
 
-Per la sessione di demo AI il giorno 2, **non è necessario installare nulla localmente**. Usiamo un ambiente pre-configurato tramite Dev Container.
+Per la sessione di demo AI, **non è necessario installare nulla localmente**. Usiamo un ambiente pre-configurato tramite Dev Container con tutti gli strumenti già installati (R, DESeq2, Salmon, fastp, Quarto…).
 
-::: {.callout-tip}
-## Inizia in 3 passi
+### Prerequisiti (~15 minuti)
 
-1. Installa [Docker Desktop](https://www.docker.com/products/docker-desktop) e [VS Code](https://code.visualstudio.com/)
-2. Installa l'estensione **Dev Containers** in VS Code
-3. Clona il repository e apri in VS Code → clicca **"Reopen in Container"**
+#### 1. Installa Docker Desktop
 
-Tutti gli strumenti (R, DESeq2, Salmon, fastp, Quarto...) sono già installati nell'immagine!
+- **Windows**: [Download Docker Desktop per Windows](https://www.docker.com/products/docker-desktop)
+  - ⚠️ Assicurati che WSL2 sia abilitato (Docker lo chiederà durante l'installazione)
+- **macOS**: [Download Docker Desktop per Mac](https://www.docker.com/products/docker-desktop)
+  - Scegli la versione corretta: Intel Chip **oppure** Apple Silicon (M1/M2/M3)
 
-**Guida completa in italiano**: [.devcontainer/SETUP_STUDENTI.md](https://github.com/Revelo-RNASeq/2025_RNASeq/blob/main/.devcontainer/SETUP_STUDENTI.md)
-:::
+#### 2. Installa Visual Studio Code
 
----
+[Download VS Code](https://code.visualstudio.com/)
 
-## Installazione Locale (Giorno 1 / Opzionale)
+#### 3. Installa l'estensione Dev Containers
 
-Se preferisci lavorare con un'installazione locale o non puoi usare Docker, segui le istruzioni qui sotto.
+1. Apri VS Code
+2. Clicca sull'icona Extensions (quadratini sulla sinistra)
+3. Cerca: **Dev Containers**
+4. Clicca su **Install**
 
-## Requisiti Software
-
-### R e RStudio
-
-#### R (≥ 4.3.0)
-
-R è il linguaggio di programmazione che useremo per l'analisi statistica.
-
-1. Visita [https://cran.r-project.org/](https://cran.r-project.org/)
-2. Seleziona il link per il tuo sistema operativo:
-   - **Windows**: Download R for Windows → base → Download R X.X.X for Windows
-   - **macOS**: Download R for macOS → R-X.X.X.pkg
-   - **Linux**: Seleziona la tua distribuzione e segui le istruzioni
-
-#### RStudio Desktop
-
-RStudio è l'ambiente di sviluppo integrato (IDE) che useremo.
-
-1. Visita [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
-2. Scarica la versione gratuita di RStudio Desktop
-3. Installa seguendo le istruzioni per il tuo sistema operativo
-
-### Nextflow (per la Pipeline)
-
-Nextflow è necessario per eseguire la pipeline nf-core/rnaseq.
-
-#### Java (Prerequisito)
-
-Nextflow richiede Java 11 o superiore:
+### Avvio Rapido (~5 minuti)
 
 ```bash
-# Verifica se Java è installato
-java -version
+# Passo 1: Scarica il materiale del corso
+git clone https://github.com/Revelo-RNASeq/2025_RNASeq.git
+cd 2025_RNASeq
 
-# Se non installato, scarica Java da:
-# https://www.oracle.com/java/technologies/downloads/
+# Passo 2: Apri in VS Code
+code .
 ```
 
-#### Installazione Nextflow
+**Passo 3**: VS Code mostrerà un popup **"Reopen in Container"** → clicca.
+
+In alternativa: `Cmd+Shift+P` (Mac) / `Ctrl+Shift+P` (Windows) → cerca **"Dev Containers: Reopen in Container"** → premi Invio.
+
+**Passo 4**: Attendi il download (prima volta: ~3–5 minuti / ~3 GB; volte successive: ~30 secondi).
+
+✅ **Fatto!** Tutti i tool sono già installati.
+
+### Verifica Installazione
+
+Apri il terminale in VS Code (`Ctrl+\`` oppure Terminal → New Terminal) ed esegui:
 
 ```bash
-# Installa Nextflow
-curl -s https://get.nextflow.io | bash
+# Verifica strumenti bioinformatici
+salmon --version
+fastqc --version
+multiqc --version
+quarto --version
 
-# Rendi eseguibile e sposta in una cartella nel PATH
-chmod +x nextflow
-sudo mv nextflow /usr/local/bin/
+# Verifica pacchetti R
+R -e "library(DESeq2); library(tximport); cat('✅ OK\n')"
 ```
 
-### Docker (Raccomandato)
+### Problemi Comuni
 
-Docker gestisce automaticamente tutti i software bioinformatici necessari.
+**Docker non parte**
 
-- **Windows/macOS**: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- **Linux**: Segui le istruzioni per la tua distribuzione [qui](https://docs.docker.com/engine/install/)
+- *Windows*: verifica che Docker Desktop sia in esecuzione (icona nella system tray)
+- *Mac*: verifica che Docker Desktop sia in esecuzione (icona nella menu bar)
 
-**Alternativa a Docker**: Singularity (per HPC/cluster)
+**Errore "Cannot connect to Docker daemon"**: apri Docker Desktop, attendi "Docker is running", poi riprova.
 
-## Pacchetti R/Bioconductor
+**Windows – Errore WSL2**: apri PowerShell come Amministratore, esegui `wsl --install`, riavvia il computer e poi Docker Desktop.
 
-### Pacchetti Essenziali
-
-Apri RStudio ed esegui:
-
-```r
-# Installa BiocManager per gestire i pacchetti Bioconductor
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-# Core Tidyverse (per manipolazione dati e visualizzazione)
-install.packages("tidyverse")
-
-# Pacchetti Bioconductor per RNA-Seq
-BiocManager::install(c(
-  "tximport",           # Importazione dati da Salmon/Kallisto
-  "DESeq2",             # Analisi differenziale
-  "ComplexHeatmap",     # Heatmap avanzate
-  "clusterProfiler",    # Enrichment analysis
-  "AnnotationDbi",      # Annotazioni geniche
-  "org.Hs.eg.db"        # Annotazioni per Homo sapiens
-))
-```
-
-### Pacchetti Aggiuntivi (Utili)
-
-```r
-# Visualizzazione
-install.packages(c("pheatmap", "ggrepel", "RColorBrewer", "viridis"))
-
-# Interattività
-install.packages("plotly")
-
-# Dataset di esempio
-BiocManager::install("airway")
-```
-
-## Verifica Installazione
-
-### Test R/Bioconductor
-
-```r
-# Carica le librerie
-library(tximport)
-library(DESeq2)
-library(tidyverse)
-
-# Se nessun errore appare, tutto funziona! ✅
-print("Setup completato correttamente!")
-```
-
-### Test Nextflow
-
-```bash
-# Verifica installazione
-nextflow -version
-
-# Dovrebbe mostrare qualcosa come:
-#   nextflow version 23.10.0.xxxx
-```
-
-### Test Docker
-
-```bash
-# Verifica installazione
-docker --version
-
-# Test di funzionamento
-docker run hello-world
-```
-
-## Struttura Progetto
-
-Durante il corso, organizzeremo il lavoro così:
-
-```
-rnaseq-course/
-├── data/                 # FASTQ files, samplesheet
-│   ├── fastq_SUBSET/
-│   └── samplesheet.csv
-├── results/              # Output nf-core/rnaseq
-│   ├── multiqc/
-│   ├── star_salmon/
-│   └── ...
-├── analysis/             # Script R per analisi
-│   ├── 01_import.R
-│   ├── 02_deseq2.R
-│   └── 03_visualization.R
-└── plots/                # Grafici finali
-```
-
-Crea questa struttura:
-
-```r
-# In RStudio
-dir.create("rnaseq-course")
-setwd("rnaseq-course")
-dir.create("data")
-dir.create("results")
-dir.create("analysis")
-dir.create("plots")
-```
-
-## Dataset del Corso
-
-I dati di esempio (dataset **airway**) saranno forniti durante il corso e includono:
-
-- 4 campioni paired-end FASTQ
-- Metadata con informazioni sperimentali
-- Indice trascrittoma pre-calcolato
-
-**Download**: Link verrà fornito il giorno del corso.
-
-## Problemi Comuni
-
-### Windows: Path troppo lungo
-
-Nextflow può avere problemi con path lunghi su Windows. Soluzioni:
-
-1. Lavora in `C:\rnaseq\` invece di cartelle profonde
-2. Abilita Long Path Support: [Guida Microsoft](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
-
-### macOS: Permessi Docker
-
-Se Docker non parte:
-
-```bash
-# Aggiungi il tuo utente al gruppo docker (solo Linux)
-sudo usermod -aG docker $USER
-```
-
-Poi riavvia il sistema.
-
-### Linux: Librerie di Sistema
-
-Per compilare alcuni pacchetti R:
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev
-
-# Fedora/RedHat
-sudo yum install libcurl-devel openssl-devel libxml2-devel
-```
-
-## Risorse Hardware
-
-### Requisiti Minimi
-
-- **RAM**: 8 GB (16 GB raccomandati)
-- **Spazio disco**: 50 GB liberi per pipeline + dati
-- **CPU**: 4 core (8 raccomandati)
-
-### Per Grandi Dataset
-
-Se lavori con molti campioni o genomi grandi:
-
-- Usa un cluster HPC con Singularity
-- Considera servizi cloud (AWS, Google Cloud con batch)
-
-## Supporto
-
-Se hai problemi:
-
-1. Consulta la [sezione Problemi Comuni](#problemi-comuni)
-2. Cerca l'errore su [Bioconductor Support](https://support.bioconductor.org/)
-3. Chiedi sul canale Slack del corso
-4. Contatta: [email del docente]
-
-## Checklist Pre-Corso
-
-- [ ] Installato R (≥ 4.3.0) e RStudio
-- [ ] Installato Nextflow
-- [ ] Installato Docker/Singularity
-- [ ] Installati pacchetti R/Bioconductor essenziali
-- [ ] Verificato funzionamento con test code
-- [ ] Creata struttura cartelle progetto
-- [ ] Scaricati dataset del corso (link fornito)
-- [ ] Unito al canale Slack (link fornito)
-
-**Pronto per iniziare! 🧬🚀**
+**Spazio su disco insufficiente**: servono almeno **10 GB liberi**.

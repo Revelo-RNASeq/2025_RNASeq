@@ -24,14 +24,10 @@ website:
           - text: "Pipeline nf-core/rnaseq"
             href: materials/03_pipeline_nfcore.qmd
           - text: "---Giorno 2: Analisi in R---"
+          - text: "Analisi in R (Import, DESeq2, Visualizzazione)"
+            href: https://revelo-rnaseq.github.io/2024_RNASeq_book/
           - text: "Setup R e Tools"
             href: materials/04_setup_R.qmd
-          - text: "Import Dati (tximport)"
-            href: materials/05_import_dati.qmd
-          - text: "Analisi Differenziale (DESeq2)"
-            href: materials/06_deseq2.qmd
-          - text: "Visualizzazione Risultati"
-            href: materials/07_visualizzazione.qmd
           - text: "Demo AI-Prompts"
             href: materials/08_demo_prompts.qmd
       - text: "Risorse"
