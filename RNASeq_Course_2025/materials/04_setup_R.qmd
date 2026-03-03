@@ -29,7 +29,7 @@ library(quarto)
 ::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
 [Strumenti di Analisi]{style="font-size: 100px; font-weight: bold; line-height: 1em; margin: 0px;"}
 
-[RStudio e AI-Assisted Coding]{style="font-size: 50px;font-weight: bold;"}
+[VS Code e AI-Assisted Coding]{style="font-size: 50px;font-weight: bold;"}
 
 <br> <br>
 
@@ -53,15 +53,15 @@ L'analisi bioinformatica **deve** essere riproducibile.
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
-[L'Ambiente RStudio]{.subtit}
+[L'Ambiente VS Code]{.subtit}
 
 Non dovete "imparare a programmare" da zero per analizzare i vostri dati.
-RStudio è la nostra "cabina di pilotaggio":
+VS Code è la nostra "cabina di pilotaggio":
 
-1.  **Console**: Dove R esegue i comandi.
-2.  **Script/Quarto**: Dove scriviamo il nostro "diario di bordo" (codice + testo).
-3.  **Environment**: La lista dei nostri dati (tabelle, variabili).
-4.  **Plots/Help**: Dove vediamo i risultati grafici.
+1.  **Terminale**: Dove R (e gli altri tool bioinformatici) esegue i comandi.
+2.  **Editor**: Dove scriviamo il nostro "diario di bordo" (codice + testo Quarto).
+3.  **Explorer**: La navigazione tra file e cartelle del progetto.
+4.  **Output/Plots**: Dove vediamo i risultati grafici (estensione R).
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -89,7 +89,7 @@ Invece di memorizzare la sintassi, oggi usiamo l'AI (es. Copilot, ChatGPT) come 
 
 1.  **Chiedi**: "Voglio caricare questi 3 file CSV e unirli in una unica tabella basata sulla colonna 'GeneID'".
 2.  **Verifica**: L'AI genera il codice. Tu controlli che i file siano quelli giusti.
-3.  **Esegui**: Fai girare il codice in RStudio.
+3.  **Esegui**: Fai girare il codice in VS Code.
 4.  **Itera**: "Ora fammi un grafico a dispersione di questi dati".
 
 Nel laboratorio useremo delle "GitHub Skills" preconfezionate per guidarvi in questo processo.
