@@ -48,6 +48,127 @@ File disponibili in `data/`:
 
 ---
 
+# Setup: VS Code e GitHub Copilot {background-color="#2D2D2D"}
+
+---
+
+## Step -1: Installare VS Code
+
+**Visual Studio Code** è l'editor gratuito di Microsoft in cui eseguiremo il demo.
+
+**Download**: [code.visualstudio.com](https://code.visualstudio.com)
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**macOS**
+
+1. Scarica il file `.zip` per Apple Silicon o Intel
+2. Estrai e trascina **Visual Studio Code** nella cartella **Applicazioni**
+3. Al primo avvio: tasto destro → *Apri* (per bypassare Gatekeeper)
+:::
+::: {.column width="50%" .f30}
+**Windows**
+
+1. Scarica il file `.exe` (User Installer)
+2. Esegui il setup e segui la procedura guidata
+3. Opzione consigliata: spunta *"Aggiungi al PATH"* durante l'installazione
+:::
+::::
+
+::: {.callout-note}
+## Verifica installazione
+Apri VS Code: dovresti vedere la schermata di benvenuto **Welcome**.
+:::
+
+---
+
+## Step -2: Creare un Account GitHub
+
+GitHub è necessario per attivare **GitHub Copilot** (gratuito per studenti e privati).
+
+1. Vai su **[github.com](https://github.com)** → clicca **Sign up**
+2. Inserisci email, password e username
+3. Verifica l'email ricevuta
+4. Completa il setup del profilo
+
+::: {.callout-important}
+## Piano gratuito (Copilot Free)
+Dal 2025 GitHub offre **Copilot Free** per tutti gli account personali:
+- 2.000 completamenti di codice / mese
+- 50 messaggi in chat / mese
+- Nessuna carta di credito richiesta
+:::
+
+::: {.callout-tip}
+## Sei studente universitario?
+Richiedi **GitHub Education** (gratuito) su [education.github.com](https://education.github.com) per avere Copilot Pro senza limiti.
+:::
+
+---
+
+## Step -3: Installare l'Estensione GitHub Copilot
+
+Con VS Code aperto:
+
+1. Clicca sull'icona **Estensioni** nella barra laterale sinistra (Ctrl+Shift+X / ⌘+Shift+X)
+2. Cerca **"GitHub Copilot"**
+3. Installa l'estensione di **GitHub** (include automaticamente *Copilot Chat*)
+4. Riavvia VS Code se richiesto
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Login a GitHub**
+
+Dopo l'installazione, VS Code mostra in basso a sinistra un'icona account.
+Clicca → **Sign in with GitHub** → segui il browser.
+:::
+::: {.column width="50%" .f30}
+**Verifica attivazione**
+
+In basso a destra nella barra di stato compare l'icona di Copilot (due cerchi).
+Se è attiva, il colore è **bianco/blu** — non grigio.
+:::
+::::
+
+---
+
+## Step -4: Aprire la Copilot Chat
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Aprire la chat**
+
+- Clicca sull'icona **Copilot Chat** nella barra laterale sinistra (fumetto con stellina)
+- Oppure usa la scorciatoia **Ctrl+Alt+I** (Windows) / **⌃⌘I** (macOS)
+
+**Testare che funzioni**
+
+Scrivi nella chat:
+```
+Cosa è DESeq2 e per cosa si usa?
+```
+Se Copilot risponde → tutto pronto! ✅
+:::
+::: {.column width="50%" .f30}
+**Dove incollare i prompt di questo corso**
+
+Durante il demo, ogni slide mostra un riquadro blu **"Copia questo prompt"**.
+
+1. Copia il testo del prompt
+2. Incollalo nella **Copilot Chat** di VS Code
+3. Premi **Invio** e attendi la risposta
+4. Copia il codice generato nel tuo script R / nel terminale
+
+:::
+::::
+
+::: {.callout-note}
+## Alternative a VS Code
+I prompt funzionano anche su **ChatGPT**, **Claude** o **Gemini** — ma VS Code con Copilot permette di eseguire il codice direttamente nell'editor.
+:::
+
+---
+
 # Step 0: QC e Trimming {background-color="#555"}
 
 ---
