@@ -48,6 +48,176 @@ File disponibili in `data/`:
 
 ---
 
+# Setup: Dev Container {background-color="#1A1A2E"}
+
+---
+
+## Perché il Dev Container?
+
+I prompt di questo corso funzionano all'interno di un **Dev Container**: un ambiente pre-configurato che gira in Docker.
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Vantaggi**
+
+- ✅ Tutti i tool già installati: `salmon`, `fastp`, `R`, `DESeq2`...
+- ✅ Stesso ambiente per tutti: niente "sul mio PC funziona"
+- ✅ Nessuna installazione manuale di dipendenze
+- ✅ Si azzera e riparte facilmente
+:::
+::: {.column width="50%" .f30}
+**Cosa include il container**
+
+- Bioinformatica: `salmon`, `fastp`, `multiqc`, `fastqc`
+- R + Bioconductor: `DESeq2`, `tximport`, `ComplexHeatmap`
+- Quarto (per il materiale del corso)
+- GitHub Copilot (attivato separatamente)
+:::
+::::
+
+::: {.callout-important}
+## Prerequisiti di sistema
+Servono almeno **10 GB liberi** su disco e una buona connessione Internet per il primo download (~3 GB).
+:::
+
+---
+
+## Step A: Installare Docker Desktop
+
+Docker è il motore che esegue il container.
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**macOS**
+
+1. Scarica [Docker Desktop per Mac](https://www.docker.com/products/docker-desktop)
+   - Scegli: **Intel Chip** oppure **Apple Silicon (M1/M2/M3)**
+2. Apri il `.dmg` → trascina Docker nelle **Applicazioni**
+3. Avvia Docker Desktop → segui la procedura guidata
+4. Attendi che l'icona nella menu bar mostri **"Docker is running"**
+:::
+::: {.column width="50%" .f30}
+**Windows**
+
+1. Scarica [Docker Desktop per Windows](https://www.docker.com/products/docker-desktop)
+   - ⚠️ **WSL2 deve essere abilitato** (Docker lo chiede durante l'installazione)
+   - Se manca: apri PowerShell come Amministratore → `wsl --install` → riavvia
+2. Esegui il `.exe` → segui la procedura guidata
+3. Riavvia il PC se richiesto
+4. Avvia Docker Desktop → attendi **"Docker is running"**
+:::
+::::
+
+---
+
+## Step B: Installare l'Estensione Dev Containers
+
+Con VS Code aperto:
+
+1. Clicca sull'icona **Estensioni** nella barra laterale sinistra (`Ctrl+Shift+X` / `⌘+Shift+X`)
+2. Cerca **"Dev Containers"**
+3. Installa l'estensione di **Microsoft**
+4. Nessun riavvio necessario
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Verifica installazione**
+
+Premi `Ctrl+Shift+P` (Windows) o `Cmd+Shift+P` (Mac) e cerca "Dev Containers" — dovresti vedere le opzioni disponibili, tra cui **"Reopen in Container"**.
+:::
+::: {.column width="50%" .f30}
+**Nota**
+
+L'estensione **Dev Containers** è separata da **GitHub Copilot**. Entrambe sono necessarie per questo corso.
+:::
+::::
+
+---
+
+## Step C: Scaricare il Materiale del Corso
+
+Apri un terminale e clona il repository:
+
+```bash
+git clone https://github.com/Revelo-RNASeq/2025_RNASeq.git
+cd 2025_RNASeq
+code .
+```
+
+::: {.callout-tip}
+## Alternativa senza git
+Se non hai git installato, scarica lo ZIP dalla pagina GitHub del corso:
+**Code → Download ZIP** → estrai la cartella → aprila in VS Code con **File → Open Folder**
+:::
+
+---
+
+## Step D: Aprire nel Container
+
+:::: {.columns}
+::: {.column width="50%" .f30}
+**Metodo 1 — Popup automatico**
+
+VS Code mostra in basso a destra:
+
+**"Reopen in Container"** → clicca
+
+**Metodo 2 — Command Palette**
+
+1. `Ctrl+Shift+P` (Windows) / `Cmd+Shift+P` (Mac)
+2. Cerca: **"Dev Containers: Reopen in Container"**
+3. Premi **Invio**
+:::
+::: {.column width="50%" .f30}
+**Prima apertura**
+
+- Download image: **~3–5 minuti** (~3 GB)
+- VS Code si riapre all'interno del container
+- Il terminale mostra un prompt diverso → sei nel container!
+
+**Aperture successive**
+
+- Avvio in ~30 secondi
+- I file del corso sono persistenti
+:::
+::::
+
+---
+
+## Step E: Verifica Installazione
+
+Apri il terminale in VS Code (`` Ctrl+` `` / `` ⌃` ``) ed esegui:
+
+```bash
+# Verifica strumenti bioinformatici
+salmon --version
+fastqc --version
+multiqc --version
+quarto --version
+
+# Verifica R e pacchetti Bioconductor
+R -e "library(DESeq2); library(tximport); cat('✅ OK\n')"
+```
+
+::: {.callout-note}
+## Tutto pronto!
+Se vedi le versioni senza errori, l'ambiente è configurato correttamente. Ora puoi proseguire con l'attivazione di **GitHub Copilot**.
+:::
+
+---
+
+## Problemi Comuni
+
+| Problema | Soluzione |
+|----------|-----------|
+| Docker non parte | Verifica che Docker Desktop sia in esecuzione (icona nella menu bar / system tray) |
+| "Cannot connect to Docker daemon" | Apri Docker Desktop, attendi "Docker is running", riprova |
+| Errore WSL2 (Windows) | Apri PowerShell come Admin → `wsl --install` → riavvia |
+| Spazio insufficiente | Libera almeno 10 GB su disco |
+| Download lento | Normale la prima volta (~3 GB) — se interrotto, VS Code riprende automaticamente |
+
+---
+
 # Setup: VS Code e GitHub Copilot {background-color="#2D2D2D"}
 
 ---
