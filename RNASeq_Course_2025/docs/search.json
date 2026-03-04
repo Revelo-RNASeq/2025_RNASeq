@@ -1250,7 +1250,7 @@
     "href": "materials/04_setup_R.html#section-4",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Un nuovo modo di lavorare\nInvece di memorizzare la sintassi, oggi usiamo l’AI (es. Copilot, ChatGPT) come pair programmer.\nIl vostro ruolo: - Capire i concetti biologici e statistici (questo corso!). - Saper chiedere (Prompt Engineering). - Saper valutare se il risultato ha senso (Critical Thinking).\nIl ruolo dell’AI: - Scrivere il codice “noioso” (sintassi). - Risolvere errori (debugging). - Spiegare cosa fa una funzione."
+    "text": "Un nuovo modo di lavorare\nInvece di memorizzare la sintassi, oggi usiamo l’AI (es. Copilot, ChatGPT) come pair programmer.\nIl vostro ruolo:\n\nCapire i concetti biologici e statistici (questo corso!).\nSaper chiedere (Prompt Engineering).\nSaper valutare se il risultato ha senso (Critical Thinking).\n\nIl ruolo dell’AI:\n\nScrivere il codice “noioso” (sintassi).\nRisolvere errori (debugging).\nSpiegare cosa fa una funzione."
   },
   {
     "objectID": "materials/04_setup_R.html#section-5",
