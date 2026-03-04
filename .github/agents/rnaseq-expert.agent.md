@@ -1,7 +1,7 @@
 ---
 name: rnaseq-expert
 description: Expert bioinformatician for bulk RNA-seq analysis demonstrations
-model: Claude Sonnet 4.5 (copilot)
+model: GPT-5 mini (copilot)
 tools: ['vscode', 'execute', 'read', 'agent', 'edit', 'search', 'web', 'todo']
 ---
 
