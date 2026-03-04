@@ -580,6 +580,7 @@ Includi anche una spiegazione:
 :::
 
 **Cosa verificare**:
+
 - Le librerie si caricano senza errori?
 - La cartella results è stata creata?
 
@@ -607,6 +608,7 @@ Inoltre spiega:
 :::
 
 **Cosa verificare**:
+
 - I dati hanno le dimensioni attese?
 - I nomi campioni coincidono?
 
@@ -741,6 +743,7 @@ Aggiungi una guida alla lettura:
 :::
 
 **Cosa cercare nella PCA**:
+
 - I gruppi si separano? → effetto biologico
 - Ci sono outlier? → problemi tecnici
 - Il batch confonde? → necessità di correzione
@@ -814,6 +817,7 @@ Spiega l'output:
 :::
 
 **Interpretazione LFC**:
+
 - LFC > 0: gene UP in treatment
 - LFC < 0: gene DOWN in treatment
 
@@ -839,6 +843,7 @@ Per ogni grafico, spiegami:
 :::
 
 **Check qualità**:
+
 - Dispersion: curva decrescente → buon fit
 - P-value: uniforme + picco a 0 → segnale vero
 - MA: simmetria → no bias sistematici

@@ -235,14 +235,14 @@
     "href": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 1.1: Setup Ambiente",
-    "text": "Prompt 1.1: Setup Ambiente\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSto iniziando un'analisi RNA-seq in R. Ho bisogno di:\n1. Caricare le librerie necessarie (DESeq2, tximport, ggplot2, pheatmap)\n2. Impostare un seed per la riproducibilità\n3. Creare una cartella 'results' per salvare i plot\n\nGenera il codice di setup.\nIncludi anche una spiegazione:\n- Perché carichiamo queste specifiche librerie?\n- Cosa ci aspettiamo di vedere eseguendo il setup?\n\n\n\nCosa verificare: - Le librerie si caricano senza errori? - La cartella results è stata creata?"
+    "text": "Prompt 1.1: Setup Ambiente\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSto iniziando un'analisi RNA-seq in R. Ho bisogno di:\n1. Caricare le librerie necessarie (DESeq2, tximport, ggplot2, pheatmap)\n2. Impostare un seed per la riproducibilità\n3. Creare una cartella 'results' per salvare i plot\n\nGenera il codice di setup.\nIncludi anche una spiegazione:\n- Perché carichiamo queste specifiche librerie?\n- Cosa ci aspettiamo di vedere eseguendo il setup?\n\n\n\nCosa verificare:\n\nLe librerie si caricano senza errori?\nLa cartella results è stata creata?"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-1.2-caricamento-dati",
     "href": "materials/08_demo_prompts.html#prompt-1.2-caricamento-dati",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 1.2: Caricamento Dati",
-    "text": "Prompt 1.2: Caricamento Dati\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo due file CSV:\n- 'data/counts_matrix.csv': matrice di conteggi (geni x campioni)\n- 'data/sample_metadata.csv': metadati campioni (colonne: sample_id, condition, batch)\n\nCarica questi file e:\n1. Mostra le prime 5 righe di ogni tabella\n2. Verifica che i nomi dei campioni corrispondano tra i due file\n3. Converti 'condition' in un fattore con livelli: control, treatment\n\nInoltre spiega:\n- Perché serve convertire 'condition' in factor?\n- Perché controllare l'ordine dei campioni è critico in DESeq2?\n\n\n\nCosa verificare: - I dati hanno le dimensioni attese? - I nomi campioni coincidono?"
+    "text": "Prompt 1.2: Caricamento Dati\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo due file CSV:\n- 'data/counts_matrix.csv': matrice di conteggi (geni x campioni)\n- 'data/sample_metadata.csv': metadati campioni (colonne: sample_id, condition, batch)\n\nCarica questi file e:\n1. Mostra le prime 5 righe di ogni tabella\n2. Verifica che i nomi dei campioni corrispondano tra i due file\n3. Converti 'condition' in un fattore con livelli: control, treatment\n\nInoltre spiega:\n- Perché serve convertire 'condition' in factor?\n- Perché controllare l'ordine dei campioni è critico in DESeq2?\n\n\n\nCosa verificare:\n\nI dati hanno le dimensioni attese?\nI nomi campioni coincidono?"
   },
   {
     "objectID": "materials/08_demo_prompts.html#output-atteso---step-1",
@@ -284,7 +284,7 @@
     "href": "materials/08_demo_prompts.html#prompt-3.2-pca",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 3.2: PCA",
-    "text": "Prompt 3.2: PCA\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un PCA plot dei campioni VST-normalizzati:\n1. Usa i top 500 geni più variabili\n2. Colora per 'condition'\n3. Aggiungi ellissi di confidenza al 95%\n4. Mostra la varianza spiegata da PC1 e PC2 negli assi\n5. Salva come 'results/pca_plot.pdf'\n\nIl plot deve essere publication-ready.\nAggiungi una guida alla lettura:\n- Cosa significa se i campioni si sovrappongono?\n- Cosa indica la percentuale di varianza sugli assi?\n\n\n\nCosa cercare nella PCA: - I gruppi si separano? → effetto biologico - Ci sono outlier? → problemi tecnici - Il batch confonde? → necessità di correzione"
+    "text": "Prompt 3.2: PCA\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un PCA plot dei campioni VST-normalizzati:\n1. Usa i top 500 geni più variabili\n2. Colora per 'condition'\n3. Aggiungi ellissi di confidenza al 95%\n4. Mostra la varianza spiegata da PC1 e PC2 negli assi\n5. Salva come 'results/pca_plot.pdf'\n\nIl plot deve essere publication-ready.\nAggiungi una guida alla lettura:\n- Cosa significa se i campioni si sovrappongono?\n- Cosa indica la percentuale di varianza sugli assi?\n\n\n\nCosa cercare nella PCA:\n\nI gruppi si separano? → effetto biologico\nCi sono outlier? → problemi tecnici\nIl batch confonde? → necessità di correzione"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-3.3-sample-correlation-heatmap",
@@ -305,14 +305,14 @@
     "href": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analysis",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 4.1: DESeq2 Analysis",
-    "text": "Prompt 4.1: DESeq2 Analysis\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nEsegui l'analisi differenziale con DESeq2:\n1. Imposta 'control' come livello di riferimento\n2. Esegui DESeq()\n3. Estrai i risultati per treatment vs control\n4. Applica shrinkage con apeglm (se disponibile) o normal\n5. Mostra il summary dei risultati\n\nSpiega l'output:\n- Cosa indica il **log2FoldChange** positivo vs negativo?\n- Qual è la differenza pratica tra **pvalue** e **padj**?\n\n\n\nInterpretazione LFC: - LFC &gt; 0: gene UP in treatment - LFC &lt; 0: gene DOWN in treatment"
+    "text": "Prompt 4.1: DESeq2 Analysis\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nEsegui l'analisi differenziale con DESeq2:\n1. Imposta 'control' come livello di riferimento\n2. Esegui DESeq()\n3. Estrai i risultati per treatment vs control\n4. Applica shrinkage con apeglm (se disponibile) o normal\n5. Mostra il summary dei risultati\n\nSpiega l'output:\n- Cosa indica il **log2FoldChange** positivo vs negativo?\n- Qual è la differenza pratica tra **pvalue** e **padj**?\n\n\n\nInterpretazione LFC:\n\nLFC &gt; 0: gene UP in treatment\nLFC &lt; 0: gene DOWN in treatment"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-4.2-diagnostica",
     "href": "materials/08_demo_prompts.html#prompt-4.2-diagnostica",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 4.2: Diagnostica",
-    "text": "Prompt 4.2: Diagnostica\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea i plot diagnostici di DESeq2:\n1. Dispersion plot (plotDispEsts) - verifica il fit del modello\n2. P-value histogram - verifica la distribuzione attesa\n3. MA plot con highlight dei geni significativi\n\nSalva ogni plot in 'results/'.\nPer ogni grafico, spiegami:\n- Cosa rappresenta.\n- \"Goodness\": che forma ha un buon grafico?\n- \"Badness\": quali pattern indicano problemi?\n\n\n\nCheck qualità: - Dispersion: curva decrescente → buon fit - P-value: uniforme + picco a 0 → segnale vero - MA: simmetria → no bias sistematici"
+    "text": "Prompt 4.2: Diagnostica\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea i plot diagnostici di DESeq2:\n1. Dispersion plot (plotDispEsts) - verifica il fit del modello\n2. P-value histogram - verifica la distribuzione attesa\n3. MA plot con highlight dei geni significativi\n\nSalva ogni plot in 'results/'.\nPer ogni grafico, spiegami:\n- Cosa rappresenta.\n- \"Goodness\": che forma ha un buon grafico?\n- \"Badness\": quali pattern indicano problemi?\n\n\n\nCheck qualità:\n\nDispersion: curva decrescente → buon fit\nP-value: uniforme + picco a 0 → segnale vero\nMA: simmetria → no bias sistematici"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-4.3-filtraggio-risultati",
