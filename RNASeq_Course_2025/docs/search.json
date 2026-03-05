@@ -249,7 +249,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-1",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 1",
-    "text": "Output Atteso - Step 1\n# Dovresti vedere qualcosa come:\n&gt; dim(counts)\n[1] 22485     6\n\n&gt; head(metadata)\n  sample_id condition batch\n1   sample1   control     A\n2   sample2   control     A\n3   sample3   control     B\n..."
+    "text": "Output Atteso - Step 1\n&gt; dim(se)\n[1] 63677     8\n\n&gt; colData(se)[, c(\"cell\", \"dex\")]\nDataFrame with 8 rows and 2 columns\n                  cell       dex\n           &lt;character&gt;  &lt;factor&gt;\nSRR1039508     N61311    untrt\nSRR1039509     N61311    trt\nSRR1039512     N052611   untrt\nSRR1039513     N052611   trt\nSRR1039516     N080611   untrt\nSRR1039517     N080611   trt\nSRR1039520     N061011   untrt\nSRR1039521     N061011   trt\n\n&gt; dds\nclass: DESeqDataSet\ndim: 63677 8\ndesign: ~cell + dex\n\n\n\n\n\n\nOggetti R: sessione vs disco\n\n\nIn R gli oggetti (dds, vsd, res…) vivono solo in memoria. Se chiudi e riapri R, devi ricrearli da zero — oppure ricaricarli da file .rds.\nRegola pratica: salva un checkpoint saveRDS() dopo ogni step computazionalmente costoso."
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-2.1-statistiche-base",
@@ -270,7 +270,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-2",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 2",
-    "text": "Output Atteso - Step 2\n# Prima del filtro\n&gt; nrow(counts)\n[1] 22485\n\n# Dopo il filtro\n&gt; nrow(counts_filtered)\n[1] 15234\n\n# Riduzione\n\"32% dei geni rimossi (principalmente non espressi)\""
+    "text": "Output Atteso - Step 2\n# Prima del pre-filtering\n&gt; nrow(dds)\n[1] 63677\n\n# Dopo il pre-filtering (&gt;= 10 counts in &gt;= 4 campioni)\n&gt; nrow(dds)\n[1] ~25000  # circa il 40% dei geni passa il filtro\n\n# Library size (conteggi totali per campione)\nSRR1039508  SRR1039509  SRR1039512  SRR1039513\n 20637971    18809481    25348649    15163415\n\nSRR1039516  SRR1039517  SRR1039520  SRR1039521\n 24448408    30818215    19126151    21164133"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-3.1-creazione-deseqdataset",
@@ -298,7 +298,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-3",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 3",
-    "text": "Output Atteso - Step 3\n\n\nPCA Plot - PC1 separa control vs treatment - Campioni dello stesso gruppo vicini - Varianza spiegata: PC1 ~60%, PC2 ~15%\n\nCorrelation Heatmap - Blocchi diagonali chiari - Correlazione intra-gruppo &gt; 0.95 - Clustering coerente con condizioni"
+    "text": "Output Atteso - Step 3\n\n\nPCA Plot\n\nPC1 (~50% varianza): separa le linee cellulari\nPC2 (~25% varianza): separa trt vs untrt\n4 “cluster” di 2 campioni = 4 coppie per linea cellulare\nI replicati biologici sono le coppie per linea\n\n\nSample Distance Heatmap\n\nLe coppie untrt/trt della stessa linea cellulare si raggruppano insieme\nDistanza intra-linea (diversa condizione) &lt; distanza inter-linea\nNessun outlier atteso → tutti i campioni di buona qualità"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analysis",
@@ -326,7 +326,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-4",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 4",
-    "text": "Output Atteso - Step 4\n# Summary atteso\nTotal genes tested:    15234\nSignificant (padj&lt;0.05, |LFC|&gt;1): 1247\n  - UP-regulated:      687\n  - DOWN-regulated:    560\n\n# Top genes\n      gene   baseMean  log2FC    padj\n1     Xist   12453.2    8.23    1e-150\n2     Uty     8234.1   -6.45    3e-120\n..."
+    "text": "Output Atteso - Step 4\n&gt; resultsNames(dds)\n[1] \"Intercept\"          \"cell_N052611_vs_N061011\"\n[3] \"cell_N080611_vs_N061011\" \"cell_N61311_vs_N061011\"\n[5] \"dex_trt_vs_untrt\"\n\n&gt; summary(res, alpha=0.05)\nout of ~25000 with nonzero total read count\nadjusted p-value &lt; 0.05\nLFC &gt; 0 (up)   : 747, ~3%\nLFC &lt; 0 (down) : 566, ~2.3%\noutliers [1]   :   0, 0%\nlow counts [2] :   0, 0%\n\n# Top gene significativo atteso: CRISPLD2 (up), DUSP1 (up)"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-5.1-volcano-plot",
@@ -354,21 +354,21 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-5",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 5",
-    "text": "Output Atteso - Step 5\nI plot salvati in results/:\n\n\n\nFile\nContenuto\n\n\n\n\nvolcano_plot.pdf\nVolcano con geni etichettati\n\n\nheatmap_top50.pdf\nHeatmap clustered\n\n\ntop_genes_boxplot.pdf\nBoxplot 2x2\n\n\npca_plot.pdf\nPCA campioni\n\n\nsample_correlation.pdf\nHeatmap correlazione"
+    "text": "Output Atteso - Step 5\nI plot salvati in results/:\n\n\n\nFile\nContenuto\n\n\n\n\nMA_comparison.pdf\nMA plot MLE vs apeglm affiancati\n\n\nMA_plot.pdf\nMA plot shrinkato personalizzato\n\n\ntop_gene_counts.pdf\nConteggi CRISPLD2 per linea cellulare\n\n\nvolcano_plot.pdf\nVolcano con top geni etichettati\n\n\nheatmap_top30.pdf\nHeatmap z-score geni DE\n\n\npca_plot.pdf\nPCA con colore dex + forma cell\n\n\nsample_distances.pdf\nHeatmap distanze sample-to-sample"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
     "href": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 6.1: Summary Report",
-    "text": "Prompt 6.1: Summary Report\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nGenera un report summary dell'analisi in formato markdown:\n1. Descrizione dataset (campioni, condizioni)\n2. Filtri applicati (geni rimossi)\n3. Risultati QC (PCA interpretation, outlier?)\n4. Risultati DE (numero geni UP/DOWN)\n5. Top 10 geni per pathway relevance (se conosci la biologia)\n6. Lista dei file generati\n\nFormatta come report professionale breve."
+    "text": "Prompt 6.1: Summary Report\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nGenera un report summary dell'analisi RNA-seq (dataset airway) in markdown:\n\n1. Descrizione dataset:\n   - 8 campioni, 4 linee cellulari, trattamento con desametasone\n   - Design: ~ cell + dex\n\n2. Pre-filtering:\n   - Geni iniziali: 63.677; Geni dopo filtro: ~25.000\n   - Critero: &gt;= 10 counts in &gt;= 4 campioni\n\n3. QC esplorativa:\n   - PCA: PC1 separa per linea cellulare, PC2 per trattamento\n   - Sample distances: coppie untrt/trt raggruppate per linea\n\n4. Risultati DE (padj &lt; 0.05, |LFC| &gt; 1):\n   - UP-regulated: [numero]\n   - DOWN-regulated: [numero]\n   - Top 5 geni UP e DOWN con interpretazione biologica\n\n5. Lista di tutti i file generati in results/\n\nFormatta come report professionale in italiano.\nAggiungi una sezione 'Limitazioni' che discuta cosa NON si può concludere\nda questo esperimento in vitro."
   },
   {
     "objectID": "materials/08_demo_prompts.html#checklist-finale",
     "href": "materials/08_demo_prompts.html#checklist-finale",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Checklist Finale ✅",
-    "text": "Checklist Finale ✅\nPrima di concludere, verifica:\n\nLa PCA mostra separazione tra gruppi?\nIl p-value histogram ha la forma attesa?\nI geni DE hanno senso biologico?\nTutti i plot sono salvati?\nIl codice è documentato?"
+    "text": "Checklist Finale ✅\nPrima di concludere, verifica:\n\ndim(dds) dopo pre-filtering mostra ~25.000 geni?\nPCA mostra separazione per linea cellulare (PC1) e trattamento (PC2)?\nDispersion plot ha la forma “a uncino” decrescente attesa?\nIl p-value histogram ha picco vicino a 0 + fondo piatto?\nI top geni DE includono CRISPLD2, DUSP1 (noti target glucocorticoidi)?\nTutti i plot sono salvati in results/?\nIl codice R è documentato con commenti?"
   },
   {
     "objectID": "materials/08_demo_prompts.html#struttura-di-un-buon-prompt",
@@ -389,7 +389,7 @@
     "href": "materials/08_demo_prompts.html#esercizio-finale",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Esercizio Finale",
-    "text": "Esercizio Finale\nUsando le stesse tecniche, prova a:\n\nCreare un MA plot personalizzato\nFare clustering gerarchico dei geni (non campioni)\nEsportare una tabella Excel con geni annotati\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati!"
+    "text": "Esercizio Finale\nUsando le stesse tecniche sul dataset airway, prova a:\n\nTestare un design ridotto ~ dex (senza cell) e confrontare il numero di geni DE — quanti si perdono senza controllare per la linea cellulare?\nCreare un heatmap dei pathway usando clusterProfiler per arricchimento GO dei geni UP vs DOWN\nEsportare una tabella Excel annotata con simbolo genico e descrizione usando org.Hs.eg.db\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati biologici!"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#TitleSlide",
@@ -1405,5 +1405,124 @@
     "title": "Setup e Installazione",
     "section": "Problemi Comuni",
     "text": "Problemi Comuni\n\nWindows: Path troppo lungo\nNextflow può avere problemi con path lunghi su Windows. Soluzioni:\n\nLavora in C:\\rnaseq\\ invece di cartelle profonde\nAbilita Long Path Support: Guida Microsoft\n\n\n\nmacOS: Permessi Docker\nSe Docker non parte:\n# Aggiungi il tuo utente al gruppo docker (solo Linux)\nsudo usermod -aG docker $USER\nPoi riavvia il sistema.\n\n\nLinux: Librerie di Sistema\nPer compilare alcuni pacchetti R:\n# Ubuntu/Debian\nsudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev\n\n# Fedora/RedHat\nsudo yum install libcurl-devel openssl-devel libxml2-devel"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#il-dataset-airway",
+    "href": "materials/08_demo_prompts.html#il-dataset-airway",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Il Dataset Airway",
+    "text": "Il Dataset Airway\nEsperimento: Trattamento di cellule muscolari lisce delle vie aeree con desametasone (glucocorticoide)\n\n\nDisegno sperimentale\n\n4 linee cellulari: N61311, N052611, N080611, N061011\n2 condizioni per linea: untrt (controllo) e trt (trattato)\n8 campioni totali (SRR1039508–SRR1039521)\nDesign multi-fattoriale: ~ cell + dex\n\nPerché questo design?\nControllare l’effetto della linea cellulare (confondente) per isolare l’effetto del farmaco\n\nAccesso ai dati\nIl dataset è distribuito come pacchetto Bioconductor e include:\n\nMatrice di conteggi: 63.677 geni × 8 campioni\nMetadati: condizione, linea cellulare, informazioni sull’allineamento\nFormato: RangedSummarizedExperiment\n\nlibrary(\"airway\")\ndata(\"airway\")\nse &lt;- airway\n\n\n\n\n\n\n\nNessun CSV necessario\n\n\nA differenza dei workflow con file flat, il dataset airway è già integrato con le annotazioni genomiche nel formato SummarizedExperiment, pronto per DESeq2."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente-caricamento",
+    "href": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente-caricamento",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.1: Setup Ambiente + Caricamento",
+    "text": "Prompt 1.1: Setup Ambiente + Caricamento\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSto iniziando un'analisi RNA-seq con il dataset airway di Bioconductor.\nHo bisogno di:\n1. Caricare le librerie: DESeq2, airway, ggplot2, pheatmap, RColorBrewer\n2. Caricare il dataset airway come SummarizedExperiment\n3. Esplorare la struttura: dimensioni, metadati dei campioni (colData), \n   nomi delle variabili disponibili\n4. Mostrare le prime righe della matrice di conteggi (assay)\n5. Creare una cartella 'results/' per i file di output\n\nAl termine spiega:\n- Cosa contiene un oggetto SummarizedExperiment rispetto a un semplice CSV?\n- Quali variabili nel colData useremo per il disegno sperimentale?\n\n\n\nCosa verificare:\n\ndim(se) → [1] 63677   8\ncolData(se)$dex → 4 untrt, 4 trt\ncolData(se)$cell → 4 linee cellulari diverse"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.2-creare-il-deseqdataset",
+    "href": "materials/08_demo_prompts.html#prompt-1.2-creare-il-deseqdataset",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.2: Creare il DESeqDataSet",
+    "text": "Prompt 1.2: Creare il DESeqDataSet\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo un oggetto SummarizedExperiment chiamato 'se' (dataset airway).\nVoglio creare un DESeqDataSet per l'analisi differenziale con DESeq2.\n\nEsegui questi passi:\n1. Crea il DESeqDataSet con design formula: ~ cell + dex\n2. Imposta 'untrt' como livello di riferimento per la variabile 'dex'\n3. Mostra il summary dell'oggetto dds risultante\n4. Salva un checkpoint: saveRDS(dds, \"results/dds_raw.rds\")\n   (per ricaricare in future sessioni: dds &lt;- readRDS(\"results/dds_raw.rds\"))\n\nSpiega in dettaglio la scelta della formula ~ cell + dex:\n- Perché includere 'cell' nel modello?\n- Cosa succederebbe se usassimo solo ~ dex?\n- Cosa significa 'livello di riferimento' e perché è importante?\n- Come DESeq2 usa internamente la design matrix?\n\n\n\nConcetto chiave: Design multi-fattoriale → controlliamo la variabilità tra linee cellulari per aumentare la potenza statistica nel rilevare l’effetto del desametasone"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.1-pre-filtering",
+    "href": "materials/08_demo_prompts.html#prompt-2.1-pre-filtering",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.1: Pre-filtering",
+    "text": "Prompt 2.1: Pre-filtering\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo un DESeqDataSet 'dds' con 63.677 geni e 8 campioni (dataset airway).\nEsegui il pre-filtering raccomandato dalla vignetta di DESeq2:\n\nSe hai chiuso R dopo lo Step 1: dds &lt;- readRDS(\"results/dds_raw.rds\")\n\n1. Applica il criterio: mantieni solo righe con almeno 10 conteggi\n   in almeno 'smallestGroupSize' campioni (qui: 4, la dimensione del gruppo più piccolo)\n2. Mostra quanti geni rimangono dopo il filtro\n3. Crea un istogramma della distribuzione dei log2-conteggi (log2(count+1))\n   prima e dopo il filtro, colorati diversamente\n4. Salva il dds filtrato: saveRDS(dds, \"results/dds_filtered.rds\")\n\nSpiega:\n- Perché il numero minimo di campioni è legato alla dimensione del gruppo?\n- Quali sono i due vantaggi principali del pre-filtering in DESeq2?\n- Perché NON si usa 'nrow(counts(dds)) &gt; 1' come unico criterio?\n\n\n\nRazionale del filtro: Riduce memoria, aumenta velocità e migliora i plot diagnostici eliminando geni non informativi"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.2-statistiche-qc-della-matrice",
+    "href": "materials/08_demo_prompts.html#prompt-2.2-statistiche-qc-della-matrice",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.2: Statistiche QC della Matrice",
+    "text": "Prompt 2.2: Statistiche QC della Matrice\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSul DESeqDataSet filtrato 'dds', esegui una QC esplorativa:\n1. Calcola e visualizza i library size (conteggi totali per campione) \n   con un barplot colorato per condizione 'dex'\n2. Calcola la percentuale di geni con conteggi = 0 per ogni campione\n3. Crea un boxplot della distribuzione log2(counts+1) per campione,\n   con colori per condizione e annotazioni per linea cellulare\n4. Salva i plot in 'results/'\n\nCommenta i risultati:\n- I library size sono bilanciati tra le condizioni?\n- Una differenza di library size richiede normalizzazione manual prima di DESeq2?\n- Perché DESeq2 usa conteggi grezzi (non normalizzati) come input?\n\n\n\n\n\n\n\n\n\nDESeq2 vuole conteggi grezzi\n\n\nDESeq2 normalizza internamente tramite il metodo median of ratios. Non pre-normalizzare i dati prima di passarli a DESeq2."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.1-trasformazione-vst",
+    "href": "materials/08_demo_prompts.html#prompt-3.1-trasformazione-vst",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.1: Trasformazione VST",
+    "text": "Prompt 3.1: Trasformazione VST\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo il DESeqDataSet filtrato 'dds'.\nSe hai chiuso R: dds &lt;- readRDS(\"results/dds_filtered.rds\")\n\nApplica la Variance Stabilizing Transformation (VST):\n\n1. Applica vst(dds, blind=FALSE) — spiega perché blind=FALSE è appropriato qui\n2. Confronta visivamente gli effetti della trasformazione con meanSdPlot \n   (dal pacchetto vsn) sui dati:\n   - Grezzi: log2(counts(dds) + 1)\n   - VST: assay(vsd)\n3. Salva il confronto come 'results/vst_comparison.pdf'\n4. Salva l'oggetto VST: saveRDS(vsd, \"results/vsd.rds\")\n\nSpiega la differenza concettuale tra:\n- Trasformazione log2 classica: log2(n + pseudocount)\n- VST: come stabilizza la varianza in modo adattivo?\n- rlog vs VST: quando usare uno piuttosto che l'altro?\n\n\n\nRegola pratica: Per n &lt; 30 campioni → si possono usare sia VST che rlog. Per n &gt; 30 → preferire VST (più veloce)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.2-pca-plot",
+    "href": "materials/08_demo_prompts.html#prompt-3.2-pca-plot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.2: PCA Plot",
+    "text": "Prompt 3.2: PCA Plot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo l'oggetto VST 'vsd' dal dataset airway (8 campioni, 2 condizioni, 4 linee cellulari).\nCrea due versioni del PCA plot:\n\n1. Versione rapida con plotPCA(vsd, intgroup=c(\"dex\",\"cell\"))\n2. Versione personalizzata con ggplot2:\n   - Colora per 'dex' (untrt=grigio, trt=rosso)\n   - Forma diversa per ogni linea cellulare ('cell')\n   - Mostra % varianza su ogni asse\n   - Aggiungi etichette ai punti con il nome del campione\n   - Tema minimal, font size 12\n   - Salva come 'results/pca_plot.pdf'\n\nInterpreta il risultato:\n- Su quale PC si separa l'effetto del desametasone?\n- Su quale PC si vede l'effetto della linea cellulare?\n- Cosa implica questo per la scelta del design formula ~ cell + dex?\n\n\n\nRisultato atteso: PC1 separa per linea cellulare, PC2 separa per trattamento (dex)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.3-heatmap-distanze-sample-to-sample",
+    "href": "materials/08_demo_prompts.html#prompt-3.3-heatmap-distanze-sample-to-sample",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.3: Heatmap Distanze Sample-to-Sample",
+    "text": "Prompt 3.3: Heatmap Distanze Sample-to-Sample\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nUsando i dati VST 'vsd' del dataset airway, crea una heatmap delle \ndistanze euclidee sample-to-sample seguendo la vignetta ufficiale di DESeq2:\n\n1. Calcola sampleDists = dist(t(assay(vsd)))\n2. Converti in matrice: sampleDistMatrix = as.matrix(sampleDists)\n3. Assegna ai nomi delle righe: paste(vsd$dex, vsd$cell, sep=\"-\")\n4. Usa pheatmap con:\n   - clustering_distance_rows = sampleDists\n   - clustering_distance_cols = sampleDists\n   - Palette: rev(brewer.pal(9,\"Blues\")) da RColorBrewer\n   - Nessuna annotazione colonna\n5. Salva come 'results/sample_distances.pdf'\n\nSpiega:\n- Perché fornire la matrice di distanze al clustering invece di usare il default?\n- Quali coppie di campioni dovrebbero avere distanza minima?\n- Cosa indicherebbe un campione anomalo (outlier) in questo grafico?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.4-heatmap-matrice-di-conteggi",
+    "href": "materials/08_demo_prompts.html#prompt-3.4-heatmap-matrice-di-conteggi",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.4: Heatmap Matrice di Conteggi",
+    "text": "Prompt 3.4: Heatmap Matrice di Conteggi\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap dei top 20 geni più espressi (by mean normalized count) \nseguendo la vignetta di DESeq2:\n\n1. Seleziona i 20 geni: order(rowMeans(counts(dds, normalized=TRUE)), \n   decreasing=TRUE)[1:20]\n2. Crea df di annotazione: as.data.frame(colData(dds)[, c(\"dex\",\"cell\")])\n3. Crea la heatmap con pheatmap:\n   - cluster_rows=FALSE, cluster_cols=FALSE\n   - show_rownames=FALSE\n   - annotation_col=df\n4. Prova anche con i dati VST e rlog per confronto\n5. Salva come 'results/count_heatmap.pdf'\n\nSpiega cosa rappresenta questa heatmap rispetto alla PCA:\n- Cosa mostra la heatmap che la PCA non mostra?\n- Perché i geni più espressi non sono necessariamente i più interessanti?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analisi-completa",
+    "href": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analisi-completa",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.1: DESeq2 — Analisi Completa",
+    "text": "Prompt 4.1: DESeq2 — Analisi Completa\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo lo Step 3:\n  dds &lt;- readRDS(\"results/dds_filtered.rds\")\n  vsd &lt;- readRDS(\"results/vsd.rds\")\n\nEsegui l'analisi differenziale completa con DESeq2 sul dataset airway:\n\n1. Esegui dds &lt;- DESeq(dds)   # ~1-2 minuti\n2. Salva subito: saveRDS(dds, \"results/dds_deseq.rds\")  # DESeq() è lento!\n3. Mostra resultsNames(dds) per vedere i coefficienti disponibili\n4. Estrai i risultati per il confronto dex trt vs untrt:\n   res &lt;- results(dds, name=\"dex_trt_vs_untrt\")\n   saveRDS(res, \"results/res.rds\")\n5. Mostra summary(res) con alpha=0.05\n6. Ordina per p-value: resOrdered &lt;- res[order(res$pvalue), ]\n7. Mostra i top 10 geni\n\nSpiega ogni colonna dell'output results():\n- baseMean: cosa rappresenta?\n- log2FoldChange (MLE): perché è \"MLE\" e cosa significa?\n- lfcSE: a cosa serve lo standard error del LFC?\n- stat: cos'è la statistica di Wald?\n- pvalue vs padj: qual è il metodo di correzione usato da DESeq2?\n\n\n\nNota: Il valore di default alpha=0.1 nel summary() è conservativo — usare alpha=0.05 per pratica standard"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.2-lfc-shrinkage-con-apeglm",
+    "href": "materials/08_demo_prompts.html#prompt-4.2-lfc-shrinkage-con-apeglm",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.2: LFC Shrinkage con apeglm",
+    "text": "Prompt 4.2: LFC Shrinkage con apeglm\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo il Prompt 4.1:\n  dds &lt;- readRDS(\"results/dds_deseq.rds\")\n  res  &lt;- readRDS(\"results/res.rds\")\n\nApplica il log fold change shrinkage ai risultati DESeq2 del dataset airway:\n\n1. Verifica il coefficiente: resultsNames(dds) \n   → usa \"dex_trt_vs_untrt\"\n2. Applica lfcShrink:\n   resLFC &lt;- lfcShrink(dds, coef=\"dex_trt_vs_untrt\", type=\"apeglm\")\n   saveRDS(resLFC, \"results/resLFC.rds\")\n3. Confronta visivamente res vs resLFC con due MA plot affiancati:\n   par(mfrow=c(1,2))\n   plotMA(res, ylim=c(-2,2), main=\"MLE (no shrinkage)\")\n   plotMA(resLFC, ylim=c(-2,2), main=\"apeglm shrinkage\")\n4. Salva come 'results/MA_comparison.pdf'\n\nSpiega il concetto di shrinkage:\n- Perché i geni a bassa espressione hanno LFC molto grandi senza shrinkage?\n- Come mai lo shrinkage NON riduce i LFC per geni altamente espressi?\n- Quando è preferibile apeglm rispetto a 'normal' o 'ashr'?\n\n\n\n\n\n\n\n\n\nUsare sempre i valori shrinkati per classifiche e visualizzazioni\n\n\nI log2FoldChange shrinkati (apeglm/ashr) sono preferibili per volcano plot, heatmap e ranking dei geni. Per il test statistico usa padj da res."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.3-plot-diagnostici",
+    "href": "materials/08_demo_prompts.html#prompt-4.3-plot-diagnostici",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.3: Plot Diagnostici",
+    "text": "Prompt 4.3: Plot Diagnostici\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea i plot diagnostici standard di DESeq2 per il dataset airway:\n\n1. Dispersion plot: plotDispEsts(dds)\n   Salva come 'results/dispersion_plot.pdf'\n\n2. P-value histogram:\n   hist(res$pvalue[res$baseMean &gt; 1], breaks=40,\n        xlab=\"p-value\", main=\"P-value distribution\")\n   Salva come 'results/pvalue_hist.pdf'\n\nPer ogni grafico spiega:\na) Dispersion plot:\n   - Cosa sono i punti neri, la curva rossa, i punti blu cerchiati?\n   - Cosa indica una curva decrescente da sinistra a destra?\n   - Cosa segnalano i punti al di sopra della curva finale?\n\nb) P-value histogram:\n   - Forma attesa quando c'è segnale biologico reale?\n   - Come si distingue un esperimento con segnale da uno senza?\n   - Cosa indica un picco vicino a p=1?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.4-filtraggio-e-export",
+    "href": "materials/08_demo_prompts.html#prompt-4.4-filtraggio-e-export",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.4: Filtraggio e Export",
+    "text": "Prompt 4.4: Filtraggio e Export\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nDai risultati DESeq2 (res e resLFC) del dataset airway:\n\n1. Filtra geni significativi: padj &lt; 0.05 E |log2FoldChange| &gt; 1\n   (usa i valori MLE da 'res' per padj, e i valori shrinkati da 'resLFC' per LFC)\n2. Separa in UP-regulated (LFC &gt; 1) e DOWN-regulated (LFC &lt; -1)\n3. Crea una tabella summary:\n   - Totale geni testati (con padj non NA)\n   - Significativi con entrambi i criteri\n   - UP e DOWN separati\n4. Ordina per padj e salva in 'results/DE_genes_airway.csv'\n5. Mostra i top 5 geni UP e DOWN con: nome gene, baseMean, LFC shrinkato, padj\n\nSpiega:\n- Perché CRISPLD2 e DUSP1 sono tra i risultati più robustamente replicati\n  in esperimenti con glucocorticoidi?\n- Come fare un rapido 'sanity check' biologico sui risultati?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.1-ma-plot-con-reslfc",
+    "href": "materials/08_demo_prompts.html#prompt-5.1-ma-plot-con-reslfc",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.1: MA Plot con resLFC",
+    "text": "Prompt 5.1: MA Plot con resLFC\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo lo Step 4:\n  dds    &lt;- readRDS(\"results/dds_deseq.rds\")\n  res    &lt;- readRDS(\"results/res.rds\")\n  resLFC &lt;- readRDS(\"results/resLFC.rds\")\n  vsd    &lt;- readRDS(\"results/vsd.rds\")\n\nCrea un MA plot dei risultati shrinkati (resLFC) del dataset airway:\n\n1. Usa plotMA(resLFC, ylim=c(-2,2)) — versione base DESeq2\n2. Crea anche una versione ggplot2 personalizzata:\n   - Asse X: log10(baseMean + 1) \n   - Asse Y: log2FoldChange (shrinkato)\n   - Colora: blu se padj &lt; 0.05, grigio altrimenti\n   - Aggiungi linea orizzontale a y=0\n   - Etichetta i top 5 geni più significativi con ggrepel\n   - Tema minimal\n3. Salva come 'results/MA_plot.pdf'\n\nSpiega perché il MA plot con LFC shrinkati è più informativo:\n- Cosa succede ai geni con baseMean molto basso nel plot MLE?\n- Come lo shrinkage \"pulisce\" il segnale vs il rumore?\n- Cosa indica un gene con punto triangolare (out-of-window)?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.2-plot-conteggi-gene-specifico",
+    "href": "materials/08_demo_prompts.html#prompt-5.2-plot-conteggi-gene-specifico",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.2: Plot Conteggi Gene Specifico",
+    "text": "Prompt 5.2: Plot Conteggi Gene Specifico\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nVisualizza l'espressione del gene più significativo nel dataset airway:\n\n1. Trova il gene con padj minimo: which.min(res$padj)\n2. Usa plotCounts(dds, gene=which.min(res$padj), intgroup=\"dex\")\n   per la versione base\n3. Crea una versione ggplot2 con returnData=TRUE:\n   d &lt;- plotCounts(dds, gene=which.min(res$padj), \n                   intgroup=c(\"dex\",\"cell\"), returnData=TRUE)\n   ggplot(d, aes(x=dex, y=count, color=cell, group=cell)) +\n     geom_point(size=3) + geom_line() + scale_y_log10()\n4. Salva come 'results/top_gene_counts.pdf'\n\nSpiega il grafico:\n- Perché collegare i punti della stessa linea cellulare?\n- Cosa mostra il plot sulla consistenza dell'effetto del desametasone \n  tra le diverse linee cellulari?\n- Come si chiama il gene? (usa rownames(res)[which.min(res$padj)])\n\n\n\nRisultato atteso: CRISPLD2 — gene codificante una proteina di legame al calcio, regolato dai glucocorticoidi"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.3-volcano-plot",
+    "href": "materials/08_demo_prompts.html#prompt-5.3-volcano-plot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.3: Volcano Plot",
+    "text": "Prompt 5.3: Volcano Plot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un volcano plot publication-ready dei risultati DESeq2 (airway dataset):\n\nUsa i risultati shrinkati resLFC combinati con padj da res:\n- Asse X: log2FoldChange (da resLFC)\n- Asse Y: -log10(padj) (da res)\n- Colori:\n  UP: padj &lt; 0.05 E LFC &gt; 1 → rosso\n  DOWN: padj &lt; 0.05 E LFC &lt; -1 → blu\n  NS: grigio semitrasparente (alpha=0.3)\n- Linee trattegiate verticali a LFC = ±1\n- Linea tratteggiata orizzontale a -log10(0.05)\n- Etichetta i top 10 geni (5 UP + 5 DOWN per padj) con ggrepel\n- Tema minimal, font 12, pannello senza griglia\n- Salva come 'results/volcano_plot.pdf' (8x6 inches)\n\nNota: gestisci i valori NA in padj con na.rm=TRUE o filtraggio."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.4-heatmap-top-geni-de",
+    "href": "materials/08_demo_prompts.html#prompt-5.4-heatmap-top-geni-de",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.4: Heatmap Top Geni DE",
+    "text": "Prompt 5.4: Heatmap Top Geni DE\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap dei top 30 geni differenzialmente espressi (airway):\n\n1. Seleziona i 30 geni con padj più basso da res (rimuovi NA)\n2. Estrai i valori VST: assay(vsd)[top_genes, ]\n3. Scala per riga (z-score): t(scale(t(mat)))\n4. Crea annotazione colonne da colData(dds)[, c(\"dex\",\"cell\")]\n5. Usa pheatmap:\n   - palette: colorRampPalette(c(\"navy\",\"white\",\"firebrick3\"))(50)\n   - cluster_rows=TRUE, cluster_cols=TRUE\n   - show_rownames=TRUE (i geni sono pochi)\n   - annotation_col=df\n   - fontsize_row=8\n6. Salva come 'results/heatmap_top30.pdf' (8x10 inches)\n\nSpiega:\n- Perché usare z-score per riga invece dei valori VST grezzi?\n- Il clustering corrisponde alle condizioni attese (dex trt vs untrt)?\n- Vedi i pattern di CO-espressione attesi per i glucocorticoidi?"
   }
 ]
