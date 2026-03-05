@@ -1254,15 +1254,11 @@ Spiega cosa rappresenta questa heatmap rispetto alla PCA:
 
 Esegui l'analisi differenziale completa con DESeq2 sul dataset airway:
 
-1. Esegui dds &lt;- DESeq(dds)   # ~1-2 minuti
-2. Salva subito: saveRDS(dds, "results/dds_deseq.rds")  # DESeq() è lento!
-3. Mostra resultsNames(dds) per vedere i coefficienti disponibili
-4. Estrai i risultati per il confronto dex trt vs untrt:
-   res &lt;- results(dds, name="dex_trt_vs_untrt")
-   saveRDS(res, "results/res.rds")
-5. Mostra summary(res) con alpha=0.05
-6. Ordina per p-value: resOrdered &lt;- res[order(res$pvalue), ]
-7. Mostra i top 10 geni
+1. Esegui l'analisi DESeq2 sul mio oggetto dds e salvalo subito in "results/dds_deseq.rds" (l'analisi richiede qualche minuto)
+2. Quali sono i nomi dei coefficienti disponibili nel modello adattato?
+3. Estrai i risultati per il confronto tra cellule trattate (trt) e non trattate (untrt) e salvali in "results/res.rds"
+4. Quanti geni risultano significativi con una soglia alpha di 0.05?
+5. Mostrami i top 10 geni ordinati per p-value
 
 Spiega ogni colonna dell'output results():
 - baseMean: cosa rappresenta?
@@ -1292,16 +1288,9 @@ Spiega ogni colonna dell'output results():
 
 Applica il log fold change shrinkage ai risultati DESeq2 del dataset airway:
 
-1. Verifica il coefficiente: resultsNames(dds) 
-   → usa "dex_trt_vs_untrt"
-2. Applica lfcShrink:
-   resLFC &lt;- lfcShrink(dds, coef="dex_trt_vs_untrt", type="apeglm")
-   saveRDS(resLFC, "results/resLFC.rds")
-3. Confronta visivamente res vs resLFC con due MA plot affiancati:
-   par(mfrow=c(1,2))
-   plotMA(res, ylim=c(-2,2), main="MLE (no shrinkage)")
-   plotMA(resLFC, ylim=c(-2,2), main="apeglm shrinkage")
-4. Salva come 'results/MA_comparison.pdf'
+1. Quale coefficiente devo usare per il confronto trt vs untrt?
+2. Applica lo shrinkage con il metodo apeglm e salva il risultato in "results/resLFC.rds"
+3. Crea due MA plot affiancati per confrontare i risultati prima e dopo lo shrinkage e salva come 'results/MA_comparison.pdf'
 
 Spiega il concetto di shrinkage:
 - Perché i geni a bassa espressione hanno LFC molto grandi senza shrinkage?
@@ -1337,13 +1326,8 @@ Spiega il concetto di shrinkage:
 <div class="callout-content">
 <pre><code>Crea i plot diagnostici standard di DESeq2 per il dataset airway:
 
-1. Dispersion plot: plotDispEsts(dds)
-   Salva come 'results/dispersion_plot.pdf'
-
-2. P-value histogram:
-   hist(res$pvalue[res$baseMean &gt; 1], breaks=40,
-        xlab="p-value", main="P-value distribution")
-   Salva come 'results/pvalue_hist.pdf'
+1. Crea il dispersion plot e salvalo in 'results/dispersion_plot.pdf'
+2. Crea un istogramma della distribuzione dei p-value, considerando solo i geni con espressione basale maggiore di 1, e salvalo in 'results/pvalue_hist.pdf'
 
 Per ogni grafico spiega:
 a) Dispersion plot:
@@ -1370,17 +1354,13 @@ b) P-value histogram:
 <p><strong>Copia questo prompt in Copilot Chat</strong></p>
 </div>
 <div class="callout-content">
-<pre><code>Dai risultati DESeq2 (res e resLFC) del dataset airway:
+<pre><code>Dai risultati DESeq2 del dataset airway:
 
-1. Filtra geni significativi: padj &lt; 0.05 E |log2FoldChange| &gt; 1
-   (usa i valori MLE da 'res' per padj, e i valori shrinkati da 'resLFC' per LFC)
-2. Separa in UP-regulated (LFC &gt; 1) e DOWN-regulated (LFC &lt; -1)
-3. Crea una tabella summary:
-   - Totale geni testati (con padj non NA)
-   - Significativi con entrambi i criteri
-   - UP e DOWN separati
-4. Ordina per padj e salva in 'results/DE_genes_airway.csv'
-5. Mostra i top 5 geni UP e DOWN con: nome gene, baseMean, LFC shrinkato, padj
+1. Filtra i geni significativi usando come soglie: p-value aggiustato inferiore a 0.05 e variazione di espressione assoluta superiore a 2 volte. Usa il p-value aggiustato dai risultati MLE e il fold change dallo shrinkage apeglm
+2. Separa i geni in up-regulated (aumentati nel trattato) e down-regulated (ridotti nel trattato)
+3. Crea una tabella riassuntiva con: totale geni testati, numero di geni significativi, quanti UP e quanti DOWN
+4. Ordina per p-value aggiustato e salva la tabella in 'results/DE_genes_airway.csv'
+5. Mostrami i top 5 geni UP e i top 5 DOWN con nome del gene, espressione media, fold change shrinkato e p-value aggiustato
 
 Spiega:
 - Perché CRISPLD2 e DUSP1 sono tra i risultati più robustamente replicati
