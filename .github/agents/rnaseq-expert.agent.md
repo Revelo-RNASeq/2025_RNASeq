@@ -38,6 +38,7 @@ For domain-specific knowledge, consult these skills:
 | Full pipeline | `.github/skills/bio-workflows-rnaseq-to-de/SKILL.md` |
 | Heatmaps | `.github/skills/bio-data-visualization-heatmaps-clustering/SKILL.md` |
 | Volcano/MA/PCA | `.github/skills/bio-data-visualization-specialized-omics-plots/SKILL.md` |
+| Salmon quantification | `.github/skills/bio-workflows-rnaseq-to-de/SKILL.md` |
 
 ## Project Context
 
