@@ -213,6 +213,27 @@
 <p><span style="font-size: 40px; font-weight: bold;">Marco Chiapello, Revelo Datalab</span></p>
 <p><span style="font-size: 30px;font-weight: bold;">November 2024</span></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare il docente e introdurre il corso di analisi bulk RNA-seq in R.</p>
+<ul>
+<li>Presentarsi: Marco Chiapello, Revelo Datalab</li>
+<li>Tema del corso: dall’RNA grezzo ai risultati biologici interpretabili</li>
+<li>Struttura: preparazione campione → sequenziamento → analisi bioinformatica → statistica in R</li>
+<li>Invitare i partecipanti a fare domande in qualsiasi momento</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <!-- #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Overview]{.f60 .p-span-center}
@@ -269,12 +290,53 @@
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Dare una visione d’insieme del workflow completo dell’analisi trascrittomica.</p>
+<ul>
+<li>Analisi <strong>primaria</strong>: dati grezzi → QC, allineamento, quantificazione (computazione intensiva)</li>
+<li>Analisi <strong>secondaria</strong>: espressione differenziale, clustering (statistiche, R) ← focus del corso</li>
+<li>Analisi <strong>terziaria</strong>: pathway analysis, integrazione con altri dati omici, validazione</li>
+<li>Sottolineare che ogni fase si appoggia alla precedente: errori iniziali si propagano</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 
 <section>
 <section id="section-1" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Sample Preparation</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione sulla preparazione del campione biologico.</p>
+<ul>
+<li>Questa sezione copre tutti i passi dal tessuto/cellula alla libreria sequenziabile</li>
+<li>La qualità della preparazione è determinante per la qualità dei risultati finali</li>
+<li>Chiedere: quanti hanno già eseguito un’estrazione di RNA?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-2" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -283,6 +345,27 @@
 <div class="p-img-center">
 <p><img data-src="images/sample_top.png"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare il workflow completo della preparazione del campione RNA-seq.</p>
+<ul>
+<li>Percorrere l’immagine dall’alto in basso seguendo il flusso del campione</li>
+<li>Passi chiave: estrazione RNA → selezione/deplezione rRNA → frammentazione → sintesi cDNA → ligazione adattatori → amplificazione PCR → QC libreria</li>
+<li>Ogni step introduce potenziali bias: la standardizzazione è fondamentale</li>
+<li>Tutto questo avviene PRIMA del sequenziamento</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-3" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -305,6 +388,28 @@
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare come si estrae l’RNA in modo efficiente e perché la scelta del metodo conta.</p>
+<ul>
+<li>Lisare le cellule/tessuti per rilasciare il contenuto intracellulare</li>
+<li>Rimuovere contaminanti: DNA genomico (DNase), proteine, lipidi</li>
+<li>Fenolo-cloroformio: classico, resa alta, ma laborioso e tossico</li>
+<li>Kit su colonna (es. RNeasy, TRIzol + colonna): rapido, riproducibile, sicuro → standard attuale</li>
+<li>Qualità si valuta con: 260/280 ratio (spettrofotometria) e RIN (Bioanalyzer)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-4" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -329,6 +434,28 @@
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Enfatizzare che la qualità dell’RNA è la base irrinunciabile di un esperimento RNA-seq valido.</p>
+<ul>
+<li>Mostrare l’elettroferogramma Bioanalyzer: RIN da 1 (degradato) a 10 (integro)</li>
+<li>RNA degradato introduce bias sistemici: sovrarappresentazione delle regioni 3’ dei trascritti</li>
+<li>Standard accettabile: RIN ≥ 7-8 (tessuto fresco); RIN ≥ 5 per campioni FFPE</li>
+<li>Prevenzione: reagenti RNase-free, lavoro in ghiaccio, stoccaggio a -80°C, minimizzare cicli freeze-thaw</li>
+<li>Un campione con basso RIN conviene scartarlo: costi di sequenziamento &gt; costi di ricampionamento</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-5" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -346,6 +473,28 @@
 <li><p><strong>mRNA enrichment</strong> – Selectively enriching for poly(A)-tailed transcripts</p></li>
 <li><p><strong>RNA depletion</strong> – Selectively depleting abundant/off-target transcripts</p></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare perché si seleziona uno specifico tipo di RNA prima del sequenziamento.</p>
+<ul>
+<li>RNA totale: ~80% è rRNA e tRNA → se non rimossi, sprecano quasi tutta la capacità di sequenziamento</li>
+<li>Target principale RNA-seq standard: mRNA (espressione genica proteina-codificante)</li>
+<li>Poly-A enrichment: captura mRNA maturi con coda poli-A, ma perde lncRNA senza coda poli-A</li>
+<li>rRNA depletion: rimuove rRNA/tRNA con sonde specifiche, cattura quasi tutto il trascrittoma</li>
+<li>Scelta dipende dalla domanda biologica e dalla qualità dell’RNA di partenza</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-6" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -375,6 +524,28 @@
 <li>Mechanical shearing (e.g., sonication)</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare perché l’RNA viene frammentato prima della preparazione della libreria.</p>
+<ul>
+<li>Le macchine NGS Illumina sequenziano frammenti corti: tipicamente 50–300 bp</li>
+<li>Frammentazione garantisce copertura uniforme su tutta la lunghezza dei trascritti</li>
+<li>Frammentazione enzimatica (RNase III): taglia dsRNA in modo controllabile → più comune</li>
+<li>Shearing meccanico (sonicazione/ultrasuoni): più usato per DNA genomico</li>
+<li>Dimensione target frammento: ~150 bp per read 2×75 bp; ~300 bp per read 2×150 bp</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-7" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -386,6 +557,28 @@
 <div class="p-img-center">
 <p><img data-src="images/adapter.png" width="900"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il ruolo degli adattatori nell’ancoraggio al sequenziatore e nel multiplexing.</p>
+<ul>
+<li>Prima l’RNA viene retrotrascritto in cDNA a doppio filamento</li>
+<li>Gli adattatori (~60-70 nt) vengono ligati alle estremità del cDNA</li>
+<li>Funzioni: (1) ancoraggio alla flow cell Illumina, (2) sito di priming PCR, (3) index/barcode per identificare i campioni</li>
+<li>Il barcode permette il <strong>multiplexing</strong>: decine di campioni nello stesso lane di sequenziamento</li>
+<li>Mostrare l’immagine: P5/P7 come adattatori standard Illumina</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-8" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -409,16 +602,80 @@
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare come e perché si quantifica la libreria prima del sequenziamento.</p>
+<ul>
+<li>La concentrazione di caricamento sulla flow cell è critica: troppo bassa → pochi cluster; troppo alta → cluster sovrapposti</li>
+<li>Qubit fluorimetrico: misura precisa della concentrazione di DNA a doppio filamento</li>
+<li>qPCR: quantifica SOLO le molecole con adattatori funzionali → più rilevante</li>
+<li>Bioanalyzer/TapeStation: fornisce la distribuzione dimensionale dei frammenti (size distribution)</li>
+<li>Il valore chiave da comunicare al centro di sequenziamento: concentrazione in nM</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-9" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">How many samples do I need?</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la domanda critica sulla numerosità campionaria prima di progettare l’esperimento.</p>
+<ul>
+<li>Domanda che ogni ricercatore DEVE porsi PRIMA di spendere soldi in RNA-seq</li>
+<li>Troppo pochi campioni → bassa potenza statistica → risultati non riproducibili</li>
+<li>La risposta formale si ottiene con la <strong>power analysis</strong></li>
+<li>Chiedere: quanti di voi hanno già usato la power analysis nella loro ricerca?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-10" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
 <div style="font-size: 80px; text-align: center">
 <p>Power analysis</p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre il concetto di power analysis come strumento per dimensionare correttamente lo studio.</p>
+<ul>
+<li>La power analysis bilancia 4 parametri interdipendenti: errore α, potenza (1-β), effect size, numerosità n</li>
+<li>Conoscendone 3, si calcola il quarto → di solito vogliamo calcolare n</li>
+<li>È uno strumento obbligatorio PRIMA di iniziare un esperimento</li>
+<li>Nelle slide successive vedremo ciascun parametro nel dettaglio</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-11" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -428,6 +685,27 @@
 <ul>
 <li><strong>Type I error</strong>: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.</li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Definire l’errore di tipo I (falso positivo) nel contesto RNA-seq.</p>
+<ul>
+<li>Errore tipo I (α): concludere che un gene è DE quando NON lo è → falso positivo</li>
+<li>α = probabilità di commettere questo errore; tipicamente 0.05 in studi generali</li>
+<li>In RNA-seq si adotta α più stringente (0.01 o 0.001) per correggere i test multipli (migliaia di geni)</li>
+<li>La correzione per test multipli (FDR di Benjamini-Hochberg) è standard in RNA-seq</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-12" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -438,6 +716,27 @@
 <li><p><strong>Type I error</strong>: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.</p></li>
 <li><p><strong>Type II error</strong>: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.</p></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Definire l’errore di tipo II e la potenza statistica.</p>
+<ul>
+<li>Errore tipo II (β): non rilevare un gene veramente DE → falso negativo</li>
+<li>Potenza = 1 - β: probabilità di rilevare un effetto reale; ideale ≥ 0.80 (80%)</li>
+<li>Bassa potenza → molti geni DE non vengono scoperti → risultati incompleti e non riproducibili</li>
+<li>In RNA-seq, con pochi replicati biologici la potenza cala drasticamente</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-13" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -449,6 +748,27 @@
 <li><p><strong>Type II error</strong>: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.</p></li>
 <li><p><strong>Effect size</strong>: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.</p></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Definire l’effect size come misura della differenza biologica che vogliamo rilevare.</p>
+<ul>
+<li>Effect size (d): grandezza della differenza di espressione che ci interessa rilevare</li>
+<li>In RNA-seq spesso si esprime come fold-change: d=2 corrisponde a ~2 volte di differenza</li>
+<li>Differenze biologiche piccole (d piccolo) richiedono più campioni per essere rilevate</li>
+<li>Il ricercatore sceglie d in base alla rilevanza biologica minima accettabile</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-14" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -461,6 +781,27 @@
 <li><p><strong>Effect size</strong>: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.</p></li>
 <li><p><strong>Sample size</strong>: the quantity you want to calculate.</p></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Riepilogare i 4 parametri della power analysis e come interagiscono.</p>
+<ul>
+<li>I 4 parametri sono interdipendenti: fissandone 3, il quarto è determinato</li>
+<li>Per calcolare n: fissare α (es. 0.05), β (es. 0.2 → potenza 80%), e d (es. 2)</li>
+<li>Aumentare n → aumenta la potenza ma aumenta i costi</li>
+<li>Compromesso: trovare il bilanciamento tra potenza desiderata e fattibilità pratica/budget</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-15" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -481,6 +822,28 @@
 <span id="cb1-7"><a></a>           <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Dimostrare come eseguire la power analysis in R con un effect size grande (d=2).</p>
+<ul>
+<li>Caricare il pacchetto <code>pwr</code>; funzione <code>pwr.t.test()</code> per confronti tra due gruppi</li>
+<li>d=2, potenza 80%, α=0.05, test bilaterale a due campioni</li>
+<li>Il risultato: n ≈ 6-7 campioni per gruppo → abbastanza fattibile</li>
+<li>Interpretare l’output: n è per GRUPPO, non totale</li>
+<li>Soffermarsi sulle righe una alla volta grazie a <code>code-line-numbers</code></li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-16" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -499,10 +862,53 @@
 <span id="cb2-7"><a></a>           <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare come un effect size più piccolo richieda campioni aggiuntivi.</p>
+<ul>
+<li>Confrontare con il caso precedente: d=1 vs d=2</li>
+<li>Il risultato: n ≈ 17 per gruppo → più del doppio rispetto a d=2!</li>
+<li>Messaggio chiave: effetti biologici piccoli richiedono esperimenti costosi</li>
+<li>Discutere: qual è l’effect size biologicamente rilevante nel loro studio?</li>
+<li>In RNA-seq, spesso si considera DE un gene con |log2FC| ≥ 1 (fold-change ≥ 2)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-17" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">Power analysis for RNA-seq</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Passare dalle considerazioni generali sulla power analysis alle specificità degli esperimenti RNA-seq.</p>
+<ul>
+<li>RNA-seq ha caratteristiche uniche: migliaia di geni testati simultaneamente, distribuzione NB dei conteggi</li>
+<li>Gli strumenti generici (come <code>pwr</code>) sono un punto di partenza ma non catturano la complessità reale</li>
+<li>Strumenti specifici per RNA-seq: RNASeqSampleSize, Scotty, ssizeRNA</li>
+<li>Messaggio chiave: pianificare PRIMA di raccogliere i campioni</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-18" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -513,6 +919,27 @@
 <div style="font-size: 60px">
 <p>RNA-seq experiments often suffer from a low statistical power</p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Evidenziare che la bassa potenza statistica è un problema cronico e sistematico negli esperimenti RNA-seq pubblicati.</p>
+<ul>
+<li>Studi di meta-analisi dimostrano che molti esperimenti RNA-seq hanno potenza &lt; 0.5</li>
+<li>Conseguenza: i geni DE identificati sono solo una frazione del totale reale</li>
+<li>Bassa potenza → difficoltà di replicazione tra laboratori diversi</li>
+<li>Invitare a riflettere: quanti dei loro esperimenti passati avevano ≥ 5 replicati biologici per condizione?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-19" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -527,6 +954,27 @@
 <div style="font-size: 60px">
 <p>Low power can lead to a lack of reproducibility of the research findings</p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Collegare bassa potenza e scarsa riproducibilità come problema sistemico in biologia molecolare.</p>
+<ul>
+<li>Bassa potenza → molti geni DE reali non vengono trovati → lista DE incompleta</li>
+<li>Due laboratori diversi con n=3 per gruppo spesso ottengono risultati poco sovrapposti</li>
+<li>La crisi di riproducibilità in biologia è in parte dovuta a studi sottopotenziati</li>
+<li>Soluzione pratica: aumentare il numero di replicati o selezionare target con effetti più grandi</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-20" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -545,10 +993,52 @@
 <div style="font-size: 60px">
 <p>The number of replicates is one of the critical parameter related to the power of an analysis</p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Sottolineare che il numero di replicati è la leva principale sulla potenza statistica.</p>
+<ul>
+<li>Il fattore più controllabile dal ricercatore è n (numero di campioni)</li>
+<li>Aumentare n da 3 a 6 può raddoppiare la potenza in molti scenari RNA-seq</li>
+<li>Il terzo punto è il messaggio chiave di questa sezione: più replicati &gt; maggiore profondità di sequenziamento</li>
+<li>Prepara la discussione sulla figura di Liu et al.&nbsp;che verrà subito dopo</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-21" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">Replicates</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la distinzione fondamentale tra replicati tecnici e biologici.</p>
+<ul>
+<li>Definire i due tipi prima di mostrare la figura</li>
+<li>Replicato tecnico: stesso campione biologico, step di laboratorio ripetuto → cattura varianza tecnica</li>
+<li>Replicato biologico: individui/campioni biologici diversi della stessa condizione → cattura varianza biologica reale</li>
+<li>In RNA-seq siamo interessati alla varianza biologica → serve il replicato biologico</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-22" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -573,10 +1063,50 @@
 <section id="section-23" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">Do we need technical replicates?</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Porre una domanda retorica per catturare l’attenzione prima della risposta.</p>
+<ul>
+<li>Attendere qualche secondo prima di rispondere</li>
+<li>Chiedere agli studenti cosa ne pensano</li>
+<li>Le aspettative possono variare: chi viene da PCR/qPCR è abituato ai replicati tecnici</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-24" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
 <p><span class="tit p-span-center">No</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Dare la risposta di impatto prima di spiegarla.</p>
+<ul>
+<li>La risposta diretta sorprende chi si aspettava sì</li>
+<li>Creare suspense: “E perché no?”</li>
+<li>La spiegazione arriva nella slide successiva con il callout</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-25" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -594,14 +1124,76 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare perché i replicati tecnici sono superflui nell’RNA-seq moderno.</p>
+<ul>
+<li>La variazione tecnica di Illumina è estremamente bassa (&lt;1% coefficient of variation)</li>
+<li>La varianza biologica tra individui/campioni è di ordini di grandezza più alta</li>
+<li>Con i replicati tecnici sprechiamo slot di sequenziamento che potrebbero essere campioni biologici aggiuntivi</li>
+<li>Eccezione: pilot studies per validare un nuovo protocollo di estrazione</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-26" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">Do we need biological replicates?</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Creare contrasto simmetrico con la domanda precedente sui replicati tecnici.</p>
+<ul>
+<li>Stessa struttura retorica della slide precedente: domanda → risposta drammatica</li>
+<li>Chiedere agli studenti: questa volta cosa rispondete?</li>
+<li>La risposta è opposta e ancora più enfatica</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-27" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
 <p><span class="tit p-span-center">YES</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Dare la risposta enfatica prima di spiegare il perché.</p>
+<ul>
+<li>Pausa drammatica dopo YES</li>
+<li>I replicati biologici sono NON NEGOZIABILI per l’analisi DE</li>
+<li>Senza replicati biologici non è possibile stimare la varianza → nessun test statistico valido</li>
+<li>Minimo: n=3 per condizione; raccomandato: n=5 o più</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-28" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -619,6 +1211,27 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Enfatizzare che i replicati biologici sono il prerequisito dell’analisi DE.</p>
+<ul>
+<li>Il testo sottolineato ({.rn}) attira l’attenzione sull’analisi differenziale</li>
+<li>Senza replicati → impossibile distinguere segnale biologico da rumore casuale</li>
+<li>Ricordare: con n=1 per condizione i tool come DESeq2 si rifiutano di girare</li>
+<li>Chi ci ha provato con n=2? Spesso risultati inconsistenti e inaffidabili</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-29" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
@@ -636,6 +1249,27 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Comunicare che “più replicati = stime migliori” sia per la media che per la varianza.</p>
+<ul>
+<li>Con n grande: stima della media di espressione più stabile → minore errore standard</li>
+<li>Con n grande: stima della dispersione più precisa → DESeq2 usa questo per informare lo shrinkage</li>
+<li>Il messaggio “più è meglio” è vero, ma con rendimenti decrescenti oltre n=10-12</li>
+<li>Nella slide seguente vedremo i dati di Liu et al.&nbsp;che quantificano questo effetto</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-30" class="slide level2" data-background-image="images/stat001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -668,6 +1302,27 @@
 <h1></h1>
 <p><span class="tit p-span-center">Introduction to RNA Sequencing</span></p>
 <p><span class="p-span-center">(Primary analysis)</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione sull’analisi primaria: dal FASTQ ai conteggi.</p>
+<ul>
+<li>Questa sezione copre il “perché” dell’RNA-seq e la storia della tecnologia</li>
+<li>Focus: come funziona fisicamente il sequenziamento (Illumina principale)</li>
+<li>I dottorandi raramente eseguono manualmente questa parte → importante capire i principi</li>
+<li>La comprensione della tecnologia aiuta a interpretare gli artefatti nei dati</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-32" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -682,6 +1337,27 @@
 <li><strong>Protein:</strong> The functional molecules in cells</li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Ricordare il dogma centrale come contesto biologico dell’RNA-seq.</p>
+<ul>
+<li>DNA → trascrizione → RNA → traduzione → Proteina</li>
+<li>L’RNA è il messaggero intermedio: ci dice quanta proteina una cellula sta producendo ORA</li>
+<li>Il DNA è stabile (identico in quasi tutte le cellule); l’RNA cambia in risposta all’ambiente</li>
+<li>RNA-seq misura il “trascrittoma” = tutte le molecole di RNA presenti in un momento dato</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-33" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -691,6 +1367,27 @@
 
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Coinvolgere gli studenti con una domanda interattiva prima di illustrare le motivazioni.</p>
+<ul>
+<li>Far scansionare il QR code agli studenti (se presente)</li>
+<li>Chiedere: “Perché state facendo RNA-seq nel vostro lab? Quale domanda biologica volete rispondere?”</li>
+<li>Raccogliere le risposte e collegarle ai punti nelle slide successive</li>
+<li>Questo crea engagement e contestualizza il corso nel loro lavoro</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-34" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -707,6 +1404,27 @@
 <li><strong>Understanding gene regulation:</strong> Studying RNA helps us understand how genes are turned on or off, and to what extent, in different conditions.</li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare i vantaggi principali dello studio dell’RNA rispetto al DNA.</p>
+<ul>
+<li>L’RNA è dinamico: cambia in risposta a farmaci, stress, differenziamento, malattia</li>
+<li>L’heatmap mostra come campioni si raggruppano per profilo di espressione → potere classificativo</li>
+<li>L’RNA rivela “chi comanda” in una cellula in un preciso momento biologico</li>
+<li>Esempio concreto dal loro laboratorio: trattamento farmacologico → quali geni cambiano?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-35" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -725,6 +1443,27 @@
 <li><strong>Disease biomarkers and drug targets:</strong> Changes in RNA expression can be indicative of disease states, making RNA a valuable source of biomarkers for diagnosis and prognosis.</li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Completare la motivazione biologica con le applicazioni cliniche e traslazionali.</p>
+<ul>
+<li>RNA come biomarker diagnostico: firme di espressione genica per sottotipi tumorali (es. PAM50 nel cancro al seno)</li>
+<li>Drug targets: geni overexpressed in patologia → candidati per terapie mirate</li>
+<li>Ribozimi: RNA cataliticamente attivi → fanno vedere che l’RNA non è solo un messaggero</li>
+<li>lncRNA: ex “junk DNA”, ora riconosciuti come regolatori chiave del genoma</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <!-- ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Why RNA Sequencing?]{.subtit}
@@ -814,10 +1553,52 @@
 
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Coinvolgere gli studenti con una domanda interattiva sulla storia del sequenziamento.</p>
+<ul>
+<li>Far scansionare il QR code agli studenti (se presente)</li>
+<li>Domanda possibile: “Quando è stato sequenziato il primo genoma umano completo?”</li>
+<li>Usa le risposte per introdurre la rivoluzione portata dall’NGS</li>
+<li>L’obiettivo è contestualizzare la rapid evoluzione tecnologica</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-38" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="tit p-span-center">First generation NGS</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la prima generazione di sequenziamento come punto di partenza storico.</p>
+<ul>
+<li>Il Sanger sequencing (1977) è la base da cui tutto è partito</li>
+<li>Fred Sanger vinse due Premi Nobel per la chimica (1958 e 1980)</li>
+<li>Tecnologia capace di 1 kb per reazione, usata per il Progetto Genoma Umano</li>
+<li>Ancora oggi gold standard per la validazione di varianti singole e PCR products</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-39" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -896,6 +1677,28 @@
 <li><p>Sequence quality degrades after 700 to 900 bases</p></li>
 </ol>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Fare un bilancio onesto dei punti di forza e debolezza del Sanger sequencing.</p>
+<ul>
+<li>Pro chiave: accuratezza altissima (&gt;99.99%) → gold standard per validazione</li>
+<li>Pro chiave: lunghi read (fino a 1000 bp) → utile per sequenziare regioni difficili</li>
+<li>Contro chiave: throughput basso → non scalabile a livello genomico/trascrittomica</li>
+<li>Nel contesto RNA-seq: usato per validare singoli risultati DE, non per discovery</li>
+<li>Segue una domanda interattiva (QR code)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-42" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -905,6 +1708,26 @@
 
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Verifica interattiva della comprensione prima di passare all’NGS.</p>
+<ul>
+<li>Far scansionare il QR code — possibile domanda: “Qual è il limite principale del Sanger?”</li>
+<li>Usare le risposte per motivare il passaggio all’NGS nella slide successiva</li>
+<li>Transizione: “Il throughput limitato ha spinto la ricerca verso tecnologie parallele”</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-43" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -923,6 +1746,27 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Comunicare il salto quantitativo tra Sanger e NGS di seconda generazione.</p>
+<ul>
+<li>La chiave è la PARALLELIZZAZIONE: milioni di reazioni simultanee su una flow cell</li>
+<li>Costo per base: da ~$1 (Sanger) a ~$0.000001 (Illumina NovaSeq)</li>
+<li>Questo ha reso possibile sequenziare interi trascrittomi per pochi centinaio di euro</li>
+<li>Nella slide seguente i tre sistemi più importanti della 2a gen</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-44" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1042,6 +1886,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <section id="section-47" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="subtit">Sequence by synthesis</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la tecnologia SBS (Illumina) che domina il mercato RNA-seq oggi.</p>
+<ul>
+<li>SBS = Sequencing by Synthesis: lettura base per base durante la sintesi del DNA</li>
+<li>È la tecnologia che i loro campioni usano quasi certamente</li>
+<li>La slide successiva è una foto storica: indovinano dov’è?</li>
+<li>Creare curiosità prima di mostrare l’immagine</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-48" class="slide level2" data-background-image="images/pant.jpg" data-background-size="cover" data-background-opacity="1">
 <h2></h2>
@@ -1096,6 +1961,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <div class="p-img-center">
 <p><img data-src="images/solexa.png" width="600"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Raccontare la fondazione di Solexa come il momento in cui la tecnologia SBS diventa un’azienda.</p>
+<ul>
+<li>Balasubramanian e Klenerman fondano Solexa per commercializzare il SBS</li>
+<li>Idea nata da conversazione informale al campo da golf a Cambridge nel 1997!</li>
+<li>Solexa = “Sequencing by Ligation and Extension” (nome originale del metodo)</li>
+<li>Da slide precedente: dal paper accademico alla startup in un anno</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-51" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1178,6 +2064,32 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <h2></h2>
 <p><span class="subtit">Sequence by synthesis - Process</span></p>
 <iframe data-external="1" src="https://www.youtube.com/embed/fCd6B5HRaZ8" width="100%" height="85%" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare il processo SBS Illumina con il video ufficiale per consolidare la comprensione visiva.</p>
+<ul>
+<li>Punti chiave da commentare guardando il video:
+<ol type="1">
+<li>Bridge amplification: ogni molecola forma un cluster clonale sulla flow cell</li>
+<li>Incorporazione di dNTP con terminatore reversibile fluorescente (1 base alla volta)</li>
+<li>Imaging con laser: il colore rivela la base incorporata</li>
+<li>Rimozione del terminatore → ciclo successivo</li>
+</ol></li>
+<li>Il processo genera read di 50-300 bp a seconda della chimica</li>
+<li>Paired-end: il frammento viene letto da entrambe le estremità</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-54" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1196,6 +2108,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre il salto concettuale della terza generazione: niente amplificazione, lettura diretta.</p>
+<ul>
+<li>La differenza chiave: 3a gen legge singole molecole SENZA clonazione/amplificazione</li>
+<li>Vantaggi: read molto lunghi (10-100+ kb), no PCR bias, rilevamento diretto di modificazioni (es. m6A)</li>
+<li>Limitazioni: error rate più alto per singola molecola (ma corretto da coverage)</li>
+<li>Applicazioni RNA-seq: utili per isoform sequencing completo (IsoSeq di PacBio)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-55" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1227,11 +2160,55 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <h2></h2>
 <p><span class="subtit">SMRS</span></p>
 <iframe data-external="1" src="https://www.youtube.com/embed/_lD8JyAbwEo" width="100%" height="85%" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare il SMRT sequencing di PacBio con il video.</p>
+<ul>
+<li>SMRT = Single Molecule Real-Time sequencing (Pacific Biosciences, 2011)</li>
+<li>La DNA polimerasi è immobilizzata in una ZMW (zero-mode waveguide): nanocavità che illumina solo la base incorporata</li>
+<li>I colori fluorescenti sui 4 dNTP vengono distinti in tempo reale</li>
+<li>Read length: tipicamente 15-25 kb, fino a &gt;100 kb con HiFi chemistry</li>
+<li>Accuracy: HiFi mode raggiunge &gt;99.9% su singole molecole (CCS reads)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-57" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <p><span class="subtit">Nanopore sequencing</span></p>
 <iframe data-external="1" src="https://www.youtube.com/embed/CGWZvHIi3i0" width="100%" height="85%" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare il nanopore sequencing di Oxford come tecnologia emergente accessibile.</p>
+<ul>
+<li>La molecola di DNA/RNA passa fisicamente attraverso un nanoporo proteico</li>
+<li>Ogni base causa una variazione caratteristica della corrente ionica → sequenza decodificata</li>
+<li>Oxford Nanopore ha MinION: sequenziatore tascabile da ~1000€, connesso via USB!</li>
+<li>Punto forte per RNA-seq: direct RNA sequencing (no conversione a cDNA) → no RT bias</li>
+<li>Adattamento del laboratorio: alcuni studenti potrebbero averlo già usato</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-58" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1269,6 +2246,28 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare la differenza pratica tra SE e PE e orientare la scelta.</p>
+<ul>
+<li>Single-end (SE): si legge solo un’estremità del frammento → 1 read per frammento</li>
+<li>Paired-end (PE): si leggono entrambe le estremità → 2 read per frammento (con insert size noto)</li>
+<li>Per RNA-seq standard (gene expression): SE 75 bp abbastanza, PE 150 bp lo standard attuale</li>
+<li>PE essenziale per: rilevazione di geni di fusione, splicing alternativo, varianti strutturali</li>
+<li>Il loro laboratorio usa SE o PE? → collegare alla slide successiva con la tabella</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-59" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1324,6 +2323,28 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </tr>
 </tbody>
 </table>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Fornire un riferimento comparativo rapido da usare nella pianificazione degli esperimenti.</p>
+<ul>
+<li>Leggere la tabella riga per riga commentando le trade-off più importanti</li>
+<li>Cost: PE costa ~1.5-2x di SE per lo stesso numero di campioni</li>
+<li>Information: PE dà informazione sulla lunghezza dell’inserto → QC della libreria incluso</li>
+<li>Raccomandazione pratica: per bulk RNA-seq gene expression usate PE 150bp come standard</li>
+<li>Domanda: nel loro laboratorio, qual’è la scelta default del centro di sequenziamento?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-60" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1361,6 +2382,28 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il concetto di profondità di sequenziamento e guidare la scelta corretta.</p>
+<ul>
+<li>Depth = numero medio di volte che ogni base trascriptoma è letta</li>
+<li>Per gene expression bulk RNA-seq umano: 20-30M reads sufficiente; con pochi geni target anche 10M</li>
+<li>Per trascrittomi complessi (es. piante con alto contenuto tandem repeats): servono più reads</li>
+<li>Il punto chiave dalla slide precedente (Liu et al.): depth &lt; n replicati per importanza</li>
+<li>Budget: calcolare (costo per campione) × n → qual è il trade-off ottimale?</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-61" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1391,11 +2434,54 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Distinguere coverage (copertura) da depth (profondità) e spiegare i fattori che la influenzano.</p>
+<ul>
+<li>Coverage ≠ depth: depth è la profondità media, coverage è la proporzione del trascrittoma coperta</li>
+<li>Un trascrittoma può avere alta depth ma bassa coverage se le reads si concentrano su pochi geni molto espressi</li>
+<li>RNA di alta qualità (alto RIN) → distribuzione uniforme dei read lungo il trascritto</li>
+<li>RNA degradato → bias 3’ (più reads sul 3’ end) → coverage distorta</li>
+<li>Tool per valutare la coverage: RSeQC, infer_experiment.py</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="section-62" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Emerging Trends and Future Directions</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Aprire la panoramica sulle frontiere attuali della trascrittomica oltre il bulk RNA-seq.</p>
+<ul>
+<li>Il bulk RNA-seq misura la media di espressione su milioni di cellule → perde l’eterogeneità cellulare</li>
+<li>Tre trend principali: scRNA-seq (risoluzione cellulare singola), spatial (risoluzione spaziale), multi-omics</li>
+<li>Questi metodi sono complementari al bulk: prima bulk per overview, poi single-cell per dettaglio</li>
+<li>Menzionare che questi metodi sono computazionalmente più costosi e richiedono più campioni</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-63" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1418,6 +2504,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
     *   Data analysis
 :::
 ::: -->
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre visivamente il concetto di single-cell RNA-seq e la sua risoluzione.</p>
+<ul>
+<li>L’immagine mostra UMAP o t-SNE: ogni punto è una singola cellula, colorata per tipo cellulare</li>
+<li>Il bulk RNA-seq vede la media di tutto; scRNA-seq vede ogni cellula individualmente</li>
+<li>Applicazione emblematica: in un tumore, cellule tumorali + immunitarie + stromali coesistono → bulk fa la media di tutto</li>
+<li>Costo: 5-10x quello del bulk per campione, ma informazione incomparabilmente maggiore</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-64" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1435,6 +2542,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <li>Identify key genes and regulatory networks involved in development.</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare i vantaggi nel caratterizzare popolazioni cellulari eterogenee e traiettorie di sviluppo.</p>
+<ul>
+<li>Eterogeneità cellulare: identificare sottopopolazioni rare (&lt;1% delle cellule) invisibili al bulk</li>
+<li>Esempio: cellule staminali tumorali, responsabili della resistenza ai farmaci, sono una piccola frazione</li>
+<li>Traiettorie (pseudotime): ricostruire l’ordine temporale di differenziamento senza sincronizzare le cellule</li>
+<li>Tool: Seurat, Scanpy per analisi; Monocle, RNA velocity per traiettorie</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-65" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1460,6 +2588,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Completare i vantaggi dello scRNA-seq con le applicazioni in patologia.</p>
+<ul>
+<li>Meccanismi di malattia: identificare il tipo cellulare specifico che guida la patologia</li>
+<li>Resistenza ai farmaci: cellule che evadono la terapia hanno profili trascrizionali diversi</li>
+<li>Composizione cellulare del microambiente tumorale: fondamentale per immunoterapia</li>
+<li>Limiti pratici: richiede cellule vive (o nuclei), protocollo di dissociazione critico, costo elevato</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-66" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1486,6 +2635,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la spatial transcriptomics come ponte tra istologia e genomica.</p>
+<ul>
+<li>Problema del scRNA-seq: perdiamo l’informazione sulla posizione delle cellule nel tessuto</li>
+<li>Spatial transcriptomics risolve questo: misura l’espressione genica mantenendo le coordinate spaziali</li>
+<li>Tecnologie: 10x Visium (spot array, ~55μm), Slide-seq (single cell resolution), MERFISH, seqFISH</li>
+<li>Applicazione emblematica: geni espressi diversamente nel centro vs periferia di un tumore</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-67" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1508,6 +2678,27 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare applicazioni concrete della spatial transcriptomics su tessuti biologici complessi.</p>
+<ul>
+<li>Esempio coclea (Tisi 2023): tessuto altamente specializzato con tipi cellulari rarissimi → solo spatial li identifica in situ</li>
+<li>Esempio Alzheimer (Chen 2020): regioni cerebrali colpite diversamente, spatial mostra la progressione spaziale</li>
+<li>Deconvoluzione: ogni spot Visium contiene più cellule → algoritmi (RCTD, SPOTlight) inferiscono composizione</li>
+<li>Analisi: dimension reduction con PCA/UMAP, integrazione con immagine H&amp;E</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-68" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1528,6 +2719,28 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Motivare l’integrazione multi-omics come approccio necessario per la biologia dei sistemi.</p>
+<ul>
+<li>Nessun singolo strato omico racconta la storia completa</li>
+<li>RNA-seq + metabolomica: correlazione tra trascritti e metaboliti → pathway analysis integrata</li>
+<li>RNA-seq + ATAC-seq: solo ~10% dei geni DE ha cambiamenti corrispondenti nella cromatina accessibile</li>
+<li>Questo dimostra che la regolazione trascrizionale è più complessa dell’apertura/chiusura della cromatina</li>
+<li>Sfida principale: integrazione computazionale di dati con scale, dimensioni e rumore diversi</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-69" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1551,6 +2764,28 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare gli strumenti e le applicazioni concrete dell’integrazione multi-omics.</p>
+<ul>
+<li>Machine learning (rSeqTU): predizione di unità trascrizionali integrando metagenomics + metabolomics</li>
+<li>DESeq2 può essere usato anche per integrare ChIP-seq con RNA-seq (stessa struttura dati)</li>
+<li>Single-cell multi-omics: CITE-seq (proteina + RNA), ATAC+RNA in singola cellula</li>
+<li>Sfida computazionale: ogni strato ha dimensioni diverse → serve riduzione dimensionale e matching di cellule</li>
+<li>Il campo è in rapida evoluzione: nuovi workflow ogni mese</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section id="section-70" class="title-slide slide level1 center" data-background-image="images/qmark.jpg" data-background-size="cover" data-background-opacity="0.7">
 <h1></h1>
