@@ -295,10 +295,15 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </div>
 
 <img data-src="images/phred1.png" class="r-stretch"><aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare come il Phred quality score viene codificato in caratteri ASCII nel formato FASTQ.</p>
 <ul>
-<li>I numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano</li>
-<li>Score più alto osservato 40, quindi molti si fermano li</li>
+<li>I numeri da 33 a 126 sono i valori ASCII corrispondenti ai caratteri usati per codificare gli score</li>
+<li>Il valore ASCII del carattere meno 33 dà il Phred score (es. “!” = ASCII 33 → Q0)</li>
+<li>Lo score massimo osservato in Illumina è tipicamente Q40, quindi la scala si ferma lì</li>
+<li>Score basso → alta probabilità di errore; score alto → base identificata con sicurezza</li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -592,20 +597,19 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 @PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam</code></pre>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare i campi dell’header SAM/BAM e il significato dei tag RG (read group) e PG (programma).</p>
 <ul>
-<li><span class="citation" data-cites="RG">@RG</span> = read group
+<li><span class="citation" data-cites="RG">@RG</span> = Read Group: raggruppa le reads provenienti dallo stesso campione/run di sequenziamento
 <ul>
-<li>ID = Read group identifier</li>
-<li>SM = Sample</li>
+<li>ID = identificatore del read group; SM = nome del campione (Sample)</li>
 </ul></li>
-<li><span class="citation" data-cites="PG">@PG</span> = Program
+<li><span class="citation" data-cites="PG">@PG</span> = Program: registra quale software ha prodotto o modificato il file
 <ul>
-<li>ID = Program record identifier</li>
-<li>PN = Program name</li>
-<li>VN = software version</li>
-<li>Cl = command line</li>
+<li>ID = identificatore del programma; PN = nome del programma; VN = versione software; CL = riga di comando eseguita</li>
 </ul></li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -631,11 +635,15 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <p><img data-src="images/bam2.png" class="absolute" style="top: 500px; left: 0px; width: 800px; height: auto; "></p>
 <p><img data-src="images/bam1.png" class="absolute" style="top: 400px; right: 20px; width: 550px; height: auto; "></p>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare la struttura della sezione di allineamento del file BAM e il significato delle informazioni memorizzate per ogni read.</p>
 <ul>
-<li><p>11 campi obbligatori</p></li>
-<li><p>Metadati non obbligatori</p></li>
-<li><p>Concise Idiosyncratic Gapped Alignment Report (CIGAR) string</p></li>
+<li>Ogni riga della sezione allineamenti ha 11 campi obbligatori (QNAME, FLAG, RNAME, POS, MAPQ, CIGAR, ecc.)</li>
+<li>I campi opzionali (metadati) sono coppie tag:tipo:valore che variano in base al software usato</li>
+<li>La stringa CIGAR (Concise Idiosyncratic Gapped Alignment Report) descrive l’allineamento: M=match, I=inserzione, D=delezione, N=salto intronico</li>
+<li>Il FLAG codifica in binario le proprietà della read (paired-end, unmapped, reverse strand, duplicato, ecc.)</li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -777,7 +785,15 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul>
 </div></div>
 <aside class="notes">
-<p>RPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular</p>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare le diverse metriche di normalizzazione dell’abbondanza dei trascritti prodotte da RSEM e quando usarle.</p>
+<ul>
+<li>RPKM/FPKM (Reads/Fragments Per Kilobase per Million): normalizza per lunghezza del gene e profondità totale, ma non confrontabile tra campioni diversi</li>
+<li>TPM (Trascritti Per Kilobase per Milione): normalizza prima per lunghezza, poi per profondità → confrontabile tra campioni, attualmente lo standard preferito</li>
+<li>I counts grezzi (non normalizzati) sono richiesti da DESeq2 ed edgeR per l’analisi differenziale</li>
+<li>RSEM fornisce tutti e tre i formati nell’output, ma per DE usare sempre i counts grezzi</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

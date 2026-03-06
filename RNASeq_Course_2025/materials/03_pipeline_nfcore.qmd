@@ -195,10 +195,16 @@ The quality score is used to identify the **probability of the correct identific
 
 ![](images/phred1.png)
 
-::: notes
--   I numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano
--   Score più alto osservato 40, quindi molti si fermano li
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare come il Phred quality score viene codificato in caratteri ASCII nel formato FASTQ.
+
+- I numeri da 33 a 126 sono i valori ASCII corrispondenti ai caratteri usati per codificare gli score
+- Il valore ASCII del carattere meno 33 dà il Phred score (es. "!" = ASCII 33 → Q0)
+- Lo score massimo osservato in Illumina è tipicamente Q40, quindi la scala si ferma lì
+- Score basso → alta probabilità di errore; score alto → base identificata con sicurezza
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -462,16 +468,16 @@ The quality score is used to identify the **probability of the correct identific
 :::
 
 
-::: notes
--   @RG = read group
-    -   ID = Read group identifier
-    -   SM = Sample
--   @PG = Program
-    -   ID = Program record identifier
-    -   PN = Program name
-    -   VN = software version
-    -   Cl = command line
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare i campi dell'header SAM/BAM e il significato dei tag RG (read group) e PG (programma).
+
+- @RG = Read Group: raggruppa le reads provenienti dallo stesso campione/run di sequenziamento
+  - ID = identificatore del read group; SM = nome del campione (Sample)
+- @PG = Program: registra quale software ha prodotto o modificato il file
+  - ID = identificatore del programma; PN = nome del programma; VN = versione software; CL = riga di comando eseguita
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -486,13 +492,16 @@ The quality score is used to identify the **probability of the correct identific
 
 ![](images/bam1.png){.absolute top="400" right="20" width="550" height="auto"}
 
-::: notes
--   11 campi obbligatori
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare la struttura della sezione di allineamento del file BAM e il significato delle informazioni memorizzate per ogni read.
 
--   Metadati non obbligatori
-
--   Concise Idiosyncratic Gapped Alignment Report (CIGAR) string
+- Ogni riga della sezione allineamenti ha 11 campi obbligatori (QNAME, FLAG, RNAME, POS, MAPQ, CIGAR, ecc.)
+- I campi opzionali (metadati) sono coppie tag:tipo:valore che variano in base al software usato
+- La stringa CIGAR (Concise Idiosyncratic Gapped Alignment Report) descrive l'allineamento: M=match, I=inserzione, D=delezione, N=salto intronico
+- Il FLAG codifica in binario le proprietà della read (paired-end, unmapped, reverse strand, duplicato, ecc.)
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -618,11 +627,16 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
-::: notes
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare le diverse metriche di normalizzazione dell'abbondanza dei trascritti prodotte da RSEM e quando usarle.
 
-RPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular
-
+- RPKM/FPKM (Reads/Fragments Per Kilobase per Million): normalizza per lunghezza del gene e profondità totale, ma non confrontabile tra campioni diversi
+- TPM (Trascritti Per Kilobase per Milione): normalizza prima per lunghezza, poi per profondità → confrontabile tra campioni, attualmente lo standard preferito
+- I counts grezzi (non normalizzati) sono richiesti da DESeq2 ed edgeR per l'analisi differenziale
+- RSEM fornisce tutti e tre i formati nell'output, ma per DE usare sempre i counts grezzi
 :::
+::::
 
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}

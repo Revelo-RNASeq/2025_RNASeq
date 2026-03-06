@@ -1534,10 +1534,15 @@
 </ul>
 </div></div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare la potenza e la versatilità dell’RNA-Seq rispetto alle tecnologie precedenti come i microarray.</p>
 <ul>
-<li><p>“Wide dynamic range” refers to the ability of a system or device to accurately capture and represent a broad range of signal intensities</p></li>
-<li><p>lncRNAs, or long non-coding RNAs, are a type of RNA molecule that is not translated into protein. They were once considered “junk” DNA, but are now recognized as crucial regulators of gene expression and cellular processes</p></li>
+<li>“Wide dynamic range” (ampio intervallo dinamico) indica la capacità di rilevare sia trascritti rari che abbondanti nello stesso esperimento</li>
+<li>Le lncRNA (long non-coding RNA) sono molecole di RNA non tradotte in proteine, un tempo considerate “junk DNA”, ora riconosciute come regolatori fondamentali dell’espressione genica</li>
+<li>La capacità di scoprire trascritti nuovi e varianti di splicing non annotate è uno dei principali vantaggi dell’RNA-Seq rispetto ai microarray</li>
+<li>L’RNA-Seq permette anche di rilevare mutazioni somatiche (SNP, indel) e geni di fusione direttamente dall’RNA</li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1613,12 +1618,14 @@
 <p><img data-src="images/sanger1.png" width="1500"></p>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
 <ul>
 <li><p>I dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3’-OH dei dNTP, essenziale per l’allungamento del filamento mediato dalla polimerasi in una PCR.</p></li>
 <li><p>Le marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.</p></li>
 <li><p>La sintesi del filamento di DNA complementare inizia nel sito specifico di innesco e termina con l’incorporazione di un ddNTP terminatore di catena che viene introdotto casualmente al posto del corrispondente dNTP.</p></li>
 <li><p>Quando questi frammenti vengono separati su una matrice di gel appropriata, l’informazione sulla sequenza può essere ottenuta dall’ordine di migrazione delle bande (dal basso verso l’alto).</p></li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1639,12 +1646,14 @@
 <p><img data-src="images/sanger2.png" width="1500"></p>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
 <ul>
 <li><p>Leroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di “codifica a colori” eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.</p></li>
 <li><p>Hood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.</p></li>
 <li><p>ddATP, ddCTP, ddGTP e ddUTP marcati con fluorescenza.</p></li>
 <li><p>La successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza.</p></li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1822,21 +1831,15 @@
 </div>
 </div></div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il meccanismo della ligazione enzimatica usata dalla tecnologia SOLiD per il sequenziamento.</p>
 <ul>
-<li><p>Fluorescently labeled molecules called 8-mers</p></li>
-<li><p>8-mers are short ssDNA fragments where:</p>
-<ul>
-<li>the first and second nucleotides are the next two nucleotides of the elongating DNA strand<br>
-</li>
-<li>the third-to-fifth nucleotides are degenerate<br>
-</li>
-<li>the sixth to eighth nucleotides are inosine bases, where the eighth inosine base is attached to a characteristic fluorescent dye</li>
-</ul></li>
+<li>Gli 8-meri sono brevi frammenti di ssDNA fluorescenti: i primi due nucleotidi corrispondono ai due nucleotidi successivi del filamento in elongazione, il terzo-quinto sono degeneri, il sesto-ottavo sono basi inosina con colorante fluorescente</li>
+<li>Fase A: primer e 8-meri vengono aggiunti; se i primi due nucleotidi sono complementari, la DNA ligasi li lega al primer</li>
+<li>Fase B: gli 8-meri non legati vengono rimossi; un laser eccita il tag fluorescente e registra il segnale; A-B si ripete fino alla fine del frammento</li>
+<li>Fase D: il filamento neosintetizzato viene denaturato e il ciclo A-C ripetuto con primer di lunghezza N-1, N-2, N-3</li>
 </ul>
-<p>A. The addition of primer and 8-mers, where if the first two nucleotides are complementary, DNA ligase ligates it to the primer.<br>
-B. Unbound 8-mers are washed away, and a laser excites the fluorescent tag on the 8-mer to emit a detectable light signal that is captured<br>
-C. A-B is repeated until the end of the DNA fragment.<br>
-D. The newly synthesized DNA strand is melted off, and A-C is repeated using a primer with a length of N-1, N-2, and N-3</p>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1870,12 +1873,15 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 </div>
 </div></div>
 <aside class="notes">
-<p>Durante il sequenziamento vengono, di volta in volta, aggiunti dei nucleotidi.</p>
-<p>Se il nucleotide viene incorporato viene rilasciato un pirofosfato</p>
-<p>Poi utilizzato come substrato dall’enzima ATP solforilasi.</p>
-<p>Quest’ultimo enzima catalizza la conversione del pirofosfato in ATP.</p>
-<p>L’ATP a sua volta è il cofattore utilizzato dalla luciferasi per catalizzare la reazione che coinvolge la luciferina e che porta alla produzione di luce.</p>
-<p>La luce generata, solo in seguito alla incorporazione del nucleotide corretto,viene rilevata grazie ad un detector.</p>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il meccanismo biochimico del pirosequenziamento (tecnologia 454/Roche).</p>
+<ul>
+<li>Durante il sequenziamento i nucleotidi vengono aggiunti uno alla volta; se incorporati, viene rilasciato un pirofosfato</li>
+<li>Il pirofosfato è usato come substrato dall’ATP solforilasi, che catalizza la conversione di pirofosfato in ATP</li>
+<li>L’ATP è il cofattore della luciferasi, che catalizza la reazione con la luciferina producendo luce rilevabile</li>
+<li>Il segnale luminoso è generato solo dall’incorporazione del nucleotide corretto e viene catturato da un detector</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1941,11 +1947,15 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 <p>Shankar Balasubramanian and David Klenerman</p>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Raccontare il momento storico in cui nasce il concetto alla base del sequenziamento Illumina.</p>
 <ul>
-<li><p>Cambridge scientists Shankar Balasubramanian, Ph.D.&nbsp;and David Klenerman, Ph.D.&nbsp;were using fluorescently labeled nucleotides to observe the motion of a polymerase at the single molecule level as it synthesized DNA immobilized to a surface</p></li>
-<li><p>during the summer of 1997 sparked ideas surrounding the use of clonal arrays and massively parallel sequencing of short reads using solid phase sequencing by reversible terminators</p></li>
-<li><p>This technology was subsequently referred to as sequencing by synthesis technology, or SBS. This became the basis of an innovative DNA sequencing approach.</p></li>
+<li>I due scienziati di Cambridge usavano nucleotidi fluorescenti per osservare il movimento di una polimerasi a livello della singola molecola durante la sintesi di DNA immobilizzato su superficie</li>
+<li>Nell’estate del 1997 nacque l’idea di usare array clonali e sequenziamento massivo e parallelo di short reads tramite terminatori reversibili su fase solida</li>
+<li>Questa tecnologia fu poi denominata SBS (Sequencing by Synthesis) e divenne la base del sequenziamento Illumina</li>
+<li>Il salto concettuale fu: invece di leggere una molecola, leggerne milioni in parallelo sullo stesso chip</li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

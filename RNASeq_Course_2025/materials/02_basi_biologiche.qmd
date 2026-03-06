@@ -985,11 +985,16 @@ plot(qrcode::qr_code("https://forms.gle/b6byBimmjCfM91uU6"))
 
 
 
-::: {.notes}
-- "Wide dynamic range" refers to the ability of a system or device to accurately capture and represent a broad range of signal intensities
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Mostrare la potenza e la versatilità dell'RNA-Seq rispetto alle tecnologie precedenti come i microarray.
 
-- lncRNAs, or long non-coding RNAs, are a type of RNA molecule that is not translated into protein.  They were once considered "junk" DNA, but are now recognized as crucial regulators of gene expression and cellular processes
+- "Wide dynamic range" (ampio intervallo dinamico) indica la capacità di rilevare sia trascritti rari che abbondanti nello stesso esperimento
+- Le lncRNA (long non-coding RNA) sono molecole di RNA non tradotte in proteine, un tempo considerate "junk DNA", ora riconosciute come regolatori fondamentali dell'espressione genica
+- La capacità di scoprire trascritti nuovi e varianti di splicing non annotate è uno dei principali vantaggi dell'RNA-Seq rispetto ai microarray
+- L'RNA-Seq permette anche di rilevare mutazioni somatiche (SNP, indel) e geni di fusione direttamente dall'RNA
 :::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -1045,7 +1050,8 @@ plot(qrcode::qr_code("https://forms.gle/rWcwyAiA4L7EG8pm7"))
 ![](images/sanger1.png){width=1500}
 :::
 
-:::{.notes}
+::::{.notes}
+::: {style="font-size: 9pt"}
 - I dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3'-OH dei dNTP, essenziale per l'allungamento del filamento mediato dalla polimerasi in una PCR.
 
 - Le marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.
@@ -1054,6 +1060,7 @@ plot(qrcode::qr_code("https://forms.gle/rWcwyAiA4L7EG8pm7"))
 
 - Quando questi frammenti vengono separati su una matrice di gel appropriata, l'informazione sulla sequenza può essere ottenuta dall'ordine di migrazione delle bande (dal basso verso l'alto).
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1065,7 +1072,8 @@ plot(qrcode::qr_code("https://forms.gle/rWcwyAiA4L7EG8pm7"))
 ![](images/sanger2.png){width=1500}
 :::
 
-:::{.notes}
+::::{.notes}
+::: {style="font-size: 9pt"}
 - Leroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di "codifica a colori" eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.
 
 - Hood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.
@@ -1074,6 +1082,7 @@ plot(qrcode::qr_code("https://forms.gle/rWcwyAiA4L7EG8pm7"))
 
 - La successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza.
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1224,21 +1233,16 @@ Second-generation sequencing platforms:
 :::
 ::::
 
-:::{.notes}
-- Fluorescently labeled molecules called 8-mers
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il meccanismo della ligazione enzimatica usata dalla tecnologia SOLiD per il sequenziamento.
 
-- 8-mers are short ssDNA fragments where: 
-
-    - the first and second nucleotides are the next two nucleotides of the elongating DNA strand    
-    - the third-to-fifth nucleotides are degenerate     
-    - the sixth to eighth nucleotides are inosine bases, where the eighth inosine base is attached to a characteristic fluorescent dye
-
-A. The addition of primer and 8-mers, where if the first two nucleotides are complementary, DNA ligase ligates it to the primer.    
-B. Unbound 8-mers are washed away, and a laser excites the fluorescent tag on the 8-mer to emit a detectable light signal that is captured    
-C. A-B is repeated until the end of the DNA fragment.    
-D. The newly synthesized DNA strand is melted off, and A-C is repeated using a primer with a length of N-1, N-2, and N-3
-
+- Gli 8-meri sono brevi frammenti di ssDNA fluorescenti: i primi due nucleotidi corrispondono ai due nucleotidi successivi del filamento in elongazione, il terzo-quinto sono degeneri, il sesto-ottavo sono basi inosina con colorante fluorescente
+- Fase A: primer e 8-meri vengono aggiunti; se i primi due nucleotidi sono complementari, la DNA ligasi li lega al primer
+- Fase B: gli 8-meri non legati vengono rimossi; un laser eccita il tag fluorescente e registra il segnale; A-B si ripete fino alla fine del frammento
+- Fase D: il filamento neosintetizzato viene denaturato e il ciclo A-C ripetuto con primer di lunghezza N-1, N-2, N-3
 :::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -1271,19 +1275,16 @@ D. The newly synthesized DNA strand is melted off, and A-C is repeated using a p
 :::
 ::::
 
-:::{.notes}
-Durante il sequenziamento vengono, di volta in volta, aggiunti dei nucleotidi. 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il meccanismo biochimico del pirosequenziamento (tecnologia 454/Roche).
 
-Se il nucleotide viene incorporato viene rilasciato un pirofosfato 
-
-Poi utilizzato come substrato dall'enzima ATP solforilasi. 
-
-Quest'ultimo enzima catalizza la conversione del pirofosfato in ATP. 
-
-L'ATP a sua volta è il cofattore utilizzato dalla luciferasi per catalizzare la reazione che coinvolge la luciferina e che porta alla produzione di luce. 
-
-La luce generata, solo in seguito alla incorporazione del nucleotide corretto,viene rilevata grazie ad un detector.
+- Durante il sequenziamento i nucleotidi vengono aggiunti uno alla volta; se incorporati, viene rilasciato un pirofosfato
+- Il pirofosfato è usato come substrato dall'ATP solforilasi, che catalizza la conversione di pirofosfato in ATP
+- L'ATP è il cofattore della luciferasi, che catalizza la reazione con la luciferina producendo luce rilevabile
+- Il segnale luminoso è generato solo dall'incorporazione del nucleotide corretto e viene catturato da un detector
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1323,13 +1324,16 @@ Shankar Balasubramanian and David Klenerman
 :::
 
 
-:::{.notes}
-- Cambridge scientists Shankar Balasubramanian, Ph.D. and David Klenerman, Ph.D. were using fluorescently labeled nucleotides to observe the motion of a polymerase at the single molecule level as it synthesized DNA immobilized to a surface
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Raccontare il momento storico in cui nasce il concetto alla base del sequenziamento Illumina.
 
-- during the summer of 1997 sparked ideas surrounding the use of clonal arrays and massively parallel sequencing of short reads using solid phase sequencing by reversible terminators
-
-- This technology was subsequently referred to as sequencing by synthesis technology, or SBS. This became the basis of an innovative DNA sequencing approach.
+- I due scienziati di Cambridge usavano nucleotidi fluorescenti per osservare il movimento di una polimerasi a livello della singola molecola durante la sintesi di DNA immobilizzato su superficie
+- Nell'estate del 1997 nacque l'idea di usare array clonali e sequenziamento massivo e parallelo di short reads tramite terminatori reversibili su fase solida
+- Questa tecnologia fu poi denominata SBS (Sequencing by Synthesis) e divenne la base del sequenziamento Illumina
+- Il salto concettuale fu: invece di leggere una molecola, leggerne milioni in parallelo sullo stesso chip
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
