@@ -659,11 +659,16 @@ The number of replicates is one of the critical parameter related to the power o
 
 ![Klaus B., EMBO J (2015) 34: 2727-2730](images/image-259602676.png)
 
-::: notes
--   Technical replicates: use the same biological sample to repeat the technical or experimental steps in order to accurately measure technical variation and remove it during analysis.
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Distinguere chiaramente replicati tecnici e biologici usando la figura di Klaus B.
 
--   Biological replicates use different biological samples of the same condition to measure the biological variation between samples
+- Replicati tecnici: stesso campione biologico, passaggi tecnici ripetuti → misurano la variazione tecnica
+- Replicati biologici: campioni biologici diversi della stessa condizione → misurano la variazione biologica
+- La figura mostra perché i replicati biologici contano di più per l'inferenza statistica
+- Collegare al concetto di potenza statistica discusso in precedenza
 :::
+::::
 
 ##  {background-image="images/stat001.jpg" background-size="cover" background-opacity="0.1"}
 
