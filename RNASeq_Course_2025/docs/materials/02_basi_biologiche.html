@@ -1288,8 +1288,15 @@
 </figure>
 </div>
 <aside class="notes">
-<p><span style="font-size: 50px; color: red">Cosa vedete? Come interpretate il grafico</span></p>
-<p>Note that an increase in the number of replicates tends to return more DE genes than increasing the sequencing depth.</p>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Guidare l’interpretazione del grafico sulla relazione tra profondità di sequenziamento e numero di repliche.</p>
+<ul>
+<li>Chiedere agli studenti: “Cosa osservate? Come interpretate questo grafico?”</li>
+<li>Il messaggio chiave: aumentare il numero di repliche biologiche è generalmente più efficace che aumentare la profondità di sequenziamento per rilevare più geni DE</li>
+<li>Le repliche biologiche catturano la variabilità reale tra individui; la profondità aiuta a rilevare trascritti rari</li>
+<li>Regola pratica: 3-6 repliche biologiche per esperimento, almeno 10-20M reads per campione per RNA-seq standard</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1793,11 +1800,15 @@
 <li><p>NextSeq 550Dx: Sequence by synthesis</p></li>
 </ol>
 <aside class="notes">
-<ol type="1">
-<li><p>SOLiD: Life Technologies in 2006</p></li>
-<li><p>454: Roche in 2011</p></li>
-<li><p>NextSeq 550Dx: Illumina in 2017</p></li>
-</ol>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Contestualizzare le tre principali piattaforme di 2a generazione con anno e produttore.</p>
+<ul>
+<li>SOLiD (Sequencing by Oligonucleotide Ligation and Detection): lanciato da Life Technologies nel 2006, basato su ligazione enzimatica</li>
+<li>454 GS FLX+: lanciato da Roche nel 2005, basato su pirosequenziamento; dismesso nel 2013 per costi elevati</li>
+<li>NextSeq 550Dx: lanciato da Illumina nel 2017, basato su SBS (Sequencing by Synthesis) — la tecnologia dominante oggi</li>
+<li>Il mercato NGS è oggi quasi interamente dominato da Illumina (~80% market share)</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1922,7 +1933,15 @@
 <section id="section-48" class="slide level2" data-background-image="images/pant.jpg" data-background-size="cover" data-background-opacity="1">
 <h2></h2>
 <aside class="notes">
-<p>Birthplace of high-throughput sequencing</p>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Creare suspense prima di rivelare la foto storica di Cambridge.</p>
+<ul>
+<li>Chiedere agli studenti: “Sapete dove è stato scattato questo foto?”</li>
+<li>È il luogo di nascita del sequenziamento ad alto parallelismo: l’Università di Cambridge</li>
+<li>Balasubramanian e Klenerman lavoravano qui quando ebbero l’idea del SBS nel 1997</li>
+<li>Il momento “eureka” avvenne durante una passeggiata sul fiume Cam — un aneddoto che umanizza la scienza</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2010,10 +2029,15 @@
 <p>Cluster generation (also known as “bridge amplification”)</p>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare l’acquisizione della tecnologia di clustering molecolare che rese possibile il sequenziamento massivo parallelo.</p>
 <ul>
-<li><p>Solexa acquired molecular clustering technology from Manteia.</p></li>
-<li><p>The amplification of single DNA molecules into clusters enhanced the fidelity and accuracy of gene calling, while reducing the cost of the system optics through generation of a stronger signal.</p></li>
+<li>Solexa acquisì la tecnologia di clustering molecolare da Manteia Predictive Display</li>
+<li>L’amplificazione di singole molecole di DNA in cluster (bridge amplification) genera un segnale fluorescente molto più forte, rilevabile otticamente a basso costo</li>
+<li>Ogni cluster è un clone della molecola originale: aumenta fedeltà e accuratezza del base calling</li>
+<li>Questa innovazione è la base fisica della flow cell Illumina ancora oggi in uso</li>
 </ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2050,19 +2074,15 @@
 </div></div>
 </div>
 <aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Ripercorrere i tre tappe fondamentali che portano dalla startup Solexa al dominio Illumina.</p>
 <ul>
-<li><p>The Solexa team sequenced the complete genome of the bacteriophage phiX-174, the same genome Sanger first sequenced using his method</p></li>
-<li><p>However, the SBS technology generated significantly more sequencing data, delivering over 3 million bases from a single run.</p></li>
+<li>2005: Il team Solexa sequenzia il genoma completo del batteriofago phiX-174 — lo stesso genome che Sanger aveva sequenziato con il suo metodo — ma la tecnologia SBS genera oltre 3 milioni di basi in un singolo run</li>
+<li>2005: Solexa acquisisce Lynx Therapeutics (strumentazione), trasformando il prototipo in uno strumento commerciale: il Genome Analyzer</li>
+<li>2007: Illumina acquisisce Solexa — nasce il monopolio che domina ancora oggi il mercato NGS</li>
+<li>Il throughput NGS ha superato la legge di Moore: raddoppia ogni anno, abbattendo il costo per base di oltre un milione di volte rispetto al Sanger</li>
 </ul>
-<hr>
-<ul>
-<li>Solexa acquired instrumentation company Lynx Therapeutics, transforming the successful Solexa prototype into a commercial sequencing instrument: Genome Analyzer</li>
-</ul>
-<hr>
-<ul>
-<li><p>Solexa was acquired by Illumina</p></li>
-<li><p>Next-generation sequencing (NGS) data output has increased at a rate that outpaces Moore’s law, more than doubling each year</p></li>
-</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2155,10 +2175,15 @@
 <li><p>Nanopore sequencing</p></li>
 </ol>
 <aside class="notes">
-<ol type="1">
-<li><p>Pacific Biosciences in 2011</p></li>
-<li><p>Oxford Nanopore Technologies on 2014</p></li>
-</ol>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Contestualizzare le due principali piattaforme di 3a generazione con anno e produttore.</p>
+<ul>
+<li>SMRT sequencing (Single Molecule Real-Time): lanciato da Pacific Biosciences nel 2011; produce read lunghi fino a 100+ kb con HiFi chemistry</li>
+<li>Nanopore sequencing: lanciato da Oxford Nanopore Technologies nel 2014; MinION è il sequenziatore più compatto al mondo (~1000€, connesso via USB)</li>
+<li>Entrambi leggono singole molecole senza amplificazione → no PCR bias, rilevamento diretto di modificazioni epigenetiche</li>
+<li>La 3a gen è ideale per assemblaggio de novo, isoform sequencing e direct RNA-seq</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

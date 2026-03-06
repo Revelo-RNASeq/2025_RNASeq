@@ -792,11 +792,16 @@ Biological replicates are of greater importance than sequencing depth
 
 ![Liu, Y., et al., Bioinformatics (2014) 30(3): 301--304](images/image-154795781.png){width="auto" height="700"}
 
-:::{.notes}
-[Cosa vedete? Come interpretate il grafico]{style="font-size: 50px; color: red"}
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Guidare l'interpretazione del grafico sulla relazione tra profondità di sequenziamento e numero di repliche.
 
-Note that an increase in the number of replicates tends to return more DE genes than increasing the sequencing depth. 
+- Chiedere agli studenti: "Cosa osservate? Come interpretate questo grafico?"
+- Il messaggio chiave: aumentare il numero di repliche biologiche è generalmente più efficace che aumentare la profondità di sequenziamento per rilevare più geni DE
+- Le repliche biologiche catturano la variabilità reale tra individui; la profondità aiuta a rilevare trascritti rari
+- Regola pratica: 3-6 repliche biologiche per esperimento, almeno 10-20M reads per campione per RNA-seq standard
 :::
+::::
 
 
 
@@ -1195,13 +1200,16 @@ Second-generation sequencing platforms:
 
 1. NextSeq 550Dx: Sequence by synthesis
 
-:::{.notes}
-1. SOLiD: Life Technologies in 2006
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Contestualizzare le tre principali piattaforme di 2a generazione con anno e produttore.
 
-1. 454: Roche in 2011
-
-1. NextSeq 550Dx: Illumina in 2017 
+- SOLiD (Sequencing by Oligonucleotide Ligation and Detection): lanciato da Life Technologies nel 2006, basato su ligazione enzimatica
+- 454 GS FLX+: lanciato da Roche nel 2005, basato su pirosequenziamento; dismesso nel 2013 per costi elevati
+- NextSeq 550Dx: lanciato da Illumina nel 2017, basato su SBS (Sequencing by Synthesis) — la tecnologia dominante oggi
+- Il mercato NGS è oggi quasi interamente dominato da Illumina (~80% market share)
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1303,9 +1311,16 @@ Second-generation sequencing platforms:
 
 ##  {background-image="images/pant.jpg" background-size="cover" background-opacity="1"}
 
-:::{.notes}
-Birthplace of high-throughput sequencing
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Creare suspense prima di rivelare la foto storica di Cambridge.
+
+- Chiedere agli studenti: "Sapete dove è stato scattato questo foto?"
+- È il luogo di nascita del sequenziamento ad alto parallelismo: l'Università di Cambridge
+- Balasubramanian e Klenerman lavoravano qui quando ebbero l'idea del SBS nel 1997
+- Il momento "eureka" avvenne durante una passeggiata sul fiume Cam — un aneddoto che umanizza la scienza
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1376,11 +1391,16 @@ Cluster generation (also known as "bridge amplification")
 :::
 
 
-:::{.notes}
-- Solexa acquired molecular clustering technology from Manteia. 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare l'acquisizione della tecnologia di clustering molecolare che rese possibile il sequenziamento massivo parallelo.
 
-- The amplification of single DNA molecules into clusters enhanced the fidelity and accuracy of gene calling, while reducing the cost of the system optics through generation of a stronger signal.
+- Solexa acquisì la tecnologia di clustering molecolare da Manteia Predictive Display
+- L'amplificazione di singole molecole di DNA in cluster (bridge amplification) genera un segnale fluorescente molto più forte, rilevabile otticamente a basso costo
+- Ogni cluster è un clone della molecola originale: aumenta fedeltà e accuratezza del base calling
+- Questa innovazione è la base fisica della flow cell Illumina ancora oggi in uso
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -1421,21 +1441,16 @@ Cluster generation (also known as "bridge amplification")
 :::
 
 
-:::{.notes}
-- The Solexa team sequenced the complete genome of the bacteriophage phiX-174, the same genome Sanger first sequenced using his method
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Ripercorrere i tre tappe fondamentali che portano dalla startup Solexa al dominio Illumina.
 
-- However, the SBS technology generated significantly more sequencing data, delivering over 3 million bases from a single run.
-
----
-
-- Solexa acquired instrumentation company Lynx Therapeutics, transforming the successful Solexa prototype into a commercial sequencing instrument: Genome Analyzer
-
----
-
-- Solexa was acquired by Illumina
-
-- Next-generation sequencing (NGS) data output has increased at a rate that outpaces Moore's law, more than doubling each year
+- 2005: Il team Solexa sequenzia il genoma completo del batteriofago phiX-174 — lo stesso genome che Sanger aveva sequenziato con il suo metodo — ma la tecnologia SBS genera oltre 3 milioni di basi in un singolo run
+- 2005: Solexa acquisisce Lynx Therapeutics (strumentazione), trasformando il prototipo in uno strumento commerciale: il Genome Analyzer
+- 2007: Illumina acquisisce Solexa — nasce il monopolio che domina ancora oggi il mercato NGS
+- Il throughput NGS ha superato la legge di Moore: raddoppia ogni anno, abbattendo il costo per base di oltre un milione di volte rispetto al Sanger
 :::
+::::
 
 
 
@@ -1493,11 +1508,16 @@ Third-generation NGS platforms:
 
 1. Nanopore sequencing
 
-:::{.notes}
-1. Pacific Biosciences in 2011
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Contestualizzare le due principali piattaforme di 3a generazione con anno e produttore.
 
-1. Oxford Nanopore Technologies on 2014
+- SMRT sequencing (Single Molecule Real-Time): lanciato da Pacific Biosciences nel 2011; produce read lunghi fino a 100+ kb con HiFi chemistry
+- Nanopore sequencing: lanciato da Oxford Nanopore Technologies nel 2014; MinION è il sequenziatore più compatto al mondo (~1000€, connesso via USB)
+- Entrambi leggono singole molecole senza amplificazione → no PCR bias, rilevamento diretto di modificazioni epigenetiche
+- La 3a gen è ideale per assemblaggio de novo, isoform sequencing e direct RNA-seq
 :::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
