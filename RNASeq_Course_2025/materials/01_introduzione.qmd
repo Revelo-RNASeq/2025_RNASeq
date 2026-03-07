@@ -10,6 +10,7 @@ format:
     css: ["css/theme.css", "css/custom.css"]
     theme: simple
     controls: true
+mainfont: "Times New Roman"
 editor: source
 filters:
   - roughnotation
@@ -34,15 +35,20 @@ if (requireNamespace("quarto", quietly = TRUE)) library(quarto)
 ::: {style="position: absolute; left: 180px; top: 200px; height: 525px; width: 1500px; background-color: #69b1e9; padding: 20px; padding-left: 50px; border-radius: 5px;"}
 [Introduzione al Corso]{style="font-size: 120px; font-weight: bold; line-height: 1em; margin: 0px; font-family: 'Architects Daughter', cursive;"}
 
-[Introduzione all'analisi RNASeq in R]{style="font-size: 40px;font-weight: bold;"}
+[Introduzione all'analisi RNASeq in R]{style="font-size: 40px; font-weight: bold;"}
 
-[Dipartimento di Biomedicina e Prevenzione]{style="font-size: 40px;font-weight: bold;"}
+[Dipartimento di Biomedicina e Prevenzione]{style="font-size: 40px; font-weight: bold;"}
 
 <br> <br>
 
 [Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
 
-[November 2025]{style="font-size: 30px;font-weight: bold;"}
+[Marzo 2026]{style="font-size: 30px; font-weight: bold;"}
+:::
+
+:::{.notes}
+- Apertura breve: oggi lavoriamo in modo pratico, con focus su logica biologica e interpretazione.
+- Spiega che l'AI e' uno strumento didattico centrale del corso.
 :::
 
 
@@ -55,76 +61,73 @@ if (requireNamespace("quarto", quietly = TRUE)) library(quarto)
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.3"}
 
 ::: {style="font-size: 40px; text-align: justify"}
-Ci dedichiamo a fornire un ambiente [accogliente]{.rn} e [di supporto]{.rn} per tutte le persone, [indipendentemente dal background o dall'identità]{.rn rn-type="box" rn-color="black"}.
+Ci dedichiamo a fornire un ambiente [accogliente]{.rn} e [di supporto]{.rn} per tutte le persone, [indipendentemente dal background o dall'identita']{.rn rn-type="box" rn-color="black"}.
 
 Partecipando a questo corso, [i partecipanti accettano il Codice di Condotta]{.rn}.
 
-Qualsiasi forma di comportamento volto a [escludere]{.rn rn-color="orange"}, [intimidire]{.rn rn-color="orange"} o [causare disagio]{.rn rn-color="orange"} è una violazione del Codice di Condotta. Per favorire un [ambiente di apprendimento positivo e professionale]{.rn rn-color="green"}, incoraggiamo i seguenti comportamenti:
+Qualsiasi forma di comportamento volto a [escludere]{.rn rn-color="orange"}, [intimidire]{.rn rn-color="orange"} o [causare disagio]{.rn rn-color="orange"} e' una violazione del Codice di Condotta. Per favorire un [ambiente di apprendimento positivo e professionale]{.rn rn-color="green"}, incoraggiamo i seguenti comportamenti:
 
 ::: {.fragment .fade-up}
--   Usare un linguaggio accogliente e inclusivo
-:::
-
-::: {.fragment .fade-up}
--   Essere rispettosi dei diversi punti di vista ed esperienze
+- Usare un linguaggio accogliente e inclusivo
 :::
 
 ::: {.fragment .fade-up}
--   Accettare con grazia le critiche costruttive
+- Essere rispettosi dei diversi punti di vista ed esperienze
 :::
 
 ::: {.fragment .fade-up}
--   Concentrarsi su ciò che è meglio per la comunità
+- Accettare con grazia le critiche costruttive
 :::
 
 ::: {.fragment .fade-up}
--   Mostrare cortesia e rispetto verso gli altri membri della comunità
+- Concentrarsi su cio' che e' meglio per la comunita'
+:::
+
+::: {.fragment .fade-up}
+- Mostrare cortesia e rispetto verso gli altri membri della comunita'
 :::
 :::
+
+:::{.notes}
+- Leggere solo i punti chiave, senza soffermarsi troppo.
+- Enfatizzare che domande e dubbi sono benvenuti in ogni momento.
+:::
+
 
 #  {background-image="images/back002.jpg" background-size="cover" background-opacity="0.3"}
 
-[Presentiamoci]{.tit .p-span-center}
+[Check-in Rapido]{.tit .p-span-center}
 
 [{{< fa id-card >}}]{.icon .p-span-center}
 
 ##  {background-image="images/back002.jpg" background-size="cover" background-opacity="0.3"}
 
 ::: {.fragment .fade-down style="font-size: 100px; text-align: start;"}
-{{< fa 1 >}} Chi sei?
+{{< fa 1 >}} Giro veloce dei nomi
 :::
 
 <br>
 
 ::: {.fragment .fade-down style="font-size: 100px; text-align: start; margin-left: 200px"}
-{{< fa 2 >}} Cosa hai studiato?
+{{< fa 2 >}} Cosa vi aspettate dal corso?
 :::
 
 <br>
 
 ::: {.fragment .fade-down style="font-size: 100px; text-align: start;"}
-{{< fa 3 >}} Quali sono i tuoi obiettivi?
-:::
-
-<br>
-
-::: {.fragment .fade-down style="font-size: 100px; text-align: start; margin-left: 200px"}
-{{< fa 4 >}} Quali sono le aspettative per il corso?
+{{< fa 3 >}} Analizzerete (o gestirete) dati RNA-seq bulk?
 :::
 
 :::{.notes}
-1. Marco - datemi del tu - Agilent - 2 figli, una quasi moglie - Pallavolo
-
-1. Laurea - Dottorato - Bioinformatica
-
-1. Portare un po di open sourse nel mondo company
-
-1. Che andiate a casa con qualche idea
+- Tenere il giro entro 8-10 minuti totali.
+- Se emergono bisogni diversi, promettere di adattare esempi e discussione.
+- Annotare rapidamente chi lavora gia' con RNA-seq e chi no.
 :::
+
 
 #  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Com'è strutturato il corso]{.tit .p-span-center}
+[Com'e' strutturato il corso]{.tit .p-span-center}
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
@@ -140,60 +143,115 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 [http://bit.ly/4hKN5OA]{.p-span-center style="font-size: 100px; font-weight: bold;"}
 :::
 
+:::{.notes}
+- Mostrare che il sito e' il punto unico per materiali e link.
+- Invitare a tenere aperto il sito durante tutto il corso.
+:::
+
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
 [Agenda]{.p-span-center style="font-size: 100px"}
 
 ::: columns
-::: {.column width="50%"}
-[Giorno 1]{.p-span-center}
-[Sequenziamento & Pipeline]{.p-span-center}
+::: {.column style="width: 50%; font-size: 34px;"}
+[Giorno 1]{.p-span-center style="font-size: 56px;"}
+[Sequenziamento & Pipeline]{.p-span-center style="font-size: 42px;"}
 
 <br>
 
 :::{.fragment .fade-rigth fragment-index=1}
 
-[Orari]{style="font-weight: bold;"}    
-9:30 : Introduzione al Corso   
-10:00: Biologia del RNA-Seq (Design, NGS)            
-10:45: Pausa                   
-11:00: Pipeline nf-core/rnaseq (QC, Trimming)
-
-
-12:30: Pausa pranzo            
-
-
-13:30: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)       
-14:45: Pausa                   
-15:00: Interpretazione MultiQC       
-16:30: Considerazioni finali   
+::: {style="line-height: 1.25; font-size: 30px;"}
+[Orari]{style="font-weight: bold;"}<br>
+9:30 : Introduzione al Corso<br>
+10:00: Ricerca riproducibile<br>
+10:45: Pausa<br>
+11:00: Biologia del RNA-Seq (Design, NGS)<br>
+12:30: Pausa pranzo<br>
+13:30: Pipeline nf-core/rnaseq (QC, Trimming)<br>
+14:45: Pausa<br>
+15:00: Pipeline nf-core/rnaseq (Allineamento, Quantificazione)<br>
+16:30: Considerazioni finali
+:::
 
 :::
 :::
 
-::: {.column width="50%"}
-[Giorno 2]{.p-span-center}
-[Analisi & Visualizzazione]{.p-span-center}
+::: {.column style="width: 50%; font-size: 34px;"}
+[Giorno 2]{.p-span-center style="font-size: 56px;"}
+[Analisi & Visualizzazione]{.p-span-center style="font-size: 42px;"}
 
 <br>
 
 :::{.fragment .fade-rigth fragment-index=2}
-[Orari]{style="font-weight: bold;"}    
-9:30 : Introduzione a R & Tidyverse  
-10:45: Pausa                   
-11:00: Importazione Dati (tximport)
-
-
-12:30: Pausa pranzo            
-
-
-13:30: Analisi Differenziale (DESeq2)    
-14:45: Pausa                   
-15:00: Visualizzazione dei Risultati                    
-16:30: Chiusura Corso   
+::: {style="line-height: 1.25; font-size: 30px;"}
+[Orari]{style="font-weight: bold;"}<br>
+9:30 : Introduzione e setup dell'ambiente di lavoro con l'AI<br>
+10:45: Pausa<br>
+11:00: Esempio di analisi<br>
+12:30: Pausa pranzo<br>
+13:30: Analisi RNASeq con AI<br>
+14:45: Pausa<br>
+15:00: Visualizzazione dei Risultati e Prompt AI<br>
+16:30: Chiusura Corso
 :::
 :::
 :::
+:::
+
+:::{.notes}
+- Chiarire il flusso: prima pipeline e QC, poi analisi statistica e interpretazione.
+- Evidenziare che l'AI entra soprattutto nella parte pratica del giorno 2.
+:::
+
+
+#  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
+
+[AI nel Corso]{.tit .p-span-center}
+
+[{{< fa robot >}}]{.icon .p-span-center}
+
+##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
+
+[Come useremo l'AI]{.p-span-center style="font-size: 100px"}
+
+:::{style="font-size: 64px"}
+1. [Prompt chiaro]{.rn} -> obiettivo biologico, input, output atteso
+
+1. [Verifica critica]{.rn} -> controlliamo sempre risultati e assunzioni
+
+1. [Interpretazione biologica]{.rn} -> priorita' al senso dei risultati, non alla sintassi
+:::
+
+:::{.notes}
+- Messaggio chiave: AI come copilota, non pilota automatico.
+- Ripetere il ciclo didattico: chiedi, esegui, verifica, interpreta.
+:::
+
+##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
+
+[Regole Pratiche per Prompt Efficaci]{.p-span-center style="font-size: 90px"}
+
+::: {.callout-tip style="font-size: 40px"}
+## Template rapido da copiare
+
+```
+Sto analizzando dati RNA-seq bulk.
+Input disponibili: [specifica file/cartelle].
+Obiettivo biologico: [es. identificare geni differenzialmente espressi].
+Genera i comandi/codice in passi brevi e spiegami come verificare ogni output.
+```
+:::
+
+::: {.callout-important style="font-size: 38px"}
+Non accettiamo mai output AI senza controllo: qualita' dati, statistiche e coerenza biologica vengono prima.
+:::
+
+:::{.notes}
+- Fare esempio pratico di prompt ben formulato vs prompt vago.
+- Anticipare che i template completi sono nella sezione Demo Prompt del sito.
+:::
+
 
 #  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
@@ -206,32 +264,40 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 [Approccio]{.p-span-center style="font-size: 100px"}
 
 :::{style="font-size: 70px"}
-1. Strumenti Open Source
+1. Strumenti Open Source e workflow riproducibile
 
 1. Community di supporto
 
-1. Il tuo laptop è tutto ciò che serve
+1. Il tuo laptop e' tutto cio' che serve
 
-1. [Feedback costante]{.rn rn-index=1}
+1. [AI come pair programmer]{.rn rn-index=1}
 
-1. [Fai domande!]{.rn rn-index=1}
+1. [Feedback costante e domande aperte]{.rn rn-index=1}
+:::
+
+:::{.notes}
+- Sottolineare che i concetti restano validi anche cambiando strumenti e software.
 :::
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Feedbacks]{.p-span-center style="font-size: 100px"}
+[Feedback]{.p-span-center style="font-size: 100px"}
 
-- [Immediati]{style="font-size: 70px"}
+- [Immediato]{style="font-size: 70px"}
 
-  - Sticky notes
+  - Domande in aula durante le demo
 
-- [Formative assessment]{style="font-size: 70px"}
+- [Formativo]{style="font-size: 70px"}
 
-  - Veloci questionari o esercizi
+  - Mini esercizi guidati e check dei risultati
 
-- [Alla fine di ogni modulo]{style="font-size: 70px"}
+- [Fine modulo]{style="font-size: 70px"}
 
-  - Sticky notes
+  - 1 punto chiaro + 1 punto da rivedere
+
+:::{.notes}
+- Invitare feedback anche se il ritmo e' troppo veloce o troppo lento.
+:::
 
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
@@ -239,16 +305,24 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 [Strumenti]{.p-span-center style="font-size: 100px"}
 
 - [Website]{style="font-size: 70px"}
-  
-- [Slack]{style="font-size: 70px"}
 
-  - Strumento di comunicazione
-  
+- [AI Assistant (Copilot/ChatGPT)]{style="font-size: 70px"}
+
+  - Pair programming e generazione guidata di codice
+
+- [R + Bioconductor + Nextflow]{style="font-size: 70px"}
+
+  - Stack tecnico del corso
+
 <br>
 <br>
 
+[Materiali e template prompt resteranno disponibili online]{.p-span-center style="font-size: 70px" .rn}
 
-[Entrambi rimarranno online per sempre]{.p-span-center style="font-size: 70px" .rn}
+:::{.notes}
+- Specificare che i prompt servono come base, ma vanno adattati al proprio dataset.
+:::
+
 
 #  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
@@ -259,35 +333,40 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 
 ##  {background-image="images/website.png" background-size="cover" background-opacity="0.1"}
 
-[Obiettivi]{.p-span-center style="font-size: 100px"}
+[Obiettivi]{.p-span-center style="font-size: 86px"}
 
-::::{style="font-size: 60px; font-family: 'Julius Sans One', sans-serif;"}
+::::{style="font-size: 50px; line-height: 1.15; font-family: 'Julius Sans One', sans-serif;"}
 
 :::{.fragment .fade-in fragment-index=1}
 ::: {.fragment .semi-fade-out fragment-index=2}
-1. Diventare un data scientist migliore
+1. Capire il workflow completo da FASTQ a risultati interpretabili
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=2}
 ::: {.fragment .semi-fade-out fragment-index=3}
-1. Imparare le best practices per lavorare con R/Bioconductor e Nextflow
+1. Usare R/Bioconductor e Nextflow con best practices riproducibili
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=3}
 ::: {.fragment .semi-fade-out fragment-index=4}
-1. Comprendere come analizzare dati di Bulk RNA-Seq
+1. Interpretare correttamente output di QC e analisi differenziale
 :::
 :::
 
 :::{.fragment .fade-in fragment-index=4}
 ::: {.fragment .semi-fade-out fragment-index=5}
-1. Sviluppare una pipeline RNASeq leggera e riutilizzabile
+1. Saper usare l'AI in modo verificabile e biologicamente sensato
 :::
 :::
 
 ::::
+
+:::{.notes}
+- Chiusura obiettivi: autonomia pratica + pensiero critico.
+:::
+
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 
@@ -296,3 +375,7 @@ plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 [Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
 :::
 
+:::{.notes}
+- Chiedere se ci sono aspettative non ancora emerse.
+- Transizione al modulo successivo.
+:::
