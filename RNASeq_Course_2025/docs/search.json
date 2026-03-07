@@ -102,7 +102,7 @@
     "href": "materials/08_demo_prompts.html#perché-il-dev-container",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Perché il Dev Container?",
-    "text": "Perché il Dev Container?\nI prompt di questo corso funzionano all’interno di un Dev Container: un ambiente pre-configurato che gira in Docker.\n\n\nVantaggi\n\n✅ Tutti i tool già installati: salmon, fastp, R, DESeq2…\n✅ Stesso ambiente per tutti: niente “sul mio PC funziona”\n✅ Nessuna installazione manuale di dipendenze\n✅ Si azzera e riparte facilmente\n\n\nCosa include il container\n\nBioinformatica: salmon, fastp, multiqc, fastqc\nR + Bioconductor: DESeq2, tximport, ComplexHeatmap\nQuarto (per il materiale del corso)\nGitHub Copilot (attivato separatamente)\n\n\n\n\n\n\n\n\nPrerequisiti di sistema\n\n\nServono almeno 10 GB liberi su disco e una buona connessione Internet per il primo download (~3 GB)."
+    "text": "Perché il Dev Container?\nI prompt di questo corso funzionano all’interno di un Dev Container: un ambiente pre-configurato che gira in Docker.\n\n\nVantaggi\n\n✅ Tutti i tool già installati: salmon, fastp, R, DESeq2…\n✅ Stesso ambiente per tutti: niente “sul mio PC funziona”\n✅ Nessuna installazione manuale di dipendenze\n✅ Si azzera e riparte facilmente\n\n\nCosa include il container\n\nBioinformatica: salmon, fastp, multiqc, fastqc\nR + Bioconductor: DESeq2, tximport, ComplexHeatmap\nQuarto (per il materiale del corso)\nGitHub Copilot (attivato separatamente)\n\n\n\n\n\n\n\n\n\nPrerequisiti di sistema\n\n\nServono almeno 10 GB liberi su disco e una buona connessione Internet per il primo download (~3 GB)."
   },
   {
     "objectID": "materials/08_demo_prompts.html#step-a-installare-docker-desktop",
@@ -151,7 +151,7 @@
     "href": "materials/08_demo_prompts.html#step--1-installare-vs-code",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Step -1: Installare VS Code",
-    "text": "Step -1: Installare VS Code\nVisual Studio Code è l’editor gratuito di Microsoft in cui eseguiremo il demo.\nDownload: code.visualstudio.com\n\n\nmacOS\n\nScarica il file .zip per Apple Silicon o Intel\nEstrai e trascina Visual Studio Code nella cartella Applicazioni\nAl primo avvio: tasto destro → Apri (per bypassare Gatekeeper)\n\n\nWindows\n\nScarica il file .exe (User Installer)\nEsegui il setup e segui la procedura guidata\nOpzione consigliata: spunta “Aggiungi al PATH” durante l’installazione\n\n\n\n\n\n\n\n\nVerifica installazione\n\n\nApri VS Code: dovresti vedere la schermata di benvenuto Welcome."
+    "text": "Step -1: Installare VS Code\nVisual Studio Code è l’editor gratuito di Microsoft in cui eseguiremo il demo.\nDownload: code.visualstudio.com\n\n\nmacOS\n\nScarica il file .zip per Apple Silicon o Intel\nEstrai e trascina Visual Studio Code nella cartella Applicazioni\nAl primo avvio: tasto destro → Apri (per bypassare Gatekeeper)\n\n\nWindows\n\nScarica il file .exe (User Installer)\nEsegui il setup e segui la procedura guidata\nOpzione consigliata: spunta “Aggiungi al PATH” durante l’installazione\n\n\n\n\n\n\n\n\n\nVerifica installazione\n\n\nApri VS Code: dovresti vedere la schermata di benvenuto Welcome."
   },
   {
     "objectID": "materials/08_demo_prompts.html#step--2-creare-un-account-github",
@@ -172,7 +172,7 @@
     "href": "materials/08_demo_prompts.html#step--4-aprire-la-copilot-chat",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Step -4: Aprire la Copilot Chat",
-    "text": "Step -4: Aprire la Copilot Chat\n\n\nAprire la chat\n\nClicca sull’icona Copilot Chat nella barra laterale sinistra (fumetto con stellina)\nOppure usa la scorciatoia Ctrl+Alt+I (Windows) / ⌃⌘I (macOS)\n\nTestare che funzioni\nScrivi nella chat:\nCosa è DESeq2 e per cosa si usa?\nSe Copilot risponde → tutto pronto! ✅\n\nDove incollare i prompt di questo corso\nDurante il demo, ogni slide mostra un riquadro blu “Copia questo prompt”.\n\nCopia il testo del prompt\nIncollalo nella Copilot Chat di VS Code\nPremi Invio e attendi la risposta\nCopia il codice generato nel tuo script R / nel terminale\n\n\n\n\n\n\n\n\nAlternative a VS Code\n\n\nI prompt funzionano anche su ChatGPT, Claude o Gemini — ma VS Code con Copilot permette di eseguire il codice direttamente nell’editor."
+    "text": "Step -4: Aprire la Copilot Chat\n\n\nAprire la chat\n\nClicca sull’icona Copilot Chat nella barra laterale sinistra (fumetto con stellina)\nOppure usa la scorciatoia Ctrl+Alt+I (Windows) / ⌃⌘I (macOS)\n\nTestare che funzioni\nScrivi nella chat:\nCosa è DESeq2 e per cosa si usa?\nSe Copilot risponde → tutto pronto! ✅\n\nDove incollare i prompt di questo corso\nDurante il demo, ogni slide mostra un riquadro blu “Copia questo prompt”.\n\nCopia il testo del prompt\nIncollalo nella Copilot Chat di VS Code\nPremi Invio e attendi la risposta\nCopia il codice generato nel tuo script R / nel terminale\n\n\n\n\n\n\n\n\n\nAlternative a VS Code\n\n\nI prompt funzionano anche su ChatGPT, Claude o Gemini — ma VS Code con Copilot permette di eseguire il codice direttamente nell’editor."
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-0a-qc-con-fastp",
@@ -249,7 +249,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-1",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 1",
-    "text": "Output Atteso - Step 1\n# Dovresti vedere qualcosa come:\n&gt; dim(counts)\n[1] 22485     6\n\n&gt; head(metadata)\n  sample_id condition batch\n1   sample1   control     A\n2   sample2   control     A\n3   sample3   control     B\n..."
+    "text": "Output Atteso - Step 1\n&gt; dim(se)\n[1] 63677     8\n\n&gt; colData(se)[, c(\"cell\", \"dex\")]\nDataFrame with 8 rows and 2 columns\n                  cell       dex\n           &lt;character&gt;  &lt;factor&gt;\nSRR1039508     N61311    untrt\nSRR1039509     N61311    trt\nSRR1039512     N052611   untrt\nSRR1039513     N052611   trt\nSRR1039516     N080611   untrt\nSRR1039517     N080611   trt\nSRR1039520     N061011   untrt\nSRR1039521     N061011   trt\n\n&gt; dds\nclass: DESeqDataSet\ndim: 63677 8\ndesign: ~cell + dex\n\n\n\n\n\n\nOggetti R: sessione vs disco\n\n\nIn R gli oggetti (dds, vsd, res…) vivono solo in memoria. Se chiudi e riapri R, devi ricrearli da zero — oppure ricaricarli da file .rds.\nRegola pratica: salva un checkpoint saveRDS() dopo ogni step computazionalmente costoso."
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-2.1-statistiche-base",
@@ -270,7 +270,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-2",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 2",
-    "text": "Output Atteso - Step 2\n# Prima del filtro\n&gt; nrow(counts)\n[1] 22485\n\n# Dopo il filtro\n&gt; nrow(counts_filtered)\n[1] 15234\n\n# Riduzione\n\"32% dei geni rimossi (principalmente non espressi)\""
+    "text": "Output Atteso - Step 2\n# Prima del pre-filtering\n&gt; nrow(dds)\n[1] 63677\n\n# Dopo il pre-filtering (&gt;= 10 counts in &gt;= 4 campioni)\n&gt; nrow(dds)\n[1] ~25000  # circa il 40% dei geni passa il filtro\n\n# Library size (conteggi totali per campione)\nSRR1039508  SRR1039509  SRR1039512  SRR1039513\n 20637971    18809481    25348649    15163415\n\nSRR1039516  SRR1039517  SRR1039520  SRR1039521\n 24448408    30818215    19126151    21164133"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-3.1-creazione-deseqdataset",
@@ -298,7 +298,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-3",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 3",
-    "text": "Output Atteso - Step 3\n\n\nPCA Plot - PC1 separa control vs treatment - Campioni dello stesso gruppo vicini - Varianza spiegata: PC1 ~60%, PC2 ~15%\n\nCorrelation Heatmap - Blocchi diagonali chiari - Correlazione intra-gruppo &gt; 0.95 - Clustering coerente con condizioni"
+    "text": "Output Atteso - Step 3\n\n\nPCA Plot\n\nPC1 (~50% varianza): separa le linee cellulari\nPC2 (~25% varianza): separa trt vs untrt\n4 “cluster” di 2 campioni = 4 coppie per linea cellulare\nI replicati biologici sono le coppie per linea\n\n\nSample Distance Heatmap\n\nLe coppie untrt/trt della stessa linea cellulare si raggruppano insieme\nDistanza intra-linea (diversa condizione) &lt; distanza inter-linea\nNessun outlier atteso → tutti i campioni di buona qualità"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analysis",
@@ -326,7 +326,7 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-4",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 4",
-    "text": "Output Atteso - Step 4\n# Summary atteso\nTotal genes tested:    15234\nSignificant (padj&lt;0.05, |LFC|&gt;1): 1247\n  - UP-regulated:      687\n  - DOWN-regulated:    560\n\n# Top genes\n      gene   baseMean  log2FC    padj\n1     Xist   12453.2    8.23    1e-150\n2     Uty     8234.1   -6.45    3e-120\n..."
+    "text": "Output Atteso - Step 4\n&gt; resultsNames(dds)\n[1] \"Intercept\"          \"cell_N052611_vs_N061011\"\n[3] \"cell_N080611_vs_N061011\" \"cell_N61311_vs_N061011\"\n[5] \"dex_trt_vs_untrt\"\n\n&gt; summary(res, alpha=0.05)\nout of ~25000 with nonzero total read count\nadjusted p-value &lt; 0.05\nLFC &gt; 0 (up)   : 747, ~3%\nLFC &lt; 0 (down) : 566, ~2.3%\noutliers [1]   :   0, 0%\nlow counts [2] :   0, 0%\n\n# Top gene significativo atteso: CRISPLD2 (up), DUSP1 (up)"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-5.1-volcano-plot",
@@ -354,21 +354,21 @@
     "href": "materials/08_demo_prompts.html#output-atteso---step-5",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Output Atteso - Step 5",
-    "text": "Output Atteso - Step 5\nI plot salvati in results/:\n\n\n\nFile\nContenuto\n\n\n\n\nvolcano_plot.pdf\nVolcano con geni etichettati\n\n\nheatmap_top50.pdf\nHeatmap clustered\n\n\ntop_genes_boxplot.pdf\nBoxplot 2x2\n\n\npca_plot.pdf\nPCA campioni\n\n\nsample_correlation.pdf\nHeatmap correlazione"
+    "text": "Output Atteso - Step 5\nI plot salvati in results/:\n\n\n\nFile\nContenuto\n\n\n\n\nMA_comparison.pdf\nMA plot MLE vs apeglm affiancati\n\n\nMA_plot.pdf\nMA plot shrinkato personalizzato\n\n\ntop_gene_counts.pdf\nConteggi CRISPLD2 per linea cellulare\n\n\nvolcano_plot.pdf\nVolcano con top geni etichettati\n\n\nheatmap_top30.pdf\nHeatmap z-score geni DE\n\n\npca_plot.pdf\nPCA con colore dex + forma cell\n\n\nsample_distances.pdf\nHeatmap distanze sample-to-sample"
   },
   {
     "objectID": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
     "href": "materials/08_demo_prompts.html#prompt-6.1-summary-report",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Prompt 6.1: Summary Report",
-    "text": "Prompt 6.1: Summary Report\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nGenera un report summary dell'analisi in formato markdown:\n1. Descrizione dataset (campioni, condizioni)\n2. Filtri applicati (geni rimossi)\n3. Risultati QC (PCA interpretation, outlier?)\n4. Risultati DE (numero geni UP/DOWN)\n5. Top 10 geni per pathway relevance (se conosci la biologia)\n6. Lista dei file generati\n\nFormatta come report professionale breve."
+    "text": "Prompt 6.1: Summary Report\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nGenera un report summary dell'analisi RNA-seq (dataset airway) in markdown:\n\n1. Descrizione dataset:\n   - 8 campioni, 4 linee cellulari, trattamento con desametasone\n   - Design: ~ cell + dex\n\n2. Pre-filtering:\n   - Geni iniziali: 63.677; Geni dopo filtro: ~25.000\n   - Critero: &gt;= 10 counts in &gt;= 4 campioni\n\n3. QC esplorativa:\n   - PCA: PC1 separa per linea cellulare, PC2 per trattamento\n   - Sample distances: coppie untrt/trt raggruppate per linea\n\n4. Risultati DE (padj &lt; 0.05, |LFC| &gt; 1):\n   - UP-regulated: [numero]\n   - DOWN-regulated: [numero]\n   - Top 5 geni UP e DOWN con interpretazione biologica\n\n5. Lista di tutti i file generati in results/\n\nFormatta come report professionale in italiano.\nAggiungi una sezione 'Limitazioni' che discuta cosa NON si può concludere\nda questo esperimento in vitro."
   },
   {
     "objectID": "materials/08_demo_prompts.html#checklist-finale",
     "href": "materials/08_demo_prompts.html#checklist-finale",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Checklist Finale ✅",
-    "text": "Checklist Finale ✅\nPrima di concludere, verifica:\n\nLa PCA mostra separazione tra gruppi?\nIl p-value histogram ha la forma attesa?\nI geni DE hanno senso biologico?\nTutti i plot sono salvati?\nIl codice è documentato?"
+    "text": "Checklist Finale ✅\nPrima di concludere, verifica:\n\ndim(dds) dopo pre-filtering mostra ~25.000 geni?\nPCA mostra separazione per linea cellulare (PC1) e trattamento (PC2)?\nDispersion plot ha la forma “a uncino” decrescente attesa?\nIl p-value histogram ha picco vicino a 0 + fondo piatto?\nI top geni DE includono CRISPLD2, DUSP1 (noti target glucocorticoidi)?\nTutti i plot sono salvati in results/?\nIl codice R è documentato con commenti?"
   },
   {
     "objectID": "materials/08_demo_prompts.html#struttura-di-un-buon-prompt",
@@ -389,7 +389,7 @@
     "href": "materials/08_demo_prompts.html#esercizio-finale",
     "title": "Demo: Analisi RNA-Seq con AI",
     "section": "Esercizio Finale",
-    "text": "Esercizio Finale\nUsando le stesse tecniche, prova a:\n\nCreare un MA plot personalizzato\nFare clustering gerarchico dei geni (non campioni)\nEsportare una tabella Excel con geni annotati\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati!"
+    "text": "Esercizio Finale\nUsando le stesse tecniche sul dataset airway, prova a:\n\nTestare un design ridotto ~ dex (senza cell) e confrontare il numero di geni DE — quanti si perdono senza controllare per la linea cellulare?\nCreare un heatmap dei pathway usando clusterProfiler per arricchimento GO dei geni UP vs DOWN\nEsportare una tabella Excel annotata con simbolo genico e descrizione usando org.Hs.eg.db\n\n💡 Ricorda: L’AI è un tool, tu sei l’esperto che valuta i risultati biologici!"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#TitleSlide",
@@ -445,7 +445,7 @@
     "href": "materials/03_pipeline_nfcore.html#section-9",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide.\n\n\n\n\nI numeri da 33 a 126 sono i numeri ASCII corrispondenti alla lettera che indicano\nScore più alto osservato 40, quindi molti si fermano li"
+    "text": "Raw reads: The Starting Point\nFASTQ format\nWhat does “quality score” mean?\n\nThe quality score is used to identify the probability of the correct identification of the corresponding nucleotide.\n\n\n\n\nObiettivo: Spiegare come il Phred quality score viene codificato in caratteri ASCII nel formato FASTQ.\n\nI numeri da 33 a 126 sono i valori ASCII corrispondenti ai caratteri usati per codificare gli score\nIl valore ASCII del carattere meno 33 dà il Phred score (es. “!” = ASCII 33 → Q0)\nLo score massimo osservato in Illumina è tipicamente Q40, quindi la scala si ferma lì\nScore basso → alta probabilità di errore; score alto → base identificata con sicurezza"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#section-10",
@@ -515,14 +515,14 @@
     "href": "materials/03_pipeline_nfcore.html#section-25",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nContent:\n\nHeader section: Contains metadata about the alignment (reference genome, aligner used, etc.).\n\n\n\n@RG     ID:1    SM:C5926_BM_IonCode_0118\n@PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam\n\n\n\n@RG = read group\n\nID = Read group identifier\nSM = Sample\n\n@PG = Program\n\nID = Program record identifier\nPN = Program name\nVN = software version\nCl = command line"
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nContent:\n\nHeader section: Contains metadata about the alignment (reference genome, aligner used, etc.).\n\n\n\n@RG     ID:1    SM:C5926_BM_IonCode_0118\n@PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam\n\n\n\nObiettivo: Spiegare i campi dell’header SAM/BAM e il significato dei tag RG (read group) e PG (programma).\n\n@RG = Read Group: raggruppa le reads provenienti dallo stesso campione/run di sequenziamento\n\nID = identificatore del read group; SM = nome del campione (Sample)\n\n@PG = Program: registra quale software ha prodotto o modificato il file\n\nID = identificatore del programma; PN = nome del programma; VN = versione software; CL = riga di comando eseguita"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#section-26",
     "href": "materials/03_pipeline_nfcore.html#section-26",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nAlignment section: Each line represents a single read and its alignment to the reference.\n\nIncludes information about mapping position, quality scores, alignment flags, and more.\n\n\n\n\n\n\n11 campi obbligatori\nMetadati non obbligatori\nConcise Idiosyncratic Gapped Alignment Report (CIGAR) string"
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nAlignment section: Each line represents a single read and its alignment to the reference.\n\nIncludes information about mapping position, quality scores, alignment flags, and more.\n\n\n\n\n\n\nObiettivo: Spiegare la struttura della sezione di allineamento del file BAM e il significato delle informazioni memorizzate per ogni read.\n\nOgni riga della sezione allineamenti ha 11 campi obbligatori (QNAME, FLAG, RNAME, POS, MAPQ, CIGAR, ecc.)\nI campi opzionali (metadati) sono coppie tag:tipo:valore che variano in base al software usato\nLa stringa CIGAR (Concise Idiosyncratic Gapped Alignment Report) descrive l’allineamento: M=match, I=inserzione, D=delezione, N=salto intronico\nIl FLAG codifica in binario le proprietà della read (paired-end, unmapped, reverse strand, duplicato, ecc.)"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#section-28",
@@ -550,7 +550,7 @@
     "href": "materials/03_pipeline_nfcore.html#section-33",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Alignment and Quantification\nRSEM\n\n\n \n\n\n\nWhat it is:\n\nRSEM is a software package for estimating gene and isoform expression levels from RNA-Seq data.\n\nKey features:\n\nUses a statistical model to estimate transcript abundance from aligned reads.\nCan handle different types of RNA-Seq data (single-end, paired-end).\nProvides various output formats (counts, TPM, FPKM).\n\n\n\n\nRPKM (Reads Per Kilobase Million) or FPKM (Fragments Per Kilobase Million). However, TPM (Transcripts Per Kilobase Million) is now becoming quite popular"
+    "text": "Alignment and Quantification\nRSEM\n\n\n \n\n\n\nWhat it is:\n\nRSEM is a software package for estimating gene and isoform expression levels from RNA-Seq data.\n\nKey features:\n\nUses a statistical model to estimate transcript abundance from aligned reads.\nCan handle different types of RNA-Seq data (single-end, paired-end).\nProvides various output formats (counts, TPM, FPKM).\n\n\n\n\n\nObiettivo: Spiegare le diverse metriche di normalizzazione dell’abbondanza dei trascritti prodotte da RSEM e quando usarle.\n\nRPKM/FPKM (Reads/Fragments Per Kilobase per Million): normalizza per lunghezza del gene e profondità totale, ma non confrontabile tra campioni diversi\nTPM (Trascritti Per Kilobase per Milione): normalizza prima per lunghezza, poi per profondità → confrontabile tra campioni, attualmente lo standard preferito\nI counts grezzi (non normalizzati) sono richiesti da DESeq2 ed edgeR per l’analisi differenziale\nRSEM fornisce tutti e tre i formati nell’output, ma per DE usare sempre i counts grezzi"
   },
   {
     "objectID": "materials/03_pipeline_nfcore.html#section-36",
@@ -711,7 +711,7 @@
     "href": "index.html",
     "title": "Analisi Dati di Bulk RNA-Seq",
     "section": "",
-    "text": "Questo corso vi guiderà attraverso l’analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all’interpretazione biologica dei risultati.\n\n\nIl corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nAnalisi in R: Import, DESeq2 e Visualizzazione\n\nGuida dettagliata all’importazione dati, analisi differenziale e visualizzazione dei risultati\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi\n\n\n\n\n\n\nQuesto corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.\n\n\n\n\nConoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!\n\n\n\n\n\nSetup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili\n\n\n\n\nDurante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.\n\n\n\n\nSlack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
+    "text": "Questo corso vi guiderà attraverso l’analisi di dati di sequenziamento RNA (RNA-Seq) bulk, dalla comprensione del dato grezzo all’interpretazione biologica dei risultati.\n\n\nIl corso è organizzato in 2 giornate:\n\n\n\nIntroduzione al Corso\n\nPanoramica del corso, obiettivi e metodologia didattica\n\nRicerca Riproducibile\n\nPrincipi di ricerca riproducibile, best practices e strumenti\n\nBasi Biologiche RNA-Seq\n\nIl dogma centrale, tecnologie NGS, design sperimentale\n\nPipeline nf-core/rnaseq\n\nWorkflow completo da FASTQ a matrice di conteggi\n\n\n\n\n\n\nAnalisi in R: Import, DESeq2 e Visualizzazione\n\nGuida dettagliata all’importazione dati, analisi differenziale e visualizzazione dei risultati\n\nSetup R e Tools\n\nConfigurazione ambiente di lavoro\n\nDemo AI-Prompts\n\nCome usare AI per generare codice di analisi\n\n\n\n\n\n\nQuesto corso adotta un approccio AI-assistito: imparerete a formulare prompt efficaci per generare codice di analisi, piuttosto che memorizzare sintassi. L’obiettivo è comprensione dei concetti biologici e statistici, non la programmazione fine a sé stessa.\n\n\n\n\nConoscenza base di biologia molecolare\nFamiliarità con R (anche minima)\nCuriosità e voglia di imparare!\n\n\n\n\n\nSetup Software - Istruzioni per installare R, Nextflow, Docker\nRisorse - Tutorial, documentazioni e riferimenti utili\n\n\n\n\nDurante il corso utilizzeremo il dataset airway (RNA-Seq di cellule muscolari lisce delle vie aeree trattate con desametasone), un classico esempio per didattica bioinformatica.\n\n\n\n\nSlack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nPrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
   },
   {
     "objectID": "index.html#struttura-del-corso",
@@ -753,476 +753,476 @@
     "href": "index.html#supporto",
     "title": "Analisi Dati di Bulk RNA-Seq",
     "section": "",
-    "text": "Slack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nNotePrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
+    "text": "Slack: Canale dedicato per domande e discussioni\nGitHub: Repository con codice e materiali\n\n\n\n\n\n\n\n\nPrima di iniziare\n\n\n\nAssicurati di aver completato il setup del software necessario!"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#TitleSlide",
     "href": "materials/02_basi_biologiche.html#TitleSlide",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Introduzione all’RNASeq\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2024"
+    "text": "Introduzione all’RNASeq\nIntroduzione all’analisi RNASeq in R\nDipartimento di Biomedicina e Prevenzione\n \nMarco Chiapello, Revelo Datalab\nNovember 2024\n\n\n\nObiettivo: Presentare il docente e introdurre il corso di analisi bulk RNA-seq in R.\n\nPresentarsi: Marco Chiapello, Revelo Datalab\nTema del corso: dall’RNA grezzo ai risultati biologici interpretabili\nStruttura: preparazione campione → sequenziamento → analisi bioinformatica → statistica in R\nInvitare i partecipanti a fare domande in qualsiasi momento"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-2",
     "href": "materials/02_basi_biologiche.html#section-2",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sample Preparation"
+    "text": "Sample Preparation\n \n\n\n\n\n\nObiettivo: Mostrare il workflow completo della preparazione del campione RNA-seq.\n\nPercorrere l’immagine dall’alto in basso seguendo il flusso del campione\nPassi chiave: estrazione RNA → selezione/deplezione rRNA → frammentazione → sintesi cDNA → ligazione adattatori → amplificazione PCR → QC libreria\nOgni step introduce potenziali bias: la standardizzazione è fondamentale\nTutto questo avviene PRIMA del sequenziamento"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-3",
     "href": "materials/02_basi_biologiche.html#section-3",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "RNA Extraction\n\n\n\n\n\nGoals:\n\nLyse cells/tissues\nRemove contaminants (DNA, proteins, lipids)\nPreserve RNA integrity\n\nMethods:\n\nPhenol-chloroform extraction \nColumn-based kits (silica membrane)"
+    "text": "RNA Extraction\n\n\n\n\n\nGoals:\n\nLyse cells/tissues\nRemove contaminants (DNA, proteins, lipids)\nPreserve RNA integrity\n\nMethods:\n\nPhenol-chloroform extraction \nColumn-based kits (silica membrane) \n\n\n\n\n\nObiettivo: Spiegare come si estrae l’RNA in modo efficiente e perché la scelta del metodo conta.\n\nLisare le cellule/tessuti per rilasciare il contenuto intracellulare\nRimuovere contaminanti: DNA genomico (DNase), proteine, lipidi\nFenolo-cloroformio: classico, resa alta, ma laborioso e tossico\nKit su colonna (es. RNeasy, TRIzol + colonna): rapido, riproducibile, sicuro → standard attuale\nQualità si valuta con: 260/280 ratio (spettrofotometria) e RIN (Bioanalyzer)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-4",
     "href": "materials/02_basi_biologiche.html#section-4",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Importance of High-Quality RNA\n\n\n\n\n\nHigh-quality RNA is the cornerstone of successful RNA-Seq.\nDegraded or contaminated RNA can lead to:\n\nInaccurate gene expression measurements\nMisleading conclusions\nWasted time and resources\n\nPrevent RNA degradation:\n\nUse RNase-free reagents and equipment.\nStore RNA at -80°C.\nMinimize freeze-thaw cycles."
+    "text": "Importance of High-Quality RNA\n\n\n\n\n\nHigh-quality RNA is the cornerstone of successful RNA-Seq.\nDegraded or contaminated RNA can lead to:\n\nInaccurate gene expression measurements\nMisleading conclusions\nWasted time and resources\n\nPrevent RNA degradation:\n\nUse RNase-free reagents and equipment.\nStore RNA at -80°C.\nMinimize freeze-thaw cycles.\n\n\n\n\n\nObiettivo: Enfatizzare che la qualità dell’RNA è la base irrinunciabile di un esperimento RNA-seq valido.\n\nMostrare l’elettroferogramma Bioanalyzer: RIN da 1 (degradato) a 10 (integro)\nRNA degradato introduce bias sistemici: sovrarappresentazione delle regioni 3’ dei trascritti\nStandard accettabile: RIN ≥ 7-8 (tessuto fresco); RIN ≥ 5 per campioni FFPE\nPrevenzione: reagenti RNase-free, lavoro in ghiaccio, stoccaggio a -80°C, minimizzare cicli freeze-thaw\nUn campione con basso RIN conviene scartarlo: costi di sequenziamento &gt; costi di ricampionamento"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-5",
     "href": "materials/02_basi_biologiche.html#section-5",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Enrich a specific type of RNA\n\nmRNA\nrRNAs and tRNAs (involved in mRNA translation)\nSmall nuclear RNAs (involved in splicing)\nSmall nucleolar RNAs (involved in the modification of rRNAs)\nmicroRNA (regulate gene expression at the posttranscriptional level)\nLong noncoding RNAs (chromatin remodelling, transcriptional control and posttranscriptional processing)\n\nTwo options for mRNA enrichment\n\nmRNA enrichment – Selectively enriching for poly(A)-tailed transcripts\nRNA depletion – Selectively depleting abundant/off-target transcripts"
+    "text": "Enrich a specific type of RNA\n\nmRNA\nrRNAs and tRNAs (involved in mRNA translation)\nSmall nuclear RNAs (involved in splicing)\nSmall nucleolar RNAs (involved in the modification of rRNAs)\nmicroRNA (regulate gene expression at the posttranscriptional level)\nLong noncoding RNAs (chromatin remodelling, transcriptional control and posttranscriptional processing)\n\nTwo options for mRNA enrichment\n\nmRNA enrichment – Selectively enriching for poly(A)-tailed transcripts\nRNA depletion – Selectively depleting abundant/off-target transcripts\n\n\n\nObiettivo: Spiegare perché si seleziona uno specifico tipo di RNA prima del sequenziamento.\n\nRNA totale: ~80% è rRNA e tRNA → se non rimossi, sprecano quasi tutta la capacità di sequenziamento\nTarget principale RNA-seq standard: mRNA (espressione genica proteina-codificante)\nPoly-A enrichment: captura mRNA maturi con coda poli-A, ma perde lncRNA senza coda poli-A\nrRNA depletion: rimuove rRNA/tRNA con sonde specifiche, cattura quasi tutto il trascrittoma\nScelta dipende dalla domanda biologica e dalla qualità dell’RNA di partenza"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-6",
     "href": "materials/02_basi_biologiche.html#section-6",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "RNA Fragmentation\n\n\n\n\n\n\nImportant\n\n\nA sequencing library is essentially a pool of RNA fragments with adapters attached\n\n\n\n\nWhy?\n\nNGS platform compatibility\nIncreased library complexity\n\nMethods:\n\nEnzymatic digestion (e.g., RNase III)\nMechanical shearing (e.g., sonication)"
+    "text": "RNA Fragmentation\n\n\n\n\n\n\nImportant\n\n\nA sequencing library is essentially a pool of RNA fragments with adapters attached\n\n\n\n\nWhy?\n\nNGS platform compatibility\nIncreased library complexity\n\nMethods:\n\nEnzymatic digestion (e.g., RNase III)\nMechanical shearing (e.g., sonication)\n\n\n\n\nObiettivo: Spiegare perché l’RNA viene frammentato prima della preparazione della libreria.\n\nLe macchine NGS Illumina sequenziano frammenti corti: tipicamente 50–300 bp\nFrammentazione garantisce copertura uniforme su tutta la lunghezza dei trascritti\nFrammentazione enzimatica (RNase III): taglia dsRNA in modo controllabile → più comune\nShearing meccanico (sonicazione/ultrasuoni): più usato per DNA genomico\nDimensione target frammento: ~150 bp per read 2×75 bp; ~300 bp per read 2×150 bp"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-7",
     "href": "materials/02_basi_biologiche.html#section-7",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Attachment of adapters\n\nAdapters are a short, chemically-synthesised oligonucleotide that can be attached to the ends of DNA molecules (cDNA Synthesis: RNA to DNA)\nAct as barcodes to identify where each nucleotide was originally located"
+    "text": "Attachment of adapters\n\nAdapters are a short, chemically-synthesised oligonucleotide that can be attached to the ends of DNA molecules (cDNA Synthesis: RNA to DNA)\nAct as barcodes to identify where each nucleotide was originally located\n\n\n\n\n\n\nObiettivo: Spiegare il ruolo degli adattatori nell’ancoraggio al sequenziatore e nel multiplexing.\n\nPrima l’RNA viene retrotrascritto in cDNA a doppio filamento\nGli adattatori (~60-70 nt) vengono ligati alle estremità del cDNA\nFunzioni: (1) ancoraggio alla flow cell Illumina, (2) sito di priming PCR, (3) index/barcode per identificare i campioni\nIl barcode permette il multiplexing: decine di campioni nello stesso lane di sequenziamento\nMostrare l’immagine: P5/P7 come adattatori standard Illumina"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-8",
     "href": "materials/02_basi_biologiche.html#section-8",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Library quantification\n\n\n\n\n\nWhy quantify?\n\nOptimal sequencing results\nDetermine loading concentration\nEnsure even coverage\n\nMethods:\n\nFluorometric methods (e.g., Qubit)\nqPCR\nCapillary electrophoresis (e.g., Bioanalyzer)"
+    "text": "Library quantification\n\n\n\n\n\nWhy quantify?\n\nOptimal sequencing results\nDetermine loading concentration\nEnsure even coverage\n\nMethods:\n\nFluorometric methods (e.g., Qubit)\nqPCR\nCapillary electrophoresis (e.g., Bioanalyzer)\n\n\n\n\n\nObiettivo: Spiegare come e perché si quantifica la libreria prima del sequenziamento.\n\nLa concentrazione di caricamento sulla flow cell è critica: troppo bassa → pochi cluster; troppo alta → cluster sovrapposti\nQubit fluorimetrico: misura precisa della concentrazione di DNA a doppio filamento\nqPCR: quantifica SOLO le molecole con adattatori funzionali → più rilevante\nBioanalyzer/TapeStation: fornisce la distribuzione dimensionale dei frammenti (size distribution)\nIl valore chiave da comunicare al centro di sequenziamento: concentrazione in nM"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-9",
     "href": "materials/02_basi_biologiche.html#section-9",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "How many samples do I need?"
+    "text": "How many samples do I need?\n\n\nObiettivo: Introdurre la domanda critica sulla numerosità campionaria prima di progettare l’esperimento.\n\nDomanda che ogni ricercatore DEVE porsi PRIMA di spendere soldi in RNA-seq\nTroppo pochi campioni → bassa potenza statistica → risultati non riproducibili\nLa risposta formale si ottiene con la power analysis\nChiedere: quanti di voi hanno già usato la power analysis nella loro ricerca?"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-10",
     "href": "materials/02_basi_biologiche.html#section-10",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis"
+    "text": "Power analysis\n\n\n\nObiettivo: Introdurre il concetto di power analysis come strumento per dimensionare correttamente lo studio.\n\nLa power analysis bilancia 4 parametri interdipendenti: errore α, potenza (1-β), effect size, numerosità n\nConoscendone 3, si calcola il quarto → di solito vogliamo calcolare n\nÈ uno strumento obbligatorio PRIMA di iniziare un esperimento\nNelle slide successive vedremo ciascun parametro nel dettaglio"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-11",
     "href": "materials/02_basi_biologiche.html#section-11",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments."
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\n\n\n\nObiettivo: Definire l’errore di tipo I (falso positivo) nel contesto RNA-seq.\n\nErrore tipo I (α): concludere che un gene è DE quando NON lo è → falso positivo\nα = probabilità di commettere questo errore; tipicamente 0.05 in studi generali\nIn RNA-seq si adotta α più stringente (0.01 o 0.001) per correggere i test multipli (migliaia di geni)\nLa correzione per test multipli (FDR di Benjamini-Hochberg) è standard in RNA-seq"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-12",
     "href": "materials/02_basi_biologiche.html#section-12",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments."
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\n\n\n\nObiettivo: Definire l’errore di tipo II e la potenza statistica.\n\nErrore tipo II (β): non rilevare un gene veramente DE → falso negativo\nPotenza = 1 - β: probabilità di rilevare un effetto reale; ideale ≥ 0.80 (80%)\nBassa potenza → molti geni DE non vengono scoperti → risultati incompleti e non riproducibili\nIn RNA-seq, con pochi replicati biologici la potenza cala drasticamente"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-13",
     "href": "materials/02_basi_biologiche.html#section-13",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2."
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.\n\n\n\nObiettivo: Definire l’effect size come misura della differenza biologica che vogliamo rilevare.\n\nEffect size (d): grandezza della differenza di espressione che ci interessa rilevare\nIn RNA-seq spesso si esprime come fold-change: d=2 corrisponde a ~2 volte di differenza\nDifferenze biologiche piccole (d piccolo) richiedono più campioni per essere rilevate\nIl ricercatore sceglie d in base alla rilevanza biologica minima accettabile"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-14",
     "href": "materials/02_basi_biologiche.html#section-14",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.\nSample size: the quantity you want to calculate."
+    "text": "Power analysis\n\n\nType I error: controlled by the α value. Often set to 0.01 (1%) or 0.001 (0.1%) in RNA-seq experiments.\nType II error: controlled by the β value. (1−β) will give you the power of your analysis. Should be set to 70 or 80% to detect 70 or 80% of the differentially expressed genes. The number of biological replicates might be hard to reach in practice for RNA-seq experiments.\nEffect size: this is a parameter you will set. For instance, if you want to investigate genes that differ between treatments with a difference of their mean of 2 then the effect size is equal to 2.\nSample size: the quantity you want to calculate.\n\n\n\nObiettivo: Riepilogare i 4 parametri della power analysis e come interagiscono.\n\nI 4 parametri sono interdipendenti: fissandone 3, il quarto è determinato\nPer calcolare n: fissare α (es. 0.05), β (es. 0.2 → potenza 80%), e d (es. 2)\nAumentare n → aumenta la potenza ma aumenta i costi\nCompromesso: trovare il bilanciamento tra potenza desiderata e fattibilità pratica/budget"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-15",
     "href": "materials/02_basi_biologiche.html#section-15",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Let’s say we want:\n\nType I error of 5%. (α=0.05)\nType II error of 0.2. (Power=1−β=0.8)\nEffect size of 2. (d=2)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 2,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")"
+    "text": "Let’s say we want:\n\nType I error of 5%. (α=0.05)\nType II error of 0.2. (Power=1−β=0.8)\nEffect size of 2. (d=2)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 2,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")\n\n\n\n\nObiettivo: Dimostrare come eseguire la power analysis in R con un effect size grande (d=2).\n\nCaricare il pacchetto pwr; funzione pwr.t.test() per confronti tra due gruppi\nd=2, potenza 80%, α=0.05, test bilaterale a due campioni\nIl risultato: n ≈ 6-7 campioni per gruppo → abbastanza fattibile\nInterpretare l’output: n è per GRUPPO, non totale\nSoffermarsi sulle righe una alla volta grazie a code-line-numbers"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-16",
     "href": "materials/02_basi_biologiche.html#section-16",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Let’s say we want:\n\nEffect size of 1. (d=1)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 1,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")"
+    "text": "Let’s say we want:\n\nEffect size of 1. (d=1)\n\n\n\nlibrary(\"pwr\")\n\npwr.t.test(d = 1,\n           power = .8,\n           sig.level = .05,\n           type = \"two.sample\",\n           alternative = \"two.sided\")\n\n\n\n\nObiettivo: Mostrare come un effect size più piccolo richieda campioni aggiuntivi.\n\nConfrontare con il caso precedente: d=1 vs d=2\nIl risultato: n ≈ 17 per gruppo → più del doppio rispetto a d=2!\nMessaggio chiave: effetti biologici piccoli richiedono esperimenti costosi\nDiscutere: qual è l’effect size biologicamente rilevante nel loro studio?\nIn RNA-seq, spesso si considera DE un gene con |log2FC| ≥ 1 (fold-change ≥ 2)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-17",
     "href": "materials/02_basi_biologiche.html#section-17",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Power analysis for RNA-seq"
+    "text": "Power analysis for RNA-seq\n\n\nObiettivo: Passare dalle considerazioni generali sulla power analysis alle specificità degli esperimenti RNA-seq.\n\nRNA-seq ha caratteristiche uniche: migliaia di geni testati simultaneamente, distribuzione NB dei conteggi\nGli strumenti generici (come pwr) sono un punto di partenza ma non catturano la complessità reale\nStrumenti specifici per RNA-seq: RNASeqSampleSize, Scotty, ssizeRNA\nMessaggio chiave: pianificare PRIMA di raccogliere i campioni"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-18",
     "href": "materials/02_basi_biologiche.html#section-18",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power"
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nObiettivo: Evidenziare che la bassa potenza statistica è un problema cronico e sistematico negli esperimenti RNA-seq pubblicati.\n\nStudi di meta-analisi dimostrano che molti esperimenti RNA-seq hanno potenza &lt; 0.5\nConseguenza: i geni DE identificati sono solo una frazione del totale reale\nBassa potenza → difficoltà di replicazione tra laboratori diversi\nInvitare a riflettere: quanti dei loro esperimenti passati avevano ≥ 5 replicati biologici per condizione?"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-19",
     "href": "materials/02_basi_biologiche.html#section-19",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings"
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings\n\n\n\nObiettivo: Collegare bassa potenza e scarsa riproducibilità come problema sistemico in biologia molecolare.\n\nBassa potenza → molti geni DE reali non vengono trovati → lista DE incompleta\nDue laboratori diversi con n=3 per gruppo spesso ottengono risultati poco sovrapposti\nLa crisi di riproducibilità in biologia è in parte dovuta a studi sottopotenziati\nSoluzione pratica: aumentare il numero di replicati o selezionare target con effetti più grandi"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-20",
     "href": "materials/02_basi_biologiche.html#section-20",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings\n\n\n\nThe number of replicates is one of the critical parameter related to the power of an analysis"
+    "text": "General Considerations\n\n\n\nRNA-seq experiments often suffer from a low statistical power\n\n\n\nLow power can lead to a lack of reproducibility of the research findings\n\n\n\nThe number of replicates is one of the critical parameter related to the power of an analysis\n\n\n\nObiettivo: Sottolineare che il numero di replicati è la leva principale sulla potenza statistica.\n\nIl fattore più controllabile dal ricercatore è n (numero di campioni)\nAumentare n da 3 a 6 può raddoppiare la potenza in molti scenari RNA-seq\nIl terzo punto è il messaggio chiave di questa sezione: più replicati &gt; maggiore profondità di sequenziamento\nPrepara la discussione sulla figura di Liu et al. che verrà subito dopo"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-21",
     "href": "materials/02_basi_biologiche.html#section-21",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Replicates"
+    "text": "Replicates\n\n\nObiettivo: Introdurre la distinzione fondamentale tra replicati tecnici e biologici.\n\nDefinire i due tipi prima di mostrare la figura\nReplicato tecnico: stesso campione biologico, step di laboratorio ripetuto → cattura varianza tecnica\nReplicato biologico: individui/campioni biologici diversi della stessa condizione → cattura varianza biologica reale\nIn RNA-seq siamo interessati alla varianza biologica → serve il replicato biologico"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-22",
     "href": "materials/02_basi_biologiche.html#section-22",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Klaus B., EMBO J (2015) 34: 2727-2730\n\nTechnical replicates: use the same biological sample to repeat the technical or experimental steps in order to accurately measure technical variation and remove it during analysis.\nBiological replicates use different biological samples of the same condition to measure the biological variation between samples"
+    "text": "Klaus B., EMBO J (2015) 34: 2727-2730\n\nObiettivo: Distinguere chiaramente replicati tecnici e biologici usando la figura di Klaus B.\n\nReplicati tecnici: stesso campione biologico, passaggi tecnici ripetuti → misurano la variazione tecnica\nReplicati biologici: campioni biologici diversi della stessa condizione → misurano la variazione biologica\nLa figura mostra perché i replicati biologici contano di più per l’inferenza statistica\nCollegare al concetto di potenza statistica discusso in precedenza"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-23",
     "href": "materials/02_basi_biologiche.html#section-23",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Do we need technical replicates?"
+    "text": "Do we need technical replicates?\n\n\nObiettivo: Porre una domanda retorica per catturare l’attenzione prima della risposta.\n\nAttendere qualche secondo prima di rispondere\nChiedere agli studenti cosa ne pensano\nLe aspettative possono variare: chi viene da PCR/qPCR è abituato ai replicati tecnici"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-24",
     "href": "materials/02_basi_biologiche.html#section-24",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "No"
+    "text": "No\n\n\nObiettivo: Dare la risposta di impatto prima di spiegarla.\n\nLa risposta diretta sorprende chi si aspettava sì\nCreare suspense: “E perché no?”\nLa spiegazione arriva nella slide successiva con il callout"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-25",
     "href": "materials/02_basi_biologiche.html#section-25",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "No\n\n\n\n\n\n\nImportant\n\n\nWith the current RNA-Seq technologies, technical variation is much lower than biological variation and technical replicates are unneccessary"
+    "text": "No\n\n\n\n\n\n\nImportant\n\n\nWith the current RNA-Seq technologies, technical variation is much lower than biological variation and technical replicates are unneccessary\n\n\n\n\n\nObiettivo: Spiegare perché i replicati tecnici sono superflui nell’RNA-seq moderno.\n\nLa variazione tecnica di Illumina è estremamente bassa (&lt;1% coefficient of variation)\nLa varianza biologica tra individui/campioni è di ordini di grandezza più alta\nCon i replicati tecnici sprechiamo slot di sequenziamento che potrebbero essere campioni biologici aggiuntivi\nEccezione: pilot studies per validare un nuovo protocollo di estrazione"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-26",
     "href": "materials/02_basi_biologiche.html#section-26",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Do we need biological replicates?"
+    "text": "Do we need biological replicates?\n\n\nObiettivo: Creare contrasto simmetrico con la domanda precedente sui replicati tecnici.\n\nStessa struttura retorica della slide precedente: domanda → risposta drammatica\nChiedere agli studenti: questa volta cosa rispondete?\nLa risposta è opposta e ancora più enfatica"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-27",
     "href": "materials/02_basi_biologiche.html#section-27",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "YES"
+    "text": "YES\n\n\nObiettivo: Dare la risposta enfatica prima di spiegare il perché.\n\nPausa drammatica dopo YES\nI replicati biologici sono NON NEGOZIABILI per l’analisi DE\nSenza replicati biologici non è possibile stimare la varianza → nessun test statistico valido\nMinimo: n=3 per condizione; raccomandato: n=5 o più"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-28",
     "href": "materials/02_basi_biologiche.html#section-28",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nBiological replicates are absolutely essential for differential expression analysis"
+    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nBiological replicates are absolutely essential for differential expression analysis\n\n\n\n\n\nObiettivo: Enfatizzare che i replicati biologici sono il prerequisito dell’analisi DE.\n\nIl testo sottolineato ({.rn}) attira l’attenzione sull’analisi differenziale\nSenza replicati → impossibile distinguere segnale biologico da rumore casuale\nRicordare: con n=1 per condizione i tool come DESeq2 si rifiutano di girare\nChi ci ha provato con n=2? Spesso risultati inconsistenti e inaffidabili"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-29",
     "href": "materials/02_basi_biologiche.html#section-29",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nFor differential expression analysis, the more biological replicates, the better the estimates of biological variation and the more precise our estimates of the mean expression levels"
+    "text": "YES\n\n\n\n\n\n\nImportant\n\n\nFor differential expression analysis, the more biological replicates, the better the estimates of biological variation and the more precise our estimates of the mean expression levels\n\n\n\n\n\nObiettivo: Comunicare che “più replicati = stime migliori” sia per la media che per la varianza.\n\nCon n grande: stima della media di espressione più stabile → minore errore standard\nCon n grande: stima della dispersione più precisa → DESeq2 usa questo per informare lo shrinkage\nIl messaggio “più è meglio” è vero, ma con rendimenti decrescenti oltre n=10-12\nNella slide seguente vedremo i dati di Liu et al. che quantificano questo effetto"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-30",
     "href": "materials/02_basi_biologiche.html#section-30",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Biological replicates are of greater importance than sequencing depth\n\n\n\n\nLiu, Y., et al., Bioinformatics (2014) 30(3): 301–304\n\n\n\nCosa vedete? Come interpretate il grafico\nNote that an increase in the number of replicates tends to return more DE genes than increasing the sequencing depth."
+    "text": "Biological replicates are of greater importance than sequencing depth\n\n\n\n\nLiu, Y., et al., Bioinformatics (2014) 30(3): 301–304\n\n\n\n\nObiettivo: Guidare l’interpretazione del grafico sulla relazione tra profondità di sequenziamento e numero di repliche.\n\nChiedere agli studenti: “Cosa osservate? Come interpretate questo grafico?”\nIl messaggio chiave: aumentare il numero di repliche biologiche è generalmente più efficace che aumentare la profondità di sequenziamento per rilevare più geni DE\nLe repliche biologiche catturano la variabilità reale tra individui; la profondità aiuta a rilevare trascritti rari\nRegola pratica: 3-6 repliche biologiche per esperimento, almeno 10-20M reads per campione per RNA-seq standard"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-32",
     "href": "materials/02_basi_biologiche.html#section-32",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "The central dogma\n\n\n\n\n\nDNA: The blueprint of genetic information\nRNA: The messenger carrying genetic instructions\nProtein: The functional molecules in cells"
+    "text": "The central dogma\n\n\n\n\n\nDNA: The blueprint of genetic information\nRNA: The messenger carrying genetic instructions\nProtein: The functional molecules in cells\n\n\n\n\nObiettivo: Ricordare il dogma centrale come contesto biologico dell’RNA-seq.\n\nDNA → trascrizione → RNA → traduzione → Proteina\nL’RNA è il messaggero intermedio: ci dice quanta proteina una cellula sta producendo ORA\nIl DNA è stabile (identico in quasi tutte le cellule); l’RNA cambia in risposta all’ambiente\nRNA-seq misura il “trascrittoma” = tutte le molecole di RNA presenti in un momento dato"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-33",
     "href": "materials/02_basi_biologiche.html#section-33",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Why Study RNA?"
+    "text": "Why Study RNA?\n\n\n\n\n\n\n\nObiettivo: Coinvolgere gli studenti con una domanda interattiva prima di illustrare le motivazioni.\n\nFar scansionare il QR code agli studenti (se presente)\nChiedere: “Perché state facendo RNA-seq nel vostro lab? Quale domanda biologica volete rispondere?”\nRaccogliere le risposte e collegarle ai punti nelle slide successive\nQuesto crea engagement e contestualizza il corso nel loro lavoro"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-34",
     "href": "materials/02_basi_biologiche.html#section-34",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Why Study RNA?\n\n\n\n\n\nDynamic reflection of cellular activity: Unlike DNA, which is relatively static, RNA levels change rapidly in response to internal and external stimuli.\n\nProvides a snapshot of what genes are actively being expressed at a specific time.\n\nUnderstanding gene regulation: Studying RNA helps us understand how genes are turned on or off, and to what extent, in different conditions."
+    "text": "Why Study RNA?\n\n\n\n\n\nDynamic reflection of cellular activity: Unlike DNA, which is relatively static, RNA levels change rapidly in response to internal and external stimuli.\n\nProvides a snapshot of what genes are actively being expressed at a specific time.\n\nUnderstanding gene regulation: Studying RNA helps us understand how genes are turned on or off, and to what extent, in different conditions.\n\n\n\n\nObiettivo: Illustrare i vantaggi principali dello studio dell’RNA rispetto al DNA.\n\nL’RNA è dinamico: cambia in risposta a farmaci, stress, differenziamento, malattia\nL’heatmap mostra come campioni si raggruppano per profilo di espressione → potere classificativo\nL’RNA rivela “chi comanda” in una cellula in un preciso momento biologico\nEsempio concreto dal loro laboratorio: trattamento farmacologico → quali geni cambiano?"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-35",
     "href": "materials/02_basi_biologiche.html#section-35",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Why Study RNA?\n\n\n\n\n\nInsights into cellular processes: RNA plays diverse roles in many cellular processes, including:\n\nProtein synthesis (mRNA)\nGene regulation (microRNAs, long non-coding RNAs)\nCatalysis (ribozymes)\n\nDisease biomarkers and drug targets: Changes in RNA expression can be indicative of disease states, making RNA a valuable source of biomarkers for diagnosis and prognosis."
+    "text": "Why Study RNA?\n\n\n\n\n\nInsights into cellular processes: RNA plays diverse roles in many cellular processes, including:\n\nProtein synthesis (mRNA)\nGene regulation (microRNAs, long non-coding RNAs)\nCatalysis (ribozymes)\n\nDisease biomarkers and drug targets: Changes in RNA expression can be indicative of disease states, making RNA a valuable source of biomarkers for diagnosis and prognosis.\n\n\n\n\nObiettivo: Completare la motivazione biologica con le applicazioni cliniche e traslazionali.\n\nRNA come biomarker diagnostico: firme di espressione genica per sottotipi tumorali (es. PAM50 nel cancro al seno)\nDrug targets: geni overexpressed in patologia → candidati per terapie mirate\nRibozimi: RNA cataliticamente attivi → fanno vedere che l’RNA non è solo un messaggero\nlncRNA: ex “junk DNA”, ora riconosciuti come regolatori chiave del genoma"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-36",
     "href": "materials/02_basi_biologiche.html#section-36",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "The Power of RNA-Seq\n\n\n\nUnbiased & Comprehensive:\n\nDiscovers novel transcripts\nNot limited to known genes\n\nHigher Sensitivity:\n\nDetects rare transcripts\nWider dynamic range\n\n\n\n\nAlternative Splicing:\n\nIdentifies and quantifies isoforms\n\nMutation Detection:\n\nSNPs, indels, fusion genes\n\nNon-Coding RNAs:\n\nStudies microRNAs, lncRNAs, etc.\n\n\n\n\n\n“Wide dynamic range” refers to the ability of a system or device to accurately capture and represent a broad range of signal intensities\nlncRNAs, or long non-coding RNAs, are a type of RNA molecule that is not translated into protein. They were once considered “junk” DNA, but are now recognized as crucial regulators of gene expression and cellular processes"
+    "text": "The Power of RNA-Seq\n\n\n\nUnbiased & Comprehensive:\n\nDiscovers novel transcripts\nNot limited to known genes\n\nHigher Sensitivity:\n\nDetects rare transcripts\nWider dynamic range\n\n\n\n\nAlternative Splicing:\n\nIdentifies and quantifies isoforms\n\nMutation Detection:\n\nSNPs, indels, fusion genes\n\nNon-Coding RNAs:\n\nStudies microRNAs, lncRNAs, etc.\n\n\n\n\n\nObiettivo: Mostrare la potenza e la versatilità dell’RNA-Seq rispetto alle tecnologie precedenti come i microarray.\n\n“Wide dynamic range” (ampio intervallo dinamico) indica la capacità di rilevare sia trascritti rari che abbondanti nello stesso esperimento\nLe lncRNA (long non-coding RNA) sono molecole di RNA non tradotte in proteine, un tempo considerate “junk DNA”, ora riconosciute come regolatori fondamentali dell’espressione genica\nLa capacità di scoprire trascritti nuovi e varianti di splicing non annotate è uno dei principali vantaggi dell’RNA-Seq rispetto ai microarray\nL’RNA-Seq permette anche di rilevare mutazioni somatiche (SNP, indel) e geni di fusione direttamente dall’RNA"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-37",
     "href": "materials/02_basi_biologiche.html#section-37",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "A Brief History of Sequencing"
+    "text": "A Brief History of Sequencing\n\n\n\n\n\n\n\nObiettivo: Coinvolgere gli studenti con una domanda interattiva sulla storia del sequenziamento.\n\nFar scansionare il QR code agli studenti (se presente)\nDomanda possibile: “Quando è stato sequenziato il primo genoma umano completo?”\nUsa le risposte per introdurre la rivoluzione portata dall’NGS\nL’obiettivo è contestualizzare la rapid evoluzione tecnologica"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-38",
     "href": "materials/02_basi_biologiche.html#section-38",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "First generation NGS"
+    "text": "First generation NGS\n\n\nObiettivo: Introdurre la prima generazione di sequenziamento come punto di partenza storico.\n\nIl Sanger sequencing (1977) è la base da cui tutto è partito\nFred Sanger vinse due Premi Nobel per la chimica (1958 e 1980)\nTecnologia capace di 1 kb per reazione, usata per il Progetto Genoma Umano\nAncora oggi gold standard per la validazione di varianti singole e PCR products"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-39",
     "href": "materials/02_basi_biologiche.html#section-39",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sanger Sequencing\n\n\n\n\n\n\nI dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3’-OH dei dNTP, essenziale per l’allungamento del filamento mediato dalla polimerasi in una PCR.\nLe marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.\nLa sintesi del filamento di DNA complementare inizia nel sito specifico di innesco e termina con l’incorporazione di un ddNTP terminatore di catena che viene introdotto casualmente al posto del corrispondente dNTP.\nQuando questi frammenti vengono separati su una matrice di gel appropriata, l’informazione sulla sequenza può essere ottenuta dall’ordine di migrazione delle bande (dal basso verso l’alto)."
+    "text": "Sanger Sequencing\n\n\n\n\n\n\n\nI dideossinucleotidi trifosfati (ddNTP) mancano del gruppo 3’-OH dei dNTP, essenziale per l’allungamento del filamento mediato dalla polimerasi in una PCR.\nLe marcature radioattive, instabili, rappresentavano un rischio per la salute e richiedevano gel separati per ciascuna delle quattro basi del DNA.\nLa sintesi del filamento di DNA complementare inizia nel sito specifico di innesco e termina con l’incorporazione di un ddNTP terminatore di catena che viene introdotto casualmente al posto del corrispondente dNTP.\nQuando questi frammenti vengono separati su una matrice di gel appropriata, l’informazione sulla sequenza può essere ottenuta dall’ordine di migrazione delle bande (dal basso verso l’alto)."
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-40",
     "href": "materials/02_basi_biologiche.html#section-40",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sanger Sequencing\n\n\n\n\n\n\nLeroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di “codifica a colori” eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.\nHood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.\nddATP, ddCTP, ddGTP e ddUTP marcati con fluorescenza.\nLa successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza."
+    "text": "Sanger Sequencing\n\n\n\n\n\n\n\nLeroy Hood sviluppò una tecnica chimica che utilizzava coloranti fluorescenti di diversi colori, uno per ciascuna delle quattro basi del DNA. Questo sistema di “codifica a colori” eliminò la necessità di eseguire diverse reazioni in gel sovrapposti.\nHood integrò la tecnologia laser e informatica, eliminando il tedioso processo di raccolta manuale delle informazioni.\nddATP, ddCTP, ddGTP e ddUTP marcati con fluorescenza.\nLa successiva visualizzazione fluorescente del prodotto rivela il nucleotide incorporato e quindi la sequenza."
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-41",
     "href": "materials/02_basi_biologiche.html#section-41",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sanger Sequencing\n\n\nAdvantages \n\nGold standard method for accurate detection of single nucleotide variants and small insertions/deletions\nCost effective where single samples need to be tested very urgently\nLess reliant on computational tools than NGS\nLonger fragments (up to approximately 1000bp) can be sequenced than in short read NGS\n\n\n\n\nLimitations \n\nLimited throughput\nNot cost effective for sequencing many genes in parallel\nCan require a larger amount of input DNA than NGS\nSanger methods can only sequence short pieces of DNA–about 300 to 1000 base pairs.\nThe quality of a Sanger sequence is often not very good in the first 15 to 40 bases because that is where the primer binds.\nSequence quality degrades after 700 to 900 bases"
+    "text": "Sanger Sequencing\n\n\nAdvantages \n\nGold standard method for accurate detection of single nucleotide variants and small insertions/deletions\nCost effective where single samples need to be tested very urgently\nLess reliant on computational tools than NGS\nLonger fragments (up to approximately 1000bp) can be sequenced than in short read NGS\n\n\n\n\nLimitations \n\nLimited throughput\nNot cost effective for sequencing many genes in parallel\nCan require a larger amount of input DNA than NGS\nSanger methods can only sequence short pieces of DNA–about 300 to 1000 base pairs.\nThe quality of a Sanger sequence is often not very good in the first 15 to 40 bases because that is where the primer binds.\nSequence quality degrades after 700 to 900 bases\n\n\n\n\nObiettivo: Fare un bilancio onesto dei punti di forza e debolezza del Sanger sequencing.\n\nPro chiave: accuratezza altissima (&gt;99.99%) → gold standard per validazione\nPro chiave: lunghi read (fino a 1000 bp) → utile per sequenziare regioni difficili\nContro chiave: throughput basso → non scalabile a livello genomico/trascrittomica\nNel contesto RNA-seq: usato per validare singoli risultati DE, non per discovery\nSegue una domanda interattiva (QR code)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-42",
     "href": "materials/02_basi_biologiche.html#section-42",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sanger Sequencing"
+    "text": "Sanger Sequencing\n\n\n\n\n\n\n\nObiettivo: Verifica interattiva della comprensione prima di passare all’NGS.\n\nFar scansionare il QR code — possibile domanda: “Qual è il limite principale del Sanger?”\nUsare le risposte per motivare il passaggio all’NGS nella slide successiva\nTransizione: “Il throughput limitato ha spinto la ricerca verso tecnologie parallele”"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-43",
     "href": "materials/02_basi_biologiche.html#section-43",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Second generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nSecond-generation NGS machines immediately began to drive the ‘genomics revolution’ by massively increased throughput by parallelizing many reactions"
+    "text": "Second generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nSecond-generation NGS machines immediately began to drive the ‘genomics revolution’ by massively increased throughput by parallelizing many reactions\n\n\n\n\n\nObiettivo: Comunicare il salto quantitativo tra Sanger e NGS di seconda generazione.\n\nLa chiave è la PARALLELIZZAZIONE: milioni di reazioni simultanee su una flow cell\nCosto per base: da ~$1 (Sanger) a ~$0.000001 (Illumina NovaSeq)\nQuesto ha reso possibile sequenziare interi trascrittomi per pochi centinaio di euro\nNella slide seguente i tre sistemi più importanti della 2a gen"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-44",
     "href": "materials/02_basi_biologiche.html#section-44",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Second generation NGS\n\nSecond-generation sequencing platforms:\n\nSOLiD: Sequencing by Oligonucleotide Ligation and Detection\n454 GS FLX+: It uses pyrosequencing chemistry\nNextSeq 550Dx: Sequence by synthesis\n\n\n\nSOLiD: Life Technologies in 2006\n454: Roche in 2011\nNextSeq 550Dx: Illumina in 2017"
+    "text": "Second generation NGS\n\nSecond-generation sequencing platforms:\n\nSOLiD: Sequencing by Oligonucleotide Ligation and Detection\n454 GS FLX+: It uses pyrosequencing chemistry\nNextSeq 550Dx: Sequence by synthesis\n\n\n\nObiettivo: Contestualizzare le tre principali piattaforme di 2a generazione con anno e produttore.\n\nSOLiD (Sequencing by Oligonucleotide Ligation and Detection): lanciato da Life Technologies nel 2006, basato su ligazione enzimatica\n454 GS FLX+: lanciato da Roche nel 2005, basato su pirosequenziamento; dismesso nel 2013 per costi elevati\nNextSeq 550Dx: lanciato da Illumina nel 2017, basato su SBS (Sequencing by Synthesis) — la tecnologia dominante oggi\nIl mercato NGS è oggi quasi interamente dominato da Illumina (~80% market share)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-45",
     "href": "materials/02_basi_biologiche.html#section-45",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by Ligation\n\n\n\n\n\n\n\n\n\n\n\n Considered to be one of the most accurate second-generation sequencing technologies\n it can take up to seven days to complete a single run and its short read length of 35 bp\n Thermo Fisher Scientific shut down all SOLiD sequencing platforms in 2016\n\n\n\n\n\nFluorescently labeled molecules called 8-mers\n8-mers are short ssDNA fragments where:\n\nthe first and second nucleotides are the next two nucleotides of the elongating DNA strand\n\nthe third-to-fifth nucleotides are degenerate\n\nthe sixth to eighth nucleotides are inosine bases, where the eighth inosine base is attached to a characteristic fluorescent dye\n\n\nA. The addition of primer and 8-mers, where if the first two nucleotides are complementary, DNA ligase ligates it to the primer.\nB. Unbound 8-mers are washed away, and a laser excites the fluorescent tag on the 8-mer to emit a detectable light signal that is captured\nC. A-B is repeated until the end of the DNA fragment.\nD. The newly synthesized DNA strand is melted off, and A-C is repeated using a primer with a length of N-1, N-2, and N-3"
+    "text": "Sequence by Ligation\n\n\n\n\n\n\n\n\n\n\n\n Considered to be one of the most accurate second-generation sequencing technologies\n it can take up to seven days to complete a single run and its short read length of 35 bp\n Thermo Fisher Scientific shut down all SOLiD sequencing platforms in 2016\n\n\n\n\n\nObiettivo: Spiegare il meccanismo della ligazione enzimatica usata dalla tecnologia SOLiD per il sequenziamento.\n\nGli 8-meri sono brevi frammenti di ssDNA fluorescenti: i primi due nucleotidi corrispondono ai due nucleotidi successivi del filamento in elongazione, il terzo-quinto sono degeneri, il sesto-ottavo sono basi inosina con colorante fluorescente\nFase A: primer e 8-meri vengono aggiunti; se i primi due nucleotidi sono complementari, la DNA ligasi li lega al primer\nFase B: gli 8-meri non legati vengono rimossi; un laser eccita il tag fluorescente e registra il segnale; A-B si ripete fino alla fine del frammento\nFase D: il filamento neosintetizzato viene denaturato e il ciclo A-C ripetuto con primer di lunghezza N-1, N-2, N-3"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-46",
     "href": "materials/02_basi_biologiche.html#section-46",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Pyrosequencing\n\n\n\n\n\n\n\n\n \n\n\n Large read lenght generation\n High reagent cost\n High error rate for homopolymers\n\n\n\n\nDurante il sequenziamento vengono, di volta in volta, aggiunti dei nucleotidi.\nSe il nucleotide viene incorporato viene rilasciato un pirofosfato\nPoi utilizzato come substrato dall’enzima ATP solforilasi.\nQuest’ultimo enzima catalizza la conversione del pirofosfato in ATP.\nL’ATP a sua volta è il cofattore utilizzato dalla luciferasi per catalizzare la reazione che coinvolge la luciferina e che porta alla produzione di luce.\nLa luce generata, solo in seguito alla incorporazione del nucleotide corretto,viene rilevata grazie ad un detector."
+    "text": "Pyrosequencing\n\n\n\n\n\n\n\n\n \n\n\n Large read lenght generation\n High reagent cost\n High error rate for homopolymers\n\n\n\n\n\nObiettivo: Spiegare il meccanismo biochimico del pirosequenziamento (tecnologia 454/Roche).\n\nDurante il sequenziamento i nucleotidi vengono aggiunti uno alla volta; se incorporati, viene rilasciato un pirofosfato\nIl pirofosfato è usato come substrato dall’ATP solforilasi, che catalizza la conversione di pirofosfato in ATP\nL’ATP è il cofattore della luciferasi, che catalizza la reazione con la luciferina producendo luce rilevabile\nIl segnale luminoso è generato solo dall’incorporazione del nucleotide corretto e viene catturato da un detector"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-47",
     "href": "materials/02_basi_biologiche.html#section-47",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis"
+    "text": "Sequence by synthesis\n\n\nObiettivo: Introdurre la tecnologia SBS (Illumina) che domina il mercato RNA-seq oggi.\n\nSBS = Sequencing by Synthesis: lettura base per base durante la sintesi del DNA\nÈ la tecnologia che i loro campioni usano quasi certamente\nLa slide successiva è una foto storica: indovinano dov’è?\nCreare curiosità prima di mostrare l’immagine"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-48",
     "href": "materials/02_basi_biologiche.html#section-48",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Birthplace of high-throughput sequencing"
+    "text": "Obiettivo: Creare suspense prima di rivelare la foto storica di Cambridge.\n\nChiedere agli studenti: “Sapete dove è stato scattato questo foto?”\nÈ il luogo di nascita del sequenziamento ad alto parallelismo: l’Università di Cambridge\nBalasubramanian e Klenerman lavoravano qui quando ebbero l’idea del SBS nel 1997\nIl momento “eureka” avvenne durante una passeggiata sul fiume Cam — un aneddoto che umanizza la scienza"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-49",
     "href": "materials/02_basi_biologiche.html#section-49",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis - History\n\n1997: Evolution of a Novel Approach to Sequencing\n\n\n\n\nShankar Balasubramanian and David Klenerman\n\n\n\nCambridge scientists Shankar Balasubramanian, Ph.D. and David Klenerman, Ph.D. were using fluorescently labeled nucleotides to observe the motion of a polymerase at the single molecule level as it synthesized DNA immobilized to a surface\nduring the summer of 1997 sparked ideas surrounding the use of clonal arrays and massively parallel sequencing of short reads using solid phase sequencing by reversible terminators\nThis technology was subsequently referred to as sequencing by synthesis technology, or SBS. This became the basis of an innovative DNA sequencing approach."
+    "text": "Sequence by synthesis - History\n\n1997: Evolution of a Novel Approach to Sequencing\n\n\n\n\nShankar Balasubramanian and David Klenerman\n\n\n\nObiettivo: Raccontare il momento storico in cui nasce il concetto alla base del sequenziamento Illumina.\n\nI due scienziati di Cambridge usavano nucleotidi fluorescenti per osservare il movimento di una polimerasi a livello della singola molecola durante la sintesi di DNA immobilizzato su superficie\nNell’estate del 1997 nacque l’idea di usare array clonali e sequenziamento massivo e parallelo di short reads tramite terminatori reversibili su fase solida\nQuesta tecnologia fu poi denominata SBS (Sequencing by Synthesis) e divenne la base del sequenziamento Illumina\nIl salto concettuale fu: invece di leggere una molecola, leggerne milioni in parallelo sullo stesso chip"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-50",
     "href": "materials/02_basi_biologiche.html#section-50",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis - History\n\n1998: Formation of Solexa"
+    "text": "Sequence by synthesis - History\n\n1998: Formation of Solexa\n\n\n\n\n\nObiettivo: Raccontare la fondazione di Solexa come il momento in cui la tecnologia SBS diventa un’azienda.\n\nBalasubramanian e Klenerman fondano Solexa per commercializzare il SBS\nIdea nata da conversazione informale al campo da golf a Cambridge nel 1997!\nSolexa = “Sequencing by Ligation and Extension” (nome originale del metodo)\nDa slide precedente: dal paper accademico alla startup in un anno"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-51",
     "href": "materials/02_basi_biologiche.html#section-51",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis - History\n\n2004: Molecular Clustering Technology Integration\n\n\n\n\nCluster generation (also known as “bridge amplification”)\n\n\n\nSolexa acquired molecular clustering technology from Manteia.\nThe amplification of single DNA molecules into clusters enhanced the fidelity and accuracy of gene calling, while reducing the cost of the system optics through generation of a stronger signal."
+    "text": "Sequence by synthesis - History\n\n2004: Molecular Clustering Technology Integration\n\n\n\n\nCluster generation (also known as “bridge amplification”)\n\n\n\nObiettivo: Spiegare l’acquisizione della tecnologia di clustering molecolare che rese possibile il sequenziamento massivo parallelo.\n\nSolexa acquisì la tecnologia di clustering molecolare da Manteia Predictive Display\nL’amplificazione di singole molecole di DNA in cluster (bridge amplification) genera un segnale fluorescente molto più forte, rilevabile otticamente a basso costo\nOgni cluster è un clone della molecola originale: aumenta fedeltà e accuratezza del base calling\nQuesta innovazione è la base fisica della flow cell Illumina ancora oggi in uso"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-52",
     "href": "materials/02_basi_biologiche.html#section-52",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis - History\n\n2005: phiX-174 Genome Sequencing\n\n2005: Integration of Lynx Therapeutics\n\n\n2007: Illumina Acquires Solexa\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Solexa team sequenced the complete genome of the bacteriophage phiX-174, the same genome Sanger first sequenced using his method\nHowever, the SBS technology generated significantly more sequencing data, delivering over 3 million bases from a single run.\n\n\n\nSolexa acquired instrumentation company Lynx Therapeutics, transforming the successful Solexa prototype into a commercial sequencing instrument: Genome Analyzer\n\n\n\nSolexa was acquired by Illumina\nNext-generation sequencing (NGS) data output has increased at a rate that outpaces Moore’s law, more than doubling each year"
+    "text": "Sequence by synthesis - History\n\n2005: phiX-174 Genome Sequencing\n\n2005: Integration of Lynx Therapeutics\n\n\n2007: Illumina Acquires Solexa\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObiettivo: Ripercorrere i tre tappe fondamentali che portano dalla startup Solexa al dominio Illumina.\n\n2005: Il team Solexa sequenzia il genoma completo del batteriofago phiX-174 — lo stesso genome che Sanger aveva sequenziato con il suo metodo — ma la tecnologia SBS genera oltre 3 milioni di basi in un singolo run\n2005: Solexa acquisisce Lynx Therapeutics (strumentazione), trasformando il prototipo in uno strumento commerciale: il Genome Analyzer\n2007: Illumina acquisisce Solexa — nasce il monopolio che domina ancora oggi il mercato NGS\nIl throughput NGS ha superato la legge di Moore: raddoppia ogni anno, abbattendo il costo per base di oltre un milione di volte rispetto al Sanger"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-53",
     "href": "materials/02_basi_biologiche.html#section-53",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequence by synthesis - Process"
+    "text": "Sequence by synthesis - Process\n\n\n\nObiettivo: Mostrare il processo SBS Illumina con il video ufficiale per consolidare la comprensione visiva.\n\nPunti chiave da commentare guardando il video:\n\nBridge amplification: ogni molecola forma un cluster clonale sulla flow cell\nIncorporazione di dNTP con terminatore reversibile fluorescente (1 base alla volta)\nImaging con laser: il colore rivela la base incorporata\nRimozione del terminatore → ciclo successivo\n\nIl processo genera read di 50-300 bp a seconda della chimica\nPaired-end: il frammento viene letto da entrambe le estremità"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-54",
     "href": "materials/02_basi_biologiche.html#section-54",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Third generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nThird-generation methods allow direct sequencing of single DNA molecules"
+    "text": "Third generation NGS\n\n\n\n\n\n\n\nImportant\n\n\nThird-generation methods allow direct sequencing of single DNA molecules\n\n\n\n\n\nObiettivo: Introdurre il salto concettuale della terza generazione: niente amplificazione, lettura diretta.\n\nLa differenza chiave: 3a gen legge singole molecole SENZA clonazione/amplificazione\nVantaggi: read molto lunghi (10-100+ kb), no PCR bias, rilevamento diretto di modificazioni (es. m6A)\nLimitazioni: error rate più alto per singola molecola (ma corretto da coverage)\nApplicazioni RNA-seq: utili per isoform sequencing completo (IsoSeq di PacBio)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-55",
     "href": "materials/02_basi_biologiche.html#section-55",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Third generation NGS\n\nThird-generation NGS platforms:\n\nSingle-molecule real-time sequencing\nNanopore sequencing\n\n\n\nPacific Biosciences in 2011\nOxford Nanopore Technologies on 2014"
+    "text": "Third generation NGS\n\nThird-generation NGS platforms:\n\nSingle-molecule real-time sequencing\nNanopore sequencing\n\n\n\nObiettivo: Contestualizzare le due principali piattaforme di 3a generazione con anno e produttore.\n\nSMRT sequencing (Single Molecule Real-Time): lanciato da Pacific Biosciences nel 2011; produce read lunghi fino a 100+ kb con HiFi chemistry\nNanopore sequencing: lanciato da Oxford Nanopore Technologies nel 2014; MinION è il sequenziatore più compatto al mondo (~1000€, connesso via USB)\nEntrambi leggono singole molecole senza amplificazione → no PCR bias, rilevamento diretto di modificazioni epigenetiche\nLa 3a gen è ideale per assemblaggio de novo, isoform sequencing e direct RNA-seq"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-56",
     "href": "materials/02_basi_biologiche.html#section-56",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "SMRS"
+    "text": "SMRS\n\n\n\nObiettivo: Illustrare il SMRT sequencing di PacBio con il video.\n\nSMRT = Single Molecule Real-Time sequencing (Pacific Biosciences, 2011)\nLa DNA polimerasi è immobilizzata in una ZMW (zero-mode waveguide): nanocavità che illumina solo la base incorporata\nI colori fluorescenti sui 4 dNTP vengono distinti in tempo reale\nRead length: tipicamente 15-25 kb, fino a &gt;100 kb con HiFi chemistry\nAccuracy: HiFi mode raggiunge &gt;99.9% su singole molecole (CCS reads)"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-57",
     "href": "materials/02_basi_biologiche.html#section-57",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Nanopore sequencing"
+    "text": "Nanopore sequencing\n\n\n\nObiettivo: Illustrare il nanopore sequencing di Oxford come tecnologia emergente accessibile.\n\nLa molecola di DNA/RNA passa fisicamente attraverso un nanoporo proteico\nOgni base causa una variazione caratteristica della corrente ionica → sequenza decodificata\nOxford Nanopore ha MinION: sequenziatore tascabile da ~1000€, connesso via USB!\nPunto forte per RNA-seq: direct RNA sequencing (no conversione a cDNA) → no RT bias\nAdattamento del laboratorio: alcuni studenti potrebbero averlo già usato"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-58",
     "href": "materials/02_basi_biologiche.html#section-58",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Single-Ended vs. Paired-End\nChoosing Your Sequencing Strategy\n\n\n\n\n\n\nSingle-end sequencing:\n\nOne read per fragment\nSimpler, cost-effective\nSuitable for gene expression profiling\n\n\n\n\nPaired-end sequencing:\n\nTwo reads per fragment\nMore information, improved accuracy\nUseful for genome assembly, variant detection, isoform identification\n\n\n\n\nChoice depends on:\n\nResearch question\nBudget\nDesired accuracy"
+    "text": "Single-Ended vs. Paired-End\nChoosing Your Sequencing Strategy\n\n\n\n\n\n\nSingle-end sequencing:\n\nOne read per fragment\nSimpler, cost-effective\nSuitable for gene expression profiling\n\n\n\n\nPaired-end sequencing:\n\nTwo reads per fragment\nMore information, improved accuracy\nUseful for genome assembly, variant detection, isoform identification\n\n\n\n\nChoice depends on:\n\nResearch question\nBudget\nDesired accuracy\n\n\n\n\n\nObiettivo: Illustrare la differenza pratica tra SE e PE e orientare la scelta.\n\nSingle-end (SE): si legge solo un’estremità del frammento → 1 read per frammento\nPaired-end (PE): si leggono entrambe le estremità → 2 read per frammento (con insert size noto)\nPer RNA-seq standard (gene expression): SE 75 bp abbastanza, PE 150 bp lo standard attuale\nPE essenziale per: rilevazione di geni di fusione, splicing alternativo, varianti strutturali\nIl loro laboratorio usa SE o PE? → collegare alla slide successiva con la tabella"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-59",
     "href": "materials/02_basi_biologiche.html#section-59",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Single-Ended vs. Paired-End\n\n\n\n\n\n\n\n\nTrade-off\nSingle-End Sequencing\nPaired-End Sequencing\n\n\n\n\nCost\nLower\nHigher\n\n\nInformation\nLess\nMore\n\n\nSimplicity\nSimpler\nMore Complex\n\n\nAccuracy\nLower\nHigher\n\n\nSequencing Depth\nHigher\nPotentially Lower\n\n\nRead Length\nShorter\nLonger (effective)\n\n\nIdeal Applications\nGene expression, small RNA-Seq\nGenome assembly, variant calling, isoform identification"
+    "text": "Single-Ended vs. Paired-End\n\n\n\n\n\n\n\n\nTrade-off\nSingle-End Sequencing\nPaired-End Sequencing\n\n\n\n\nCost\nLower\nHigher\n\n\nInformation\nLess\nMore\n\n\nSimplicity\nSimpler\nMore Complex\n\n\nAccuracy\nLower\nHigher\n\n\nSequencing Depth\nHigher\nPotentially Lower\n\n\nRead Length\nShorter\nLonger (effective)\n\n\nIdeal Applications\nGene expression, small RNA-Seq\nGenome assembly, variant calling, isoform identification\n\n\n\n\n\nObiettivo: Fornire un riferimento comparativo rapido da usare nella pianificazione degli esperimenti.\n\nLeggere la tabella riga per riga commentando le trade-off più importanti\nCost: PE costa ~1.5-2x di SE per lo stesso numero di campioni\nInformation: PE dà informazione sulla lunghezza dell’inserto → QC della libreria incluso\nRaccomandazione pratica: per bulk RNA-seq gene expression usate PE 150bp come standard\nDomanda: nel loro laboratorio, qual’è la scelta default del centro di sequenziamento?"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-60",
     "href": "materials/02_basi_biologiche.html#section-60",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Sequencing Depth\nSequencing Depth: Finding the Right Balance\n\n\n\n\n\n\nWhat it is: The average number of times each base in the genome (or transcriptome) is sequenced.\nWhy it matters:\n\nSensitivity: Higher depth increases the chance of detecting rare transcripts or variants.\nAccuracy: Higher depth improves the accuracy of gene expression quantification and variant calling.\n\n\n\n\nFactors to consider:\n\nResearch goals: Higher depth is needed for detecting rare events or subtle changes.\nGenome size and complexity: Larger genomes require higher depth for adequate coverage.\nBudget: Higher depth increases sequencing costs.\n\n\n\n\nTypical ranges:\n\nRNA-Seq for gene expression: 10-30 million reads per sample\nRNA-Seq for isoform detection: 30-60 million reads per sample\nVariant calling: 30-50x coverage for whole-genome sequencing"
+    "text": "Sequencing Depth\nSequencing Depth: Finding the Right Balance\n\n\n\n\n\n\nWhat it is: The average number of times each base in the genome (or transcriptome) is sequenced.\nWhy it matters:\n\nSensitivity: Higher depth increases the chance of detecting rare transcripts or variants.\nAccuracy: Higher depth improves the accuracy of gene expression quantification and variant calling.\n\n\n\n\nFactors to consider:\n\nResearch goals: Higher depth is needed for detecting rare events or subtle changes.\nGenome size and complexity: Larger genomes require higher depth for adequate coverage.\nBudget: Higher depth increases sequencing costs.\n\n\n\n\nTypical ranges:\n\nRNA-Seq for gene expression: 10-30 million reads per sample\nRNA-Seq for isoform detection: 30-60 million reads per sample\nVariant calling: 30-50x coverage for whole-genome sequencing\n\n\n\n\n\nObiettivo: Spiegare il concetto di profondità di sequenziamento e guidare la scelta corretta.\n\nDepth = numero medio di volte che ogni base trascriptoma è letta\nPer gene expression bulk RNA-seq umano: 20-30M reads sufficiente; con pochi geni target anche 10M\nPer trascrittomi complessi (es. piante con alto contenuto tandem repeats): servono più reads\nIl punto chiave dalla slide precedente (Liu et al.): depth &lt; n replicati per importanza\nBudget: calcolare (costo per campione) × n → qual è il trade-off ottimale?"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-61",
     "href": "materials/02_basi_biologiche.html#section-61",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Transcriptome Coverage\nTranscriptome Coverage: Capturing the Full Picture\n\n\n\n\n\n\nWhat it is: The extent to which the sequencing reads represent the entire transcriptome.\nWhy it matters:\n\nCompleteness: High coverage ensures that all expressed transcripts are captured, including rare and low-abundance transcripts.\nAccuracy: Adequate coverage is needed for accurate quantification of gene expression levels.\nDiscovery: High coverage increases the chances of identifying novel transcripts and isoforms.\n\n\n\n\nFactors influencing coverage:\n\nSequencing depth: Higher depth generally leads to better coverage.\nLibrary complexity: A diverse library with a wide range of fragment sizes improves coverage.\nRNA integrity: High-quality RNA ensures that all transcripts are represented in the library.\nSequencing technology: Different platforms have different read lengths and biases, which can affect coverage."
+    "text": "Transcriptome Coverage\nTranscriptome Coverage: Capturing the Full Picture\n\n\n\n\n\n\nWhat it is: The extent to which the sequencing reads represent the entire transcriptome.\nWhy it matters:\n\nCompleteness: High coverage ensures that all expressed transcripts are captured, including rare and low-abundance transcripts.\nAccuracy: Adequate coverage is needed for accurate quantification of gene expression levels.\nDiscovery: High coverage increases the chances of identifying novel transcripts and isoforms.\n\n\n\n\nFactors influencing coverage:\n\nSequencing depth: Higher depth generally leads to better coverage.\nLibrary complexity: A diverse library with a wide range of fragment sizes improves coverage.\nRNA integrity: High-quality RNA ensures that all transcripts are represented in the library.\nSequencing technology: Different platforms have different read lengths and biases, which can affect coverage.\n\n\n\n\n\nObiettivo: Distinguere coverage (copertura) da depth (profondità) e spiegare i fattori che la influenzano.\n\nCoverage ≠ depth: depth è la profondità media, coverage è la proporzione del trascrittoma coperta\nUn trascrittoma può avere alta depth ma bassa coverage se le reads si concentrano su pochi geni molto espressi\nRNA di alta qualità (alto RIN) → distribuzione uniforme dei read lungo il trascritto\nRNA degradato → bias 3’ (più reads sul 3’ end) → coverage distorta\nTool per valutare la coverage: RSeQC, infer_experiment.py"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-63",
     "href": "materials/02_basi_biologiche.html#section-63",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Single-Cell RNA Sequencing\nZooming In: Analyze gene expression in individual cells"
+    "text": "Single-Cell RNA Sequencing\nZooming In: Analyze gene expression in individual cells\n\n\n\n\n\n\nObiettivo: Introdurre visivamente il concetto di single-cell RNA-seq e la sua risoluzione.\n\nL’immagine mostra UMAP o t-SNE: ogni punto è una singola cellula, colorata per tipo cellulare\nIl bulk RNA-seq vede la media di tutto; scRNA-seq vede ogni cellula individualmente\nApplicazione emblematica: in un tumore, cellule tumorali + immunitarie + stromali coesistono → bulk fa la media di tutto\nCosto: 5-10x quello del bulk per campione, ma informazione incomparabilmente maggiore"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-64",
     "href": "materials/02_basi_biologiche.html#section-64",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nCellular Heterogeneity: Identify and characterize different cell types within a complex tissue or population.\n\nDiscover new cell subtypes and rare cell populations.\nUnderstand the functional diversity of cells.\n\nDevelopmental Trajectories: Trace cell lineages and reconstruct developmental pathways.\n\nStudy cell differentiation and fate decisions.\nIdentify key genes and regulatory networks involved in development."
+    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nCellular Heterogeneity: Identify and characterize different cell types within a complex tissue or population.\n\nDiscover new cell subtypes and rare cell populations.\nUnderstand the functional diversity of cells.\n\nDevelopmental Trajectories: Trace cell lineages and reconstruct developmental pathways.\n\nStudy cell differentiation and fate decisions.\nIdentify key genes and regulatory networks involved in development.\n\n\n\n\nObiettivo: Illustrare i vantaggi nel caratterizzare popolazioni cellulari eterogenee e traiettorie di sviluppo.\n\nEterogeneità cellulare: identificare sottopopolazioni rare (&lt;1% delle cellule) invisibili al bulk\nEsempio: cellule staminali tumorali, responsabili della resistenza ai farmaci, sono una piccola frazione\nTraiettorie (pseudotime): ricostruire l’ordine temporale di differenziamento senza sincronizzare le cellule\nTool: Seurat, Scanpy per analisi; Monocle, RNA velocity per traiettorie"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-65",
     "href": "materials/02_basi_biologiche.html#section-65",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nDisease Mechanisms: Investigate the cellular basis of disease.\n\nIdentify disease-associated cell types and gene expression changes.\nStudy the response of individual cells to drugs or treatments.\n\n\n\n\n\n\n\n\nImportant\n\n\nscRNA-seq represents a powerful tool for dissecting the complexities of gene expression and cellular heterogeneity across various biological contexts"
+    "text": "Single-Cell RNA Sequencing\nscRNA-Seq: advantages in biological research\n\nDisease Mechanisms: Investigate the cellular basis of disease.\n\nIdentify disease-associated cell types and gene expression changes.\nStudy the response of individual cells to drugs or treatments.\n\n\n\n\n\n\n\n\nImportant\n\n\nscRNA-seq represents a powerful tool for dissecting the complexities of gene expression and cellular heterogeneity across various biological contexts\n\n\n\n\n\nObiettivo: Completare i vantaggi dello scRNA-seq con le applicazioni in patologia.\n\nMeccanismi di malattia: identificare il tipo cellulare specifico che guida la patologia\nResistenza ai farmaci: cellule che evadono la terapia hanno profili trascrizionali diversi\nComposizione cellulare del microambiente tumorale: fondamentale per immunoterapia\nLimiti pratici: richiede cellule vive (o nuclei), protocollo di dissociazione critico, costo elevato"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-66",
     "href": "materials/02_basi_biologiche.html#section-66",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: mapping gene expression in context\n\n\n \n\n\n\nBridges histology and genomics: Combines traditional tissue imaging with high-throughput RNA sequencing.\nPreserves spatial context: Maps gene expression while retaining spatial information, unlike traditional scRNA-seq.\nEnables:\n\nVisualization of gene expression patterns within tissues.\nQuantitative analysis of transcriptomes in a spatial context.\n\nApplications:\n\nUnderstanding tissue organization and cellular interactions.\nInvestigating developmental processes (organogenesis).\nStudying disease progression and heterogeneity."
+    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: mapping gene expression in context\n\n\n \n\n\n\nBridges histology and genomics: Combines traditional tissue imaging with high-throughput RNA sequencing.\nPreserves spatial context: Maps gene expression while retaining spatial information, unlike traditional scRNA-seq.\nEnables:\n\nVisualization of gene expression patterns within tissues.\nQuantitative analysis of transcriptomes in a spatial context.\n\nApplications:\n\nUnderstanding tissue organization and cellular interactions.\nInvestigating developmental processes (organogenesis).\nStudying disease progression and heterogeneity.\n\n\n\n\n\nObiettivo: Introdurre la spatial transcriptomics come ponte tra istologia e genomica.\n\nProblema del scRNA-seq: perdiamo l’informazione sulla posizione delle cellule nel tessuto\nSpatial transcriptomics risolve questo: misura l’espressione genica mantenendo le coordinate spaziali\nTecnologie: 10x Visium (spot array, ~55μm), Slide-seq (single cell resolution), MERFISH, seqFISH\nApplicazione emblematica: geni espressi diversamente nel centro vs periferia di un tumore"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-67",
     "href": "materials/02_basi_biologiche.html#section-67",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: from technology to discovery\n\n\n\n\n\nApplications:\n\nTissue heterogeneity: Studying complex tissues like the cochlea. (Tisi, 2023)\nDisease mechanisms: Uncovering cellular dynamics in diseases like Alzheimer’s. (Chen et al., 2020)\n\nData analysis:\n\nDimension reduction, deconvolution, and integration with histological images.\nSpecialized tools for cell type deconvolution. (Cable et al., 2021)"
+    "text": "Spatial Transcriptomics\nSpatial Transcriptomics: from technology to discovery\n\n\n\n\n\nApplications:\n\nTissue heterogeneity: Studying complex tissues like the cochlea. (Tisi, 2023)\nDisease mechanisms: Uncovering cellular dynamics in diseases like Alzheimer’s. (Chen et al., 2020)\n\nData analysis:\n\nDimension reduction, deconvolution, and integration with histological images.\nSpecialized tools for cell type deconvolution. (Cable et al., 2021)\n\n\n\n\n\nObiettivo: Mostrare applicazioni concrete della spatial transcriptomics su tessuti biologici complessi.\n\nEsempio coclea (Tisi 2023): tessuto altamente specializzato con tipi cellulari rarissimi → solo spatial li identifica in situ\nEsempio Alzheimer (Chen 2020): regioni cerebrali colpite diversamente, spatial mostra la progressione spaziale\nDeconvoluzione: ogni spot Visium contiene più cellule → algoritmi (RCTD, SPOTlight) inferiscono composizione\nAnalisi: dimension reduction con PCA/UMAP, integrazione con immagine H&E"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-68",
     "href": "materials/02_basi_biologiche.html#section-68",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Integration of RNA-Seq with other omics data\nBeyond RNA: integrating with other omics data\n\n\nThe Power of Integration: Combining RNA-Seq with other omics data provides a more complete picture of cellular processes.\n\nMetabolomics: Correlate gene expression with metabolic pathways and identify key metabolites.\nChromatin accessibility (ATAC-seq): Link gene expression changes to alterations in chromatin structure.\nOther omics layers: Integrate with genomics, proteomics, and epigenomics for a systems-level understanding.\n\nKey Findings:\n\nLimited overlap between DEGs and chromatin accessibility changes (~10%) (Malvi et al., 2022).\nHighlights the complexity of gene regulation beyond chromatin state. (Miao et al., 2021)"
+    "text": "Integration of RNA-Seq with other omics data\nBeyond RNA: integrating with other omics data\n\n\nThe Power of Integration: Combining RNA-Seq with other omics data provides a more complete picture of cellular processes.\n\nMetabolomics: Correlate gene expression with metabolic pathways and identify key metabolites.\nChromatin accessibility (ATAC-seq): Link gene expression changes to alterations in chromatin structure.\nOther omics layers: Integrate with genomics, proteomics, and epigenomics for a systems-level understanding.\n\nKey Findings:\n\nLimited overlap between DEGs and chromatin accessibility changes (~10%) (Malvi et al., 2022).\nHighlights the complexity of gene regulation beyond chromatin state. (Miao et al., 2021)\n\n\n\n\n\nObiettivo: Motivare l’integrazione multi-omics come approccio necessario per la biologia dei sistemi.\n\nNessun singolo strato omico racconta la storia completa\nRNA-seq + metabolomica: correlazione tra trascritti e metaboliti → pathway analysis integrata\nRNA-seq + ATAC-seq: solo ~10% dei geni DE ha cambiamenti corrispondenti nella cromatina accessibile\nQuesto dimostra che la regolazione trascrizionale è più complessa dell’apertura/chiusura della cromatina\nSfida principale: integrazione computazionale di dati con scale, dimensioni e rumore diversi"
   },
   {
     "objectID": "materials/02_basi_biologiche.html#section-69",
     "href": "materials/02_basi_biologiche.html#section-69",
     "title": "Analisi Bulk RNA-Seq per Dottorandi",
     "section": "",
-    "text": "Integration of RNA-Seq with other omics data\nUnlocking biological insights through data integration\n\n\n\n\n\nApplications:\n\nIdentifying key pathways: Integration of RNA-seq and metabolomics reveals regulated pathways in liver metabolism. (Zhang et al., 2020)\nDisease biomarkers: Uncovering disease-specific biomarkers in NAFLD using RNA-seq and metabolomics. (Ji et al., 2022)\n\nTools and Techniques:\n\nMachine learning: rSeqTU for predicting transcription units and integrating with metagenomics and metabolomics. (Hou et al., 2022)\nStatistical analysis: DESeq2 for integrating RNA-seq and ChIP-seq data. (Niu et al., 2019)\nSingle-cell multi-omics: Combining scRNA-seq with lipidomics and metabolomics to study cellular heterogeneity. (Cao et al., 2020)"
+    "text": "Integration of RNA-Seq with other omics data\nUnlocking biological insights through data integration\n\n\n\n\n\nApplications:\n\nIdentifying key pathways: Integration of RNA-seq and metabolomics reveals regulated pathways in liver metabolism. (Zhang et al., 2020)\nDisease biomarkers: Uncovering disease-specific biomarkers in NAFLD using RNA-seq and metabolomics. (Ji et al., 2022)\n\nTools and Techniques:\n\nMachine learning: rSeqTU for predicting transcription units and integrating with metagenomics and metabolomics. (Hou et al., 2022)\nStatistical analysis: DESeq2 for integrating RNA-seq and ChIP-seq data. (Niu et al., 2019)\nSingle-cell multi-omics: Combining scRNA-seq with lipidomics and metabolomics to study cellular heterogeneity. (Cao et al., 2020)\n\n\n\n\n\nObiettivo: Mostrare gli strumenti e le applicazioni concrete dell’integrazione multi-omics.\n\nMachine learning (rSeqTU): predizione di unità trascrizionali integrando metagenomics + metabolomics\nDESeq2 può essere usato anche per integrare ChIP-seq con RNA-seq (stessa struttura dati)\nSingle-cell multi-omics: CITE-seq (proteina + RNA), ATAC+RNA in singola cellula\nSfida computazionale: ogni strato ha dimensioni diverse → serve riduzione dimensionale e matching di cellule\nIl campo è in rapida evoluzione: nuovi workflow ogni mese"
   },
   {
     "objectID": "materials/04_setup_R.html#TitleSlide",
@@ -1405,5 +1405,222 @@
     "title": "Setup e Installazione",
     "section": "Problemi Comuni",
     "text": "Problemi Comuni\n\nWindows: Path troppo lungo\nNextflow può avere problemi con path lunghi su Windows. Soluzioni:\n\nLavora in C:\\rnaseq\\ invece di cartelle profonde\nAbilita Long Path Support: Guida Microsoft\n\n\n\nmacOS: Permessi Docker\nSe Docker non parte:\n# Aggiungi il tuo utente al gruppo docker (solo Linux)\nsudo usermod -aG docker $USER\nPoi riavvia il sistema.\n\n\nLinux: Librerie di Sistema\nPer compilare alcuni pacchetti R:\n# Ubuntu/Debian\nsudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev\n\n# Fedora/RedHat\nsudo yum install libcurl-devel openssl-devel libxml2-devel"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#il-dataset-airway",
+    "href": "materials/08_demo_prompts.html#il-dataset-airway",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Il Dataset Airway",
+    "text": "Il Dataset Airway\nEsperimento: Trattamento di cellule muscolari lisce delle vie aeree con desametasone (glucocorticoide)\n\n\nDisegno sperimentale\n\n4 linee cellulari: N61311, N052611, N080611, N061011\n2 condizioni per linea: untrt (controllo) e trt (trattato)\n8 campioni totali (SRR1039508–SRR1039521)\nDesign multi-fattoriale: ~ cell + dex\n\nPerché questo design?\nControllare l’effetto della linea cellulare (confondente) per isolare l’effetto del farmaco\n\nAccesso ai dati\nIl dataset è distribuito come pacchetto Bioconductor e include:\n\nMatrice di conteggi: 63.677 geni × 8 campioni\nMetadati: condizione, linea cellulare, informazioni sull’allineamento\nFormato: RangedSummarizedExperiment\n\nlibrary(\"airway\")\ndata(\"airway\")\nse &lt;- airway\n\n\n\n\n\n\n\n\nNessun CSV necessario\n\n\nA differenza dei workflow con file flat, il dataset airway è già integrato con le annotazioni genomiche nel formato SummarizedExperiment, pronto per DESeq2."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente-caricamento",
+    "href": "materials/08_demo_prompts.html#prompt-1.1-setup-ambiente-caricamento",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.1: Setup Ambiente + Caricamento",
+    "text": "Prompt 1.1: Setup Ambiente + Caricamento\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSto iniziando un'analisi RNA-seq con il dataset airway di Bioconductor.\nHo bisogno di:\n1. Caricare le librerie: DESeq2, airway, ggplot2, pheatmap, RColorBrewer\n2. Caricare il dataset airway come SummarizedExperiment\n3. Esplorare la struttura: dimensioni, metadati dei campioni (colData), \n   nomi delle variabili disponibili\n4. Mostrare le prime righe della matrice di conteggi (assay)\n5. Creare una cartella 'results/' per i file di output\n\nAl termine spiega:\n- Cosa contiene un oggetto SummarizedExperiment rispetto a un semplice CSV?\n- Quali variabili nel colData useremo per il disegno sperimentale?\n\n\n\nCosa verificare:\n\ndim(se) → [1] 63677   8\ncolData(se)$dex → 4 untrt, 4 trt\ncolData(se)$cell → 4 linee cellulari diverse"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-1.2-creare-il-deseqdataset",
+    "href": "materials/08_demo_prompts.html#prompt-1.2-creare-il-deseqdataset",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 1.2: Creare il DESeqDataSet",
+    "text": "Prompt 1.2: Creare il DESeqDataSet\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo un oggetto SummarizedExperiment chiamato 'se' (dataset airway).\nVoglio creare un DESeqDataSet per l'analisi differenziale con DESeq2.\n\nEsegui questi passi:\n1. Crea il DESeqDataSet con design formula: ~ cell + dex\n2. Imposta 'untrt' como livello di riferimento per la variabile 'dex'\n3. Mostra il summary dell'oggetto dds risultante\n4. Salva un checkpoint: saveRDS(dds, \"results/dds_raw.rds\")\n   (per ricaricare in future sessioni: dds &lt;- readRDS(\"results/dds_raw.rds\"))\n\nSpiega in dettaglio la scelta della formula ~ cell + dex:\n- Perché includere 'cell' nel modello?\n- Cosa succederebbe se usassimo solo ~ dex?\n- Cosa significa 'livello di riferimento' e perché è importante?\n- Come DESeq2 usa internamente la design matrix?\n\n\n\nConcetto chiave: Design multi-fattoriale → controlliamo la variabilità tra linee cellulari per aumentare la potenza statistica nel rilevare l’effetto del desametasone"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.1-pre-filtering",
+    "href": "materials/08_demo_prompts.html#prompt-2.1-pre-filtering",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.1: Pre-filtering",
+    "text": "Prompt 2.1: Pre-filtering\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo un DESeqDataSet 'dds' con 63.677 geni e 8 campioni (dataset airway).\nEsegui il pre-filtering raccomandato dalla vignetta di DESeq2:\n\nSe hai chiuso R dopo lo Step 1: dds &lt;- readRDS(\"results/dds_raw.rds\")\n\n1. Applica il criterio: mantieni solo righe con almeno 10 conteggi\n   in almeno 'smallestGroupSize' campioni (qui: 4, la dimensione del gruppo più piccolo)\n2. Mostra quanti geni rimangono dopo il filtro\n3. Crea un istogramma della distribuzione dei log2-conteggi (log2(count+1))\n   prima e dopo il filtro, colorati diversamente\n4. Salva il dds filtrato: saveRDS(dds, \"results/dds_filtered.rds\")\n\nSpiega:\n- Perché il numero minimo di campioni è legato alla dimensione del gruppo?\n- Quali sono i due vantaggi principali del pre-filtering in DESeq2?\n- Perché NON si usa 'nrow(counts(dds)) &gt; 1' come unico criterio?\n\n\n\nRazionale del filtro: Riduce memoria, aumenta velocità e migliora i plot diagnostici eliminando geni non informativi"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-2.2-statistiche-qc-della-matrice",
+    "href": "materials/08_demo_prompts.html#prompt-2.2-statistiche-qc-della-matrice",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 2.2: Statistiche QC della Matrice",
+    "text": "Prompt 2.2: Statistiche QC della Matrice\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSul DESeqDataSet filtrato 'dds', esegui una QC esplorativa:\n1. Calcola e visualizza i library size (conteggi totali per campione) \n   con un barplot colorato per condizione 'dex'\n2. Calcola la percentuale di geni con conteggi = 0 per ogni campione\n3. Crea un boxplot della distribuzione log2(counts+1) per campione,\n   con colori per condizione e annotazioni per linea cellulare\n4. Salva i plot in 'results/'\n\nCommenta i risultati:\n- I library size sono bilanciati tra le condizioni?\n- Una differenza di library size richiede normalizzazione manual prima di DESeq2?\n- Perché DESeq2 usa conteggi grezzi (non normalizzati) come input?\n\n\n\n\n\n\n\n\n\nDESeq2 vuole conteggi grezzi\n\n\nDESeq2 normalizza internamente tramite il metodo median of ratios. Non pre-normalizzare i dati prima di passarli a DESeq2."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.1-trasformazione-vst",
+    "href": "materials/08_demo_prompts.html#prompt-3.1-trasformazione-vst",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.1: Trasformazione VST",
+    "text": "Prompt 3.1: Trasformazione VST\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo il DESeqDataSet filtrato 'dds'.\nSe hai chiuso R: dds &lt;- readRDS(\"results/dds_filtered.rds\")\n\nApplica la Variance Stabilizing Transformation (VST):\n\n1. Applica vst(dds, blind=FALSE) — spiega perché blind=FALSE è appropriato qui\n2. Confronta visivamente gli effetti della trasformazione con meanSdPlot \n   (dal pacchetto vsn) sui dati:\n   - Grezzi: log2(counts(dds) + 1)\n   - VST: assay(vsd)\n3. Salva il confronto come 'results/vst_comparison.pdf'\n4. Salva l'oggetto VST: saveRDS(vsd, \"results/vsd.rds\")\n\nSpiega la differenza concettuale tra:\n- Trasformazione log2 classica: log2(n + pseudocount)\n- VST: come stabilizza la varianza in modo adattivo?\n- rlog vs VST: quando usare uno piuttosto che l'altro?\n\n\n\nRegola pratica: Per n &lt; 30 campioni → si possono usare sia VST che rlog. Per n &gt; 30 → preferire VST (più veloce)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.2-pca-plot",
+    "href": "materials/08_demo_prompts.html#prompt-3.2-pca-plot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.2: PCA Plot",
+    "text": "Prompt 3.2: PCA Plot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nHo l'oggetto VST 'vsd' dal dataset airway (8 campioni, 2 condizioni, 4 linee cellulari).\nCrea due versioni del PCA plot:\n\n1. Versione rapida con plotPCA(vsd, intgroup=c(\"dex\",\"cell\"))\n2. Versione personalizzata con ggplot2:\n   - Colora per 'dex' (untrt=grigio, trt=rosso)\n   - Forma diversa per ogni linea cellulare ('cell')\n   - Mostra % varianza su ogni asse\n   - Aggiungi etichette ai punti con il nome del campione\n   - Tema minimal, font size 12\n   - Salva come 'results/pca_plot.pdf'\n\nInterpreta il risultato:\n- Su quale PC si separa l'effetto del desametasone?\n- Su quale PC si vede l'effetto della linea cellulare?\n- Cosa implica questo per la scelta del design formula ~ cell + dex?\n\n\n\nRisultato atteso: PC1 separa per linea cellulare, PC2 separa per trattamento (dex)"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.3-heatmap-distanze-sample-to-sample",
+    "href": "materials/08_demo_prompts.html#prompt-3.3-heatmap-distanze-sample-to-sample",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.3: Heatmap Distanze Sample-to-Sample",
+    "text": "Prompt 3.3: Heatmap Distanze Sample-to-Sample\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nUsando i dati VST 'vsd' del dataset airway, crea una heatmap delle \ndistanze euclidee sample-to-sample seguendo la vignetta ufficiale di DESeq2:\n\n1. Calcola sampleDists = dist(t(assay(vsd)))\n2. Converti in matrice: sampleDistMatrix = as.matrix(sampleDists)\n3. Assegna ai nomi delle righe: paste(vsd$dex, vsd$cell, sep=\"-\")\n4. Usa pheatmap con:\n   - clustering_distance_rows = sampleDists\n   - clustering_distance_cols = sampleDists\n   - Palette: rev(brewer.pal(9,\"Blues\")) da RColorBrewer\n   - Nessuna annotazione colonna\n5. Salva come 'results/sample_distances.pdf'\n\nSpiega:\n- Perché fornire la matrice di distanze al clustering invece di usare il default?\n- Quali coppie di campioni dovrebbero avere distanza minima?\n- Cosa indicherebbe un campione anomalo (outlier) in questo grafico?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-3.4-heatmap-matrice-di-conteggi",
+    "href": "materials/08_demo_prompts.html#prompt-3.4-heatmap-matrice-di-conteggi",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 3.4: Heatmap Matrice di Conteggi",
+    "text": "Prompt 3.4: Heatmap Matrice di Conteggi\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap dei top 20 geni più espressi (by mean normalized count) \nseguendo la vignetta di DESeq2:\n\n1. Seleziona i 20 geni: order(rowMeans(counts(dds, normalized=TRUE)), \n   decreasing=TRUE)[1:20]\n2. Crea df di annotazione: as.data.frame(colData(dds)[, c(\"dex\",\"cell\")])\n3. Crea la heatmap con pheatmap:\n   - cluster_rows=FALSE, cluster_cols=FALSE\n   - show_rownames=FALSE\n   - annotation_col=df\n4. Prova anche con i dati VST e rlog per confronto\n5. Salva come 'results/count_heatmap.pdf'\n\nSpiega cosa rappresenta questa heatmap rispetto alla PCA:\n- Cosa mostra la heatmap che la PCA non mostra?\n- Perché i geni più espressi non sono necessariamente i più interessanti?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analisi-completa",
+    "href": "materials/08_demo_prompts.html#prompt-4.1-deseq2-analisi-completa",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.1: DESeq2 — Analisi Completa",
+    "text": "Prompt 4.1: DESeq2 — Analisi Completa\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo lo Step 3:\n  dds &lt;- readRDS(\"results/dds_filtered.rds\")\n  vsd &lt;- readRDS(\"results/vsd.rds\")\n\nEsegui l'analisi differenziale completa con DESeq2 sul dataset airway:\n\n1. Esegui l'analisi DESeq2 sul mio oggetto dds e salvalo subito in \"results/dds_deseq.rds\" (l'analisi richiede qualche minuto)\n2. Quali sono i nomi dei coefficienti disponibili nel modello adattato?\n3. Estrai i risultati per il confronto tra cellule trattate (trt) e non trattate (untrt) e salvali in \"results/res.rds\"\n4. Quanti geni risultano significativi con una soglia alpha di 0.05?\n5. Mostrami i top 10 geni ordinati per p-value\n\nSpiega ogni colonna dell'output results():\n- baseMean: cosa rappresenta?\n- log2FoldChange (MLE): perché è \"MLE\" e cosa significa?\n- lfcSE: a cosa serve lo standard error del LFC?\n- stat: cos'è la statistica di Wald?\n- pvalue vs padj: qual è il metodo di correzione usato da DESeq2?\n\n\n\nNota: Il valore di default alpha=0.1 nel summary() è conservativo — usare alpha=0.05 per pratica standard"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.2-lfc-shrinkage-con-apeglm",
+    "href": "materials/08_demo_prompts.html#prompt-4.2-lfc-shrinkage-con-apeglm",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.2: LFC Shrinkage con apeglm",
+    "text": "Prompt 4.2: LFC Shrinkage con apeglm\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo il Prompt 4.1:\n  dds &lt;- readRDS(\"results/dds_deseq.rds\")\n  res  &lt;- readRDS(\"results/res.rds\")\n\nApplica il log fold change shrinkage ai risultati DESeq2 del dataset airway:\n\n1. Quale coefficiente devo usare per il confronto trt vs untrt?\n2. Applica lo shrinkage con il metodo apeglm e salva il risultato in \"results/resLFC.rds\"\n3. Crea due MA plot affiancati per confrontare i risultati prima e dopo lo shrinkage e salva come 'results/MA_comparison.pdf'\n\nSpiega il concetto di shrinkage:\n- Perché i geni a bassa espressione hanno LFC molto grandi senza shrinkage?\n- Come mai lo shrinkage NON riduce i LFC per geni altamente espressi?\n- Quando è preferibile apeglm rispetto a 'normal' o 'ashr'?\n\n\n\n\n\n\n\n\n\nUsare sempre i valori shrinkati per classifiche e visualizzazioni\n\n\nI log2FoldChange shrinkati (apeglm/ashr) sono preferibili per volcano plot, heatmap e ranking dei geni. Per il test statistico usa padj da res."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.3-plot-diagnostici",
+    "href": "materials/08_demo_prompts.html#prompt-4.3-plot-diagnostici",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.3: Plot Diagnostici",
+    "text": "Prompt 4.3: Plot Diagnostici\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea i plot diagnostici standard di DESeq2 per il dataset airway:\n\n1. Crea il dispersion plot e salvalo in 'results/dispersion_plot.pdf'\n2. Crea un istogramma della distribuzione dei p-value, considerando solo i geni con espressione basale maggiore di 1, e salvalo in 'results/pvalue_hist.pdf'\n\nPer ogni grafico spiega:\na) Dispersion plot:\n   - Cosa sono i punti neri, la curva rossa, i punti blu cerchiati?\n   - Cosa indica una curva decrescente da sinistra a destra?\n   - Cosa segnalano i punti al di sopra della curva finale?\n\nb) P-value histogram:\n   - Forma attesa quando c'è segnale biologico reale?\n   - Come si distingue un esperimento con segnale da uno senza?\n   - Cosa indica un picco vicino a p=1?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-4.4-filtraggio-e-export",
+    "href": "materials/08_demo_prompts.html#prompt-4.4-filtraggio-e-export",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 4.4: Filtraggio e Export",
+    "text": "Prompt 4.4: Filtraggio e Export\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nDai risultati DESeq2 del dataset airway:\n\n1. Filtra i geni significativi usando come soglie: p-value aggiustato inferiore a 0.05 e variazione di espressione assoluta superiore a 2 volte. Usa il p-value aggiustato dai risultati MLE e il fold change dallo shrinkage apeglm\n2. Separa i geni in up-regulated (aumentati nel trattato) e down-regulated (ridotti nel trattato)\n3. Crea una tabella riassuntiva con: totale geni testati, numero di geni significativi, quanti UP e quanti DOWN\n4. Ordina per p-value aggiustato e salva la tabella in 'results/DE_genes_airway.csv'\n5. Mostrami i top 5 geni UP e i top 5 DOWN con nome del gene, espressione media, fold change shrinkato e p-value aggiustato\n\nSpiega:\n- Perché CRISPLD2 e DUSP1 sono tra i risultati più robustamente replicati\n  in esperimenti con glucocorticoidi?\n- Come fare un rapido 'sanity check' biologico sui risultati?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.1-ma-plot-con-reslfc",
+    "href": "materials/08_demo_prompts.html#prompt-5.1-ma-plot-con-reslfc",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.1: MA Plot con resLFC",
+    "text": "Prompt 5.1: MA Plot con resLFC\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nSe hai chiuso R dopo lo Step 4:\n  dds    &lt;- readRDS(\"results/dds_deseq.rds\")\n  res    &lt;- readRDS(\"results/res.rds\")\n  resLFC &lt;- readRDS(\"results/resLFC.rds\")\n  vsd    &lt;- readRDS(\"results/vsd.rds\")\n\nCrea un MA plot dei risultati shrinkati (resLFC) del dataset airway:\n\n1. Usa plotMA(resLFC, ylim=c(-2,2)) — versione base DESeq2\n2. Crea anche una versione ggplot2 personalizzata:\n   - Asse X: log10(baseMean + 1) \n   - Asse Y: log2FoldChange (shrinkato)\n   - Colora: blu se padj &lt; 0.05, grigio altrimenti\n   - Aggiungi linea orizzontale a y=0\n   - Etichetta i top 5 geni più significativi con ggrepel\n   - Tema minimal\n3. Salva come 'results/MA_plot.pdf'\n\nSpiega perché il MA plot con LFC shrinkati è più informativo:\n- Cosa succede ai geni con baseMean molto basso nel plot MLE?\n- Come lo shrinkage \"pulisce\" il segnale vs il rumore?\n- Cosa indica un gene con punto triangolare (out-of-window)?"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.2-plot-conteggi-gene-specifico",
+    "href": "materials/08_demo_prompts.html#prompt-5.2-plot-conteggi-gene-specifico",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.2: Plot Conteggi Gene Specifico",
+    "text": "Prompt 5.2: Plot Conteggi Gene Specifico\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nVisualizza l'espressione del gene più significativo nel dataset airway:\n\n1. Trova il gene con padj minimo: which.min(res$padj)\n2. Usa plotCounts(dds, gene=which.min(res$padj), intgroup=\"dex\")\n   per la versione base\n3. Crea una versione ggplot2 con returnData=TRUE:\n   d &lt;- plotCounts(dds, gene=which.min(res$padj), \n                   intgroup=c(\"dex\",\"cell\"), returnData=TRUE)\n   ggplot(d, aes(x=dex, y=count, color=cell, group=cell)) +\n     geom_point(size=3) + geom_line() + scale_y_log10()\n4. Salva come 'results/top_gene_counts.pdf'\n\nSpiega il grafico:\n- Perché collegare i punti della stessa linea cellulare?\n- Cosa mostra il plot sulla consistenza dell'effetto del desametasone \n  tra le diverse linee cellulari?\n- Come si chiama il gene? (usa rownames(res)[which.min(res$padj)])\n\n\n\nRisultato atteso: CRISPLD2 — gene codificante una proteina di legame al calcio, regolato dai glucocorticoidi"
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.3-volcano-plot",
+    "href": "materials/08_demo_prompts.html#prompt-5.3-volcano-plot",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.3: Volcano Plot",
+    "text": "Prompt 5.3: Volcano Plot\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea un volcano plot publication-ready dei risultati DESeq2 (airway dataset):\n\nUsa i risultati shrinkati resLFC combinati con padj da res:\n- Asse X: log2FoldChange (da resLFC)\n- Asse Y: -log10(padj) (da res)\n- Colori:\n  UP: padj &lt; 0.05 E LFC &gt; 1 → rosso\n  DOWN: padj &lt; 0.05 E LFC &lt; -1 → blu\n  NS: grigio semitrasparente (alpha=0.3)\n- Linee trattegiate verticali a LFC = ±1\n- Linea tratteggiata orizzontale a -log10(0.05)\n- Etichetta i top 10 geni (5 UP + 5 DOWN per padj) con ggrepel\n- Tema minimal, font 12, pannello senza griglia\n- Salva come 'results/volcano_plot.pdf' (8x6 inches)\n\nNota: gestisci i valori NA in padj con na.rm=TRUE o filtraggio."
+  },
+  {
+    "objectID": "materials/08_demo_prompts.html#prompt-5.4-heatmap-top-geni-de",
+    "href": "materials/08_demo_prompts.html#prompt-5.4-heatmap-top-geni-de",
+    "title": "Demo: Analisi RNA-Seq con AI",
+    "section": "Prompt 5.4: Heatmap Top Geni DE",
+    "text": "Prompt 5.4: Heatmap Top Geni DE\n\n\n\n\n\n\nCopia questo prompt in Copilot Chat\n\n\nCrea una heatmap dei top 30 geni differenzialmente espressi (airway):\n\n1. Seleziona i 30 geni con padj più basso da res (rimuovi NA)\n2. Estrai i valori VST: assay(vsd)[top_genes, ]\n3. Scala per riga (z-score): t(scale(t(mat)))\n4. Crea annotazione colonne da colData(dds)[, c(\"dex\",\"cell\")]\n5. Usa pheatmap:\n   - palette: colorRampPalette(c(\"navy\",\"white\",\"firebrick3\"))(50)\n   - cluster_rows=TRUE, cluster_cols=TRUE\n   - show_rownames=TRUE (i geni sono pochi)\n   - annotation_col=df\n   - fontsize_row=8\n6. Salva come 'results/heatmap_top30.pdf' (8x10 inches)\n\nSpiega:\n- Perché usare z-score per riga invece dei valori VST grezzi?\n- Il clustering corrisponde alle condizioni attese (dex trt vs untrt)?\n- Vedi i pattern di CO-espressione attesi per i glucocorticoidi?"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-2",
+    "href": "materials/03_pipeline_nfcore.html#section-2",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Mostrare la posizione attuale nella pipeline evidenziando il blocco di pre-processing.\n\nIndicare visivamente dove siamo nel flusso di lavoro\nIl blocco giallo/arancione indica i tool di QC e pre-processing\nQuesti step vengono eseguiti automaticamente prima dell’allineamento\nDomandare agli studenti se riconoscono qualche tool già visto"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-12",
+    "href": "materials/03_pipeline_nfcore.html#section-12",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Mostrare la posizione attuale nella pipeline nf-core evidenziando il passaggio agli strumenti di pre-processing.\n\nSiamo nel blocco di pre-processing della pipeline\nIl passo successivo è la valutazione della qualità con FastQC\nLa pipeline esegue FastQC sia prima che dopo il trimming\nSottolineare che il MultiQC alla fine aggregherà tutti questi report"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-14",
+    "href": "materials/03_pipeline_nfcore.html#section-14",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Indicare il passaggio nella pipeline dalla Quality Check agli strumenti di estrazione degli UMI.\n\nSiamo ancora nella fase di pre-processing\nGli UMI sono opzionali: necessari solo se il protocollo di libreria li prevede\nSe il campione non ha UMI, questo step viene saltato automaticamente\nContinuare con il prossimo tool: UMI-tools extract\n\n\n\nUMI-tools extract\n\n\n\nWhat are UMIs?\n\nUnique Molecular Identifiers (UMIs) are short random sequences attached to each cDNA molecule during library preparation.\nThey act as “molecular barcodes” to identify unique molecules.\n\nWhy are UMIs important?\n\nUMIs help to distinguish PCR duplicates from true biological duplicates.\nThis improves the accuracy of gene expression quantification, especially for low-abundance transcripts.\n\n\n\n\nWhat does UMI-tools extract do?\n\nIdentifies and extracts UMIs from sequencing reads.\nMoves UMIs to the read name for downstream analysis.\nRequires information about the UMI location in the read.\n\nBenefits:\n\nImproved accuracy in gene expression quantification.\nReduced bias due to PCR amplification.  UMI-tools\n\n\n\n\n\n\n\n\nObiettivo: Spiegare il concetto di UMI (Unique Molecular Identifier) e come UMI-tools li estrae dalle reads.\n\nGli UMI sono sequenze casuali brevi (4-12 nt) legate molecolarmente a ogni cDNA durante la preparazione della libreria\nPermettono di distinguere i duplicati PCR dalle molecole realmente diverse\nUMI-tools extract sposta la sequenza UMI nel nome della read (QNAME nel BAM)\nNecessario solo per librerie preparate con protocolli UMI (es. 10x, CEL-seq2, Smart-seq3)"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-16",
+    "href": "materials/03_pipeline_nfcore.html#section-16",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pre-processing Tools\nFastP & Trim Galore!\n\n\n\nPurpose:\n\nTo clean up raw sequencing data and improve the accuracy of downstream analysis.\n\nKey functions:\n\nAdapter trimming: Remove adapter sequences from reads.\nQuality trimming: Trim low-quality bases from the ends of reads.\n\nFastP:\n\nAll-in-one tool with extensive pre-processing features.\nIncludes quality filtering, error correction, UMI handling, and more.\n\n\n\n\nTrim Galore!:\n\nWrapper script for cutadapt (adapter trimming) and often includes FastQC (quality assessment).\nFocuses on adapter and quality trimming with optimized parameters.\n\nBenefits:\n\nImproved alignment accuracy.\nReduced false positives in variant calling and gene expression analysis.\nIncreased efficiency of downstream analysis.\n\n\n\n\n\nObiettivo: Confrontare FastP e Trim Galore! come principali strumenti di trimming disponibili nella pipeline nf-core/rnaseq.\n\nFastP è uno strumento all-in-one: trimming + QC + correzione errori in un solo passaggio\nTrim Galore! è un wrapper per Cutadapt, ottimizzato per rimuovere adattatori Illumina\nEntrambi rimuovono: adattatori, basi di bassa qualità alle estremità, reads troppo corte\nIn nf-core: --trimmer fastp (default) o --trimmer trimgalore"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-21",
+    "href": "materials/03_pipeline_nfcore.html#section-21",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nContent:\n\nHeader section: Contains metadata about the alignment (reference genome, aligner used, etc.).\n\n\n\n@RG     ID:1    SM:C5926_BM_IonCode_0118\n@PG     ID:samtools     PN:samtools    VN:1.16.1    CL:samtools view -H C5926_BM_IonCode_0118.reassembled.bam\n\n\n\n@RG = read group\n\nID = Read group identifier\nSM = Sample\n\n@PG = Program\n\nID = Program record identifier\nPN = Program name\nVN = software version\nCl = command line"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-22",
+    "href": "materials/03_pipeline_nfcore.html#section-22",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Alignment and Quantification\nSAM/BAM Format: Storing Alignment Information\n\nAlignment section: Each line represents a single read and its alignment to the reference.\n\nIncludes information about mapping position, quality scores, alignment flags, and more.\n\n\n\n\n\n\n11 campi obbligatori\nMetadati non obbligatori\nConcise Idiosyncratic Gapped Alignment Report (CIGAR) string"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-27",
+    "href": "materials/03_pipeline_nfcore.html#section-27",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Indicare la posizione nella pipeline prima del passo di quantificazione con RSEM.\n\nDopo deduplicazione, le reads sono allineate e pulite: pronte per la quantificazione\nRSEM stima l’abbondanza di trascritti usando un modello statistico\nL’alternativa veloce è Salmon (pseudo-allineamento) che vedremo nella prossima sezione\nL’output finale è la matrice dei conteggi: geni × campioni"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-30",
+    "href": "materials/03_pipeline_nfcore.html#section-30",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Mostrare la posizione nella pipeline relativa al blocco di pseudo-allineamento con Salmon o Kallisto.\n\nSiamo nel percorso alternativo della pipeline: senza allineamento al genoma\nSalmon opera direttamente sul trascrittoma come riferimento, non sul genoma\nQuesto approccio è più veloce e usa meno risorse computazionali\nI risultati sono comparabili a STAR per la maggior parte delle analisi RNA-seq standard"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-32",
+    "href": "materials/03_pipeline_nfcore.html#section-32",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Pseudo-aligners\nSalmon Output File Formats\n\n\n\n\n\n\nFolder\n\n\n\n\n \n\n\n\n\n\nquant.sf\n\n\n\n\n\n\n\nSalmon’s main output is its quantification file =&gt; quant.sf\ncmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked\nAuxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info\n\nThe auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments\nIf Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type\n\nWhen run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format\n\n\nd"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-34",
+    "href": "materials/03_pipeline_nfcore.html#section-34",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Mostrare la posizione nella pipeline relativa ai tool di post-processing degli allineamenti.\n\nSiamo nella fase di raffinamento degli allineamenti dopo STAR o HISAT2\nI tool di questa fase preparano i BAM per la quantificazione e la visualizzazione\nQuesto blocco è spesso eseguito in parallelo con la quantificazione\nL’output finale può essere visualizzato in IGV come track BigWig"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-35",
+    "href": "materials/03_pipeline_nfcore.html#section-35",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Post-alignment Processing\nRefining Your Alignments\n\n\nWhat it is:\n\nA series of steps performed after read alignment to improve data quality and prepare for downstream analysis.\n\nKey steps:\n\nDeduplication: Removing PCR duplicates to avoid bias in gene expression estimates. (Blue line)\nGenerating coverage tracks: Visualizing read distribution and assessing sequencing uniformity.\n(Optional) Other steps: Depending on the analysis goals, this may include filtering reads, recalibrating base quality scores, and other processing steps.\n\nWhy is it important?\n\nImproves the accuracy and reliability of downstream analysis.\nReduces noise and bias in the data.\nFacilitates data interpretation and visualization.\n\n\n\n\n\nObiettivo: Illustrare i passi principali di raffinamento degli allineamenti per ottenere BAM di qualità adatti all’analisi downstream.\n\nLa deduplicazione rimuove i duplicati PCR che potrebbero gonfiare i conteggi (linea blu nella pipeline)\nLa generazione dei coverage track permette di visualizzare la distribuzione delle reads lungo il genoma\nIl raffinamento è fondamentale per garantire accuratezza nell’analisi differenziale\nQuesti step vengono applicati dopo l’allineamento ma prima della quantificazione"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-40",
+    "href": "materials/03_pipeline_nfcore.html#section-40",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Obiettivo: Mostrare la posizione nella pipeline relativa al blocco di analisi downstream e quality assessment.\n\nSiamo nella fase finale della pipeline nf-core/rnaseq\nI tool di QC downstream (RSeQC, Qualimap, Preseq) sono eseguiti in parallelo\nMultiQC alla fine raccoglie tutti i risultati in un unico report\nL’output principale di questa fase sono: report QC + matrice dei conteggi"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-45",
+    "href": "materials/03_pipeline_nfcore.html#section-45",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nDifferential Expression: Finding the Genes that Matter\n\n\nWhat it is:\n\nIdentifying genes that are expressed at significantly different levels between two or more conditions (e.g., treated vs. control, healthy vs. diseased).\n\nWhy is it important?\n\nUncover genes involved in specific biological processes or disease states.\nIdentify potential biomarkers or therapeutic targets.\n\nTools:\n\nDESeq2: A popular R package for differential expression analysis.\nedgeR: Another widely used R package.\nlimma: A flexible package for linear modeling and differential expression analysis.\n\n\n\n\n\nObiettivo: Introdurre l’analisi dell’espressione differenziale come obiettivo finale del workflow RNA-seq bioinformatico.\n\nL’espressione differenziale identifica i geni con espressione significativamente diversa tra condizioni\nDESeq2 ed edgeR usano modelli statistici basati sulla distribuzione binomiale negativa\nL’output principale è una lista di geni con log2FoldChange, p-value e p-value aggiustato\nIl p-value aggiustato (FDR) corregge per test multipli: fondamentale usare questo, non il p-value raw"
+  },
+  {
+    "objectID": "materials/03_pipeline_nfcore.html#section-46",
+    "href": "materials/03_pipeline_nfcore.html#section-46",
+    "title": "Analisi Bulk RNA-Seq per Dottorandi",
+    "section": "",
+    "text": "Downstream Analysis\nMultiQC: Your One-Stop Shop for QC Reports\n\n\nWhat it is: A tool that aggregates results from multiple bioinformatics tools into a single HTML report.\nWhy is it useful for RNA-Seq?\n\nRNA-Seq analysis involves multiple QC steps (FastQC, SortMeRNA, Trim Galore!, etc.).\nMultiQC combines the results from these tools into a user-friendly report.\nThis saves time and simplifies the QC assessment process.\n\nKey features:\n\nSupports a wide range of bioinformatics tools.\nGenerates interactive plots and tables for easy visualization.\nHighlights potential issues and inconsistencies in the data.\nFacilitates comparison of QC metrics across multiple samples.\n\nBenefits:\n\nSaves time and effort in QC assessment.\nImproves clarity and organization of QC results.\nFacilitates data interpretation and decision-making.\n\n\n\n\n\nObiettivo: Presentare MultiQC come strumento che aggrega tutti i report QC della pipeline in un unico documento HTML navigabile.\n\nMultiQC scansiona le cartelle di output e raccoglie automaticamente le metriche di decine di tool\nPermette di confrontare la qualità di tutti i campioni in un’unica vista\nEvidenzia campioni anomali o outlier che potrebbero richiedere esclusione dall’analisi\nIn nf-core, MultiQC è l’ultimo step della pipeline e aggrega FastQC, STAR, featureCounts ecc."
   }
 ]
