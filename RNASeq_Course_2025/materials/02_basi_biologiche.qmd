@@ -46,7 +46,7 @@ library(quarto)
 
 [Marco Chiapello, Revelo Datalab]{style="font-size: 40px; font-weight: bold;"}
 
-[November 2024]{style="font-size: 30px;font-weight: bold;"}
+[Marzo 2026]{style="font-size: 30px;font-weight: bold;"}
 :::
 
 ::::{.notes}
