@@ -52,6 +52,17 @@ library(gtsummary)
 [Nomber 2024]{style="font-size: 30px;font-weight: bold;"}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre il modulo sulla pipeline nf-core/rnaseq e creare il contesto per la giornata.
+
+- Benvenuti a questo modulo dedicato alla **pipeline nf-core/rnaseq**: impareremo come trasformare i dati grezzi di sequenziamento in risultati biologicamente interpretabili
+- Oggi vedremo l'intera catena analitica, dal controllo qualità delle reads grezze fino alla quantificazione dell'espressione genica
+- **nf-core** è una raccolta di workflow bioinformatici standardizzati, sviluppati dalla comunità e basati sul framework **Nextflow**
+- L'obiettivo non è memorizzare ogni comando: vogliamo capire **perché** ogni step esiste e cosa fa al vostro campione
+:::
+::::
+
 
 <!-- #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -67,15 +78,40 @@ library(gtsummary)
 ![](images/nfcore.png){width=2000}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Orientare gli studenti nel diagramma complessivo della pipeline prima di entrare nei dettagli.
+
+- Questa immagine mostra l'intera pipeline nf-core/rnaseq: ogni blocco colorato rappresenta uno step, ogni freccia il flusso dei dati
+- Nei prossimi moduli analizzeremo ogni sezione nel dettaglio — oggi partiamo dal pre-processing e dal controllo qualità
+:::
+::::
+
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Pre-processing and Quality Control]{.tit .p-span-center}
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Contestualizzare la sezione di pre-processing e QC come fondamento imprescindibile per l'analisi.
+
+- Prima di qualsiasi analisi dobbiamo garantire che i dati di partenza siano di qualità sufficiente: **garbage in, garbage out**
+- Questa sezione copre il **controllo qualità delle reads grezze**, il **trimming degli adattatori** e la **rimozione di contaminanti**
+- Se saltiamo questi step rischiamo di fare analisi su dati corrotti, invalidando tutti i risultati a valle
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Qui vediamo evidenziata la porzione della pipeline relativa al pre-processing: nelle slide successive analizzeremo uno per uno i blocchi colorati in questa regione.
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -90,6 +126,17 @@ The FASTA format is a text-based format for representing either nucleotide seque
 :::
 
 File extension could be: fasta, fna, ffn, faa, fa, frn
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Fare in modo che gli studenti riconoscano il formato FASTA come punto di partenza per i dati genomici di riferimento.
+
+- Il formato **FASTA** è il più semplice per rappresentare sequenze biologiche: ogni sequenza ha un header che inizia con `>` seguito dall'identificatore
+- È usato per **genomi di riferimento**, trascrittomi e database di sequenze proteiche
+- Le estensioni multiple (`.fa`, `.fna`, `.faa`, ecc.) identificano il tipo di molecola ma il formato interno è identico
+- Conoscere FASTA è essenziale: il genoma/trascrittoma di riferimento che useremo nella pipeline è in questo formato
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -106,6 +153,17 @@ The FASTA format is a text-based format for representing either nucleotide seque
     >NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A
     CTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT
     ATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Leggere concretamente un record FASTA e capire la struttura header + sequenza.
+
+- La prima riga è l'**header**: `NM_001404729.1` è l'accession NCBI, seguita dalla descrizione dell'organismo e del gene
+- Le righe successive contengono la **sequenza nucleotidica**, spezzata in righe da 60-80 caratteri per leggibilità
+- Le `N` consecutive indicano regioni **non assemblate o mascherate** nel genoma di riferimento
+- Ogni record FASTA termina quando inizia un nuovo `>` oppure alla fine del file
+:::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -128,6 +186,17 @@ Multi-fasta file:
     ATGGATTCCATGTTCATGAGTTTGGAGATAATACAGCAGGCTGTACCAGTGCAGGTCCTCACTTTAATCC
     TCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il concetto di multi-FASTA e il suo utilizzo nel contesto RNA-seq con Salmon.
+
+- Un file **multi-FASTA** contiene centinaia di migliaia di sequenze in un unico file, ognuna preceduta dal proprio `>`
+- Il **trascrittoma di riferimento** che useremo con Salmon è un multi-FASTA con tutti i trascritti umani annotati (es. GENCODE v43: ~250.000 trascritti)
+- La dimensione di questi file è considerevole: il genoma umano GRCh38 in FASTA è circa 3 GB
+- Tenete a mente questa struttura: quando Salmon costruirà l'indice di allineamento, partirà esattamente da questo tipo di file
+:::
+::::
+
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -140,6 +209,17 @@ Multi-fasta file:
 
 The FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.   
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre il formato FASTQ come estensione del FASTA con l'aggiunta dell'informazione qualitativa.
+
+- Il **FASTQ** è il formato standard prodotto dai sequenziatori Illumina: è ciò che riceverete dal core facility dopo il sequenziamento
+- La novità rispetto al FASTA è il **quality score**: per ogni nucleotide c'è un carattere che ne codifica l'affidabilità di lettura
+- Questi score di qualità sono fondamentali per capire quanto fidarsi di ogni base sequenziata
+- Senza questa informazione non potremmo fare un controllo qualità significativo dei nostri dati grezzi
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -162,6 +242,17 @@ A FASTQ file is identified by 4 lines:
 - Line 4: contains the quality values for the individual nucleotides
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Memorizzare la struttura a 4 righe del formato FASTQ e il ruolo di ciascuna riga.
+
+- **Riga 1 (@ID)**: identificatore unico della read, contiene informazioni sullo strumento e sulla corsa di sequenziamento
+- **Riga 2 (sequenza)**: la sequenza nucleotidica grezza rilevata dal sequenziatore, una base per carattere
+- **Riga 3 (+)**: separatore storico — oggi è quasi sempre solo `+`, ma può ripetere l'ID per compatibilità
+- **Riga 4 (quality)**: stringa di caratteri ASCII che codificano il Phred score, deve avere **esattamente la stessa lunghezza** della riga 2
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Raw reads: The Starting Point]{.subtit}
@@ -180,6 +271,17 @@ The FASTQ format is a text-based format for storing both a biological sequence (
     +
     !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Leggere un'entry FASTQ reale e interpretare i caratteri di qualità come Phred score.
+
+- `@SEQ_ID` è l'identificatore della read — nei file reali troveremo qualcosa come `@SRR1039508.1 1 length=63`
+- La stringa di qualità `!''*((((***+))...` sembra incomprensibile, ma ogni carattere è un **valore ASCII** che codifica il Phred score
+- Il carattere `!` (ASCII 33 − 33 = **Q0**) indica una base quasi certamente errata; `F` (ASCII 70 − 33 = **Q37**) indica una base molto affidabile
+- Notate le variazioni lungo la sequenza: le basi alle estremità tendono ad avere qualità più bassa — per questo il trimming è necessario
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -222,6 +324,17 @@ The quality score is used to identify the **probability of the correct identific
 ![](images/phred2.png){width=900}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Tradurre il Phred score in probabilità di errore e stabilire soglie pratiche per RNA-seq.
+
+- **Q20** = 1% di probabilità di errore (1 base su 100 potenzialmente sbagliata): soglia minima accettabile per RNA-seq
+- **Q30** = 0.1% di probabilità di errore (1 base su 1000): qualità ottima, quella che miriamo ad avere dopo il trimming
+- La scala è **logaritmica**: Q30 non è "un po' meglio" di Q20, è 10 volte più accurato
+- Nel report FastQC, un segnale verde per "Per Base Sequence Quality" significa che la mediana supera Q28 sull'intera lunghezza della read
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Raw reads: The Starting Point]{.subtit}
@@ -232,11 +345,28 @@ The quality score is used to identify the **probability of the correct identific
 
 - This means that the file is compressed, so it is not readable by a text editor without first being decompressed.
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Prepararsi a lavorare con file compressi nella pipeline.
+
+- I file `.fastq.gz` sono compressi con **gzip**: occupano 4-5 volte meno spazio rispetto al file non compresso
+- La pipeline nf-core/rnaseq accetta direttamente i `.fastq.gz` senza decompressione manuale
+- Per ispezionare il contenuto senza decomprimere: `zless file.fastq.gz` oppure `zcat file.fastq.gz | head`
+- Non tentate di aprire questi file con un editor di testo normale: usate strumenti che gestiscono la compressione
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Entriamo ora negli strumenti specifici del pre-processing: la pipeline ne usa diversi in sequenza, ognuno con uno scopo preciso.
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -266,11 +396,29 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Capire cosa fa FastQC e quali metriche sono più rilevanti per valutare la qualità di reads RNA-seq.
+
+- **FastQC** produce report HTML leggibili anche senza competenze avanzate: è il primo strumento da usare dopo aver ricevuto i dati grezzi
+- Le metriche più importanti per RNA-seq: **Per Base Sequence Quality** (Q score lungo la read), **Adapter Content** (adattatori da rimuovere), **GC Content** (anomalie indicano contaminazione)
+- Un avviso rosso in FastQC non significa necessariamente dati inutilizzabili, ma richiede attenzione e interpretazione biologica
+- In nf-core, FastQC viene eseguito **prima e dopo** il trimming: potrete confrontare il miglioramento qualitativo
+- **MultiQC** aggrega i report di tutti i campioni in un unico documento interattivo: essenziale con decine di campioni
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+La pipeline procede ora con l'estrazione degli UMI — step opzionale ma fondamentale per librerie che li utilizzano.
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -304,11 +452,29 @@ The quality score is used to identify the **probability of the correct identific
 ![](images/umi.png){width=1000}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare perché gli UMI risolvono il problema dei duplicati PCR in modo più accurato rispetto ai metodi basati sulla posizione genomica.
+
+- Gli **UMI (Unique Molecular Identifiers)** sono brevi sequenze casuali (6-12 nt) aggiunte al cDNA durante la preparazione della libreria, prima dell'amplificazione PCR
+- Ogni molecola di cDNA riceve un UMI unico: dopo la PCR, tutte le copie dello stesso trascritto originale avranno il **medesimo UMI**
+- Senza UMI non possiamo distinguere due reads identiche provenienti dallo stesso trascritto biologico da copie PCR della stessa molecola
+- `UMI-tools extract` sposta la sequenza UMI dall'inizio della read al nome della read, per usarla nella deduplicazione downstream
+- Questo step è rilevante solo se il vostro protocollo prevede UMI (es. 10x Chromium, CEL-Seq2, certi kit Illumina per RNA totale)
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Il trimming è il passo fondamentale per pulire le reads prima dell'allineamento: vediamo i due strumenti più usati nella pipeline.
+:::
+::::
 
 
 
@@ -341,11 +507,29 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Capire perché il trimming migliora la qualità dell'analisi downstream e quando scegliere FastP vs Trim Galore!.
+
+- Il **trimming degli adattatori** rimuove le sequenze Illumina che contaminano le reads quando l'inserto cDNA è più corto del ciclo di lettura — senza rimozione causano errate mappature
+- Il **quality trimming** taglia le basi di bassa qualità alle estremità (Q < 20): migliora il tasso di allineamento e la precisione della quantificazione
+- **FastP** è più moderno: gestisce in un unico passaggio adattatori, quality, lunghezza minima e UMI — più veloce e con report HTML integrato
+- **Trim Galore!** è uno wrapper consolidato di `cutadapt` con parametri ottimizzati per Illumina: scelta più conservativa e ampiamente validata
+- In nf-core potete scegliere tra i due con il parametro `--trimmer`; il default è **Trim Galore!**
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Alcuni esperimenti richiedono uno step aggiuntivo: la rimozione di reads provenienti da organismi contaminanti o da sequenze non desiderate.
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -373,6 +557,17 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Capire quando BBSplit è necessario e come funziona la separazione di reads da più genomi.
+
+- **BBSplit** allinea le reads a un database di genomi in parallelo e assegna ogni read all'organismo di provenienza più probabile
+- È essenziale negli esperimenti **host-pathogen** (es. cellule umane infettate da virus) dove si vogliono separare le reads umane da quelle virali o batteriche
+- Può anche rimuovere contaminazione da micoplasma o altri microorganismi presenti nelle colture cellulari
+- In un tipico esperimento RNA-seq su linee cellulari umane questo step è opzionale, ma vale la pena attivarlo se avete dubbi sulla purezza del campione
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Pre-processing Tools]{.subtit}
@@ -398,15 +593,45 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare la contaminazione da rRNA nell'RNA-seq e come SortMeRNA la gestisce in silico.
+
+- L'**rRNA ribosomiale** costituisce il 70-90% dell'RNA totale cellulare: se non si esegue una deplezione durante la preparazione la libreria, domina il sequenziamento
+- La deplezione di rRNA si fa in laboratorio (kit RiboZero per RNA totale, poly-A selection per mRNA), ma non è mai completa al 100%
+- **SortMeRNA** identifica le reads residue che provengono da rRNA usando un database di sequenze ribosomiali e le rimuove *in silico*
+- Se il report indica una percentuale di rRNA superiore al 30-40%, è un campanello d'allarme sulla qualità della preparazione della libreria
+:::
+::::
+
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Alignment and Quantification]{.tit .p-span-center}
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre la sezione della pipeline dedicata all'allineamento e quantificazione delle reads.
+
+- Siamo arrivati al cuore della pipeline: le reads vengono "posizionate" sul genoma di riferimento e si stima l'abbondanza di ogni gene o trascritto
+- In questa sezione vedremo gli **allineatori** (STAR e HISAT2), il **formato BAM** per lo storage degli allineamenti, e i tool di **quantificazione** (RSEM e Salmon)
+- Comprendere bene questa fase è fondamentale: la qualità degli allineamenti determina direttamente i risultati dell'analisi differenziale
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Orientare gli studenti nella pipeline nf-core prima di entrare nel dettaglio dell'allineamento.
+
+- Qui vediamo il diagramma completo: ogni blocco colorato corrisponde a un tool specifico della pipeline
+- Ci troviamo nella fase centrale: dal **FASTQ trimmat** passiamo ora all'**allineamento** sul genoma di riferimento
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -438,6 +663,17 @@ The quality score is used to identify the **probability of the correct identific
 ![](images/align.png){width=1000}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il concetto fondamentale di allineamento delle reads al genoma di riferimento.
+
+- **Allineamento (mapping):** processo con cui ogni read viene "posizionata" sul genoma → identifichiamo da quale gene o trascritto proviene ciascuna read
+- È importante perché da questo passaggio dipende l'intera stima dell'espressione genica: una read non mappata è informazione persa
+- **Sfide principali:** errori di sequenziamento, reads che si mappano in più loci (**multi-mapping**), regioni ripetitive del genoma
+- **Output BAM:** file binario compresso che registra la posizione, la qualità della mappatura e l'orientamento di ogni read sul genoma
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Alignment and Quantification]{.subtit}
@@ -452,6 +688,17 @@ The quality score is used to identify the **probability of the correct identific
     *   Provides a standardized way to store alignment information.
     *   Allows for efficient storage and retrieval of large alignment datasets.
     *   Facilitates compatibility between different bioinformatics tools.
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare SAM e BAM come il formato standard per lo storage degli allineamenti NGS.
+
+- **SAM (Sequence Alignment/Map):** formato testuale, leggibile con un editor — utile per ispezione manuale ma molto voluminoso
+- **BAM (Binary Alignment/Map):** versione binaria compressa di SAM — occupa 3-4× meno spazio ed è molto più veloce da processare
+- Nella pratica si lavora quasi sempre con **file BAM**; il formato SAM serve principalmente per debug o verifica manuale
+- È il formato standard della bioinformatica NGS: garantisce compatibilità tra STAR, HISAT2, SAMtools, Picard e tutti i tool downstream
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -509,6 +756,14 @@ The quality score is used to identify the **probability of the correct identific
 ![](images/nfcore.png){width=2000}
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Transizione verso la presentazione di STAR come allineatore di riferimento per RNA-seq.
+
+- Qui vediamo la posizione di **STAR** nel diagramma della pipeline nf-core: è l'allineatore di default per la maggior parte dei workflow RNA-seq
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Alignment and Quantification]{.subtit}
@@ -535,6 +790,18 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare STAR come allineatore splice-aware e spiegare perché è lo standard de facto per RNA-seq.
+
+- **STAR (Spliced Transcripts Alignment to a Reference):** progettato specificamente per RNA-seq, con gestione nativa delle giunzioni di splicing
+- È essenziale essere **splice-aware**: una read può attraversare la giunzione tra due esoni separati da un introne di migliaia di basi nel genoma — un allineatore genomico ordinario non la gestirebbe correttamente
+- **Novel splice junctions:** STAR rileva giunzioni di splicing non ancora annotate nel file GTF/GFF — prezioso per studi di trascrittoma
+- Produce file BAM ordinati con coordinate genomiche; richiede circa 30 GB di RAM per il genoma umano (costruisce un grande indice in memoria)
+- In nf-core/rnaseq è l'allineatore di **default**; HISAT2 si attiva con il parametro `--aligner hisat2`
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Alignment and Quantification]{.subtit}
@@ -560,11 +827,30 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare HISAT2 come alternativa a STAR e fornire criteri pratici per la scelta tra i due allineatori.
+
+- **HISAT2** usa la **trasformata di Burrows-Wheeler (BWT)**, che produce un indice molto più compatto rispetto a STAR
+- Richiede molto meno **RAM** (~8 GB per il genoma umano vs ~30 GB di STAR) — ideale in ambienti con risorse computazionali limitate
+- È anch'esso **splice-aware** e supporta sia sequenze DNA che RNA — versatile per tipi diversi di analisi
+- STAR rimane preferito per l'accuratezza nel rilevare giunzioni novel; **HISAT2** è la scelta quando la memoria è un vincolo
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Transizione verso la deduplicazione con UMI post-allineamento.
+
+- Qui vediamo dove si posiziona **UMI-tools dedup** nel flussogramma: è uno step opzionale che si attiva solo se la libreria è stata preparata con **UMI** (Unique Molecular Identifiers)
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -596,11 +882,30 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare la deduplicazione basata su UMI e perché migliora l'accuratezza della quantificazione.
+
+- **Duplicati PCR:** durante la preparazione della libreria, l'amplificazione PCR crea copie identiche della stessa molecola — questi duplicati distorcono la stima dell'espressione genica
+- **UMI (Unique Molecular Identifiers):** sequenze random brevi (~6-12 bp) aggiunte a ogni molecola durante la ligazione → ogni frammento originale riceve un identificatore unico
+- **UMI-tools dedup** raggruppa le reads con **stesso UMI + stessa posizione genomica** → mantiene solo la read con qualità migliore per ogni gruppo di origine
+- Senza deduplicazione, i geni più amplificati dalla PCR risulterebbero erroneamente sovra-espressi, con impatto diretto sull'analisi differenziale
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Transizione verso RSEM come tool di quantificazione basato su allineamento.
+
+- Qui vediamo **RSEM** nel diagramma: è il tool di quantificazione che lavora a partire dai **file BAM** prodotti dall'allineamento per stimare l'abbondanza di geni e isoforme
+:::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -645,11 +950,29 @@ The quality score is used to identify the **probability of the correct identific
 
 [A New Approach to Quantification]{.f50 .p-span-center}
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre la sezione sui pseudo-allineatori come approccio alternativo e più moderno alla quantificazione dell'espressione genica.
+
+- In questa sezione esploriamo i **pseudo-allineatori**, strumenti nati per superare i limiti computazionali dell'allineamento classico al genoma di riferimento
+- **Salmon** e **Kallisto** sono i rappresentanti principali: invece di determinare la posizione genomica precisa di ogni read, usano algoritmi leggeri per assegnare le reads direttamente ai trascritti
+- Questi strumenti sono oggi lo standard per molti workflow RNA-seq grazie alla loro velocità e all'accuratezza comparabile ai metodi tradizionali
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Mostrare il posizionamento del modulo pseudo-allineamento nella pipeline nf-core.
+
+- Qui vediamo il diagramma completo della pipeline: il blocco **Salmon/Kallisto** si attiva quando si sceglie la quantificazione pseudo-allineata al posto di STAR+featureCounts
+:::
+::::
 
 
 
@@ -682,6 +1005,17 @@ The quality score is used to identify the **probability of the correct identific
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il concetto di pseudo-allineamento e i suoi vantaggi rispetto all'allineamento classico.
+
+- **Pseudo-allineamento:** invece di trovare la posizione esatta della read sul genoma, si determina solo a quale trascritto appartiene — un concetto detto *compatibilità* — eliminando l'allineamento tradizionale a coppie
+- La differenza fondamentale con STAR/HISAT2 è la velocità: Salmon è **10-100× più rapido** perché lavora sull'indice del trascrittoma, non sull'intero genoma
+- **Accuratezza comparabile:** il modello di bias di Salmon (GC content, posizione, sequenza) porta a stime dell'espressione altrettanto affidabili rispetto agli allineatori classici
+- È importante sapere che i pseudo-allineatori quantificano i **trascritti**: i counts vengono poi aggregati a livello di gene con **tximport** in R
+:::
+::::
+
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -704,6 +1038,17 @@ The quality score is used to identify the **probability of the correct identific
 
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Confrontare Kallisto e Salmon e motivare la scelta di Salmon come default in nf-core.
+
+- **nf-core/rnaseq usa Salmon di default** perché offre modellazione più sofisticata dei bias (sequenza, GC content, posizione) e gestisce meglio campioni con diverse tipologie di libreria
+- **Kallisto** rimane un'ottima scelta per analisi rapide o pipeline custom: la sua semplicità lo rende ideale per studi di screening o grandi coorti dove la velocità è critica
+- Entrambi richiedono un **indice del trascrittoma** costruito in anticipo — nf-core lo costruisce automaticamente da FASTA + GTF
+- Per i corsi di analisi differenziale, è sufficiente capire che Salmon genera i file di quantificazione che importeremo in R con **tximport**
+:::
+::::
+
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -718,33 +1063,44 @@ The quality score is used to identify the **probability of the correct identific
 ![quant.sf](images/salmon2.png)
 :::
 
-:::{.notes}
-1. Salmon's main output is its quantification file => quant.sf
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Descrivere i file di output di Salmon e identificare quello che useremo in R.
 
-1. cmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked
-
-1. Auxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info
-
-     - The auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments
-
-     -  If Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type
-
-1. When run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format
-
-
+- **quant.sf** è il file principale di Salmon: contiene per ogni trascritto le colonne Name, Length, EffectiveLength, TPM e NumReads — è questo file che importiamo in R con **tximport**
+- **cmd_info.json** registra i parametri esatti del comando: fondamentale per la riproducibilità e per documentare l'analisi
+- La cartella **aux_info/** contiene `meta_info.json` con statistiche del run (frammenti osservati, mappati, tasso di mappatura) e — se Salmon ha inferito automaticamente il tipo di libreria — l'esito dell'inferenza
+- **lib_format_counts.json** riporta quanti frammenti sono compatibili con ciascun tipo di libreria: utile per verificare che il parametro `--libType` sia corretto
+- Nella pratica del corso: lavoreremo direttamente con **quant.sf** tramite tximport, che aggrega i conteggi a livello di gene e li prepara per DESeq2
 :::
-
-d
+::::
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Post-alignment Processing]{.tit .p-span-center}
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre la sezione che descrive le operazioni eseguite dopo l'allineamento al genoma.
+
+- Dopo che le reads sono state allineate al genoma, la pipeline applica una serie di step di **raffinamento** prima di procedere all'analisi downstream
+- Questa sezione è rilevante soprattutto per il workflow basato su **STAR**: per Salmon, che lavora sul trascrittoma, molti di questi step non si applicano
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Mostrare il posizionamento del post-processing nella pipeline nf-core.
+
+- Qui vediamo come i blocchi di **deduplicazione** e **coverage** si inseriscono nella pipeline dopo l'allineamento con STAR e prima del controllo qualità finale con MultiQC
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -765,6 +1121,16 @@ d
     *   Facilitates data interpretation and visualization.
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Motivare l'importanza del post-processing per la qualità dell'analisi differenziale.
+
+- **Deduplicazione:** i duplicati di PCR sono copie artificiali dello stesso frammento originale — se non rimossi, sovrastimano l'espressione di certi trascritti in proporzione all'efficienza di amplificazione, non all'abbondanza biologica
+- **Coverage tracks:** generare tracce in formato bigWig o BEDGraph permette di visualizzare la distribuzione delle reads nei geni con IGV — un controllo visivo fondamentale per verificare l'uniformità della copertura
+- È importante ricordare che questi step **migliorano la qualità** ma non sostituiscono un buon design sperimentale: un campione mal preparato non si recupera con il post-processing
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Post-alignment Processing]{.subtit}
@@ -784,6 +1150,17 @@ d
         *   Provides insights into alignment quality, read depth, and other metrics.
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare SAMtools come strumento fondamentale per la manipolazione dei file BAM nella pipeline.
+
+- **SAMtools** è il "coltellino svizzero" dei file BAM/SAM: quasi ogni pipeline bioinformatica NGS lo usa in almeno uno step
+- **`samtools sort`:** ordina le reads per coordinata genomica — passaggio obbligatorio prima dell'indicizzazione, richiesto da GATK, Picard e tutti i browser genomici
+- **`samtools index`:** crea il file `.bai` che consente l'accesso rapido a regioni specifiche del BAM senza leggerlo interamente — essenziale per IGV e tool che lavorano per regioni
+- **`samtools stats`:** genera un report con tasso di allineamento, copertura media e distribuzione della qualità delle basi — un ulteriore layer di QC dopo il mapping
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Post-alignment Processing]{.subtit}
@@ -799,6 +1176,17 @@ d
     *   Can be used when UMIs are not available.
     *   Often used in combination with other filtering steps.
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare la deduplicazione basata su coordinate come alternativa ai metodi UMI.
+
+- **Picard MarkDuplicates** identifica i duplicati confrontando le coordinate di inizio allineamento delle coppie di reads: se due read-pairs iniziano esattamente alla stessa posizione, vengono considerate duplicati
+- Il tool **marca** i duplicati nel campo FLAG del BAM senza rimuoverli, lasciando la scelta all'utente — approccio conservativo che permette ispezioni successive
+- **Limitazione importante:** senza **UMI** (Unique Molecular Identifiers), reads indipendenti che iniziano alla stessa coordinata vengono erroneamente marcate come duplicati — rischio di *over-deduplication* in regioni ad alta copertura
+- nf-core applica Picard come step standard; se il protocollo include UMI, si usa invece il modulo **UMI-tools**
+:::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -818,16 +1206,42 @@ d
     *   Generate histograms of coverage depth.
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare l'utilità del calcolo della copertura per la visualizzazione e il controllo qualità.
+
+- **BEDTools genomecov** calcola per ogni posizione del genoma quante reads la coprono, generando file in formato **BEDGRAPH** o **bigWig** — i formati standard per browser genomici come IGV o UCSC
+- Le coverage tracks sono il primo strumento visivo per verificare che le reads si distribuiscano uniformemente sui corpi genici — un segnale di problemi di degradazione o bias di 3' nella libreria emerge chiaramente da questi grafici
+- La normalizzazione per dimensione di libreria permette di **confrontare campioni** con profondità di sequenziamento diverse nello stesso browser genomico
+- Nella pratica: caricare le tracce bigWig in IGV è uno step di QC visivo che nessun report automatico può sostituire completamente
+:::
+::::
+
 
 #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Downstream Analysis]{.tit .p-span-center}
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Introdurre la sezione delle analisi post-allineamento: dagli strumenti di QC all'analisi differenziale.
+
+- Siamo nella fase finale della pipeline: qui si valuta la qualità complessiva degli allineamenti, si identificano possibili bias, e si prepara la quantificazione per l'**analisi differenziale**
+- Questa sezione include strumenti di QC avanzato (RSeQC, Preseq, Qualimap), strumenti di diagnosi (Kraken2) e il report riassuntivo finale (MultiQC)
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Qui vediamo i blocchi di **downstream analysis** nel diagramma completo: RSeQC, Preseq, Qualimap, Kraken2 e MultiQC lavorano sugli output BAM o sulle reads per produrre metriche di qualità finali prima del report aggregato.
+:::
+::::
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -851,6 +1265,17 @@ d
 
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare RSeQC come strumento per identificare bias sistemici negli allineamenti RNA-seq.
+
+- **RSeQC** calcola metriche di QC che FastQC non può fornire perché richiede l'allineamento al genoma: la distribuzione delle reads sui diversi elementi genomici (esoni, introni, regioni intergeniche) è un indicatore fondamentale della qualità della libreria
+- **Gene body coverage:** se le reads si concentrano all'estremità 3' del gene invece di distribuirsi uniformemente, indica degradazione dell'RNA prima della preparazione della libreria
+- **Strand specificity:** verifica che il protocollo di preparazione della libreria sia stato applicato correttamente — un mismatch qui può causare errori sistematici nella quantificazione
+- **Junction saturation:** indica se stiamo sequenziando abbastanza profondamente da individuare la maggior parte delle giunzioni di splicing note
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Downstream Analysis]{.subtit}
@@ -872,6 +1297,17 @@ d
     *   Avoid unnecessary sequencing costs.
     *   Improve the quality and efficiency of RNA-Seq experiments.
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare il concetto di complessità di libreria e quando vale la pena sequenziare di più.
+
+- La **complessità della libreria** misura quante molecole distinte di cDNA erano presenti prima dell'amplificazione PCR: una libreria complessa rappresenta meglio l'intera popolazione di RNA del campione
+- **Preseq** usa un modello statistico per predire quante reads uniche otterreste raddoppiando la profondità di sequenziamento — se la curva si appiattisce, il campione è **saturo** e sequenziare di più non porta nuove informazioni
+- Una libreria con bassa complessità (curva piatta già a basse runs) può indicare eccessiva amplificazione PCR, input di RNA insufficiente o scarsa qualità dell'RNA di partenza
+- Questo strumento è utile per ottimizzare i costi: se la curva non è ancora satura, ha senso investire in maggiore profondità
+:::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -898,6 +1334,17 @@ d
 
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Illustrare Qualimap come strumento di QC approfondito sugli allineamenti, complementare a RSeQC.
+
+- **Qualimap** analizza direttamente i file BAM e produce report dettagliati su qualità del mapping, errori di mismatch e indel, distribuzione della copertura per gene e per trascritto
+- Il **bias 5'/3'** è uno degli indicatori più utili: una copertura molto sbilanciata verso il 3' dei trascritti indica degradazione dell'RNA (tipico di campioni FFPE o con RIN basso)
+- La stima di **rRNA residua** è fondamentale: in un esperimento poly-A selection vi aspettate < 5% di rRNA; valori più alti indicano problemi nel protocollo di selezione
+- Notate che Qualimap e RSeQC si sovrappongono parzialmente: entrambi sono inclusi in nf-core perché si integrano bene con MultiQC e producono metriche complementari
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Downstream Analysis]{.subtit}
@@ -923,6 +1370,17 @@ d
 :::
 :::: 
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Spiegare quando e perché usare Kraken2 in un esperimento RNA-seq.
+
+- **Kraken2** assegna ogni read a un organismo tramite un database di k-meri: è estremamente rapido (processa milioni di reads al minuto) e accurato per la classificazione tassonomica
+- In RNA-seq è utile per **rilevare contaminazione biologica**: colture cellulari contaminate da micoplasma, campioni clinici con batteri commensali, o esperimenti host-pathogen dove si vuole separare las reads umane da quelle virali
+- Se una frazione significativa delle reads (> 5-10%) si mappa su organismi non target, è un segnale che richiede investigazione prima di procedere all'analisi differenziale
+- Per esperimenti standard su linee cellulari umane è uno step opzionale, ma costa poco computazionalmente e può rivelare problemi inaspettati
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Downstream Analysis]{.subtit}
@@ -943,6 +1401,17 @@ d
 
 
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Contestualizzare l'analisi differenziale come obiettivo finale del workflow e anticipare il modulo R.
+
+- L'**analisi differenziale** è lo scopo principale di quasi tutti gli esperimenti RNA-seq: vogliamo sapere quali geni cambiano di espressione tra condizioni diverse (trattato vs controllo, malato vs sano)
+- **DESeq2** è lo strumento che useremo nel corso: è considerato lo standard attuale per dati di conteggio RNA-seq, incorpora modelli statistici robusti per la normalizzazione e il test di significatività
+- Tenete a mente che l'analisi differenziale richiede i **raw counts** (conteggi non normalizzati): è per questo che Salmon produce NumReads nel quant.sf oltre al TPM
+- DESeq2, edgeR e limma producono risultati simili con dati di buona qualità; le differenze emergono con pochi replicati o campioni con alta varianza
+:::
+::::
 
 
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
@@ -968,11 +1437,28 @@ d
     *   Facilitates data interpretation and decision-making.
 :::
 
+::::{.notes}
+::: {style="font-size: 9pt"}
+**Obiettivo:** Presentare MultiQC come strumento che aggrega tutti i report QC della pipeline in un unico documento navigabile.
+
+- **MultiQC** legge automaticamente gli output di FastQC, fastp, STAR, Salmon, RSeQC, Qualimap, Picard e decine di altri tool: un solo report HTML per valutare l'intera corsa di sequenziamento
+- Con 10, 20 o 50 campioni, aprire report individuali è impraticabile: MultiQC permette di confrontare tutti i campioni in un colpo d'occhio e identificare outlier immediatamente
+- La sezione **General Statistics** all'inizio del report è il punto di partenza: tasso di mapping, reads totali, percentuale di duplicati e rRNA residua per tutti i campioni in una tabella
+- È buona pratica **generare e revisionare il report MultiQC** prima di procedere all'analisi differenziale: identifica problemi sistematici, campioni da escludere o asimmetrie tra gruppi sperimentali
+:::
+::::
+
 ##  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 :::{.p-img-center}
 ![](images/nfcore.png){width=2000}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Abbiamo completato il tour della pipeline nf-core/rnaseq. Questa immagine mostra l'intero workflow: da **FASTQ grezzi** a **conteggi quantificati** e **report di qualità completi**. Nel modulo successivo importeremo i risultati di Salmon in R per l'analisi differenziale con DESeq2.
+:::
+::::
 
 #  {background-image="images/qmark.jpg" background-size="cover" background-opacity="0.7"}
 
@@ -980,4 +1466,10 @@ d
 ::: {style="position: absolute; left: 980px; top: 450px;"}
 [Domande?]{style="font-size: 130px; font-weight: bold; color: white"}
 :::
+
+::::{.notes}
+::: {style="font-size: 9pt"}
+Aprire la discussione. Possibili domande da stimolare: Quale parte della pipeline vi ha sorpreso di più? Avete già dati RNA-seq su cui vorreste applicare questo workflow? C'è qualche step che non era chiaro?
+:::
+::::
 
