@@ -140,7 +140,7 @@ Qualsiasi forma di comportamento volto a [escludere]{.rn rn-color="orange"}, [in
 plot(qrcode::qr_code("https://revelo-rnaseq.github.io/2025_RNASeq/"))
 ```
 
-[http://bit.ly/4hKN5OA]{.p-span-center style="font-size: 100px; font-weight: bold;"}
+[https://revelo-rnaseq.github.io/2025_RNASeq/]{.p-span-center style="font-size: 100px; font-weight: bold;"}
 :::
 
 :::{.notes}
