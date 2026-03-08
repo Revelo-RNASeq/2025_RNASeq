@@ -145,6 +145,27 @@
 <p><span style="font-size: 40px; font-weight: bold;">Marco Chiapello, Revelo Datalab</span></p>
 <p><span style="font-size: 30px;font-weight: bold;">Nomber 2024</span></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre il modulo sulla pipeline nf-core/rnaseq e creare il contesto per la giornata.</p>
+<ul>
+<li>Benvenuti a questo modulo dedicato alla <strong>pipeline nf-core/rnaseq</strong>: impareremo come trasformare i dati grezzi di sequenziamento in risultati biologicamente interpretabili</li>
+<li>Oggi vedremo l’intera catena analitica, dal controllo qualità delle reads grezze fino alla quantificazione dell’espressione genica</li>
+<li><strong>nf-core</strong> è una raccolta di workflow bioinformatici standardizzati, sviluppati dalla comunità e basati sul framework <strong>Nextflow</strong></li>
+<li>L’obiettivo non è memorizzare ogni comando: vogliamo capire <strong>perché</strong> ogni step esiste e cosa fa al vostro campione</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <!-- #  {background-image="images/back001.jpg" background-size="cover" background-opacity="0.1"}
 
 [Overview]{.f60 .p-span-center}
@@ -158,18 +179,72 @@
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Orientare gli studenti nel diagramma complessivo della pipeline prima di entrare nei dettagli.</p>
+<ul>
+<li>Questa immagine mostra l’intera pipeline nf-core/rnaseq: ogni blocco colorato rappresenta uno step, ogni freccia il flusso dei dati</li>
+<li>Nei prossimi moduli analizzeremo ogni sezione nel dettaglio — oggi partiamo dal pre-processing e dal controllo qualità</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 
 <section>
 <section id="section-1" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Pre-processing and Quality Control</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Contestualizzare la sezione di pre-processing e QC come fondamento imprescindibile per l’analisi.</p>
+<ul>
+<li>Prima di qualsiasi analisi dobbiamo garantire che i dati di partenza siano di qualità sufficiente: <strong>garbage in, garbage out</strong></li>
+<li>Questa sezione copre il <strong>controllo qualità delle reads grezze</strong>, il <strong>trimming degli adattatori</strong> e la <strong>rimozione di contaminanti</strong></li>
+<li>Se saltiamo questi step rischiamo di fare analisi su dati corrotti, invalidando tutti i risultati a valle</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-2" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Qui vediamo evidenziata la porzione della pipeline relativa al pre-processing: nelle slide successive analizzeremo uno per uno i blocchi colorati in questa regione.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-3" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -186,6 +261,27 @@
 </div>
 </div>
 <p>File extension could be: fasta, fna, ffn, faa, fa, frn</p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Fare in modo che gli studenti riconoscano il formato FASTA come punto di partenza per i dati genomici di riferimento.</p>
+<ul>
+<li>Il formato <strong>FASTA</strong> è il più semplice per rappresentare sequenze biologiche: ogni sequenza ha un header che inizia con <code>&gt;</code> seguito dall’identificatore</li>
+<li>È usato per <strong>genomi di riferimento</strong>, trascrittomi e database di sequenze proteiche</li>
+<li>Le estensioni multiple (<code>.fa</code>, <code>.fna</code>, <code>.faa</code>, ecc.) identificano il tipo di molecola ma il formato interno è identico</li>
+<li>Conoscere FASTA è essenziale: il genoma/trascrittoma di riferimento che useremo nella pipeline è in questo formato</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-4" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -204,6 +300,27 @@
 <pre><code>&gt;NM_001404729.1 Oryza sativa ribulose bisphosphate carboxylase small chain A
 CTCAACAGCACTGCTACTGGACATACTCTACTACTACTAGCCAGTAAGCTAGCTAACTAACTACGTGGCT
 ATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN</code></pre>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Leggere concretamente un record FASTA e capire la struttura header + sequenza.</p>
+<ul>
+<li>La prima riga è l’<strong>header</strong>: <code>NM_001404729.1</code> è l’accession NCBI, seguita dalla descrizione dell’organismo e del gene</li>
+<li>Le righe successive contengono la <strong>sequenza nucleotidica</strong>, spezzata in righe da 60-80 caratteri per leggibilità</li>
+<li>Le <code>N</code> consecutive indicano regioni <strong>non assemblate o mascherate</strong> nel genoma di riferimento</li>
+<li>Ogni record FASTA termina quando inizia un nuovo <code>&gt;</code> oppure alla fine del file</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-5" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -221,6 +338,27 @@ ATGGCCCCCACCGTGATGGCCTCCTCGGCCACCTCCGTGGCTCCATTCCAAGGGCTCAANNNNNNNNNNN
 &gt;HF583486.1 Homo sapiens SOD1 gene for alternative protein SOD1, isolate 144496
 ATGGATTCCATGTTCATGAGTTTGGAGATAATACAGCAGGCTGTACCAGTGCAGGTCCTCACTTTAATCC
 TCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA</code></pre>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il concetto di multi-FASTA e il suo utilizzo nel contesto RNA-seq con Salmon.</p>
+<ul>
+<li>Un file <strong>multi-FASTA</strong> contiene centinaia di migliaia di sequenze in un unico file, ognuna preceduta dal proprio <code>&gt;</code></li>
+<li>Il <strong>trascrittoma di riferimento</strong> che useremo con Salmon è un multi-FASTA con tutti i trascritti umani annotati (es. GENCODE v43: ~250.000 trascritti)</li>
+<li>La dimensione di questi file è considerevole: il genoma umano GRCh38 in FASTA è circa 3 GB</li>
+<li>Tenete a mente questa struttura: quando Salmon costruirà l’indice di allineamento, partirà esattamente da questo tipo di file</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-6" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -236,6 +374,27 @@ TCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA</code></pre>
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre il formato FASTQ come estensione del FASTA con l’aggiunta dell’informazione qualitativa.</p>
+<ul>
+<li>Il <strong>FASTQ</strong> è il formato standard prodotto dai sequenziatori Illumina: è ciò che riceverete dal core facility dopo il sequenziamento</li>
+<li>La novità rispetto al FASTA è il <strong>quality score</strong>: per ogni nucleotide c’è un carattere che ne codifica l’affidabilità di lettura</li>
+<li>Questi score di qualità sono fondamentali per capire quanto fidarsi di ogni base sequenziata</li>
+<li>Senza questa informazione non potremmo fare un controllo qualità significativo dei nostri dati grezzi</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-7" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -263,6 +422,27 @@ TCTATCCAGAAAACACGGTGGGCCAAAGGATGAAGAGAGGCATGTTGGAGACTTGGGCAATGTGA</code></pre>
 <li>Line 4: contains the quality values for the individual nucleotides</li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Memorizzare la struttura a 4 righe del formato FASTQ e il ruolo di ciascuna riga.</p>
+<ul>
+<li><strong>Riga 1 (<span class="citation" data-cites="ID">@ID</span>)</strong>: identificatore unico della read, contiene informazioni sullo strumento e sulla corsa di sequenziamento</li>
+<li><strong>Riga 2 (sequenza)</strong>: la sequenza nucleotidica grezza rilevata dal sequenziatore, una base per carattere</li>
+<li><strong>Riga 3 (+)</strong>: separatore storico — oggi è quasi sempre solo <code>+</code>, ma può ripetere l’ID per compatibilità</li>
+<li><strong>Riga 4 (quality)</strong>: stringa di caratteri ASCII che codificano il Phred score, deve avere <strong>esattamente la stessa lunghezza</strong> della riga 2</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-8" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -284,6 +464,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 +
 !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65</code></pre>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Leggere un’entry FASTQ reale e interpretare i caratteri di qualità come Phred score.</p>
+<ul>
+<li><code>@SEQ_ID</code> è l’identificatore della read — nei file reali troveremo qualcosa come <code>@SRR1039508.1 1 length=63</code></li>
+<li>La stringa di qualità <code>!''*((((***+))...</code> sembra incomprensibile, ma ogni carattere è un <strong>valore ASCII</strong> che codifica il Phred score</li>
+<li>Il carattere <code>!</code> (ASCII 33 − 33 = <strong>Q0</strong>) indica una base quasi certamente errata; <code>F</code> (ASCII 70 − 33 = <strong>Q37</strong>) indica una base molto affidabile</li>
+<li>Notate le variazioni lungo la sequenza: le basi alle estremità tendono ad avere qualità più bassa — per questo il trimming è necessario</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-9" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -327,6 +528,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <div class="centerI">
 <p><img data-src="images/phred2.png" width="900"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Tradurre il Phred score in probabilità di errore e stabilire soglie pratiche per RNA-seq.</p>
+<ul>
+<li><strong>Q20</strong> = 1% di probabilità di errore (1 base su 100 potenzialmente sbagliata): soglia minima accettabile per RNA-seq</li>
+<li><strong>Q30</strong> = 0.1% di probabilità di errore (1 base su 1000): qualità ottima, quella che miriamo ad avere dopo il trimming</li>
+<li>La scala è <strong>logaritmica</strong>: Q30 non è “un po’ meglio” di Q20, è 10 volte più accurato</li>
+<li>Nel report FastQC, un segnale verde per “Per Base Sequence Quality” significa che la mediana supera Q28 sull’intera lunghezza della read</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-11" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -336,12 +558,48 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <li><p>FASTQ files can be very large, so in most cases you won’t be dealing with myFile.fastq, but with myFile.fastq.gz.</p></li>
 <li><p>This means that the file is compressed, so it is not readable by a text editor without first being decompressed.</p></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Prepararsi a lavorare con file compressi nella pipeline.</p>
+<ul>
+<li>I file <code>.fastq.gz</code> sono compressi con <strong>gzip</strong>: occupano 4-5 volte meno spazio rispetto al file non compresso</li>
+<li>La pipeline nf-core/rnaseq accetta direttamente i <code>.fastq.gz</code> senza decompressione manuale</li>
+<li>Per ispezionare il contenuto senza decomprimere: <code>zless file.fastq.gz</code> oppure <code>zcat file.fastq.gz | head</code></li>
+<li>Non tentate di aprire questi file con un editor di testo normale: usate strumenti che gestiscono la compressione</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-12" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Entriamo ora negli strumenti specifici del pre-processing: la pipeline ne usa diversi in sequenza, ognuno con uno scopo preciso.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-13" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -372,12 +630,49 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </div><div class="column" style="width:30%;">
 <p><br> <br> <span class="p-spam.center"><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a></span></p>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Capire cosa fa FastQC e quali metriche sono più rilevanti per valutare la qualità di reads RNA-seq.</p>
+<ul>
+<li><strong>FastQC</strong> produce report HTML leggibili anche senza competenze avanzate: è il primo strumento da usare dopo aver ricevuto i dati grezzi</li>
+<li>Le metriche più importanti per RNA-seq: <strong>Per Base Sequence Quality</strong> (Q score lungo la read), <strong>Adapter Content</strong> (adattatori da rimuovere), <strong>GC Content</strong> (anomalie indicano contaminazione)</li>
+<li>Un avviso rosso in FastQC non significa necessariamente dati inutilizzabili, ma richiede attenzione e interpretazione biologica</li>
+<li>In nf-core, FastQC viene eseguito <strong>prima e dopo</strong> il trimming: potrete confrontare il miglioramento qualitativo</li>
+<li><strong>MultiQC</strong> aggrega i report di tutti i campioni in un unico documento interattivo: essenziale con decine di campioni</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-14" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>La pipeline procede ora con l’estrazione degli UMI — step opzionale ma fondamentale per librerie che li utilizzano.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-15" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -415,12 +710,49 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <div class="p-img-center">
 <p><img data-src="images/umi.png" width="1000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare perché gli UMI risolvono il problema dei duplicati PCR in modo più accurato rispetto ai metodi basati sulla posizione genomica.</p>
+<ul>
+<li>Gli <strong>UMI (Unique Molecular Identifiers)</strong> sono brevi sequenze casuali (6-12 nt) aggiunte al cDNA durante la preparazione della libreria, prima dell’amplificazione PCR</li>
+<li>Ogni molecola di cDNA riceve un UMI unico: dopo la PCR, tutte le copie dello stesso trascritto originale avranno il <strong>medesimo UMI</strong></li>
+<li>Senza UMI non possiamo distinguere due reads identiche provenienti dallo stesso trascritto biologico da copie PCR della stessa molecola</li>
+<li><code>UMI-tools extract</code> sposta la sequenza UMI dall’inizio della read al nome della read, per usarla nella deduplicazione downstream</li>
+<li>Questo step è rilevante solo se il vostro protocollo prevede UMI (es. 10x Chromium, CEL-Seq2, certi kit Illumina per RNA totale)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-16" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Il trimming è il passo fondamentale per pulire le reads prima dell’allineamento: vediamo i due strumenti più usati nella pipeline.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-17" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -459,12 +791,49 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Capire perché il trimming migliora la qualità dell’analisi downstream e quando scegliere FastP vs Trim Galore!.</p>
+<ul>
+<li>Il <strong>trimming degli adattatori</strong> rimuove le sequenze Illumina che contaminano le reads quando l’inserto cDNA è più corto del ciclo di lettura — senza rimozione causano errate mappature</li>
+<li>Il <strong>quality trimming</strong> taglia le basi di bassa qualità alle estremità (Q &lt; 20): migliora il tasso di allineamento e la precisione della quantificazione</li>
+<li><strong>FastP</strong> è più moderno: gestisce in un unico passaggio adattatori, quality, lunghezza minima e UMI — più veloce e con report HTML integrato</li>
+<li><strong>Trim Galore!</strong> è uno wrapper consolidato di <code>cutadapt</code> con parametri ottimizzati per Illumina: scelta più conservativa e ampiamente validata</li>
+<li>In nf-core potete scegliere tra i due con il parametro <code>--trimmer</code>; il default è <strong>Trim Galore!</strong></li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-18" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Alcuni esperimenti richiedono uno step aggiuntivo: la rimozione di reads provenienti da organismi contaminanti o da sequenze non desiderate.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-19" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -492,6 +861,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </div><div class="column" style="width:30%;">
 <p><br> <br> <span class="p-spam.center"><a href="https://sourceforge.net/projects/bbmap/">BBMap</a></span></p>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Capire quando BBSplit è necessario e come funziona la separazione di reads da più genomi.</p>
+<ul>
+<li><strong>BBSplit</strong> allinea le reads a un database di genomi in parallelo e assegna ogni read all’organismo di provenienza più probabile</li>
+<li>È essenziale negli esperimenti <strong>host-pathogen</strong> (es. cellule umane infettate da virus) dove si vogliono separare le reads umane da quelle virali o batteriche</li>
+<li>Può anche rimuovere contaminazione da micoplasma o altri microorganismi presenti nelle colture cellulari</li>
+<li>In un tipico esperimento RNA-seq su linee cellulari umane questo step è opzionale, ma vale la pena attivarlo se avete dubbi sulla purezza del campione</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-20" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -518,17 +908,77 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </div><div class="column" style="width:30%;">
 <p><br> <br> <span class="p-spam.center"><a href="https://sortmerna.readthedocs.io/en/latest/">SortMeRNA</a></span></p>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare la contaminazione da rRNA nell’RNA-seq e come SortMeRNA la gestisce in silico.</p>
+<ul>
+<li>L’<strong>rRNA ribosomiale</strong> costituisce il 70-90% dell’RNA totale cellulare: se non si esegue una deplezione durante la preparazione la libreria, domina il sequenziamento</li>
+<li>La deplezione di rRNA si fa in laboratorio (kit RiboZero per RNA totale, poly-A selection per mRNA), ma non è mai completa al 100%</li>
+<li><strong>SortMeRNA</strong> identifica le reads residue che provengono da rRNA usando un database di sequenze ribosomiali e le rimuove <em>in silico</em></li>
+<li>Se il report indica una percentuale di rRNA superiore al 30-40%, è un campanello d’allarme sulla qualità della preparazione della libreria</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="section-21" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Alignment and Quantification</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione della pipeline dedicata all’allineamento e quantificazione delle reads.</p>
+<ul>
+<li>Siamo arrivati al cuore della pipeline: le reads vengono “posizionate” sul genoma di riferimento e si stima l’abbondanza di ogni gene o trascritto</li>
+<li>In questa sezione vedremo gli <strong>allineatori</strong> (STAR e HISAT2), il <strong>formato BAM</strong> per lo storage degli allineamenti, e i tool di <strong>quantificazione</strong> (RSEM e Salmon)</li>
+<li>Comprendere bene questa fase è fondamentale: la qualità degli allineamenti determina direttamente i risultati dell’analisi differenziale</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-22" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Orientare gli studenti nella pipeline nf-core prima di entrare nel dettaglio dell’allineamento.</p>
+<ul>
+<li>Qui vediamo il diagramma completo: ogni blocco colorato corrisponde a un tool specifico della pipeline</li>
+<li>Ci troviamo nella fase centrale: dal <strong>FASTQ trimmat</strong> passiamo ora all’<strong>allineamento</strong> sul genoma di riferimento</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-23" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -562,6 +1012,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <div class="p-img-center">
 <p><img data-src="images/align.png" width="1000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il concetto fondamentale di allineamento delle reads al genoma di riferimento.</p>
+<ul>
+<li><strong>Allineamento (mapping):</strong> processo con cui ogni read viene “posizionata” sul genoma → identifichiamo da quale gene o trascritto proviene ciascuna read</li>
+<li>È importante perché da questo passaggio dipende l’intera stima dell’espressione genica: una read non mappata è informazione persa</li>
+<li><strong>Sfide principali:</strong> errori di sequenziamento, reads che si mappano in più loci (<strong>multi-mapping</strong>), regioni ripetitive del genoma</li>
+<li><strong>Output BAM:</strong> file binario compresso che registra la posizione, la qualità della mappatura e l’orientamento di ogni read sul genoma</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-24" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -581,6 +1052,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <li>Facilitates compatibility between different bioinformatics tools.</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare SAM e BAM come il formato standard per lo storage degli allineamenti NGS.</p>
+<ul>
+<li><strong>SAM (Sequence Alignment/Map):</strong> formato testuale, leggibile con un editor — utile per ispezione manuale ma molto voluminoso</li>
+<li><strong>BAM (Binary Alignment/Map):</strong> versione binaria compressa di SAM — occupa 3-4× meno spazio ed è molto più veloce da processare</li>
+<li>Nella pratica si lavora quasi sempre con <strong>file BAM</strong>; il formato SAM serve principalmente per debug o verifica manuale</li>
+<li>È il formato standard della bioinformatica NGS: garantisce compatibilità tra STAR, HISAT2, SAMtools, Picard e tutti i tool downstream</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-25" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -661,6 +1153,24 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Transizione verso la presentazione di STAR come allineatore di riferimento per RNA-seq.</p>
+<ul>
+<li>Qui vediamo la posizione di <strong>STAR</strong> nel diagramma della pipeline nf-core: è l’allineatore di default per la maggior parte dei workflow RNA-seq</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-28" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -690,6 +1200,28 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare STAR come allineatore splice-aware e spiegare perché è lo standard de facto per RNA-seq.</p>
+<ul>
+<li><strong>STAR (Spliced Transcripts Alignment to a Reference):</strong> progettato specificamente per RNA-seq, con gestione nativa delle giunzioni di splicing</li>
+<li>È essenziale essere <strong>splice-aware</strong>: una read può attraversare la giunzione tra due esoni separati da un introne di migliaia di basi nel genoma — un allineatore genomico ordinario non la gestirebbe correttamente</li>
+<li><strong>Novel splice junctions:</strong> STAR rileva giunzioni di splicing non ancora annotate nel file GTF/GFF — prezioso per studi di trascrittoma</li>
+<li>Produce file BAM ordinati con coordinate genomiche; richiede circa 30 GB di RAM per il genoma umano (costruisce un grande indice in memoria)</li>
+<li>In nf-core/rnaseq è l’allineatore di <strong>default</strong>; HISAT2 si attiva con il parametro <code>--aligner hisat2</code></li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-29" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -718,12 +1250,51 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare HISAT2 come alternativa a STAR e fornire criteri pratici per la scelta tra i due allineatori.</p>
+<ul>
+<li><strong>HISAT2</strong> usa la <strong>trasformata di Burrows-Wheeler (BWT)</strong>, che produce un indice molto più compatto rispetto a STAR</li>
+<li>Richiede molto meno <strong>RAM</strong> (~8 GB per il genoma umano vs ~30 GB di STAR) — ideale in ambienti con risorse computazionali limitate</li>
+<li>È anch’esso <strong>splice-aware</strong> e supporta sia sequenze DNA che RNA — versatile per tipi diversi di analisi</li>
+<li>STAR rimane preferito per l’accuratezza nel rilevare giunzioni novel; <strong>HISAT2</strong> è la scelta quando la memoria è un vincolo</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-30" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Transizione verso la deduplicazione con UMI post-allineamento.</p>
+<ul>
+<li>Qui vediamo dove si posiziona <strong>UMI-tools dedup</strong> nel flussogramma: è uno step opzionale che si attiva solo se la libreria è stata preparata con <strong>UMI</strong> (Unique Molecular Identifiers)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-31" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -755,12 +1326,51 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul>
 <p><span class="p-spam.center"><a href="https://umi-tools.readthedocs.io/en/latest/index.html">UMI-tools</a></span></p>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare la deduplicazione basata su UMI e perché migliora l’accuratezza della quantificazione.</p>
+<ul>
+<li><strong>Duplicati PCR:</strong> durante la preparazione della libreria, l’amplificazione PCR crea copie identiche della stessa molecola — questi duplicati distorcono la stima dell’espressione genica</li>
+<li><strong>UMI (Unique Molecular Identifiers):</strong> sequenze random brevi (~6-12 bp) aggiunte a ogni molecola durante la ligazione → ogni frammento originale riceve un identificatore unico</li>
+<li><strong>UMI-tools dedup</strong> raggruppa le reads con <strong>stesso UMI + stessa posizione genomica</strong> → mantiene solo la read con qualità migliore per ogni gruppo di origine</li>
+<li>Senza deduplicazione, i geni più amplificati dalla PCR risulterebbero erroneamente sovra-espressi, con impatto diretto sull’analisi differenziale</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-32" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Transizione verso RSEM come tool di quantificazione basato su allineamento.</p>
+<ul>
+<li>Qui vediamo <strong>RSEM</strong> nel diagramma: è il tool di quantificazione che lavora a partire dai <strong>file BAM</strong> prodotti dall’allineamento per stimare l’abbondanza di geni e isoforme</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-33" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -811,12 +1421,50 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 <h1></h1>
 <p><span class="tit p-span-center">Pseudo-aligners</span></p>
 <p><span class="f50 p-span-center">A New Approach to Quantification</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione sui pseudo-allineatori come approccio alternativo e più moderno alla quantificazione dell’espressione genica.</p>
+<ul>
+<li>In questa sezione esploriamo i <strong>pseudo-allineatori</strong>, strumenti nati per superare i limiti computazionali dell’allineamento classico al genoma di riferimento</li>
+<li><strong>Salmon</strong> e <strong>Kallisto</strong> sono i rappresentanti principali: invece di determinare la posizione genomica precisa di ogni read, usano algoritmi leggeri per assegnare le reads direttamente ai trascritti</li>
+<li>Questi strumenti sono oggi lo standard per molti workflow RNA-seq grazie alla loro velocità e all’accuratezza comparabile ai metodi tradizionali</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-35" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare il posizionamento del modulo pseudo-allineamento nella pipeline nf-core.</p>
+<ul>
+<li>Qui vediamo il diagramma completo della pipeline: il blocco <strong>Salmon/Kallisto</strong> si attiva quando si sceglie la quantificazione pseudo-allineata al posto di STAR+featureCounts</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-36" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -857,6 +1505,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il concetto di pseudo-allineamento e i suoi vantaggi rispetto all’allineamento classico.</p>
+<ul>
+<li><strong>Pseudo-allineamento:</strong> invece di trovare la posizione esatta della read sul genoma, si determina solo a quale trascritto appartiene — un concetto detto <em>compatibilità</em> — eliminando l’allineamento tradizionale a coppie</li>
+<li>La differenza fondamentale con STAR/HISAT2 è la velocità: Salmon è <strong>10-100× più rapido</strong> perché lavora sull’indice del trascrittoma, non sull’intero genoma</li>
+<li><strong>Accuratezza comparabile:</strong> il modello di bias di Salmon (GC content, posizione, sequenza) porta a stime dell’espressione altrettanto affidabili rispetto agli allineatori classici</li>
+<li>È importante sapere che i pseudo-allineatori quantificano i <strong>trascritti</strong>: i counts vengono poi aggregati a livello di gene con <strong>tximport</strong> in R</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-37" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -920,6 +1589,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </tbody>
 </table>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Confrontare Kallisto e Salmon e motivare la scelta di Salmon come default in nf-core.</p>
+<ul>
+<li><strong>nf-core/rnaseq usa Salmon di default</strong> perché offre modellazione più sofisticata dei bias (sequenza, GC content, posizione) e gestisce meglio campioni con diverse tipologie di libreria</li>
+<li><strong>Kallisto</strong> rimane un’ottima scelta per analisi rapide o pipeline custom: la sua semplicità lo rende ideale per studi di screening o grandi coorti dove la velocità è critica</li>
+<li>Entrambi richiedono un <strong>indice del trascrittoma</strong> costruito in anticipo — nf-core lo costruisce automaticamente da FASTA + GTF</li>
+<li>Per i corsi di analisi differenziale, è sufficiente capire che Salmon genera i file di quantificazione che importeremo in R con <strong>tximport</strong></li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-38" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -949,16 +1639,16 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </div>
 </div>
 <aside class="notes">
-<ol type="1">
-<li><p>Salmon’s main output is its quantification file =&gt; quant.sf</p></li>
-<li><p>cmd_info.json. This is a JSON format file that records the main command line parameters with which Salmon was invoked</p></li>
-<li><p>Auxiliary files: The top-level quantification directory will contain an auxiliary directory called aux_info</p>
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Descrivere i file di output di Salmon e identificare quello che useremo in R.</p>
 <ul>
-<li><p>The auxiliary directory will contain a JSON format file called meta_info.json which contains meta information about the run, including stats such as the number of observed and mapped fragments</p></li>
-<li><p>If Salmon was run with automatic inference of the library type, information contained in this file is the inferred library type</p></li>
-</ul></li>
-<li><p>When run in mapping-based mode, the quantification directory will contain a file called lib_format_counts.json. This JSON file reports the number of fragments that had at least one mapping compatible with the designated library format</p></li>
-</ol>
+<li><strong>quant.sf</strong> è il file principale di Salmon: contiene per ogni trascritto le colonne Name, Length, EffectiveLength, TPM e NumReads — è questo file che importiamo in R con <strong>tximport</strong></li>
+<li><strong>cmd_info.json</strong> registra i parametri esatti del comando: fondamentale per la riproducibilità e per documentare l’analisi</li>
+<li>La cartella <strong>aux_info/</strong> contiene <code>meta_info.json</code> con statistiche del run (frammenti osservati, mappati, tasso di mappatura) e — se Salmon ha inferito automaticamente il tipo di libreria — l’esito dell’inferenza</li>
+<li><strong>lib_format_counts.json</strong> riporta quanti frammenti sono compatibili con ciascun tipo di libreria: utile per verificare che il parametro <code>--libType</code> sia corretto</li>
+<li>Nella pratica del corso: lavoreremo direttamente con <strong>quant.sf</strong> tramite tximport, che aggrega i conteggi a livello di gene e li prepara per DESeq2</li>
+</ul>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -970,18 +1660,54 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<p>d</p>
 </section></section>
 <section>
 <section id="section-39" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Post-alignment Processing</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione che descrive le operazioni eseguite dopo l’allineamento al genoma.</p>
+<ul>
+<li>Dopo che le reads sono state allineate al genoma, la pipeline applica una serie di step di <strong>raffinamento</strong> prima di procedere all’analisi downstream</li>
+<li>Questa sezione è rilevante soprattutto per il workflow basato su <strong>STAR</strong>: per Salmon, che lavora sul trascrittoma, molti di questi step non si applicano</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-40" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Mostrare il posizionamento del post-processing nella pipeline nf-core.</p>
+<ul>
+<li>Qui vediamo come i blocchi di <strong>deduplicazione</strong> e <strong>coverage</strong> si inseriscono nella pipeline dopo l’allineamento con STAR e prima del controllo qualità finale con MultiQC</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-41" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1007,6 +1733,26 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Motivare l’importanza del post-processing per la qualità dell’analisi differenziale.</p>
+<ul>
+<li><strong>Deduplicazione:</strong> i duplicati di PCR sono copie artificiali dello stesso frammento originale — se non rimossi, sovrastimano l’espressione di certi trascritti in proporzione all’efficienza di amplificazione, non all’abbondanza biologica</li>
+<li><strong>Coverage tracks:</strong> generare tracce in formato bigWig o BEDGraph permette di visualizzare la distribuzione delle reads nei geni con IGV — un controllo visivo fondamentale per verificare l’uniformità della copertura</li>
+<li>È importante ricordare che questi step <strong>migliorano la qualità</strong> ma non sostituiscono un buon design sperimentale: un campione mal preparato non si recupera con il post-processing</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-42" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1036,6 +1782,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare SAMtools come strumento fondamentale per la manipolazione dei file BAM nella pipeline.</p>
+<ul>
+<li><strong>SAMtools</strong> è il “coltellino svizzero” dei file BAM/SAM: quasi ogni pipeline bioinformatica NGS lo usa in almeno uno step</li>
+<li><strong><code>samtools sort</code>:</strong> ordina le reads per coordinata genomica — passaggio obbligatorio prima dell’indicizzazione, richiesto da GATK, Picard e tutti i browser genomici</li>
+<li><strong><code>samtools index</code>:</strong> crea il file <code>.bai</code> che consente l’accesso rapido a regioni specifiche del BAM senza leggerlo interamente — essenziale per IGV e tool che lavorano per regioni</li>
+<li><strong><code>samtools stats</code>:</strong> genera un report con tasso di allineamento, copertura media e distribuzione della qualità delle basi — un ulteriore layer di QC dopo il mapping</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-43" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1056,6 +1823,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare la deduplicazione basata su coordinate come alternativa ai metodi UMI.</p>
+<ul>
+<li><strong>Picard MarkDuplicates</strong> identifica i duplicati confrontando le coordinate di inizio allineamento delle coppie di reads: se due read-pairs iniziano esattamente alla stessa posizione, vengono considerate duplicati</li>
+<li>Il tool <strong>marca</strong> i duplicati nel campo FLAG del BAM senza rimuoverli, lasciando la scelta all’utente — approccio conservativo che permette ispezioni successive</li>
+<li><strong>Limitazione importante:</strong> senza <strong>UMI</strong> (Unique Molecular Identifiers), reads indipendenti che iniziano alla stessa coordinata vengono erroneamente marcate come duplicati — rischio di <em>over-deduplication</em> in regioni ad alta copertura</li>
+<li>nf-core applica Picard come step standard; se il protocollo include UMI, si usa invece il modulo <strong>UMI-tools</strong></li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-44" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1076,17 +1864,72 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare l’utilità del calcolo della copertura per la visualizzazione e il controllo qualità.</p>
+<ul>
+<li><strong>BEDTools genomecov</strong> calcola per ogni posizione del genoma quante reads la coprono, generando file in formato <strong>BEDGRAPH</strong> o <strong>bigWig</strong> — i formati standard per browser genomici come IGV o UCSC</li>
+<li>Le coverage tracks sono il primo strumento visivo per verificare che le reads si distribuiscano uniformemente sui corpi genici — un segnale di problemi di degradazione o bias di 3’ nella libreria emerge chiaramente da questi grafici</li>
+<li>La normalizzazione per dimensione di libreria permette di <strong>confrontare campioni</strong> con profondità di sequenziamento diverse nello stesso browser genomico</li>
+<li>Nella pratica: caricare le tracce bigWig in IGV è uno step di QC visivo che nessun report automatico può sostituire completamente</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="section-45" class="title-slide slide level1 center" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h1></h1>
 <p><span class="tit p-span-center">Downstream Analysis</span></p>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Introdurre la sezione delle analisi post-allineamento: dagli strumenti di QC all’analisi differenziale.</p>
+<ul>
+<li>Siamo nella fase finale della pipeline: qui si valuta la qualità complessiva degli allineamenti, si identificano possibili bias, e si prepara la quantificazione per l’<strong>analisi differenziale</strong></li>
+<li>Questa sezione include strumenti di QC avanzato (RSeQC, Preseq, Qualimap), strumenti di diagnosi (Kraken2) e il report riassuntivo finale (MultiQC)</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-46" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Qui vediamo i blocchi di <strong>downstream analysis</strong> nel diagramma completo: RSeQC, Preseq, Qualimap, Kraken2 e MultiQC lavorano sugli output BAM o sulle reads per produrre metriche di qualità finali prima del report aggregato.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-47" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1114,6 +1957,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare RSeQC come strumento per identificare bias sistemici negli allineamenti RNA-seq.</p>
+<ul>
+<li><strong>RSeQC</strong> calcola metriche di QC che FastQC non può fornire perché richiede l’allineamento al genoma: la distribuzione delle reads sui diversi elementi genomici (esoni, introni, regioni intergeniche) è un indicatore fondamentale della qualità della libreria</li>
+<li><strong>Gene body coverage:</strong> se le reads si concentrano all’estremità 3’ del gene invece di distribuirsi uniformemente, indica degradazione dell’RNA prima della preparazione della libreria</li>
+<li><strong>Strand specificity:</strong> verifica che il protocollo di preparazione della libreria sia stato applicato correttamente — un mismatch qui può causare errori sistematici nella quantificazione</li>
+<li><strong>Junction saturation:</strong> indica se stiamo sequenziando abbastanza profondamente da individuare la maggior parte delle giunzioni di splicing note</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-48" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1142,6 +2006,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare il concetto di complessità di libreria e quando vale la pena sequenziare di più.</p>
+<ul>
+<li>La <strong>complessità della libreria</strong> misura quante molecole distinte di cDNA erano presenti prima dell’amplificazione PCR: una libreria complessa rappresenta meglio l’intera popolazione di RNA del campione</li>
+<li><strong>Preseq</strong> usa un modello statistico per predire quante reads uniche otterreste raddoppiando la profondità di sequenziamento — se la curva si appiattisce, il campione è <strong>saturo</strong> e sequenziare di più non porta nuove informazioni</li>
+<li>Una libreria con bassa complessità (curva piatta già a basse runs) può indicare eccessiva amplificazione PCR, input di RNA insufficiente o scarsa qualità dell’RNA di partenza</li>
+<li>Questo strumento è utile per ottimizzare i costi: se la curva non è ancora satura, ha senso investire in maggiore profondità</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-49" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1170,6 +2055,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Illustrare Qualimap come strumento di QC approfondito sugli allineamenti, complementare a RSeQC.</p>
+<ul>
+<li><strong>Qualimap</strong> analizza direttamente i file BAM e produce report dettagliati su qualità del mapping, errori di mismatch e indel, distribuzione della copertura per gene e per trascritto</li>
+<li>Il <strong>bias 5’/3’</strong> è uno degli indicatori più utili: una copertura molto sbilanciata verso il 3’ dei trascritti indica degradazione dell’RNA (tipico di campioni FFPE o con RIN basso)</li>
+<li>La stima di <strong>rRNA residua</strong> è fondamentale: in un esperimento poly-A selection vi aspettate &lt; 5% di rRNA; valori più alti indicano problemi nel protocollo di selezione</li>
+<li>Notate che Qualimap e RSeQC si sovrappongono parzialmente: entrambi sono inclusi in nf-core perché si integrano bene con MultiQC e producono metriche complementari</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-50" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1201,6 +2107,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div></div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Spiegare quando e perché usare Kraken2 in un esperimento RNA-seq.</p>
+<ul>
+<li><strong>Kraken2</strong> assegna ogni read a un organismo tramite un database di k-meri: è estremamente rapido (processa milioni di reads al minuto) e accurato per la classificazione tassonomica</li>
+<li>In RNA-seq è utile per <strong>rilevare contaminazione biologica</strong>: colture cellulari contaminate da micoplasma, campioni clinici con batteri commensali, o esperimenti host-pathogen dove si vuole separare las reads umane da quelle virali</li>
+<li>Se una frazione significativa delle reads (&gt; 5-10%) si mappa su organismi non target, è un segnale che richiede investigazione prima di procedere all’analisi differenziale</li>
+<li>Per esperimenti standard su linee cellulari umane è uno step opzionale, ma costa poco computazionalmente e può rivelare problemi inaspettati</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-51" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1225,6 +2152,27 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Contestualizzare l’analisi differenziale come obiettivo finale del workflow e anticipare il modulo R.</p>
+<ul>
+<li>L’<strong>analisi differenziale</strong> è lo scopo principale di quasi tutti gli esperimenti RNA-seq: vogliamo sapere quali geni cambiano di espressione tra condizioni diverse (trattato vs controllo, malato vs sano)</li>
+<li><strong>DESeq2</strong> è lo strumento che useremo nel corso: è considerato lo standard attuale per dati di conteggio RNA-seq, incorpora modelli statistici robusti per la normalizzazione e il test di significatività</li>
+<li>Tenete a mente che l’analisi differenziale richiede i <strong>raw counts</strong> (conteggi non normalizzati): è per questo che Salmon produce NumReads nel quant.sf oltre al TPM</li>
+<li>DESeq2, edgeR e limma producono risultati simili con dati di buona qualità; le differenze emergono con pochi replicati o campioni con alta varianza</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-52" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1254,18 +2202,69 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 </ul></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p><strong>Obiettivo:</strong> Presentare MultiQC come strumento che aggrega tutti i report QC della pipeline in un unico documento navigabile.</p>
+<ul>
+<li><strong>MultiQC</strong> legge automaticamente gli output di FastQC, fastp, STAR, Salmon, RSeQC, Qualimap, Picard e decine di altri tool: un solo report HTML per valutare l’intera corsa di sequenziamento</li>
+<li>Con 10, 20 o 50 campioni, aprire report individuali è impraticabile: MultiQC permette di confrontare tutti i campioni in un colpo d’occhio e identificare outlier immediatamente</li>
+<li>La sezione <strong>General Statistics</strong> all’inizio del report è il punto di partenza: tasso di mapping, reads totali, percentuale di duplicati e rRNA residua per tutti i campioni in una tabella</li>
+<li>È buona pratica <strong>generare e revisionare il report MultiQC</strong> prima di procedere all’analisi differenziale: identifica problemi sistematici, campioni da escludere o asimmetrie tra gruppi sperimentali</li>
+</ul>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-53" class="slide level2" data-background-image="images/back001.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div class="p-img-center">
 <p><img data-src="images/nfcore.png" width="2000"></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Abbiamo completato il tour della pipeline nf-core/rnaseq. Questa immagine mostra l’intero workflow: da <strong>FASTQ grezzi</strong> a <strong>conteggi quantificati</strong> e <strong>report di qualità completi</strong>. Nel modulo successivo importeremo i risultati di Salmon in R per l’analisi differenziale con DESeq2.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section id="section-54" class="title-slide slide level1 center" data-background-image="images/qmark.jpg" data-background-size="cover" data-background-opacity="0.7">
 <h1></h1>
 <div style="position: absolute; left: 980px; top: 450px;">
 <p><span style="font-size: 130px; font-weight: bold; color: white">Domande?</span></p>
 </div>
+<aside class="notes">
+<div style="font-size: 9pt">
+<p>Aprire la discussione. Possibili domande da stimolare: Quale parte della pipeline vi ha sorpreso di più? Avete già dati RNA-seq su cui vorreste applicare questo workflow? C’è qualche step che non era chiaro?</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 
 </section>
